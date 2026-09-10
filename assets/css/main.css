@@ -1,0 +1,1118 @@
+/* ============================================================
+   main.css
+   Shared by every page: design tokens, base typography,
+   buttons, the site header and the site footer.
+   Media Clock — static rebuild
+   ============================================================ */
+
+:root {
+  --orange: #f15a26;
+  --ink: #17191b;
+  --muted: #687078;
+  --soft: #f7f7f5;
+  --line: #e8e8e5;
+  --dark: #202326;
+  --r: 10px;
+  /* height of the fixed header — first section must clear it */
+  /* live loads only Poppins + Open Sans; body text is the system stack */
+  --font-body:
+    -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif;
+  --font-head: Poppins, var(--font-body);
+  --font-alt: "Open Sans", var(--font-body);
+  --header-h: 99px;
+  --header-h-mobile: 76px;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  line-height: 1.5;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+a {
+  color: inherit;
+}
+.eyebrow {
+  color: var(--orange);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.15;
+}
+h1 {
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  letter-spacing: -0.045em;
+  margin: 0 0 18px;
+}
+h2 {
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  letter-spacing: -0.03em;
+  margin: 0 0 12px;
+}
+h3 {
+  font-size: 19px;
+  margin: 0 0 7px;
+}
+p {
+  margin: 0;
+  color: var(--muted);
+}
+.section {
+  padding: 58px 0;
+}
+.tight {
+  padding: 44px 0;
+}
+.head {
+  max-width: 720px;
+  margin-bottom: 26px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 750;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.18s;
+}
+.primary {
+  background: var(--orange);
+  color: #fff;
+}
+.primary:hover {
+  filter: brightness(0.94);
+}
+.outline {
+  background: #fff;
+  border-color: #d9d9d5;
+}
+.outline:hover {
+  background: var(--soft);
+}
+
+/* ============================================================
+   * Header — mirrors the live mediaclock.com.au header
+   * Desktop: transparent bar layered over the dark hero
+   * Mobile : solid white bar + full-screen overlay menu
+   * Brand  : orange #f15a26 · dark panel #192b33 · Poppins
+   ============================================================ */
+
+/* * Header — wrapper (fixed: transparent over the hero, sticky on scroll) */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: transparent;
+  /* own compositor layer: scrolling then never repaints the page behind
+     the bar, which is what made the fade feel like it stuttered */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: background-color, transform;
+  transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* * Header — scroll sentinel: an IntersectionObserver target 60px down the
+   page, so the sticky state costs nothing per scroll frame */
+.header-sentinel {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* * Header — scrolled state (past 60px: dark panel fades in, bar shrinks)
+   Mirrors the live "Sticky Header Effects" config:
+   transparent -> #192B33, scroll_distance 60px, padding -> 0, 0.4s ease-in-out */
+.site-header.is-scrolled {
+  background: #192b33;
+}
+.site-header.is-scrolled .header-inner {
+  padding-top: 0;
+  padding-bottom: 0;
+  min-height: 79px;
+}
+
+/* * Header — desktop bar */
+/* layout (flex/align/justify) comes from Bootstrap utilities in the markup */
+.header-inner {
+  gap: 24px;
+  width: 100%;
+  padding: 5px 24px 15px;
+  min-height: 99px;
+  transition:
+    padding 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    min-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.header-logo img {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+/* * Header — desktop menu */
+/* Bootstrap's .nav supplies flex + list reset */
+.header-menu {
+  --bs-nav-link-padding-x: 0;
+  --bs-nav-link-padding-y: 0;
+}
+.header-menu > li {
+  position: relative;
+}
+.header-menu > li > a,
+.header-menu > li > button {
+  display: block;
+  padding: 15px;
+  border: 0;
+  background: none;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.header-menu > li > a:hover,
+.header-menu > li > button:hover,
+.header-menu > li > a.current {
+  color: var(--orange);
+}
+/* caret on the Services parent */
+.header-menu .has-sub > a:after {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 7px;
+  vertical-align: 2px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+
+/* * Header — Services dropdown */
+/* * Header — services mega panel
+   Spans the page container so it lines up with the rest of the layout, and
+   flows categories across a responsive grid so it stays balanced whether
+   there are 8 services or 30. */
+.header-menu > li.has-sub {
+  position: static;
+}
+.header-menu .sub-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: min(900px, calc(100vw - 32px));
+  margin-top: 10px;
+  padding: 30px 34px 26px;
+  background: #192b33;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+  max-height: calc(100vh - var(--header-h) - 30px);
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(6px);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    visibility 0.22s;
+  z-index: 9999;
+}
+.header-menu .has-sub:hover .sub-menu,
+.header-menu .has-sub:focus-within .sub-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%);
+}
+
+/* * Header — mega panel: CSS multi-column so category blocks balance
+   themselves whatever the category count (Bootstrap's fixed grid leaves a
+   ragged last row at 5 categories) */
+.mega-grid {
+  columns: 3;
+  column-gap: 34px;
+}
+.mega-col {
+  break-inside: avoid;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 24px;
+}
+@media (max-width: 1199.98px) {
+  .mega-grid {
+    columns: 2;
+  }
+}
+.mega-title {
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin: 0 0 12px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.header-menu .sub-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.header-menu .sub-menu a {
+  display: block;
+  padding: 8px 10px;
+  margin-left: -10px;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: #cdd4d9;
+  text-decoration: none;
+  transition:
+    color 0.18s,
+    background-color 0.18s;
+}
+.header-menu .sub-menu a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+.header-menu .sub-menu a.current {
+  color: var(--orange);
+}
+
+/* * Header — mobile bar (hidden on desktop) */
+.header-mobile {
+  gap: 12px;
+  padding: 13px 12px;
+  background: #fff;
+}
+.header-mobile-logo img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+.header-mobile-actions {
+  gap: 12px;
+}
+.header-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: var(--orange);
+  color: #fff;
+  cursor: pointer;
+}
+.header-icon-btn svg {
+  width: 25px;
+  height: 25px;
+}
+
+/* * Header — full-screen mobile menu */
+.fs-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #192b33;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+}
+.fs-menu.open {
+  opacity: 1;
+  visibility: visible;
+}
+.fs-menu-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+.fs-menu-inner {
+  width: min(420px, 100%);
+  margin-inline: auto;
+  gap: 0;
+  /* top padding clears the close button so the first row stays tappable */
+  padding: 70px 22px 60px;
+}
+.fs-menu-inner > a.fs-link,
+.fs-menu-inner > button.fs-link {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: none;
+  padding: 15px 2px;
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #fff;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.fs-menu-inner a.fs-link:hover,
+.fs-menu-inner button.fs-link:hover,
+.fs-menu-inner a.fs-link.current {
+  color: var(--orange);
+}
+/* * Header — mobile overlay: collapsible category groups so a long service
+   list never buries the rest of the nav. Native <details>, no JS. */
+.fs-group {
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.fs-group-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 15px 2px;
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  list-style: none;
+}
+.fs-group-title::-webkit-details-marker {
+  display: none;
+}
+.fs-group-title::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--orange);
+  border-bottom: 2px solid var(--orange);
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform 0.25s;
+}
+.fs-group[open] .fs-group-title {
+  color: var(--orange);
+}
+.fs-group[open] .fs-group-title::after {
+  transform: rotate(-135deg) translate(-2px, -2px);
+}
+/* services sit one level in, smaller and quieter than the top-level rows */
+.fs-group .fs-link {
+  display: block;
+  padding: 11px 2px 11px 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: #b9c2c8;
+  text-align: left;
+  text-decoration: none;
+}
+.fs-group .fs-link:last-child {
+  padding-bottom: 16px;
+}
+.fs-group .fs-link:hover,
+.fs-group .fs-link.current {
+  color: var(--orange);
+}
+
+.fs-menu-cta {
+  gap: 14px;
+  margin-top: 28px;
+}
+.fs-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 40px;
+  border: 0;
+  border-radius: 3px;
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+.fs-btn.call {
+  background: var(--orange);
+  color: #fff;
+}
+.fs-btn.quote {
+  background: #fff;
+  color: #000;
+}
+.fs-social {
+  gap: 5px;
+  margin-top: 20px;
+  justify-content: center;
+}
+.fs-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 10%;
+  background: #000;
+  color: #69727d;
+}
+.fs-social svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* * Header — sticky "Get a Quote" side tab */
+.sticky-quote {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 99999;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 10px 0 0 10px;
+  background: #ff4d00;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  writing-mode: vertical-rl;
+  cursor: pointer;
+}
+
+/* * Header — scroll lock while the overlay is open. Scoped to the mobile
+   breakpoint on purpose: if the viewport widens while the menu is open, the
+   lock lifts by itself without needing JS to notice. */
+@media (max-width: 991.98px) {
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+/* * Header — the mobile overlay must never render on desktop, even if it was
+   left open when the viewport crossed the breakpoint */
+@media (min-width: 992px) {
+  .fs-menu {
+    display: none;
+  }
+}
+
+/* * Header — no animation for readers who ask for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .header-inner,
+  .fs-menu {
+    transition: none;
+  }
+}
+
+/* * Header — mobile breakpoint */
+@media (max-width: 991.98px) {
+  .site-header,
+  .site-header.is-scrolled {
+    background: #fff;
+  }
+  .sticky-quote {
+    font-size: 13px;
+    padding: 12px 14px;
+  }
+}
+
+/* ============================================================
+   * Footer — mirrors the live mediaclock.com.au footer
+   * Flat #192B33 panel (same tone as the scrolled header)
+   * 3 columns: brand+contact / Quick Links / Services, then a bottom bar
+   * Type: Poppins throughout · links white -> #f15a26 on hover (0.3s)
+   ============================================================ */
+
+/* * Footer — panel */
+.global-footer {
+  /* padding + base size folded in from the old bare `footer` rule */
+  padding: 22px 0;
+  font-size: 14px;
+  background: #192b33;
+  color: #fff;
+  font-family: var(--font-head);
+}
+
+/* * Footer — 3-column top block (live ratio 449 / 285 / 285) */
+/* columns come from Bootstrap's .row/.col-lg-*; only the band padding is ours */
+.footer-top {
+  padding-block: 20px 26px;
+}
+/* live pulls the brand block up, so the headings start ~60px lower */
+.footer-col {
+  padding-top: 60px;
+}
+
+/* * Footer — brand column */
+.footer-brand img {
+  width: 198px;
+  height: auto;
+  display: block;
+  margin-bottom: 20px;
+}
+.footer-tagline {
+  max-width: 400px;
+  margin: 0 0 26px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #aeb8be;
+}
+
+/* * Footer — phone / email (orange, tight tracking like live) */
+.footer-contact a {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -1px;
+  color: var(--orange);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-contact a:hover {
+  color: #fff;
+}
+
+/* * Footer — column headings */
+.footer-brand .footer-heading {
+  margin-top: 8px;
+}
+.footer-heading {
+  margin: 0 0 20px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -1px;
+  color: #fff;
+}
+
+/* * Footer — social icons (46px, subtle grey until hover) */
+.footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 10%;
+  color: var(--orange);
+  transition: color 0.3s;
+}
+.footer-social a:hover {
+  color: #fff;
+}
+.footer-social svg {
+  width: 23px;
+  height: 23px;
+}
+
+/* * Footer — link columns */
+.footer-col a,
+.footer-col button {
+  display: block;
+  margin-bottom: 25px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #fff;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.footer-col a:hover,
+.footer-col button:hover,
+.footer-col a.current {
+  color: var(--orange);
+}
+.footer-col a:last-child {
+  margin-bottom: 0;
+}
+
+/* * Footer — bottom bar (copyright · ABN · privacy; no divider on live) */
+.footer-bottom {
+  border-top: 1px solid #fff;
+  padding-top: 26px;
+  padding-bottom: 30px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #fff;
+}
+.footer-bottom a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-bottom a:hover {
+  color: var(--orange);
+}
+
+/* * Footer — mobile: single column stack */
+@media (max-width: 991.98px) {
+  .footer-top {
+    padding-block: 34px 26px;
+  }
+  .footer-col {
+    padding-top: 30px;
+  }
+  .footer-brand img {
+    width: 250px;
+  }
+  .footer-bottom > .row > [class^="col"] + [class^="col"] {
+    margin-top: 10px;
+  }
+}
+
+/* ============================================================
+   * Service hero — shared by every service page (see includes/hero.php)
+   Mirrors the live layout: photo background, big Poppins heading and
+   sub-line on the left, dark "Request For Proposal" card on the right.
+   ============================================================ */
+.service-hero {
+  background-color: #192b33;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  color: #fff;
+  /* top padding clears the fixed header (see --header-h) */
+  padding: calc(var(--header-h) + 28px) 24px 63px;
+}
+/* columns + vertical centring come from Bootstrap's .row/.col-lg-* */
+.service-hero-inner {
+  min-height: 580px;
+}
+
+/* * Service hero — copy column */
+.service-hero-copy .eyebrow {
+  color: var(--orange);
+}
+.service-hero-title {
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 4.6vw, 55px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: #fff;
+  max-width: 18ch;
+  margin: 0 0 18px;
+}
+.service-hero-sub {
+  font-family: var(--font-head);
+  font-size: clamp(1.3rem, 2.6vw, 35px);
+  font-weight: 600;
+  line-height: 1.5;
+  color: #fff;
+  max-width: 24ch;
+  margin: 0 0 30px;
+}
+
+/* * Service hero — CTA (dark pill, like the live "Let's Start") */
+.service-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 4px;
+  padding: 15px 35px;
+  background: #192b33;
+  color: #fff;
+  font-family: var(--font-head);
+  font-size: clamp(1rem, 1.7vw, 20px);
+  font-weight: 400;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+.service-hero-cta:hover {
+  background: var(--orange);
+}
+
+/* * Service hero — stats strip */
+.service-hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 34px;
+  margin-top: 34px;
+  padding-left: 14px;
+  border-left: 3px solid var(--orange);
+}
+.service-hero-stats strong {
+  display: block;
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+}
+.service-hero-stats span {
+  font-size: 15px;
+  color: #cdd1d3;
+}
+
+/* * Service hero — Request For Proposal card */
+.rfp-card {
+  background: #192b33;
+  border-radius: 20px;
+  padding: 26px 24px 28px;
+}
+.rfp-title {
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+  text-align: center;
+  margin: 4px 0 22px;
+}
+.rfp-form {
+  gap: 14px;
+}
+/* white fields on the dark card, as on the live form */
+.rfp-form input,
+.rfp-form select,
+.rfp-form textarea {
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  padding: 13px 15px;
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 17px;
+  line-height: 1.3;
+  outline: none;
+}
+.rfp-form input::placeholder,
+.rfp-form textarea::placeholder {
+  color: #8b9298;
+}
+.rfp-form select {
+  color: #8b9298;
+  appearance: none;
+  /* chevron drawn inline so no extra request is needed */
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23444' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 40px;
+}
+.rfp-form select:valid {
+  color: var(--ink);
+}
+.rfp-form textarea {
+  min-height: 108px;
+  resize: vertical;
+}
+.rfp-form input:focus,
+.rfp-form select:focus,
+.rfp-form textarea:focus {
+  box-shadow: 0 0 0 3px rgba(241, 90, 38, 0.35);
+}
+
+/* * Service hero — NDA reassurance line */
+.rfp-nda {
+  margin: 4px 0 2px;
+  font-family: var(--font-head);
+  font-size: 15px;
+  line-height: 1.5;
+  color: #fff;
+}
+
+/* * Service hero — send button */
+.rfp-submit {
+  border: 0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  background: var(--orange);
+  color: #fff;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+.rfp-submit:hover {
+  filter: brightness(0.94);
+}
+.rfp-success h3 {
+  color: #fff;
+  margin: 0 0 6px;
+}
+.rfp-success p {
+  color: #cdd1d3;
+  margin: 0;
+}
+
+/* * Service hero — tablet / mobile */
+@media (max-width: 991.98px) {
+  .service-hero {
+    padding: calc(var(--header-h-mobile) + 24px) 20px 44px;
+  }
+  .service-hero-inner {
+    min-height: 0;
+  }
+  .service-hero-title,
+  .service-hero-sub {
+    max-width: none;
+  }
+}
+@media (max-width: 575.98px) {
+  .service-hero-stats {
+    gap: 18px;
+  }
+  .service-hero-cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* * Contact section — small print (was inline styles before the component split) */
+.contact-note {
+  margin-top: 16px;
+  font-size: 15px;
+}
+.contact-privacy {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* ============================================================
+   * FAQ Section — shared component
+   Used by includes/faq.php across all service & package pages
+   ============================================================ */
+.faq-section {
+  background: #fff;
+  padding: 72px 0;
+}
+.faq-section .eyebrow {
+  color: var(--orange);
+}
+.faq-section h2 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  color: var(--ink);
+}
+.faq-section .head {
+  max-width: 100%;
+}
+.faq {
+  width: 100%;
+  max-width: 100%;
+  gap: 12px;
+}
+.faqitem {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.faqitem:hover {
+  border-color: #d0d5d9;
+}
+.faqitem.open {
+  border-color: rgba(241, 90, 38, 0.45);
+  box-shadow: 0 8px 26px rgba(20, 20, 20, 0.06);
+}
+.faqbtn {
+  width: 100%;
+  border: 0;
+  background: none;
+  padding: 22px 28px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.faqbtn:hover {
+  background: rgba(241, 90, 38, 0.02);
+}
+.faqbtn:focus {
+  outline: none;
+}
+.faqbtn:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: -2px;
+  border-radius: 12px;
+}
+.faqbtn .faq-q {
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.45;
+  flex: 1;
+}
+.faq-icon {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #dcdcd8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  background: #fff;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  margin-left: 16px;
+  box-sizing: border-box;
+}
+.faqbtn:hover .faq-icon {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+.faq-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  display: block;
+  transform-origin: center;
+  transition: transform 0.25s ease;
+}
+.faqitem.open .faq-icon {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.faqitem.open .faq-icon svg {
+  transform: rotate(45deg);
+}
+.answer {
+  display: none;
+  padding: 0 44px 26px 28px;
+}
+.answer p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 1100px;
+  margin: 0;
+}
+.answer p + p {
+  margin-top: 12px;
+}
+.faqitem.open .answer {
+  display: block;
+}
+
+/* Optional Dark Theme variant for FAQ */
+.faq-section.faq-dark {
+  background: #192b33;
+  color: #fff;
+}
+.faq-section.faq-dark h2 {
+  color: #fff;
+}
+.faq-section.faq-dark .head p {
+  color: #b9c2c8;
+}
+.faq-section.faq-dark .faqitem {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.faq-section.faq-dark .faqitem:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(241, 90, 38, 0.6);
+}
+.faq-section.faq-dark .faqitem.open {
+  border-color: var(--orange);
+}
+.faq-section.faq-dark .faqbtn .faq-q {
+  color: #fff;
+}
+.faq-section.faq-dark .faq-icon {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #cdd4d9;
+}
+.faq-section.faq-dark .answer p {
+  color: #cdd4d9;
+}
+
+@media (max-width: 640px) {
+  .faq-section {
+    padding: 52px 0;
+  }
+  .faqbtn {
+    padding: 16px 18px;
+    gap: 14px;
+  }
+  .faqbtn .faq-q {
+    font-size: 15.5px;
+  }
+  .faq-icon {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    margin-left: 10px;
+  }
+  .faq-icon svg {
+    width: 12px;
+    height: 12px;
+  }
+  .answer {
+    padding: 0 18px 18px;
+  }
+  .answer p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
