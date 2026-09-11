@@ -169,3 +169,143 @@
     }),
   );
 })();
+
+/* * Slider — shared carousel engine for [data-slider] (logo sliders, testimonials)
+   Native horizontal scroll + scroll-snap does the actual moving, so touch
+   swipe, trackpads and arrow keys work for free. This adds autoplay, dots and
+   looping on top. Autoplay pauses on hover, keyboard focus and touch, while the
+   slider is off-screen or the tab is hidden, and is off entirely for visitors
+   who ask for reduced motion. Per-view counts come from the --cur custom
+   property the CSS sets per breakpoint, so the dot count follows the layout. */
+(function () {
+  const sliders = document.querySelectorAll("[data-slider]");
+  if (!sliders.length) return;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  sliders.forEach((root) => {
+    const track = root.querySelector(".mc-slider-track");
+    const dots = root.querySelector(".mc-slider-dots");
+    if (!track) return;
+    const slides = [...track.children];
+    const delay = parseInt(root.dataset.autoplay, 10) || 0;
+    let page = 0, pageCount = 1, timer = 0, paused = false, onScreen = true, ticking = false;
+
+    const perView = () =>
+      Math.max(1, parseInt(getComputedStyle(root).getPropertyValue("--cur"), 10) || 1);
+
+    function markDots() {
+      if (!dots) return;
+      [...dots.children].forEach((b, i) =>
+        b.setAttribute("aria-current", i === page ? "true" : "false"),
+      );
+    }
+    function renderDots() {
+      pageCount = Math.max(1, Math.ceil(slides.length / perView()));
+      page = Math.min(page, pageCount - 1);
+      if (!dots) return;
+      dots.textContent = "";
+      dots.hidden = pageCount < 2;
+      for (let i = 0; i < pageCount; i++) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.setAttribute("aria-label", `Show ${i + 1} of ${pageCount}`);
+        b.addEventListener("click", () => {
+          goTo(i);
+          start();
+        });
+        dots.appendChild(b);
+      }
+      markDots();
+    }
+    function goTo(i) {
+      page = (i + pageCount) % pageCount;
+      const first = slides[page * perView()];
+      if (first)
+        track.scrollTo({
+          left: first.offsetLeft,
+          behavior: reduceMotion.matches ? "auto" : "smooth",
+        });
+      markDots();
+    }
+    function stop() {
+      clearInterval(timer);
+      timer = 0;
+    }
+    function start() {
+      stop();
+      if (!delay || reduceMotion.matches || pageCount < 2) return;
+      timer = setInterval(() => {
+        if (!paused && onScreen && !document.hidden) goTo(page + 1);
+      }, delay);
+    }
+
+    // keep the dots honest when the visitor swipes or scrolls the track themselves
+    track.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          ticking = false;
+          const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+          const step = slides[1] ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth;
+          const i = atEnd ? pageCount - 1 : Math.round(track.scrollLeft / (step * perView()));
+          const next = Math.min(Math.max(i, 0), pageCount - 1);
+          if (next !== page) {
+            page = next;
+            markDots();
+          }
+        });
+      },
+      { passive: true },
+    );
+
+    root.addEventListener("mouseenter", () => (paused = true));
+    root.addEventListener("mouseleave", () => (paused = false));
+    root.addEventListener("focusin", () => (paused = true));
+    root.addEventListener("focusout", (e) => {
+      if (!root.contains(e.relatedTarget)) paused = false;
+    });
+    track.addEventListener("pointerdown", () => (paused = true));
+    ["pointerup", "pointercancel"].forEach((t) =>
+      track.addEventListener(t, () => {
+        paused = false;
+        start();
+      }),
+    );
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([e]) => (onScreen = e.isIntersecting)).observe(root);
+      // Native lazy-loading only fetches a slide once it scrolls into the track, so
+      // the next page would pop in blank mid-autoplay. Once the slider is within
+      // ~800px of the viewport, load every slide's image instead.
+      const preload = new IntersectionObserver(
+        ([e]) => {
+          if (!e.isIntersecting) return;
+          root.querySelectorAll('img[loading="lazy"]').forEach((img) => (img.loading = "eager"));
+          preload.disconnect();
+        },
+        { rootMargin: "800px 0px" },
+      );
+      preload.observe(root);
+    }
+
+    // per-view changes at the tablet / phone breakpoints, and the dot count with it.
+    // ResizeObserver rather than window "resize": it also catches layout changes
+    // that never fire a resize event (zoom, container changes, device emulation).
+    let lastPerView = perView();
+    const onLayout = () => {
+      const pv = perView();
+      if (pv === lastPerView) return;
+      lastPerView = pv;
+      renderDots();
+      goTo(page);
+      start();
+    };
+    if ("ResizeObserver" in window) new ResizeObserver(onLayout).observe(root);
+    else window.addEventListener("resize", onLayout, { passive: true });
+    if (reduceMotion.addEventListener) reduceMotion.addEventListener("change", start);
+
+    renderDots();
+    start();
+  });
+})();

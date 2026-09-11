@@ -719,7 +719,7 @@ p {
 }
 
 /* ============================================================
-   * Service hero — shared by every service page (see includes/hero.php)
+   * Service hero — shared by every service page (see includes/components/hero.php)
    Mirrors the live layout: photo background, big Poppins heading and
    sub-line on the left, dark "Request For Proposal" card on the right.
    ============================================================ */
@@ -919,19 +919,9 @@ p {
   }
 }
 
-/* * Contact section — small print (was inline styles before the component split) */
-.contact-note {
-  margin-top: 16px;
-  font-size: 15px;
-}
-.contact-privacy {
-  margin-top: 8px;
-  font-size: 14px;
-}
-
 /* ============================================================
    * FAQ Section — shared component
-   Used by includes/faq.php across all service & package pages
+   Used by includes/components/faq.php across all service & package pages
    ============================================================ */
 .faq-section {
   background: #fff;
@@ -1114,5 +1104,381 @@ p {
   .answer p {
     font-size: 14px;
     line-height: 1.6;
+  }
+}
+
+/* ============================================================
+   * Section bands — shared light / dark backgrounds for components
+   A page can re-tint every light band with --band-light (the service
+   pages use the live site's #dbe0e4; the package page keeps white).
+   ============================================================ */
+.band-dark {
+  background: #192b33;
+  color: #fff;
+}
+.band-light {
+  background: var(--band-light, #fff);
+  color: var(--ink);
+}
+.band-dark .eyebrow,
+.band-light .eyebrow {
+  color: var(--orange);
+}
+.band-dark h2,
+.band-light h2 {
+  font-family: var(--font-head);
+  font-weight: 600;
+}
+.band-dark h2 {
+  color: #fff;
+}
+.band-light h2 {
+  color: var(--ink);
+}
+.band-dark .head p {
+  color: #b9c2c8;
+}
+.band-light .head p {
+  color: var(--muted);
+}
+
+/* ============================================================
+   * Slider — shared carousel layout (logo-slider.php, testimonials.php)
+   Behaviour lives in main.js. Each slider sets --pv / --pv-md / --pv-sm
+   inline (slides per view on desktop / tablet / phone); --cur is the one
+   that applies at the current width, and main.js reads it back.
+   ============================================================ */
+.mc-slider {
+  --pv: 1;
+  --pv-md: var(--pv);
+  --pv-sm: var(--pv-md);
+  --gap: 20px;
+  --cur: var(--pv);
+}
+.mc-slider-track {
+  position: relative;
+  display: flex;
+  gap: var(--gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.mc-slider-track::-webkit-scrollbar {
+  display: none;
+}
+.mc-slider-track:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+.mc-slide {
+  flex: 0 0 calc((100% - (var(--cur) - 1) * var(--gap)) / var(--cur));
+  min-width: 0;
+  scroll-snap-align: start;
+}
+/* 24px hit area per dot (touch-target minimum), 8px visible dot inside */
+.mc-slider-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  margin-top: 22px;
+}
+.mc-slider-dots button {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.mc-slider-dots button::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: currentColor;
+  opacity: 0.3;
+  transition:
+    width 0.25s ease,
+    opacity 0.25s ease,
+    background-color 0.25s ease;
+}
+.mc-slider-dots button[aria-current="true"]::before {
+  width: 22px;
+  opacity: 1;
+  background: var(--orange);
+}
+.mc-slider-dots button:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 1px;
+  border-radius: 6px;
+}
+@media (max-width: 991.98px) {
+  .mc-slider {
+    --cur: var(--pv-md);
+  }
+}
+@media (max-width: 575.98px) {
+  .mc-slider {
+    --cur: var(--pv-sm);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mc-slider-track {
+    scroll-behavior: auto;
+  }
+  .mc-slider-dots button::before {
+    transition: none;
+  }
+}
+
+/* * Logo slider — client logos / tech stack (includes/components/logo-slider.php) */
+.logo-band {
+  padding: 56px 0;
+}
+.logo-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* * Testimonials slider (includes/components/testimonials.php) */
+.testimonial-band {
+  padding: 64px 0;
+}
+.tcard {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin: 0;
+}
+.tcard-quote {
+  margin: 0;
+}
+.tcard-quote p {
+  max-width: 60ch;
+  margin: 0;
+  font-size: clamp(18px, 2vw, 23px);
+  line-height: 1.55;
+}
+.band-light .tcard-quote p {
+  color: #243037;
+}
+.band-dark .tcard-quote p {
+  color: #e4eaed;
+}
+.tcard-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.tcard-avatar {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.tcard-who {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
+}
+.tcard-name {
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 600;
+}
+.tcard-role {
+  font-size: 14px;
+}
+.band-light .tcard-role {
+  color: var(--muted);
+}
+.band-dark .tcard-role {
+  color: #a9b6bd;
+}
+.tcard-logo {
+  width: auto;
+  height: auto;
+  max-width: 150px;
+  max-height: 72px;
+  margin-left: auto;
+  object-fit: contain;
+}
+/* logos are dark artwork on transparent — give them a white chip on dark bands */
+.band-dark .tcard-logo {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #fff;
+}
+@media (max-width: 575.98px) {
+  .tcard-logo {
+    margin-left: 0;
+  }
+}
+
+/* ============================================================
+   * Contact section — shared component (includes/components/contact.php)
+   Hidden panel by default, opened by any .contactBtn (main.js). Shown
+   permanently when a page sets $contact_visible = true.
+   ============================================================ */
+.contact {
+  display: none;
+  background: #192b33;
+  color: #fff;
+  padding: 72px 0;
+  scroll-margin-top: var(--header-h);
+}
+.contact.active,
+.contact--static {
+  display: block;
+}
+.contact .eyebrow {
+  color: var(--orange);
+}
+.contact h2 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  color: #fff;
+}
+.contact p {
+  color: #cbd0d3;
+}
+.contact .contact-note {
+  margin-top: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--orange);
+}
+.contact .contact-privacy {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #8fa0a8;
+}
+.contact-points-title {
+  margin: 22px 0 10px;
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+.contact-points {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.contact-points li {
+  position: relative;
+  padding-left: 18px;
+  color: #cbd0d3;
+}
+.contact-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+.form {
+  background: #fff;
+  color: var(--ink);
+  border-radius: 14px;
+  padding: 26px 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+.field {
+  display: grid;
+  gap: 5px;
+}
+.field label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid #deded9;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 15px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(241, 90, 38, 0.12);
+}
+.field textarea {
+  min-height: 86px;
+  resize: vertical;
+}
+.formnote {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.formactions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+.formactions .btn {
+  padding: 11px 26px;
+  font-size: 15px;
+  font-weight: 700;
+}
+.success {
+  display: none;
+  padding: 36px 20px;
+  text-align: center;
+}
+.success.show {
+  display: block;
+}
+.success h3 {
+  margin-bottom: 8px;
+  font-size: 22px;
+  color: var(--ink);
+}
+.hidden {
+  display: none !important;
+}
+
+/* * Shared components — tighter vertical rhythm on phones */
+@media (max-width: 575.98px) {
+  .contact,
+  .logo-band,
+  .testimonial-band {
+    padding: 52px 0;
+  }
+  .form {
+    padding: 22px 18px;
   }
 }

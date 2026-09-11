@@ -2,17 +2,18 @@
 /* reCAPTCHA v2 site key — leave empty and no widget renders */
 $recaptcha_site_key = $recaptcha_site_key ?? '';
 
-/* Per-page values — set these in the page file BEFORE including this header.
-   Example:  $page_title = 'About Us | Media Clock';
-             $page_description = '...';
-             $page_css = 'about';   // -> assets/css/about.css
-             $page_js  = 'about';   // -> assets/js/about.js  (used by footer.php)
+/* Per-page values — set by includes/render.php from the page's
+   data/pages/<slug>.php ('title', 'description', 'css', 'js').
+     $page_css = 'service';             // -> assets/css/service.css
+     $page_css = ['service', 'about'];  // several files, in order
+     $page_js  = 'about';               // -> assets/js/about.js (used by footer.php)
 */
 $page_title = $page_title ?? 'Media Clock';
 $page_description = $page_description ?? '';
-$page_css = $page_css ?? '';
+$page_css = array_filter((array) ($page_css ?? []));
 $e = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
-$services = require __DIR__ . '/services.php';
+require_once dirname(__DIR__) . '/img.php';
+$services = require dirname(__DIR__, 2) . '/data/shared/services.php';
 ?>
 <!doctype html>
 <html lang="en-AU">
@@ -37,9 +38,9 @@ $services = require __DIR__ . '/services.php';
     <!-- * Styles : Bootstrap first, then our own so brand rules win the cascade -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
-    <?php if ($page_css): ?>
-    <link rel="stylesheet" href="assets/css/<?= $e($page_css) ?>.css" />
-    <?php endif; ?>
+    <?php foreach ($page_css as $cssFile): ?>
+    <link rel="stylesheet" href="assets/css/<?= $e($cssFile) ?>.css" />
+    <?php endforeach; ?>
 </head>
 
 <body>
@@ -60,7 +61,7 @@ $services = require __DIR__ . '/services.php';
                     </li>
                     <li class="has-sub">
                         <a href="#top" class="current" aria-haspopup="true">Services</a>
-                        <!-- * Header : services mega panel (3 columns, from includes/services.php) -->
+                        <!-- * Header : services mega panel (3 columns, from data/shared/services.php) -->
                         <div class="sub-menu mega-menu">
                             <div class="mega-grid">
                                 <?php foreach ($services as $group => $items): ?>

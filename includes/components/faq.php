@@ -22,7 +22,7 @@
    Example usage:
      $faq_title = 'SEO FAQs';
      $faq_items = [ ... ];
-     include 'includes/faq.php';
+     include 'includes/components/faq.php';
    ============================================================ */
 
 $faq_id      = $faq_id      ?? 'faqs';

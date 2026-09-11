@@ -2,19 +2,19 @@
 /* ============================================================
    * Service hero — shared component
    Every service page uses the same hero. Set the variables below
-   BEFORE including this file, then:  include 'includes/hero.php';
+   BEFORE including this file, then:  include 'includes/components/hero.php';
 
      $hero_title    (string, required)  big heading
      $hero_sub      (string)            second line, slightly smaller
      $hero_eyebrow  (string)            small orange label above the title
-     $hero_cta      (string)            button label  — default "Let's Start"
+     $hero_cta      (string)            button label  — default "Let's Start"; '' hides it
      $hero_cta_href (string)            link target; omit to open the contact panel
      $hero_image    (string)            background file in assets/images/
      $hero_stats    (array)             [ ['40–150','Target keywords'], ... ]
      $hero_form     (bool)              show the "Request For Proposal" card
 
    Anything not set falls back to a sensible default, so a minimal page is:
-     $hero_title = 'Website Development'; include 'includes/hero.php';
+     $hero_title = 'Website Development'; include 'includes/components/hero.php';
    ============================================================ */
 $hero_title    = $hero_title    ?? '';
 $hero_sub      = $hero_sub      ?? '';
@@ -25,9 +25,10 @@ $hero_image    = $hero_image    ?? 'hero-service.png';
 $hero_stats    = $hero_stats    ?? [];
 $hero_form     = $hero_form     ?? true;
 $h = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+require_once dirname(__DIR__) . '/img.php';
 ?>
 <!-- * Service hero -->
-<section class="service-hero" style="background-image:url('assets/images/<?= $h($hero_image) ?>')">
+<section class="service-hero" style="background-image:url('<?= $h(img_src($hero_image)) ?>')">
     <div class="container service-hero-inner">
         <div class="row align-items-center g-4">
 
@@ -43,7 +44,8 @@ $h = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
                 <p class="service-hero-sub"><?= $h($hero_sub) ?></p>
                 <?php endif; ?>
 
-                <?php if ($hero_cta_href): ?>
+                <?php if ($hero_cta === ''): /* CTA switched off for this page */ ?>
+                <?php elseif ($hero_cta_href): ?>
                 <a class="service-hero-cta" href="<?= $h($hero_cta_href) ?>"><?= $h($hero_cta) ?> <span
                         aria-hidden="true">&rarr;</span></a>
                 <?php else: ?>
@@ -71,7 +73,7 @@ $h = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
                     <input type="email" name="rfp_email" placeholder="Email" autocomplete="email" required />
                     <select name="rfp_service" required>
                         <option value="" disabled selected>Select your Service</option>
-                        <?php foreach (($hero_services ?? require __DIR__ . '/services.php') as $group => $items): ?>
+                        <?php foreach (($hero_services ?? require dirname(__DIR__, 2) . '/data/shared/services.php') as $group => $items): ?>
                     <optgroup label="<?= $h($group) ?>">
                         <?php foreach ($items as [$label, $url]): ?>
                         <option value="<?= $h($label) ?>"><?= $h($label) ?></option>
@@ -88,7 +90,7 @@ $h = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
                     </p>
 
                     <?php if (!empty($recaptcha_site_key)): ?>
-                    <!-- reCAPTCHA renders only once a site key is set (see includes/header.php) -->
+                    <!-- reCAPTCHA renders only once a site key is set (see includes/layout/header.php) -->
                     <div class="g-recaptcha" data-sitekey="<?= $h($recaptcha_site_key) ?>"></div>
                     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
                     <?php endif; ?>

@@ -1,4 +1,4 @@
-<?php $services = $services ?? require __DIR__ . '/services.php'; ?>
+<?php $services = $services ?? require dirname(__DIR__, 2) . '/data/shared/services.php'; ?>
     <!-- * Footer -->
     <footer class="global-footer">
         <!-- * Footer : 3-column top block (Bootstrap grid, gutters off) -->
