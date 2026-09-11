@@ -74,3 +74,4 @@ $h = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
     </div>
 </section>
 <?php endif; ?>
+<?php unset($faq_id, $faq_eyebrow, $faq_title, $faq_lead, $faq_theme, $faq_items); ?>

@@ -2,8 +2,9 @@
 /* reCAPTCHA v2 site key — leave empty and no widget renders */
 $recaptcha_site_key = $recaptcha_site_key ?? '';
 
-/* Per-page values — set by includes/render.php from the page's
-   data/pages/<slug>.php ('title', 'description', 'css', 'js').
+/* Per-page values — explicitly set in the page's root file before including this header.
+     $page_title = '...';
+     $page_description = '...';
      $page_css = 'service';             // -> assets/css/service.css
      $page_css = ['service', 'about'];  // several files, in order
      $page_js  = 'about';               // -> assets/js/about.js (used by footer.php)

@@ -106,3 +106,4 @@ require_once dirname(__DIR__) . '/img.php';
         </div>
     </div>
 </section>
+<?php unset($hero_title, $hero_sub, $hero_eyebrow, $hero_cta, $hero_cta_href, $hero_image, $hero_stats, $hero_form); ?>
