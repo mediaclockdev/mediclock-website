@@ -1,0 +1,309 @@
+/* ============================================================
+   home.css — homepage only (index.php). Loads after main.css.
+   The live Elementor stylesheet could not be recovered from the
+   archive, so sizes follow the service pages' tokens.
+   ============================================================ */
+
+/* * Hero — full-bleed slides over the fixed header */
+.home-hero {
+  position: relative;
+  background: #192b33;
+  color: #fff;
+}
+.home-hero-slide {
+  display: flex;
+  align-items: center;
+  min-height: 720px;
+  padding: calc(var(--header-h) + 28px) 0 80px;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+.home-hero-title {
+  font-family: var(--font-head);
+  font-size: clamp(2.4rem, 5vw, 64px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #fff;
+  margin: 0 0 18px;
+}
+.home-hero-sub {
+  font-family: var(--font-head);
+  font-size: clamp(1.3rem, 2.6vw, 35px);
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 30px;
+}
+/* "Mobile Apps" / "Web Apps" swap in place */
+.home-hero-words {
+  display: inline-grid;
+}
+.home-hero-words span {
+  grid-area: 1 / 1;
+  animation: home-word 6s infinite;
+}
+.home-hero-words span + span {
+  animation-delay: -3s;
+}
+@keyframes home-word {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* the dark service-page pill would vanish on the dark hero */
+.home-hero .service-hero-cta {
+  background: var(--orange);
+}
+.home-hero .service-hero-cta:hover {
+  background: #fff;
+  color: #192b33;
+}
+.home-hero .mc-slider-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 24px;
+  margin: 0;
+}
+
+/* * What we do? */
+.home-services .head {
+  margin-inline: auto;
+  text-align: center;
+}
+.home-service {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(25, 43, 51, 0.08);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.home-service:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(25, 43, 51, 0.16);
+}
+.home-service img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+.home-service h3 {
+  font-family: var(--font-head);
+  font-size: 24px;
+  font-weight: 600;
+  color: #f15a26;
+  margin: 8px 0 0;
+}
+.home-service a {
+  align-self: flex-end;
+  margin-top: auto;
+  color: var(--orange);
+  font-family: var(--font-head);
+  font-weight: 600;
+  text-decoration: none;
+}
+.home-service a:hover {
+  text-decoration: underline;
+}
+
+/* * Our Journey */
+.home-journey {
+  background: #dbe0e4;
+}
+.home-journey h2 {
+  font-family: sans-serif;
+  font-weight: 600;
+  color: var(--orange);
+  text-align: left;
+}
+.journey-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 26px 16px;
+  border-radius: 20px;
+}
+
+.journey-label {
+  font-family: var(--font-head);
+  font-weight: 400;
+  color: #0d0d0d;
+  font-size: clamp(21px, 2vw, 21px);
+}
+.journey-num {
+  font-family: Roboto, sans-serif;
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--orange);
+}
+
+.svc-intro {
+  padding: 44px 0;
+  text-align: center;
+  background: #dfe6ea;
+}
+.svc-intro-text {
+  max-width: 760px;
+  margin: 0 auto;
+  font-size: 20px;
+  line-height: 1.55;
+  color: #000;
+}
+
+@media (max-width: 575.98px) {
+  .home-hero-slide {
+    min-height: 560px;
+    padding-top: calc(var(--header-h-mobile) + 28px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-words span + span {
+    display: none;
+  }
+  .home-hero-words span {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   * Why choose us — homepage (includes/components/why-us.php)
+   * Front: photo + title. Back (hover / keyboard focus): blurred photo, icon, title, copy.
+   ============================================================ */
+.why-us .container {
+  max-width: 1320px;
+}
+.why-us .head h2 {
+  color: var(--orange);
+}
+.why-card {
+  height: 450px;
+  border-radius: 30px;
+}
+.why-card:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: -3px;
+}
+.why-card-inner {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 30px;
+}
+/* the live site's "zoom out": the front fades and shrinks away, uncovering the back */
+.why-card:hover .why-card-front,
+.why-card:focus-within .why-card-front {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.75);
+}
+.why-card-front,
+.why-card-back {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 30px;
+}
+.why-card-front {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2;
+  padding: 36px 24px;
+  background: #0e171b;
+  transition: all 0.5s ease;
+}
+.why-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* the live site's tint over each photo */
+.why-card-front::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(25, 43, 51, 0.27);
+}
+.why-card-front-title,
+.why-card-title {
+  font-family: var(--font-head);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 38px;
+  color: #fff;
+  text-align: center;
+}
+.why-card-front-title {
+  position: relative;
+  z-index: 1;
+}
+.why-card-back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 30px 44px;
+  background: rgba(0, 0, 0, 0.314);
+  text-align: left;
+}
+.why-card-back > * {
+  position: relative;
+}
+.why-card-back > .why-card-img {
+  position: absolute;
+}
+.why-card-icon {
+  width: 40px;
+  height: 40px;
+}
+.why-card-title {
+  margin: 0;
+  text-align: left;
+}
+.why-card-back p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .why-card-front {
+    transition: none;
+  }
+}
+@media (max-width: 575.98px) {
+  .why-card-front-title,
+  .why-card-title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+}
+/* tablet and phone: stack the cards in a column instead of sliding */
+@media (max-width: 991.98px) {
+  .why-us .mc-slider-track {
+    flex-direction: column;
+    gap: 24px;
+    overflow: visible;
+  }
+  .why-us .mc-slide {
+    flex: none;
+  }
+}

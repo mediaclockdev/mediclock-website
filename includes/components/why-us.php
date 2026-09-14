@@ -11,6 +11,7 @@
          'text'  => '…',
          'icon'  => 'pages/<slug>/icons/x.svg',     relative to assets/images/
          'image' => 'pages/<slug>/why/x.webp',      front photo, optional
+         'back'  => 'pages/<slug>/why/x-back.webp', back photo, optional
        ], … ]
      $why_us_id       (string)  section id                        — default 'why-us'
      $why_us_title    (string)                                    — default 'Why choose us?'
@@ -53,6 +54,9 @@ require_once dirname(__DIR__) . '/img.php';
                         </div>
                         <!-- * Why choose us : card back -->
                         <div class="why-card-back">
+                            <?php if (!empty($wu['back'])): ?>
+                            <img class="why-card-img" src="<?= $h(img_src($wu['back'])) ?>" alt="" loading="lazy" decoding="async" />
+                            <?php endif; ?>
                             <?php if (!empty($wu['icon'])): ?>
                             <img class="why-card-icon" src="<?= $h(img_src($wu['icon'])) ?>" alt="" width="40" height="40" loading="lazy" decoding="async" />
                             <?php endif; ?>

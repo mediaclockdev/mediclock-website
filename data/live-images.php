@@ -79,6 +79,14 @@ return [
     'pages/web-application/why/expertise-experience.webp'    => $u . '2025/09/Group-1597880529-8.png',
     'pages/web-application/why/scalability-flexibility.webp' => $u . '2025/09/Group-1597880528-4.png',
 
+    // * Homepage — why-us flip cards (front photo, blurred back)
+    'home/why/expertise.webp'           => $u . '2025/09/Group-1597880528-2.webp',
+    'home/why/expertise-back.webp'      => $u . '2025/09/Group-1597880528-1.png',
+    'home/why/cost-effective.webp'      => $u . '2025/09/Group-1597880526.webp',
+    'home/why/cost-effective-back.webp' => $u . '2025/09/Frame-1597880528.png',
+    'home/why/customised.webp'          => $u . '2025/09/Group-1597880527.webp',
+    'home/why/customised-back.webp'     => $u . '2025/09/Group-1597880531-4.png',
+
     // * Tech-stack (web) logo slider
     'tech/web-01.webp' => $u . '2025/09/Group-1597881291-5.webp',
     'tech/web-02.webp' => $u . '2025/09/Group-1597881284-3-2.webp',
