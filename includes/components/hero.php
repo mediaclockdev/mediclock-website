@@ -92,7 +92,7 @@ require_once dirname(__DIR__) . '/img.php';
                     <?php if (!empty($recaptcha_site_key)): ?>
                     <!-- reCAPTCHA renders only once a site key is set (see includes/layout/header.php) -->
                     <div class="g-recaptcha" data-sitekey="<?= $h($recaptcha_site_key) ?>"></div>
-                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                    <?php if (empty($recaptcha_loaded)): $recaptcha_loaded = true; ?><script src="https://www.google.com/recaptcha/api.js" async defer></script><?php endif; ?>
                     <?php endif; ?>
 
                     <button type="submit" class="rfp-submit">Send</button>

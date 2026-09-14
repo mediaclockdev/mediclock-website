@@ -143,6 +143,14 @@
       e.target.classList.add("hidden");
       document.getElementById("success").classList.add("show");
     });
+  // * Contact : live "0 / 180" counter for any textarea with data-counter
+  document.querySelectorAll("[data-counter]").forEach((ta) => {
+    const out = document.getElementById(ta.dataset.counter);
+    if (!out) return;
+    const update = () => (out.textContent = `${ta.value.length} / ${ta.maxLength}`);
+    ta.addEventListener("input", update);
+    update();
+  });
 })();
 
 /* * FAQ Accordion — shared component */

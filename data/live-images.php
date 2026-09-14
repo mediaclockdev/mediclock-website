@@ -65,4 +65,30 @@ return [
     'testimonials/george-logo.webp'         => $u . '2025/09/Group-1597881720-2.webp',
     'testimonials/dinesh-singh.webp'        => $u . '2025/09/image-252.webp',
     'testimonials/dinesh-singh-logo.webp'   => $u . '2025/09/image-254.webp',
+
+    // * Web Application — hero, roadmap, projects, why-us photos
+    'pages/web-application/hero.webp'    => $u . '2025/09/Group-1597881322.webp',
+    'pages/web-application/roadmap.webp' => $u . '2025/09/Group-1597880999-4-1024x931.png',
+    'pages/web-application/projects/australian-scaffold.webp'      => $u . '2025/09/Group-1597881394-3.png',
+    'pages/web-application/projects/australian-scaffold-logo.webp' => $u . '2025/09/MicrosoftTeams-image-20-1-3.png',
+    'pages/web-application/projects/instrowest.webp'               => $u . '2025/09/Group-1597881394-2.png',
+    'pages/web-application/projects/instrowest-logo.webp'          => $u . '2025/09/MicrosoftTeams-image-20-1-2.png',
+    'pages/web-application/projects/richards-aluminium.webp'       => $u . '2025/09/Group-1597881394-1.png',
+    'pages/web-application/projects/richards-aluminium-logo.webp'  => $u . '2025/09/Logo_01_2-removebg-preview-2.png',
+    'pages/web-application/why/tailored-solutions.webp'      => $u . '2025/09/Group-1597880528-1.png',
+    'pages/web-application/why/expertise-experience.webp'    => $u . '2025/09/Group-1597880529-8.png',
+    'pages/web-application/why/scalability-flexibility.webp' => $u . '2025/09/Group-1597880528-4.png',
+
+    // * Tech-stack (web) logo slider
+    'tech/web-01.webp' => $u . '2025/09/Group-1597881291-5.webp',
+    'tech/web-02.webp' => $u . '2025/09/Group-1597881284-3-2.webp',
+    'tech/web-03.webp' => $u . '2025/09/Group-1597881278-8-1.webp',
+    'tech/web-04.webp' => $u . '2025/09/Group-1597881282-8-1.webp',
+    'tech/web-05.webp' => $u . '2025/09/Group-1597881283-6-1.webp',
+    'tech/web-06.webp' => $u . '2025/09/Group-1597881286-4-1.webp',
+    'tech/web-07.webp' => $u . '2025/09/Group-1597881287-4-1.webp',
+    'tech/web-08.webp' => $u . '2025/09/Group-1597881285-4-1.webp',
+    'tech/web-09.webp' => $u . '2025/09/Group-1597881291-4.webp',
+    'tech/web-10.webp' => $u . '2025/09/Group-1597881289-3-1.webp',
+    'tech/web-11.webp' => $u . '2025/09/Group-1597881290-3-1.webp',
 ];

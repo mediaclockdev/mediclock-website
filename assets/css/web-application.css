@@ -1,0 +1,38 @@
+/* ============================================================
+   web-application.css
+   Web Application page only. Loads after main.css + service.css.
+   Media Clock — static rebuild
+
+   Section rhythm (matches the live page):
+   Hero            dark   includes/components/hero.php
+   #clients        dark   logo-slider.php
+   .svc-intro      light  intro.php
+   #projects       dark   projects.php
+   #roadmap        light  roadmap.php
+   #why-us         dark   why-us.php
+   #tech           light  logo-slider.php
+   #testimonials   light  testimonials.php
+   #contact        dark   contact.php
+   #faqs           light  faq.php
+   ============================================================ */
+
+/* * Headings — orange section titles, as on the live page */
+.svc-projects .head h2,
+.svc-roadmap .head h2 {
+  color: var(--orange);
+}
+
+/* * Recent Projects — live block is ~1100px: copy ~650px beside the mockup */
+.svc-projects .container {
+  max-width: 1140px;
+}
+
+/* * Intro band — one left-aligned line in a tight band */
+.svc-intro {
+  padding: 24px 0;
+  text-align: left;
+}
+.svc-intro-text {
+  max-width: none;
+  margin: 0;
+}
