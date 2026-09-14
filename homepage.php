@@ -48,7 +48,6 @@ $why_us_items = [
     ],
 ];
 $why_us_autoplay = 0;
-$why_us_per_view = [3, 3, 3]; // one page at every width: no dots, no swiping (stacks below 992px in home.css)
 include 'includes/components/why-us.php';
 
 // * Testimonials

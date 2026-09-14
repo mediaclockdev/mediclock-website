@@ -99,4 +99,11 @@ return [
     'tech/web-09.webp' => $u . '2025/09/Group-1597881291-4.webp',
     'tech/web-10.webp' => $u . '2025/09/Group-1597881289-3-1.webp',
     'tech/web-11.webp' => $u . '2025/09/Group-1597881290-3-1.webp',
+
+    // * Homepage — hero slideshow (slide order) + What we do cards
+    'home/hero/1.webp' => $u . '2025/09/Group-1597881499.webp',
+    'home/hero/2.webp' => $u . '2025/09/image-56-1.webp',
+    'home/hero/3.webp' => $u . '2025/09/Group-1597881167-1.webp',
+    'home/services/mobile-app.webp' => $u . '2025/09/Group-1597880697-5-1-1.webp',
+    'home/services/web-app.webp'    => $u . '2025/09/Group-1597880697-4.webp',
 ];

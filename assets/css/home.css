@@ -74,11 +74,7 @@
   margin: 0;
 }
 
-/* * What we do? */
-.home-services .head {
-  margin-inline: auto;
-  text-align: center;
-}
+/* * What we do? — heading uses the shared left-aligned .head (main.css), like every other section */
 .home-service {
   display: flex;
   flex-direction: column;
@@ -117,16 +113,20 @@
 .home-service a:hover {
   text-decoration: underline;
 }
+/* card copy on the dark band — the default muted grey is too faint here */
+.home-service p {
+  color: #b9c2c8;
+}
 
 /* * Our Journey */
 .home-journey {
   background: #dbe0e4;
 }
+/* same heading font as every other section, in the page's orange */
 .home-journey h2 {
-  font-family: sans-serif;
+  font-family: var(--font-head);
   font-weight: 600;
   color: var(--orange);
-  text-align: left;
 }
 .journey-stat {
   display: flex;
@@ -135,13 +135,14 @@
   gap: 10px;
   padding: 26px 16px;
   border-radius: 20px;
+  text-align: center;
 }
-
 .journey-label {
   font-family: var(--font-head);
+  font-size: 21px;
   font-weight: 400;
+  line-height: 1.3;
   color: #0d0d0d;
-  font-size: clamp(21px, 2vw, 21px);
 }
 .journey-num {
   font-family: Roboto, sans-serif;
@@ -149,6 +150,15 @@
   font-weight: 600;
   line-height: 1;
   color: var(--orange);
+}
+/* phones: two narrow columns, so smaller labels keep to one or two tidy lines */
+@media (max-width: 575.98px) {
+  .journey-stat {
+    padding: 22px 10px;
+  }
+  .journey-label {
+    font-size: 16px;
+  }
 }
 
 .svc-intro {
@@ -176,134 +186,5 @@
   }
   .home-hero-words span {
     animation: none;
-  }
-}
-
-/* ============================================================
-   * Why choose us — homepage (includes/components/why-us.php)
-   * Front: photo + title. Back (hover / keyboard focus): blurred photo, icon, title, copy.
-   ============================================================ */
-.why-us .container {
-  max-width: 1320px;
-}
-.why-us .head h2 {
-  color: var(--orange);
-}
-.why-card {
-  height: 450px;
-  border-radius: 30px;
-}
-.why-card:focus-visible {
-  outline: 3px solid var(--orange);
-  outline-offset: -3px;
-}
-.why-card-inner {
-  position: relative;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 30px;
-}
-/* the live site's "zoom out": the front fades and shrinks away, uncovering the back */
-.why-card:hover .why-card-front,
-.why-card:focus-within .why-card-front {
-  opacity: 0;
-  visibility: hidden;
-  transform: scale(0.75);
-}
-.why-card-front,
-.why-card-back {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border-radius: 30px;
-}
-.why-card-front {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  z-index: 2;
-  padding: 36px 24px;
-  background: #0e171b;
-  transition: all 0.5s ease;
-}
-.why-card-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-/* the live site's tint over each photo */
-.why-card-front::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(25, 43, 51, 0.27);
-}
-.why-card-front-title,
-.why-card-title {
-  font-family: var(--font-head);
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 38px;
-  color: #fff;
-  text-align: center;
-}
-.why-card-front-title {
-  position: relative;
-  z-index: 1;
-}
-.why-card-back {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 30px 44px;
-  background: rgba(0, 0, 0, 0.314);
-  text-align: left;
-}
-.why-card-back > * {
-  position: relative;
-}
-.why-card-back > .why-card-img {
-  position: absolute;
-}
-.why-card-icon {
-  width: 40px;
-  height: 40px;
-}
-.why-card-title {
-  margin: 0;
-  text-align: left;
-}
-.why-card-back p {
-  margin: 0;
-  font-size: 16px;
-  line-height: 24px;
-  color: #fff;
-}
-@media (prefers-reduced-motion: reduce) {
-  .why-card-front {
-    transition: none;
-  }
-}
-@media (max-width: 575.98px) {
-  .why-card-front-title,
-  .why-card-title {
-    font-size: 28px;
-    line-height: 34px;
-  }
-}
-/* tablet and phone: stack the cards in a column instead of sliding */
-@media (max-width: 991.98px) {
-  .why-us .mc-slider-track {
-    flex-direction: column;
-    gap: 24px;
-    overflow: visible;
-  }
-  .why-us .mc-slide {
-    flex: none;
   }
 }

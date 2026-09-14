@@ -1,9 +1,9 @@
 <?php
 /* ============================================================
-   * Why choose us — shared component (service pages)
-   Flip cards in the shared slider: the front is a photo with the
-   title, the back (on hover or keyboard focus) the icon, title and
-   copy. The back is always in the markup, so screen readers and
+   * Why choose us — shared component (homepage + service pages)
+   Cards in the shared slider: the front (photo + title) zooms out
+   and fades on hover or keyboard focus, uncovering the back (optional
+   photo, icon, title and copy). Styles: main.css. The back is always in the markup, so screen readers and
    search get the full text.
 
      $why_us_items    (array, required)  [ [
