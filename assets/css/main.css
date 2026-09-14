@@ -1538,6 +1538,18 @@ p {
 .contact--static .field ::placeholder {
   color: #757575;
 }
+/* Project Budget slider ($contact_budget) — the text-input rule above would box it */
+.contact--static .field-budget input {
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  accent-color: var(--orange);
+}
+.contact--static .field-budget output {
+  font-size: 14px;
+  color: #fff;
+}
 /* Contact : +61 prefix sits inside the phone input */
 .phone-field {
   position: relative;

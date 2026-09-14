@@ -1,0 +1,97 @@
+/* ============================================================
+   our-process.css
+   Our Process page only. Loads after main.css + service.css.
+   Media Clock — static rebuild
+
+   Section rhythm (matches the live page):
+   Hero            dark   includes/components/hero.php
+   .svc-intro      dark   intro.php
+   #process        light  our-process.php (three steps)
+   #contact        panel  contact.php (hidden until opened)
+   ============================================================ */
+
+/* * Intro band — the live paragraph runs the full container width */
+.svc-intro-text {
+  max-width: none;
+}
+
+/* * Process — orange heading, 1140px column as on the live page */
+.process .container {
+  max-width: 1140px;
+}
+.process .head h2 {
+  color: var(--orange);
+}
+.process-step + .process-step {
+  margin-top: 40px;
+}
+
+/* * Process : badge image beside the bordered summary box */
+.process-step-head {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.process-badge {
+  flex: 0 0 226px;
+  width: 226px;
+  height: auto;
+}
+.process-summary {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 10px 24px;
+  border: 3px solid #333;
+  border-radius: 8px;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #192b33;
+}
+
+/* * Process : illustration on the dark panel */
+.process-media {
+  display: flex;
+  justify-content: center;
+  background: #192b33;
+}
+.process-media img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* * Process : bullet list, rounded off under the panel */
+.process-points {
+  margin: 0;
+  padding: 24px 24px 24px 60px;
+  border: 2px solid #c3cad0;
+  border-top: 0;
+  border-radius: 0 0 20px 20px;
+}
+.process-points li {
+  font-size: 20px;
+  line-height: 30px;
+  color: #192b33;
+}
+.process-points li + li {
+  margin-top: 20px;
+}
+
+@media (max-width: 767.98px) {
+  .process-step-head {
+    flex-direction: column;
+  }
+  .process-badge {
+    flex-basis: auto;
+    width: 180px;
+  }
+  .process-summary,
+  .process-points li {
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  .process-points {
+    padding: 20px 16px 20px 36px;
+  }
+}

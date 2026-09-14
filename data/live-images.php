@@ -87,6 +87,11 @@ return [
     'home/why/customised.webp'          => $u . '2025/09/Group-1597880527.webp',
     'home/why/customised-back.webp'     => $u . '2025/09/Group-1597880531-4.png',
 
+    // * About us — hero background, team photos
+    'pages/about-us/hero.webp'   => $u . '2025/10/Rectangle-161123887-1-1.webp',
+    'pages/about-us/team.webp'   => $u . '2025/09/100.webp',
+    'pages/about-us/team-2.webp' => $u . '2025/09/555.webp',
+
     // * Tech-stack (web) logo slider
     'tech/web-01.webp' => $u . '2025/09/Group-1597881291-5.webp',
     'tech/web-02.webp' => $u . '2025/09/Group-1597881284-3-2.webp',
@@ -106,4 +111,39 @@ return [
     'home/hero/3.webp' => $u . '2025/09/Group-1597881167-1.webp',
     'home/services/mobile-app.webp' => $u . '2025/09/Group-1597880697-5-1-1.webp',
     'home/services/web-app.webp'    => $u . '2025/09/Group-1597880697-4.webp',
+
+    // * Our Process — hero background, step badges, step illustrations
+    'pages/our-process/hero.webp'    => $u . '2025/09/Group-1597881717.png',
+    'pages/our-process/badge-1.webp' => $u . '2025/09/Group-1597881301.png',
+    'pages/our-process/badge-2.webp' => $u . '2025/09/Group-1597881302.png',
+    'pages/our-process/badge-3.webp' => $u . '2025/09/Group-1597881303-1.png',
+    'pages/our-process/step-1.webp'  => $u . '2025/09/Group-1597881183-3.png',
+    'pages/our-process/step-2.webp'  => $u . '2025/09/Group-1597881224.png',
+    'pages/our-process/step-3.webp'  => $u . '2025/09/Group-1597881220.png',
+
+    // * Portfolio — hero background + client tiles (tile order)
+    'pages/portfolio/hero.webp' => $u . '2025/10/Group-1597881281-9.webp',
+    'pages/portfolio/01.webp'   => $u . '2025/10/Group-1597881253-1.webp',
+    'pages/portfolio/02.webp'   => $u . '2025/10/Group-1597881252-1.webp',
+    'pages/portfolio/03.webp'   => $u . '2025/10/Group-1597881251.webp',
+    'pages/portfolio/04.webp'   => $u . '2025/10/Group-1597881250.webp',
+    'pages/portfolio/05.webp'   => $u . '2025/10/Group-1597881275.webp',
+    'pages/portfolio/06.webp'   => $u . '2025/10/Group-1597881255.webp',
+    'pages/portfolio/07.webp'   => $u . '2025/10/Group-1597881256.webp',
+    'pages/portfolio/08.webp'   => $u . '2025/10/Group-1597881257.webp',
+    'pages/portfolio/09.webp'   => $u . '2025/10/Group-1597881272.webp',
+    'pages/portfolio/10.webp'   => $u . '2025/10/Group-1597881276.webp',
+    'pages/portfolio/11.webp'   => $u . '2025/10/Group-1597881270.webp',
+    'pages/portfolio/12.webp'   => $u . '2025/10/Group-1597881261.webp',
+    'pages/portfolio/13.webp'   => $u . '2025/10/Group-1597881264.webp',
+    'pages/portfolio/14.webp'   => $u . '2025/10/Group-1597881268.webp',
+    'pages/portfolio/15.webp'   => $u . '2025/10/Group-1597881715.webp',
+    'pages/portfolio/16.webp'   => $u . '2025/10/Group-1597881267.webp',
+    'pages/portfolio/17.webp'   => $u . '2025/10/Group-1597881266.webp',
+    'pages/portfolio/18.webp'   => $u . '2025/10/Group-1597881265.webp',
+    'pages/portfolio/19.webp'   => $u . '2025/10/Group-1597881271.webp',
+    'pages/portfolio/20.webp'   => $u . '2025/10/Group-1597881277.webp',
+
+    // * Contact us — hero background
+    'pages/contact-us/hero.webp' => $u . '2025/10/Group-1597881476.webp',
 ];

@@ -38,7 +38,9 @@ require_once dirname(__DIR__) . '/img.php';
                 <div class="eyebrow"><?= $h($hero_eyebrow) ?></div>
                 <?php endif; ?>
 
+                <?php if ($hero_title !== ''): /* '' = the page puts its h1 elsewhere */ ?>
                 <h1 class="service-hero-title"><?= $h($hero_title) ?></h1>
+                <?php endif; ?>
 
                 <?php if ($hero_sub): ?>
                 <p class="service-hero-sub"><?= $h($hero_sub) ?></p>

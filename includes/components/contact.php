@@ -17,6 +17,7 @@
      $contact_points       (array)  bullet list — default []
      $contact_note         (string) orange highlight line — default ''
      $contact_privacy      (string) small print — default: the NDA line
+     $contact_budget       (bool)   static form only: "Project Budget" slider — default false
      $contact_interests    (array)  panel only: "Interested In" options. Include every
                                     data-interest value used on the page, or that
                                     button can't preselect its option. Default:
@@ -29,6 +30,7 @@ $contact_lead         = $contact_lead         ?? '';
 $contact_points_title = $contact_points_title ?? 'Why?';
 $contact_points       = $contact_points       ?? [];
 $contact_note         = $contact_note         ?? '';
+$contact_budget       = $contact_budget       ?? false;
 $contact_privacy      = $contact_privacy      ?? 'We prioritise confidentiality and have a Non-Disclosure Agreement (NDA) in place to safeguard and protect your ideas.';
 if (!isset($contact_interests)) {
     $contact_interests = ['Free consultation'];
@@ -110,6 +112,14 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
                             <input id="cCompany" name="company" required placeholder="Your Company Name"
                                 autocomplete="organization" />
                         </div>
+                        <?php if ($contact_budget): ?>
+                        <div class="field field-budget col-12">
+                            <label for="cBudget">Project Budget: $ <?= $csReq ?></label>
+                            <input id="cBudget" name="budget" type="range" min="1000" max="100000" step="1" value="1000" required
+                                oninput="this.nextElementSibling.value = this.value" />
+                            <output for="cBudget">1000</output>
+                        </div>
+                        <?php endif; ?>
                         <div class="field col-12">
                             <label for="cMessage">Write your requirements in brief here... <?= $csReq ?></label>
                             <span class="field-count" id="cMessageCount">0 / 180</span>
@@ -184,5 +194,5 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
     </div>
 </section>
 <?php unset($contact_visible, $contact_eyebrow, $contact_title, $contact_lead, $contact_points_title,
-    $contact_points, $contact_note, $contact_privacy, $contact_interests, $csGroup, $csLabel, $csPoint,
+    $contact_points, $contact_note, $contact_privacy, $contact_budget, $contact_interests, $csGroup, $csLabel, $csPoint,
     $csOption, $csReq); ?>

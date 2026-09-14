@@ -1,0 +1,64 @@
+/* ============================================================
+   portfolio.css
+   Portfolio page only. Loads after main.css + service.css.
+   Media Clock — static rebuild
+
+   Section rhythm (matches the live page):
+   Hero            dark   includes/components/hero.php
+   #portfolio      light  portfolio.php (lead, heading, logo grid)
+   #contact        panel  contact.php (hidden until opened)
+   ============================================================ */
+
+.portfolio .container {
+  max-width: 1140px;
+}
+.portfolio-lead {
+  margin: 0 0 24px;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #000;
+}
+.portfolio h2 {
+  margin: 0 0 30px;
+  font-size: 32px;
+  letter-spacing: 0;
+  color: var(--orange);
+}
+
+/* * Portfolio : 4 across on desktop, 265px tiles as on the live page */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 0;
+  padding: 0 10px;
+}
+.portfolio-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.portfolio-more {
+  margin: 30px 10px 0;
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+  text-align: right;
+}
+
+@media (max-width: 991.98px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 575.98px) {
+  .portfolio-lead {
+    font-size: 17px;
+  }
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    padding: 0;
+  }
+}

@@ -1,0 +1,147 @@
+/* ============================================================
+   contact-us.css
+   Contact us page only. Loads after main.css + service.css.
+   Media Clock — static rebuild
+
+   Section rhythm (matches the live page):
+   Hero              dark   includes/components/hero.php (no proposal card)
+   .contact-direct   light  phone + email card
+   #contact          dark   contact.php (static, with budget slider)
+   #offices          light  map + address tabs
+   .subscribe        light  blog subscribe form
+   ============================================================ */
+
+/* * Phone + email — one dark pill, centred */
+.contact-direct {
+  padding: 50px 0;
+}
+.contact-direct-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 60px;
+  max-width: 673px;
+  margin: 0 auto;
+  padding: 25px 30px;
+  border-radius: 20px;
+  background: #192b33;
+}
+.contact-direct-card a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-family: var(--font-head);
+  font-size: 22px;
+  color: #fff;
+  text-decoration: none;
+}
+.contact-direct-card a:hover {
+  color: var(--orange);
+}
+.contact-direct-card svg {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  color: var(--orange);
+}
+
+/* * Offices — map above the address tabs */
+.offices .container,
+.subscribe .container {
+  max-width: 1140px;
+}
+.offices {
+  padding-bottom: 20px;
+}
+.offices-map {
+  display: block;
+  width: 100%;
+  height: 400px;
+  border: 0;
+}
+.offices-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 44px;
+  margin-top: 20px;
+}
+.offices-tab {
+  padding: 20px 25px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font-size: 15px;
+  line-height: 1.3;
+  color: #000;
+  text-align: left;
+  cursor: pointer;
+}
+.offices-tab[aria-pressed="true"] {
+  background: #ef4423;
+  color: #fff;
+}
+.offices-tab:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+/* * Subscribe To Our Blog */
+.subscribe h2 {
+  margin: 0 0 20px;
+  font-size: 32px;
+  letter-spacing: 0;
+  color: #000;
+}
+.subscribe p {
+  color: #000;
+}
+.subscribe-form {
+  display: grid;
+  gap: 10px;
+  max-width: 295px;
+  margin-top: 26px;
+}
+.subscribe-form input {
+  height: 41px;
+  padding: 9px;
+  border: 1px solid #d9dfe3;
+  border-radius: 10px;
+  background: #fff;
+}
+.subscribe-form input:focus {
+  outline: 2px solid var(--orange);
+  outline-offset: 0;
+}
+.subscribe-form button {
+  padding: 18px 25px;
+  border: 0;
+  border-radius: 10px;
+  background: #f9683e;
+  color: #fff;
+  cursor: pointer;
+}
+.subscribe-form button:hover {
+  background: #d94a18;
+}
+.subscribe-success {
+  margin-top: 26px;
+  font-weight: 600;
+}
+
+@media (max-width: 575.98px) {
+  .contact-direct-card a {
+    font-size: 18px;
+  }
+  .offices-map {
+    height: 300px;
+  }
+  .offices-tabs {
+    gap: 8px;
+  }
+  .offices-tab {
+    width: 100%;
+  }
+  .subscribe-form {
+    max-width: none;
+  }
+}
