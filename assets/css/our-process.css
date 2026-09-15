@@ -31,6 +31,10 @@
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
+  transition: transform 0.4s ease;
+}
+.process-step-head:hover {
+  transform: scale(1.1);
 }
 .process-badge {
   flex: 0 0 226px;
