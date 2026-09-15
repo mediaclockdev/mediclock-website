@@ -1,0 +1,211 @@
+/* ============================================================
+   ui-ux-design.css
+   UI/UX Design page only. Loads after main.css + service.css.
+   Media Clock — static rebuild
+
+   Section rhythm (matches the live page):
+   Hero            dark   includes/components/hero.php
+   #clients        dark   logo-slider.php
+   .svc-intro      light  intro.php
+   #poc            dark   ui-ux-design.php (six numbered circles)
+   .uiux-cta       light  ui-ux-design.php
+   #why-ui-ux      dark   ui-ux-design.php
+   #testimonials   light  testimonials.php
+   #why-us         dark   why-us.php
+   #tech           light  logo-slider.php
+   #contact        dark   contact.php
+   #faqs           light  faq.php
+   ============================================================ */
+
+/* * Intro band — one left-aligned line in a tight band */
+.svc-intro {
+  padding: 24px 0;
+  text-align: left;
+}
+.svc-intro-text {
+  max-width: none;
+  margin: 0;
+}
+
+/* * Proof of Concept — zigzag: odd steps drop the circle below the copy */
+.poc .head,
+.uiux-why .head {
+  margin-inline: auto;
+  text-align: center;
+}
+.poc .head {
+  margin-bottom: 60px;
+}
+.poc .head h2,
+.uiux-why .head h2 {
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+.poc .head p {
+  color: #fff;
+  font-size: 20px;
+}
+.poc .container {
+  max-width: 1180px;
+}
+.poc-steps {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+.poc-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.poc-circle {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  position: relative;
+  z-index: 2;
+}
+.poc-name {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--orange);
+}
+.poc-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #fff;
+}
+@media (min-width: 992px) {
+  .poc-steps {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .poc-step {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    min-height: 380px;
+  }
+  .poc-step::before {
+    content: "";
+    position: absolute;
+    left: -9px;
+    right: -9px;
+    border: 2px dashed rgba(255, 255, 255, 0.7);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .poc-step:nth-child(odd) {
+    justify-content: flex-end;
+  }
+  .poc-step:nth-child(even) {
+    justify-content: flex-start;
+  }
+  .poc-step:nth-child(odd) .poc-circle {
+    order: 3;
+    margin-top: 0;
+    /* margin-bottom: 30px; */
+  }
+  .poc-step:nth-child(odd) .poc-name {
+    order: 2;
+    margin: 0;
+  }
+  .poc-step:nth-child(odd) .poc-text {
+    order: 1;
+    margin: 0;
+  }
+  .poc-step:nth-child(even) .poc-circle {
+    order: 1;
+    margin-bottom: 0;
+    /* margin-top: 30px; */
+  }
+  .poc-step:nth-child(even) .poc-name {
+    order: 2;
+    margin: 0;
+  }
+  .poc-step:nth-child(even) .poc-text {
+    order: 3;
+    margin: 0;
+  }
+  .poc-step:nth-child(odd)::before {
+    top: 50%;
+    bottom: 0;
+    border-top: none;
+    border-radius: 0 0 50% 50%;
+  }
+  .poc-step:nth-child(even)::before {
+    top: 0;
+    bottom: 50%;
+    border-bottom: none;
+    border-radius: 50% 50% 0 0;
+  }
+  .poc-step:first-child::before {
+    border-left: none;
+  }
+  .poc-step:last-child::before {
+    border-right: none;
+  }
+}
+@media (max-width: 991.98px) {
+  .poc-steps {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 40px;
+  }
+}
+@media (max-width: 575.98px) {
+  .poc-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* * Get Started Today — white card on the grey band */
+.uiux-cta-card {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  border-radius: 20px;
+  background: #fff;
+  text-align: center;
+}
+.uiux-cta-card h2 {
+  margin: 0 0 12px;
+  color: #192b33;
+}
+.uiux-cta-card p {
+  margin: 0 0 28px;
+  font-size: 20px;
+  color: #192b33;
+}
+
+/* * Why UI/UX Design? — mockups, then orange-led paragraphs */
+.uiux-why .container {
+  max-width: 1140px;
+}
+.uiux-why-img {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  margin: 0 auto 40px;
+}
+.uiux-why p {
+  margin: 0 0 24px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #fcfcfc;
+}
+.uiux-why p:last-child {
+  margin-bottom: 0;
+}
+.uiux-why strong {
+  font-weight: 600;
+  color: var(--orange);
+}
