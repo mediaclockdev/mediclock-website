@@ -92,7 +92,7 @@
             <div class="plan">
                 <h3>SEO Essentials</h3>
                 <div class="who">Affordable SEO for small businesses and newer sites that have never had this done properly. You find out exactly what's wrong and what to fix first.</div>
-                <div class="price"><small>Starting from</small>$[INSERT PRICE] /month</div>
+                <div class="price"><small>Pricing</small>Tailored quote</div>
                 <ul class="blist">
                     <li>SEO audit and keyword research</li>
                     <li>On-page and technical review</li>
@@ -107,7 +107,7 @@
                 <span class="plan-tag">Most clients start here</span>
                 <h3>SEO Growth</h3>
                 <div class="who">For businesses that want work happening every month rather than one audit and a handshake. This is where fixes actually get implemented.</div>
-                <div class="price"><small>Starting from</small>$[INSERT PRICE] /month</div>
+                <div class="price"><small>Pricing</small>Tailored quote</div>
                 <ul class="blist">
                     <li>Everything in Essentials</li>
                     <li>Technical SEO implemented, not just flagged</li>

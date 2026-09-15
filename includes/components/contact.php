@@ -121,8 +121,11 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
                         </div>
                         <?php endif; ?>
                         <div class="field col-12">
-                            <label for="cMessage">Write your requirements in brief here... <?= $csReq ?></label>
-                            <span class="field-count" id="cMessageCount">0 / 180</span>
+                            <!-- * Contact : label left, character count right (wraps on narrow screens) -->
+                            <div class="field-head">
+                                <label for="cMessage">Write your requirements in brief here... <?= $csReq ?></label>
+                                <span class="field-count" id="cMessageCount">0 / 180</span>
+                            </div>
                             <textarea id="cMessage" name="message" maxlength="180" required
                                 data-counter="cMessageCount" aria-describedby="cMessageCount"></textarea>
                         </div>

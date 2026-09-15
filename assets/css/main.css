@@ -1569,10 +1569,21 @@ p {
   transform: translateY(-50%);
   pointer-events: none;
 }
+/* Contact : label + "0 / 180" counter on one line; the counter drops
+   under the label (still right-aligned) when there isn't room */
+.field-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+}
 .field-count {
-  justify-self: end;
+  margin-left: auto;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.35);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.6);
 }
 .contact .form-privacy {
   margin: 48px 0 0;
@@ -1644,11 +1655,11 @@ p {
 .why-us .head h2 {
   color: var(--orange);
 }
-.why-card {
+.why-us .why-card {
   height: 450px;
   border-radius: 30px;
 }
-.why-card:focus-visible {
+.why-us .why-card:focus-visible {
   outline: 3px solid var(--orange);
   outline-offset: -3px;
 }

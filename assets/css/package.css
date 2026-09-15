@@ -9,12 +9,12 @@
    2. #services:    DARK   (#192b33)
    3. #packages:    LIGHT  (#fff)
    4. #process:     DARK   (#192b33)
-   5. #results:     LIGHT  (#fff)
-   6. #why:         DARK   (#192b33)
-   7. #locations:   LIGHT  (#fff)
-   8. #testimonials:DARK   (#192b33)  includes/components/testimonials.php
-   9. #faqs:        LIGHT  (#fff)
-   10. #contact:    DARK   (#192b33)  includes/components/contact.php
+   5. #results:     HIDDEN — case studies, include commented out in package.php
+   6. #why:         LIGHT  (#fff)     (dark while #results was shown)
+   7. #locations:   GREY   (#eef1f3)
+   8. #testimonials:HIDDEN — client feedback, commented out in package.php
+   9. #contact:     DARK   (#192b33)  Book A Free Consultation, shown open (contact.php)
+   10. #faqs:       LIGHT  (#fff)
    Footer:          DARK   (#192b33)
    ============================================================ */
 
@@ -557,11 +557,13 @@
 }
 
 /* ------------------------------------------------------------
-   6. Why Media Clock (Dark Section)
+   6. Why Media Clock (Light Section)
+   Was dark; switched to light while #results (case studies) is hidden,
+   so it doesn't sit dark-on-dark under #process.
    ------------------------------------------------------------ */
 #why {
-  background: #192b33;
-  color: #fff;
+  background: #fff;
+  color: var(--ink);
   padding: 72px 0;
 }
 #why .eyebrow {
@@ -570,14 +572,14 @@
 #why h2 {
   font-family: var(--font-head);
   font-weight: 600;
-  color: #fff;
+  color: var(--ink);
 }
 #why .head p {
-  color: #b9c2c8;
+  color: var(--muted);
 }
 .why-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #fbfbf9;
+  border: 1px solid var(--line);
   border-radius: 16px;
   padding: 28px 22px;
   display: flex;
@@ -587,8 +589,8 @@
 }
 .why-card:hover {
   border-color: rgba(241, 90, 38, 0.6);
-  background: rgba(255, 255, 255, 0.07);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(25, 43, 51, 0.1);
   transform: translateY(-2px);
 }
 .why-card .ico {
@@ -610,7 +612,7 @@
   font-family: var(--font-head);
   font-size: 19px;
   font-weight: 600;
-  color: #fff;
+  color: var(--ink);
   margin-bottom: 12px;
 }
 .why-card .blist {
@@ -624,7 +626,7 @@
 .why-card .blist li {
   font-size: 14px;
   line-height: 1.5;
-  color: #cdd4d9;
+  color: #50575b;
   position: relative;
   padding-left: 16px;
 }
@@ -640,10 +642,13 @@
 }
 
 /* ------------------------------------------------------------
-   7. Local Coverage (Light Section)
+   7. Local Coverage (Soft Grey Section)
+   Grey: sits between the white #why above and the dark #contact form
+   below, so no two neighbouring bands share a colour.
    ------------------------------------------------------------ */
 #locations {
-  background: #fff;
+  background: #eef1f3;
+  color: var(--ink);
   padding: 72px 0;
 }
 #locations .eyebrow {
@@ -655,7 +660,7 @@
   color: var(--ink);
 }
 #locations .head p {
-  color: var(--muted);
+  color: #50575b; /* --muted is 4.4:1 on this grey; this keeps body text above 4.5:1 */
 }
 .cities {
   display: grid;
@@ -664,7 +669,7 @@
   margin-top: 36px;
 }
 .cities a {
-  background: #fbfbf9;
+  background: #fff;
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 14px 16px;
