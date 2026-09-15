@@ -46,7 +46,8 @@ $lsLabel = $logos_title !== '' ? $logos_title : 'Logos';
         <?php if ($logos_title !== '' || $logos_eyebrow !== '' || $logos_lead !== ''): ?>
         <div class="head<?= $logos_title_visible ? '' : ' visually-hidden' ?>">
             <?php if ($logos_eyebrow !== ''): ?><div class="eyebrow"><?= $h($logos_eyebrow) ?></div><?php endif; ?>
-            <?php if ($logos_title !== ''): ?><h2 id="<?= $h($logos_id) ?>-title"><?= $h($logos_title) ?></h2><?php endif; ?>
+            <?php if ($logos_title !== ''): ?><h2 id="<?= $h($logos_id) ?>-title"><?= $h($logos_title) ?></h2>
+            <?php endif; ?>
             <?php if ($logos_lead !== ''): ?><p><?= $h($logos_lead) ?></p><?php endif; ?>
         </div>
         <?php endif; ?>
@@ -58,8 +59,9 @@ $lsLabel = $logos_title !== '' ? $logos_title : 'Logos';
                 <?php foreach ($logos_items as $lsI => $lsLogo): ?>
                 <div class="mc-slide logo-slide" role="group" aria-roledescription="slide"
                     aria-label="<?= $lsI + 1 ?> of <?= count($logos_items) ?>">
-                    <img src="<?= $h(img_src($lsLogo['src'])) ?>" alt="<?= $h($lsLogo['alt'] ?? '') ?>"
-                        loading="lazy" decoding="async"<?= isset($lsLogo['w'], $lsLogo['h']) ? ' width="' . (int) $lsLogo['w'] . '" height="' . (int) $lsLogo['h'] . '"' : '' ?> />
+                    <img src="<?= $h(img_src($lsLogo['src'])) ?>" alt="<?= $h($lsLogo['alt'] ?? '') ?>" loading="lazy"
+                        decoding="async"
+                        <?= isset($lsLogo['w'], $lsLogo['h']) ? ' width="' . (int) $lsLogo['w'] . '" height="' . (int) $lsLogo['h'] . '"' : '' ?> />
                 </div>
                 <?php endforeach; ?>
             </div>

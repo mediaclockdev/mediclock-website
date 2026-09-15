@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Website Development – Media Clock';
-$page_description = 'Stunning website development where creativity meets technology. We create dynamic, responsive websites tailored to your business needs.';
+$page_description = ''; // the live page has no meta description
 $page_css         = ['service', 'website-development'];
 include 'includes/layout/header.php';
 
@@ -136,15 +136,7 @@ $logos_id            = 'tech';
 $logos_title         = 'Technologies we use';
 $logos_title_visible = false;
 $logos_theme         = 'light';
-$logos_per_view      = [5, 3, 2];
-$logos_items         = [
-    ['src' => 'tech/web-12.webp', 'alt' => 'Joomla',     'w' => 335, 'h' => 209],
-    ['src' => 'tech/web-13.webp', 'alt' => 'Drupal',     'w' => 335, 'h' => 209],
-    ['src' => 'tech/web-04.webp', 'alt' => 'HTML5',      'w' => 335, 'h' => 209],
-    ['src' => 'tech/web-05.webp', 'alt' => 'CSS3',       'w' => 335, 'h' => 209],
-    ['src' => 'tech/web-02.webp', 'alt' => 'JavaScript', 'w' => 335, 'h' => 209],
-    ['src' => 'tech/web-14.webp', 'alt' => 'WordPress',  'w' => 335, 'h' => 209],
-];
+$logos_items         = require __DIR__ . '/data/shared/tech-stack-website.php';
 include 'includes/components/logo-slider.php';
 
 // * Testimonials

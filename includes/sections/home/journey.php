@@ -17,7 +17,7 @@ $journey = [
             <?php foreach ($journey as $i => [$label, $n, $suffix]): ?>
             <div class="col">
                 <div class="journey-stat h-100">
-                    <img src="assets/images/home/journey/<?= $i + 1 ?>.svg" alt="" width="50" height="50" />
+                    <img src="<?= $e(img_src('home/journey/' . ($i + 1) . '.svg')) ?>" alt="" width="50" height="50" />
                     <div class="journey-num"><span data-count="<?= $n ?>"><?= $n ?></span><?= $e($suffix) ?></div>
                     <div class="journey-label"><?= $e($label) ?></div>
                 </div>

@@ -1,0 +1,42 @@
+/* ============================================================
+   digital-marketing.css
+   Digital Marketing page only. Loads after main.css + service.css.
+   Media Clock — static rebuild
+
+   Section rhythm (matches the live page):
+   Hero            photo  includes/components/hero.php
+   #services       dark   logo-slider.php  (service tiles, heading hidden)
+   .svc-intro      light  intro.php        ("Media Clock:" lead)
+   #what-we-do     dark   what-we-do.php
+   #clients        light  logo-slider.php  (dark client cards)
+   #why-us         dark   why-us.php
+   #testimonials   light  testimonials.php
+   #contact        dark   contact.php
+   #faqs           light  faq.php
+   Footer          dark
+   ============================================================ */
+
+/* * Intro band — bold lead + one justified paragraph, full width */
+.svc-intro {
+  padding: 40px 0;
+  text-align: left;
+}
+.svc-intro-text {
+  max-width: none;
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.55;
+}
+.svc-intro-text strong {
+  font-weight: 600;
+}
+@media (min-width: 992px) {
+  .svc-intro-text {
+    text-align: justify;
+  }
+}
+@media (max-width: 575.98px) {
+  .svc-intro-text {
+    font-size: 18px;
+  }
+}

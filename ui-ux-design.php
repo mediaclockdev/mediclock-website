@@ -20,7 +20,7 @@ $logos_items = require __DIR__ . '/data/shared/clients.php';
 include 'includes/components/logo-slider.php';
 
 // * Intro band
-$intro_text  = 'Established in 2004, we have designed 100s of websites, web and mobile apps.';
+$intro_text  = 'Established in 2017, we have designed 100s of websites, web and mobile apps.';
 $intro_theme = 'light';
 include 'includes/components/intro.php';
 
@@ -60,7 +60,7 @@ $poc_items = [
         <div class="uiux-cta-card">
             <h2 id="uiux-cta-title">Get Started Today</h2>
             <p>Ready to take your digital presence to new heights?</p>
-            <a class="service-hero-cta" href="tel:0489906090">Let's Talk <span aria-hidden="true">&rarr;</span></a>
+            <a class="projects-cta-btn" href="tel:0489906090">Let's Talk <span aria-hidden="true">&rarr;</span></a>
         </div>
     </div>
 </section>
@@ -84,25 +84,49 @@ $poc_items = [
 unset($poc_items, $i, $name, $text);
 
 // * Testimonials
-$testimonials_title         = 'Testimonials';
+$testimonials_title         = 'What our clients say';
 $testimonials_title_visible = false;
 include 'includes/components/testimonials.php';
 
-// * Why choose us — the live site repeats the first photo on the last three cards
+// * Why choose us — the live site repeats the first photo and icon on the last three cards
 $why_us_title = 'Why choose us?';
 $why_us_items = [
-    ['title' => 'Expert Team', 'image' => 'pages/ui-ux-design/why/expert-team.webp',
-        'text' => 'Our experienced designers and developers use industry best practices and the latest trends to deliver top-notch quality.'],
-    ['title' => 'Client-Centric Approach', 'image' => 'pages/ui-ux-design/why/client-centric.webp',
-        'text' => 'We tailor designs to your needs and goals, ensuring your vision is accurately represented.'],
-    ['title' => 'Proven Processes', 'image' => 'pages/ui-ux-design/why/proven-processes.webp',
-        'text' => 'Our structured approach includes thorough research, iterative design, and rigorous testing to meet high usability and performance standards.'],
-    ['title' => 'Quality Prototypes', 'image' => 'pages/ui-ux-design/why/expert-team.webp',
-        'text' => 'We create high-fidelity prototypes that validate design concepts and ensure smooth, intuitive user interactions before development.'],
-    ['title' => 'Fixed Cost & Unlimited Revisions', 'image' => 'pages/ui-ux-design/why/expert-team.webp',
-        'text' => 'We offer clear, fixed pricing with unlimited revisions to meet your expectations without extra costs.'],
-    ['title' => 'Seamless Integration', 'image' => 'pages/ui-ux-design/why/expert-team.webp',
-        'text' => 'We ensure smooth coordination across all platforms and technologies for consistent, high-quality performance.'],
+    [
+        'title' => 'Expert Team',
+        'text'  => 'Our experienced designers and developers use industry best practices and the latest trends to deliver top-notch quality.',
+        'icon'  => 'pages/ui-ux-design/icons/why-expert-team.svg',
+        'image' => 'pages/ui-ux-design/why/expert-team.webp',
+    ],
+    [
+        'title' => 'Client-Centric Approach',
+        'text'  => 'We tailor designs to your needs and goals, ensuring your vision is accurately represented.',
+        'icon'  => 'pages/ui-ux-design/icons/why-client-centric.svg',
+        'image' => 'pages/ui-ux-design/why/client-centric.webp',
+    ],
+    [
+        'title' => 'Proven Processes',
+        'text'  => 'Our structured approach includes thorough research, iterative design, and rigorous testing to meet high usability and performance standards.',
+        'icon'  => 'pages/ui-ux-design/icons/why-proven-processes.svg',
+        'image' => 'pages/ui-ux-design/why/proven-processes.webp',
+    ],
+    [
+        'title' => 'Quality Prototypes',
+        'text'  => 'We create high-fidelity prototypes that validate design concepts and ensure smooth, intuitive user interactions before development.',
+        'icon'  => 'pages/ui-ux-design/icons/why-expert-team.svg',
+        'image' => 'pages/ui-ux-design/why/expert-team.webp',
+    ],
+    [
+        'title' => 'Fixed Cost & Unlimited Revisions',
+        'text'  => 'We offer clear, fixed pricing with unlimited revisions to meet your expectations without extra costs.',
+        'icon'  => 'pages/ui-ux-design/icons/why-expert-team.svg',
+        'image' => 'pages/ui-ux-design/why/expert-team.webp',
+    ],
+    [
+        'title' => 'Seamless Integration',
+        'text'  => 'We ensure smooth coordination across all platforms and technologies for consistent, high-quality performance.',
+        'icon'  => 'pages/ui-ux-design/icons/why-expert-team.svg',
+        'image' => 'pages/ui-ux-design/why/expert-team.webp',
+    ],
 ];
 include 'includes/components/why-us.php';
 

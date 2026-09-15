@@ -4,52 +4,26 @@
    Media Clock — static rebuild
 
    Section rhythm (matches the live page):
-   Hero            dark   includes/components/hero.php
-   #services       light  service-strip.php
-   .svc-intro      light  intro.php
+   Hero            photo  includes/components/hero.php
+   #services       light  service-strip.php (one dark bar)
+   .svc-intro      light  intro.php        (same band as the strip)
    #recent-works   dark   website-development.php (carousel)
    #our-process    light  roadmap.php
    #why-us         dark   why-us.php
    #tech           light  logo-slider.php
-   #testimonials   light  testimonials.php
+   #testimonials   white  testimonials.php (white after the grey #tech band — service.css)
    #contact        dark   contact.php
    #faqs           light  faq.php
+   Footer          dark
+
+   Type, headings, why-us cards and logo band use the shared styles,
+   so this page looks like the other service pages.
    ============================================================ */
 
-/* Roboto for the Recent Works captions, as on the live page (this page only) */
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap");
-
-/* * Live-page type scale — overrides the shared service styles on this page only */
-.service-hero-title {
-  font-size: clamp(2.2rem, 5.5vw, 70px);
-}
-.service-hero-sub {
-  font-size: clamp(1.3rem, 3.2vw, 40px);
-}
-.section .head h2,
-.faq-section h2 {
-  font-size: 32px;
-}
-.faq-section h2 {
-  color: var(--orange);
-}
-.contact h2 {
-  font-size: clamp(2rem, 4.4vw, 56px);
-}
-
-/* * Services strip + intro — one light band on live: 50px top, 1180px bar
-   (10px padding, items spaced evenly, 50px icons, 15px to the label),
-   intro 39px under the bar, 75px to the next section */
-#services,
-.svc-intro {
-  --band-w: 1204px; /* 1180px content + the container's 12px side padding */
-}
-#services .container,
-.svc-intro .container {
-  max-width: var(--band-w);
-}
+/* * Services strip — live shows the five items in one dark bar,
+   not separate pills; the strip and intro read as one light band */
 #services {
-  padding: 50px 0 0;
+  padding: 40px 0 0;
 }
 #services ul {
   --bs-gutter-x: 0;
@@ -57,9 +31,9 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-evenly;
-  gap: 5px;
+  gap: 8px;
   margin: 0;
-  padding: 10px;
+  padding: 16px 10px;
   background: #192b33;
   border-radius: 20px;
 }
@@ -70,95 +44,51 @@
   padding: 0;
 }
 #services .svc-pill {
-  gap: 15px;
   padding: 0;
   border-radius: 0;
   background: transparent;
-  box-shadow: none;
 }
 #services .svc-pill:hover {
   transform: none;
   box-shadow: none;
 }
-#services .svc-pill img {
-  flex: 0 0 50px;
-  width: 50px;
-  height: 50px;
-}
+/* "\n" in the labels = the live line break */
 #services .svc-pill h3 {
-  margin: 8px 0 16px;
-  font-family: Helvetica, Arial, sans-serif; /* live asks for Poppins but never loads it */
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 26.4px;
-  letter-spacing: -1px;
   white-space: pre-line;
-  color: #dbe0e4;
 }
 
+/* * Intro band — one justified paragraph, full width (as ecommerce / digital marketing) */
 .svc-intro {
-  padding: 39px 0 75px;
+  padding: 32px 0 40px;
   text-align: left;
 }
 .svc-intro.band-light .svc-intro-text {
   max-width: none;
   margin: 0;
-  padding: 0 17px 0 10px;
-  font-family: Helvetica, Arial, sans-serif; /* as rendered on live */
-  font-size: 21px;
-  font-weight: 400;
-  line-height: 33px;
-  text-align: justify;
+  font-size: 22px;
+  line-height: 34px;
+  color: #192b33;
 }
-
-/* live phone layout: the items stack in the dark box */
-@media (max-width: 991.98px) {
-  #services ul {
-    flex-wrap: wrap;
-    justify-content: center;
-    row-gap: 10px;
-  }
-}
-@media (max-width: 575.98px) {
-  #services ul {
-    flex-direction: column;
-    align-items: flex-start;
-    width: fit-content;
-    max-width: 100%;
-    padding: 10px 20px;
-  }
-  #services .svc-pill h3 {
-    margin: 6px 0;
-  }
-  .svc-intro {
-    padding: 30px 0 50px;
-  }
-  .svc-intro.band-light .svc-intro-text {
-    padding: 0;
-    font-size: 17px;
-    line-height: 28px;
-    text-align: left;
+@media (min-width: 992px) {
+  .svc-intro-text {
+    text-align: justify;
   }
 }
 
 /* * Our Recent Works — two screenshots per view */
-.webdev-works .head {
+#recent-works .head {
   max-width: none;
+  margin-inline: auto;
   text-align: center;
 }
-.webdev-works .head h2 {
+#recent-works .head h2,
+.svc-roadmap .head h2 {
   color: var(--orange);
-  text-align: center;
 }
-/* live carousel: 1140px wide, 565px slides with 20px padding, 10px gap → 525px screenshots */
 #recent-works .container {
   max-width: 1164px; /* 1140px content + the container's 12px side padding */
 }
-#recent-works .mc-slider {
-  --gap: 10px !important; /* beats the inline --gap */
-}
 .work-card {
-  padding: 20px;
   text-align: center;
 }
 .work-card img {
@@ -167,147 +97,48 @@
   height: auto;
   aspect-ratio: 1024 / 500;
   object-fit: cover;
-}
-.work-title,
-.work-cat {
-  font-family: Roboto, Arial, sans-serif;
+  border-radius: 12px;
 }
 .work-title {
-  margin: 20px 0 6px;
-  font-size: 25px;
+  margin: 18px 0 6px;
+  font-family: var(--font-head);
+  font-size: 22px;
   font-weight: 600;
   color: #fff;
 }
 .work-cat {
   margin: 0;
-  font-size: 18px;
-  color: #fff;
+  font-size: 16px;
+  color: #b9c2c8;
 }
 
-/* * Our Process — live: 1140px band, heading 40px down, lead 20px under it,
-   775px infographic 77px below, 40px to the next section */
-#our-process {
-  padding: 40px 0;
-}
-#our-process .container {
-  max-width: 1164px; /* 1140px content + the container's 12px side padding */
-}
-#our-process .head {
-  max-width: none;
-  margin: 0 0 77px;
-  text-align: left;
-}
-#our-process .head h2 {
-  margin: 0;
-  font-family: Helvetica, Arial, sans-serif; /* live asks for Poppins but never loads it */
-  line-height: 32px;
-  color: var(--orange);
-}
-#our-process .head p {
-  margin: 20px 0 0;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 22px;
-  line-height: 33px;
-  color: #000;
-}
-@media (max-width: 575.98px) {
-  #our-process {
-    padding: 30px 0;
-  }
-  #our-process .head {
-    margin-bottom: 40px;
-  }
-  #our-process .head p {
-    font-size: 18px;
-    line-height: 27px;
+/* * Responsive */
+@media (max-width: 991.98px) {
+  #services ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 12px;
   }
 }
-
-/* * Why choose us — live layout: 1140px band, heading inset 50px, carousel
-   1120px with 10px gaps; each 367px slide holds a 307×450 card with 30px round it */
-#why-us {
-  padding: 24px 0 10px;
-}
-#why-us .container {
-  max-width: 1164px; /* 1140px content + 12px side padding */
-}
-#why-us .head {
-  margin: 0 0 30px 50px;
-}
-#why-us .head h2 {
-  font-family: Helvetica, Arial, sans-serif;
-  line-height: 1;
-}
-#why-us .mc-slider {
-  --gap: 10px !important; /* beats the component's inline --gap */
-  margin-inline: 10px;
-}
-#why-us .why-card {
-  height: 510px;
-  padding: 30px;
-  border-radius: 0;
-}
-#why-us .why-card-inner,
-#why-us .why-card-front,
-#why-us .why-card-back {
-  border-radius: 20px;
-}
-#why-us .why-card-front-title,
-#why-us .why-card-title {
-  font-family: inherit;
-  font-weight: 200;
-  line-height: 38.4px;
-}
-/* front: photo, title near the bottom, no tint */
-#why-us .why-card-front {
-  padding: 0 30px 21px;
-  background: #192b33;
-}
-#why-us .why-card-front::after {
-  content: none;
-}
-/* back: centred icon, title and copy from the top */
-#why-us .why-card-back {
-  justify-content: flex-start;
-  align-items: center;
-  gap: 0;
-  padding: 22px 30px 5px;
-  background: #192b33;
-  text-align: center;
-}
-#why-us .why-card-icon {
-  margin-bottom: 5px;
-}
-#why-us .why-card-title {
-  margin: 8px 0 16px;
-}
-
-@media (max-width: 575.98px) {
-  #why-us .head {
-    margin-left: 0;
-  }
-  /* phones: less gutter round the card so the back copy fits the 450px card */
-  #why-us .why-card {
-    height: 490px;
-    padding: 20px 10px;
-  }
-}
-
-/* * Tech logos — live row: 1026px wide, centred, 35px gaps (177px logos) */
-#tech.logo-band {
-  padding: 30px 0;
-}
-#tech .mc-slider {
-  --gap: 35px !important; /* beats the component's inline --gap */
-  max-width: 1026px;
-  margin-inline: auto;
-}
-#tech .logo-slide img {
-  border-radius: 0;
-}
-
 @media (max-width: 767.98px) {
+  .svc-intro.band-light .svc-intro-text {
+    font-size: 16px;
+    line-height: 26px;
+  }
   .work-title {
-    font-size: 19px;
+    font-size: 18px;
+  }
+}
+@media (max-width: 575.98px) {
+  #services ul {
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+    padding: 14px 20px;
+  }
+  #services .svc-pill h3 {
+    white-space: normal;
   }
 }

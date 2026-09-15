@@ -1,0 +1,46 @@
+/* ============================================================
+   ecommerce-website-design.css
+   eCommerce Website Design page only. Loads after main.css + service.css.
+   Media Clock — static rebuild
+
+   Section rhythm (matches the live page):
+   Hero            photo  includes/components/hero.php
+   #clients        dark   logo-slider.php
+   .svc-intro      light  intro.php          (two justified paragraphs)
+   #features       dark   feature-slider.php ("Start your Online Business with us")
+   #testimonials   light  testimonials.php
+   #why-us         dark   why-us.php
+   #platforms      light  logo-slider.php    (eCommerce platform tiles)
+   #contact        dark   contact.php
+   #faqs           light  faq.php
+   Footer          dark
+   ============================================================ */
+
+/* * Intro band — 22px light text in the brand dark, justified on desktop */
+.svc-intro {
+  padding: 40px 0;
+  text-align: left;
+}
+.svc-intro.band-light .svc-intro-text {
+  max-width: none;
+  margin: 0;
+  font-size: 22px;
+  line-height: 34px;
+  color: #192b33;
+}
+.svc-intro.band-light .svc-intro-text + .svc-intro-text {
+  margin-top: 12px;
+}
+/* only the full-width intro is justified: in ~264px feature cards justify
+   leaves wide gaps between words, so their copy stays centred like the title */
+@media (min-width: 992px) {
+  .svc-intro-text {
+    text-align: justify;
+  }
+}
+@media (max-width: 767.98px) {
+  .svc-intro.band-light .svc-intro-text {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}

@@ -1,4 +1,7 @@
-<?php $services = $services ?? require dirname(__DIR__, 2) . '/data/shared/services.php'; ?>
+<?php
+$services = $services ?? require dirname(__DIR__, 2) . '/data/shared/services.php';
+require_once dirname(__DIR__) . '/img.php';
+?>
     <!-- * Footer -->
     <footer class="global-footer">
         <!-- * Footer : 3-column top block (Bootstrap grid, gutters off) -->
@@ -7,7 +10,7 @@
 
                 <!-- * Footer : brand + contact + social -->
                 <div class="col-12 col-lg-6 footer-brand">
-                    <img src="assets/images/logo-light.webp" alt="Media Clock" width="239" height="48" />
+                    <img src="<?= img_src('logo-light.webp') ?>" alt="Media Clock" width="239" height="48" />
                     <p class="footer-tagline">
                         Bespoke mobile apps, web apps and digital marketing for Australian
                         businesses. Established in 2017.
@@ -57,9 +60,14 @@
                 <!-- * Footer : Services -->
                 <div class="col-12 col-lg-3 footer-col">
                     <h2 class="footer-heading">Services</h2>
-                    <?php foreach ($services as $items): foreach ($items as [$label, $url]): ?>
+                    <?php
+                    // five main services only (the header menu keeps the full list); URLs come from services.php
+                    $footerServices = ['Mobile App Development', 'Web Application', 'Website Development', 'eCommerce Website Design', 'Digital Marketing'];
+                    $footerUrls = [];
+                    foreach ($services as $items) foreach ($items as [$label, $url]) $footerUrls[$label] = $url;
+                    foreach ($footerServices as $label): if (!isset($footerUrls[$label])) continue; $url = $footerUrls[$label]; ?>
                     <a href="<?= htmlspecialchars($url, ENT_QUOTES, 'UTF-8') ?>"<?= $url === '#top' ? ' class="current"' : ' target="_blank" rel="noopener"' ?>><?= htmlspecialchars($label, ENT_QUOTES, 'UTF-8') ?></a>
-                    <?php endforeach; endforeach; ?>
+                    <?php endforeach; unset($footerServices, $footerUrls); ?>
                 </div>
 
             </div>
@@ -81,9 +89,9 @@
         </div>
     </footer>
     <!-- * Scripts : main.js = header/menu, package.js = this page -->
-    <script src="assets/js/main.js" defer></script>
+    <script src="<?= htmlspecialchars(asset_url('assets/js/main.js'), ENT_QUOTES, 'UTF-8') ?>" defer></script>
     <?php if (!empty($page_js)): ?>
-    <script src="assets/js/<?= htmlspecialchars($page_js, ENT_QUOTES, 'UTF-8') ?>.js" defer></script>
+    <script src="<?= htmlspecialchars(asset_url('assets/js/' . $page_js . '.js'), ENT_QUOTES, 'UTF-8') ?>" defer></script>
     <?php endif; ?>
     </body>
 

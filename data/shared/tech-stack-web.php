@@ -16,7 +16,7 @@ return [
     ['src' => 'tech/web-06.webp', 'alt' => 'Angular', 'w' => 335, 'h' => 209],
     ['src' => 'tech/web-07.webp', 'alt' => 'MySQL', 'w' => 335, 'h' => 209],
     ['src' => 'tech/web-08.webp', 'alt' => 'React', 'w' => 335, 'h' => 209],
-    ['src' => 'tech/web-09.webp', 'alt' => 'Firebase', 'w' => 335, 'h' => 209],
+    ['src' => 'tech/14.webp', 'alt' => 'Firebase', 'w' => 335, 'h' => 209],
     ['src' => 'tech/web-10.webp', 'alt' => 'MongoDB', 'w' => 335, 'h' => 209],
     ['src' => 'tech/web-11.webp', 'alt' => 'SoapUI', 'w' => 335, 'h' => 209],
 ];

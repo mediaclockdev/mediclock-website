@@ -108,14 +108,14 @@ $why_us_items = [
     [
         'title' => 'Responsive Design',
         'text'  => 'In an era where mobile devices dominate, responsive design is paramount. Our web applications are optimised for all devices, ensuring a consistent and intuitive user experience across desktops, tablets, and smartphones.',
-        'icon'  => 'pages/web-application/icons/why-tailored.svg',
+        'icon'  => 'pages/ecommerce-website-design/icons/feature-responsive-design.svg',
         'image' => 'pages/web-application/why/tailored-solutions.webp',
     ],
     [
         'title' => 'Security & Reliability',
         'text'  => 'Your data security is our top priority. We implement robust security measures to safeguard your web application against cyber threats, ensuring the confidentiality and integrity of your sensitive information.',
-        'icon'  => 'pages/web-application/icons/why-tailored.svg',
-        'image' => 'pages/web-application/why/tailored-solutions.webp',
+        'icon'  => 'pages/ecommerce-website-design/icons/why-robust-security.svg',
+        'image' => 'pages/web-application/why/expertise-experience.webp',
     ],
 ];
 include 'includes/components/why-us.php';

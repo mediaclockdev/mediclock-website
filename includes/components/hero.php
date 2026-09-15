@@ -21,7 +21,7 @@ $hero_sub      = $hero_sub      ?? '';
 $hero_eyebrow  = $hero_eyebrow  ?? '';
 $hero_cta      = $hero_cta      ?? "Let's Start";
 $hero_cta_href = $hero_cta_href ?? '';
-$hero_image    = $hero_image    ?? 'hero-service.png';
+$hero_image    = $hero_image    ?? 'hero-service.webp';
 $hero_stats    = $hero_stats    ?? [];
 $hero_form     = $hero_form     ?? true;
 $h = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');

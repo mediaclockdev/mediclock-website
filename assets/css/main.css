@@ -77,7 +77,7 @@ p {
   color: var(--muted);
 }
 .section {
-  padding: 58px 0;
+  padding: 50px 0;
 }
 .tight {
   padding: 44px 0;
@@ -1327,7 +1327,23 @@ p {
   border-radius: 10px;
   background: #fff;
 }
+/* phones: one centred column — quote, photo, name + role, company logo */
 @media (max-width: 575.98px) {
+  .tcard {
+    align-items: center;
+    text-align: center;
+  }
+  .tcard-quote p {
+    margin-inline: auto;
+  }
+  .tcard-foot {
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+  }
+  .tcard-who {
+    align-items: center;
+  }
   .tcard-logo {
     margin-left: 0;
   }
@@ -1481,16 +1497,16 @@ p {
   max-width: 1140px;
 }
 .contact--static h2 {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   font-size: 48px;
   line-height: 1.35;
 }
 .contact--static .contact-points-title {
-  margin: 0 0 16px;
+  margin: 0 0 12px;
   font-size: 30px;
 }
 .contact--static .contact-points {
-  gap: 4px;
+  gap: 8px;
   padding-left: 20px;
   list-style: disc;
 }
@@ -1510,6 +1526,10 @@ p {
 }
 .contact--static .field {
   gap: 8px;
+}
+/* one spacing scale for the form: 8px label -> field, 24px between rows */
+.contact--static .form .row {
+  --bs-gutter-y: 24px;
 }
 .contact--static .field label {
   font-size: 16px;
@@ -1586,19 +1606,19 @@ p {
   color: rgba(255, 255, 255, 0.6);
 }
 .contact .form-privacy {
-  margin: 48px 0 0;
+  margin: 24px 0 0;
   font-size: 16px;
   line-height: 1.5;
   color: #fff;
 }
 .form-captcha {
-  margin-top: 32px;
+  margin-top: 24px;
 }
 .form-submit {
   display: block;
   width: 100%;
   height: 60px;
-  margin-top: 32px;
+  margin-top: 24px;
   border: 0;
   border-radius: 10px;
   background: #f9683e;
@@ -1622,12 +1642,41 @@ p {
     padding-top: 24px;
   }
 }
+/* tablet + phone: the copy stacks above the form */
 @media (max-width: 991.98px) {
+  .contact--static {
+    padding: 64px 0;
+  }
+  .contact--static > .container > .row {
+    --bs-gutter-y: 40px;
+  }
   .contact--static h2 {
     font-size: 36px;
   }
   .contact--static .contact-points-title {
     font-size: 24px;
+  }
+}
+@media (max-width: 575.98px) {
+  .contact--static {
+    padding: 52px 0;
+  }
+  .contact--static > .container > .row {
+    --bs-gutter-y: 32px;
+  }
+  .contact--static h2 {
+    font-size: 32px;
+  }
+  .contact--static .contact-points-title {
+    font-size: 22px;
+  }
+  .contact--static .form .row {
+    --bs-gutter-y: 20px;
+  }
+  .contact .form-privacy,
+  .form-captcha,
+  .form-submit {
+    margin-top: 20px;
   }
 }
 
@@ -1718,7 +1767,12 @@ p {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(25, 43, 51, 0.27);
+  background: linear-gradient(
+    180deg,
+    rgba(12, 23, 28, 0.25) 0%,
+    rgba(12, 23, 28, 0.45) 45%,
+    rgba(12, 23, 28, 0.8) 100%
+  );
 }
 .why-card-front-title {
   position: relative;
@@ -1728,6 +1782,7 @@ p {
 
 /* * Why choose us : back — optional photo, icon, title, copy */
 .why-card-back {
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1737,11 +1792,22 @@ p {
   background: rgba(0, 0, 0, 0.314);
   text-align: left;
 }
+/* layers inside the back: photo (0) -> dark tint (1) -> icon, title, copy (2) */
+.why-card-back::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(12, 23, 28, 0.5);
+  pointer-events: none;
+}
 .why-card-back > * {
   position: relative;
+  z-index: 2;
 }
 .why-card-back > .why-card-img {
   position: absolute;
+  z-index: 0;
 }
 .why-card-icon {
   width: 40px;

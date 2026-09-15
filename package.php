@@ -9,7 +9,7 @@ $hero_title    = 'SEO packages Australia: built around what your website actuall
 $hero_sub      = 'Basic to Custom, built for Australian businesses.';
 $hero_cta      = 'Explore SEO Packages';
 $hero_cta_href = '#packages';
-$hero_image    = 'hero-service.png';
+$hero_image    = 'hero-service.webp';
 $hero_form     = true;
 include 'includes/components/hero.php';
 

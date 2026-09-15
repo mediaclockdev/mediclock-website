@@ -8,6 +8,7 @@
 
      $why_us_items    (array, required)  [ [
          'title' => 'Tailored Solutions',
+         'front_title' => '…',                       front-only title, optional (default: title)
          'text'  => '…',
          'icon'  => 'pages/<slug>/icons/x.svg',     relative to assets/images/
          'image' => 'pages/<slug>/why/x.webp',      front photo, optional
@@ -50,7 +51,7 @@ require_once dirname(__DIR__) . '/img.php';
                             <?php if (!empty($wu['image'])): ?>
                             <img class="why-card-img" src="<?= $h(img_src($wu['image'])) ?>" alt="" loading="lazy" decoding="async" />
                             <?php endif; ?>
-                            <span class="why-card-front-title"><?= $h($wu['title']) ?></span>
+                            <span class="why-card-front-title"><?= $h($wu['front_title'] ?? $wu['title']) ?></span>
                         </div>
                         <!-- * Why choose us : card back -->
                         <div class="why-card-back">

@@ -1,0 +1,29 @@
+/* ============================================================
+   business-digitisation.css
+   Business Digitisation page only. Loads after main.css + service.css.
+   Media Clock — static rebuild
+
+   Section rhythm (matches the live page):
+   Hero            photo  includes/components/hero.php
+   #clients        light  logo-slider.php  (dark client cards)
+   .svc-intro      dark   intro.php        (centred heading + copy)
+   #service-cards  light  service-cards.php (+ "Get a Quote" CTA)
+   #why-us         dark   why-us.php
+   #testimonials   light  testimonials.php
+   #contact        dark   contact.php
+   #faqs           light  faq.php
+   Footer          dark
+   ============================================================ */
+
+/* * Intro band — centred orange heading over one white paragraph */
+.svc-intro {
+  padding: 36px 0;
+  text-align: center;
+}
+.svc-intro-text {
+  max-width: none;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+}

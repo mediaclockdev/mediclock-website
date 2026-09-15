@@ -23,9 +23,9 @@ $services = require dirname(__DIR__, 2) . '/data/shared/services.php';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <!-- * Favicon : same icon set the live site serves -->
-    <link rel="icon" type="image/webp" sizes="32x32" href="assets/images/favicon-32.webp" />
-    <link rel="icon" type="image/webp" sizes="192x192" href="assets/images/favicon-192.webp" />
-    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.webp" />
+    <link rel="icon" type="image/webp" sizes="32x32" href="<?= $e(img_src('favicon-32.webp')) ?>" />
+    <link rel="icon" type="image/webp" sizes="192x192" href="<?= $e(img_src('favicon-192.webp')) ?>" />
+    <link rel="apple-touch-icon" href="<?= $e(img_src('apple-touch-icon.webp')) ?>" />
     <title><?= $e($page_title) ?></title>
     <?php if ($page_description): ?>
     <meta name="description" content="<?= $e($page_description) ?>" />
@@ -38,9 +38,9 @@ $services = require dirname(__DIR__, 2) . '/data/shared/services.php';
         rel="stylesheet" />
     <!-- * Styles : Bootstrap first, then our own so brand rules win the cascade -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="<?= $e(asset_url('assets/css/main.css')) ?>" />
     <?php foreach ($page_css as $cssFile): ?>
-    <link rel="stylesheet" href="assets/css/<?= $e($cssFile) ?>.css" />
+    <link rel="stylesheet" href="<?= $e(asset_url('assets/css/' . $cssFile . '.css')) ?>" />
     <?php endforeach; ?>
 </head>
 
@@ -53,7 +53,7 @@ $services = require dirname(__DIR__, 2) . '/data/shared/services.php';
         <!-- * Header : desktop bar -->
         <div class="header-inner d-none d-lg-flex align-items-center justify-content-between">
             <a class="header-logo" href="https://mediaclock.com.au/" target="_blank" rel="noopener"
-                aria-label="Media Clock home"><img src="assets/images/logo-light.webp" alt="Media Clock" width="239"
+                aria-label="Media Clock home"><img src="<?= $e(img_src('logo-light.webp')) ?>" alt="Media Clock" width="239"
                     height="48" /></a>
             <nav aria-label="Primary">
                 <ul class="header-menu nav align-items-center">
@@ -93,7 +93,7 @@ $services = require dirname(__DIR__, 2) . '/data/shared/services.php';
         <!-- * Header : mobile bar -->
         <div class="header-mobile d-flex d-lg-none align-items-center justify-content-between">
             <a class="header-mobile-logo" href="https://mediaclock.com.au/" target="_blank" rel="noopener"
-                aria-label="Media Clock home"><img src="assets/images/logo-dark.png" alt="Media Clock" width="261"
+                aria-label="Media Clock home"><img src="<?= $e(img_src('logo-dark.png')) ?>" alt="Media Clock" width="261"
                     height="36" /></a>
             <div class="header-mobile-actions d-flex align-items-center">
                 <a class="header-icon-btn" href="tel:0489906090" aria-label="Call 0489 906 090"><svg viewBox="0 0 24 24"
