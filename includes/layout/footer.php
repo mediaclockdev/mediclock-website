@@ -48,12 +48,13 @@ require_once dirname(__DIR__) . '/img.php';
                 <!-- * Footer : Quick Links -->
                 <div class="col-12 col-lg-3 footer-col">
                     <h2 class="footer-heading">Quick Links</h2>
-                    <a href="https://mediaclock.com.au/about-us/" target="_blank" rel="noopener">About us</a>
-                    <a href="https://mediaclock.com.au/portfolio/" target="_blank" rel="noopener">Portfolio</a>
-                    <a href="https://mediaclock.com.au/our-process/" target="_blank" rel="noopener">Our Process</a>
+                    <a href="<?= htmlspecialchars(page_url('about-us'), ENT_QUOTES, 'UTF-8') ?>">About us</a>
+                    <a href="<?= htmlspecialchars(page_url('portfolio'), ENT_QUOTES, 'UTF-8') ?>">Portfolio</a>
+                    <a href="<?= htmlspecialchars(page_url('our-process'), ENT_QUOTES, 'UTF-8') ?>">Our Process</a>
                     <button type="button" class="contactBtn" data-interest="Free consultation">
                         Get In Touch
                     </button>
+                    <!-- TODO : /career/ and /privacy-policy/ still live on the old WordPress site -->
                     <a href="https://mediaclock.com.au/career/" target="_blank" rel="noopener">Careers</a>
                 </div>
 
@@ -64,10 +65,11 @@ require_once dirname(__DIR__) . '/img.php';
                     // five main services only (the header menu keeps the full list); URLs come from services.php
                     $footerServices = ['Mobile App Development', 'Web Application', 'Website Development', 'eCommerce Website Design', 'Digital Marketing'];
                     $footerUrls = [];
-                    foreach ($services as $items) foreach ($items as [$label, $url]) $footerUrls[$label] = $url;
-                    foreach ($footerServices as $label): if (!isset($footerUrls[$label])) continue; $url = $footerUrls[$label]; ?>
-                    <a href="<?= htmlspecialchars($url, ENT_QUOTES, 'UTF-8') ?>"<?= $url === '#top' ? ' class="current"' : ' target="_blank" rel="noopener"' ?>><?= htmlspecialchars($label, ENT_QUOTES, 'UTF-8') ?></a>
-                    <?php endforeach; unset($footerServices, $footerUrls); ?>
+                    foreach ($services as $items) foreach ($items as [$label, $slug]) $footerUrls[$label] = $slug;
+                    $footerCurrent = $nav_current ?? current_slug();
+                    foreach ($footerServices as $label): if (!isset($footerUrls[$label])) continue; $slug = $footerUrls[$label]; ?>
+                    <a href="<?= htmlspecialchars(page_url($slug), ENT_QUOTES, 'UTF-8') ?>"<?= $slug === $footerCurrent ? ' class="current"' : '' ?>><?= htmlspecialchars($label, ENT_QUOTES, 'UTF-8') ?></a>
+                    <?php endforeach; unset($footerServices, $footerUrls, $footerCurrent); ?>
                 </div>
 
             </div>

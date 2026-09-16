@@ -1,9 +1,9 @@
 <?php
 /* * Homepage hero — three slides, rotated by the shared [data-slider] engine (main.js) */
 $heroSlides = [
-    ['bg' => 'home/hero/1.webp', 'html' => '<h1 class="home-hero-title"><span class="home-hero-words"><span>Mobile Apps</span><span>Web Apps</span></span></h1><p class="home-hero-sub">Bespoke Software Solutions</p>', 'cta' => 'Got a project?', 'href' => 'https://mediaclock.com.au/contact-us/'],
+    ['bg' => 'home/hero/1.webp', 'html' => '<h1 class="home-hero-title"><span class="home-hero-words"><span>Mobile Apps</span><span>Web Apps</span></span></h1><p class="home-hero-sub">Bespoke Software Solutions</p>', 'cta' => 'Got a project?', 'href' => page_url('contact-us')],
     ['bg' => 'home/hero/2.webp', 'html' => '<h2 class="home-hero-title">We Scope,<br>Design &amp; Develop<br>your software</h2>', 'cta' => 'Book a Consultation', 'href' => 'tel:0489906090'],
-    ['bg' => 'home/hero/3.webp', 'html' => '<h2 class="home-hero-title">Turning Your Vision<br>and Process<br>Into Software</h2>', 'cta' => 'Ready to Start', 'href' => 'https://mediaclock.com.au/contact-us/'],
+    ['bg' => 'home/hero/3.webp', 'html' => '<h2 class="home-hero-title">Turning Your Vision<br>and Process<br>Into Software</h2>', 'cta' => 'Ready to Start', 'href' => page_url('contact-us')],
 ];
 ?>
 <!-- * Homepage hero -->

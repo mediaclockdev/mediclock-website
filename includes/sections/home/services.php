@@ -22,7 +22,7 @@ $homeServices = [
                     <img src="<?= $e(img_src($img)) ?>" alt="" width="321" height="222" loading="lazy" decoding="async" />
                     <h3><?= $e($l1) ?><br><?= $e($l2) ?></h3>
                     <p><?= $e($copy) ?></p>
-                    <a href="https://mediaclock.com.au/<?= $e($slug) ?>">How? Know more</a>
+                    <a href="<?= $e(page_url($slug)) ?>">How? Know more</a>
                 </article>
             </div>
             <?php endforeach; ?>

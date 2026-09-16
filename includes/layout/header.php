@@ -15,6 +15,13 @@ $page_css = array_filter((array) ($page_css ?? []));
 $e = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 require_once dirname(__DIR__) . '/img.php';
 $services = require dirname(__DIR__, 2) . '/data/shared/services.php';
+/* * Nav : highlight whichever page we are on (about-us.php -> 'about-us') */
+$nav_current = current_slug();
+/* "Services" lights up only on a service page, never on the homepage */
+$nav_service_slugs = [];
+foreach ($services as $navItems) foreach ($navItems as [, $navSlug]) $nav_service_slugs[] = $navSlug;
+$nav_on_service = in_array($nav_current, $nav_service_slugs, true);
+unset($navItems, $navSlug);
 ?>
 <!doctype html>
 <html lang="en-AU">
@@ -52,16 +59,15 @@ $services = require dirname(__DIR__, 2) . '/data/shared/services.php';
     <header class="site-header" id="top">
         <!-- * Header : desktop bar -->
         <div class="header-inner d-none d-lg-flex align-items-center justify-content-between">
-            <a class="header-logo" href="https://mediaclock.com.au/" target="_blank" rel="noopener"
-                aria-label="Media Clock home"><img src="<?= $e(img_src('logo-light.webp')) ?>" alt="Media Clock" width="239"
+            <a class="header-logo" href="<?= $e(page_url('')) ?>" aria-label="Media Clock home"><img src="<?= $e(img_src('logo-light.webp')) ?>" alt="Media Clock" width="239"
                     height="48" /></a>
             <nav aria-label="Primary">
                 <ul class="header-menu nav align-items-center">
                     <li>
-                        <a href="https://mediaclock.com.au/about-us/" target="_blank" rel="noopener">About us</a>
+                        <a href="<?= $e(page_url('about-us')) ?>"<?= $nav_current === 'about-us' ? ' class="current"' : '' ?>>About us</a>
                     </li>
                     <li class="has-sub">
-                        <a href="#top" class="current" aria-haspopup="true">Services</a>
+                        <a href="#top"<?= $nav_on_service ? ' class="current"' : '' ?> aria-haspopup="true">Services</a>
                         <!-- * Header : services mega panel (3 columns, from data/shared/services.php) -->
                         <div class="sub-menu mega-menu">
                             <div class="mega-grid">
@@ -69,8 +75,8 @@ $services = require dirname(__DIR__, 2) . '/data/shared/services.php';
                                 <div class="mega-col">
                                     <h3 class="mega-title"><?= $e($group) ?></h3>
                                     <ul>
-                                        <?php foreach ($items as [$label, $url]): ?>
-                                        <li><a href="<?= $e($url) ?>"<?= $url === '#top' ? ' class="current"' : '' ?>><?= $e($label) ?></a></li>
+                                        <?php foreach ($items as [$label, $slug]): ?>
+                                        <li><a href="<?= $e(page_url($slug)) ?>"<?= $slug === $nav_current ? ' class="current"' : '' ?>><?= $e($label) ?></a></li>
                                         <?php endforeach; ?>
                                     </ul>
                                 </div>
@@ -78,9 +84,10 @@ $services = require dirname(__DIR__, 2) . '/data/shared/services.php';
                             </div>
                         </div>
                     </li>
-                    <li><a href="https://mediaclock.com.au/our-process/">Our Process</a></li>
-                    <li><a href="https://mediaclock.com.au/blog/">Blogs</a></li>
-                    <li><a href="https://mediaclock.com.au/portfolio/">Portfolio</a></li>
+                    <li><a href="<?= $e(page_url('our-process')) ?>"<?= $nav_current === 'our-process' ? ' class="current"' : '' ?>>Our Process</a></li>
+                    <!-- TODO : /blog/ still lives on the old WordPress site — will 404 once this site takes over the domain -->
+                    <li><a href="https://mediaclock.com.au/blog/" target="_blank" rel="noopener">Blogs</a></li>
+                    <li><a href="<?= $e(page_url('portfolio')) ?>"<?= $nav_current === 'portfolio' ? ' class="current"' : '' ?>>Portfolio</a></li>
                     <li>
                         <button type="button" class="contactBtn" data-interest="Free consultation">
                             Get In Touch
@@ -92,8 +99,7 @@ $services = require dirname(__DIR__, 2) . '/data/shared/services.php';
 
         <!-- * Header : mobile bar -->
         <div class="header-mobile d-flex d-lg-none align-items-center justify-content-between">
-            <a class="header-mobile-logo" href="https://mediaclock.com.au/" target="_blank" rel="noopener"
-                aria-label="Media Clock home"><img src="<?= $e(img_src('logo-dark.png')) ?>" alt="Media Clock" width="261"
+            <a class="header-mobile-logo" href="<?= $e(page_url('')) ?>" aria-label="Media Clock home"><img src="<?= $e(img_src('logo-dark.png')) ?>" alt="Media Clock" width="261"
                     height="36" /></a>
             <div class="header-mobile-actions d-flex align-items-center">
                 <a class="header-icon-btn" href="tel:0489906090" aria-label="Call 0489 906 090"><svg viewBox="0 0 24 24"
@@ -118,18 +124,18 @@ $services = require dirname(__DIR__, 2) . '/data/shared/services.php';
             &times;
         </button>
         <div class="fs-menu-inner d-flex flex-column">
-            <a class="fs-link" href="https://mediaclock.com.au/about-us/">About us</a>
+            <a class="fs-link<?= $nav_current === 'about-us' ? ' current' : '' ?>" href="<?= $e(page_url('about-us')) ?>">About us</a>
         <?php foreach ($services as $group => $items): ?>
         <details class="fs-group">
             <summary class="fs-group-title"><?= $e($group) ?></summary>
-            <?php foreach ($items as [$label, $url]): ?>
-            <a class="fs-link<?= $url === '#top' ? ' current' : '' ?>" href="<?= $e($url) ?>"><?= $e($label) ?></a>
+            <?php foreach ($items as [$label, $slug]): ?>
+            <a class="fs-link<?= $slug === $nav_current ? ' current' : '' ?>" href="<?= $e(page_url($slug)) ?>"><?= $e($label) ?></a>
             <?php endforeach; ?>
         </details>
         <?php endforeach; ?>
-            <a class="fs-link" href="https://mediaclock.com.au/our-process/">Our Process</a>
-            <a class="fs-link" href="https://mediaclock.com.au/blog/">Blogs</a>
-            <a class="fs-link" href="https://mediaclock.com.au/portfolio/">Portfolio</a>
+            <a class="fs-link<?= $nav_current === 'our-process' ? ' current' : '' ?>" href="<?= $e(page_url('our-process')) ?>">Our Process</a>
+            <a class="fs-link" href="https://mediaclock.com.au/blog/" target="_blank" rel="noopener">Blogs</a>
+            <a class="fs-link<?= $nav_current === 'portfolio' ? ' current' : '' ?>" href="<?= $e(page_url('portfolio')) ?>">Portfolio</a>
             <button type="button" class="fs-link contactBtn" data-interest="Free consultation">
                 Get in Touch
             </button>

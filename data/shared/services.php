@@ -5,7 +5,8 @@
    "Select your Service" dropdown all read this one array, so a
    service is added or renamed in exactly one place.
 
-   Shape:  'Category name' => [ ['Service label', 'url'], ... ]
+   Shape:  'Category name' => [ ['Service label', 'page slug'], ... ]
+   The slug is the page file without .php; page_url() turns it into /slug/.
 
    Add the remaining services under the right category below.
    Three categories fill the mega panel's three columns neatly;
@@ -13,17 +14,17 @@
    ============================================================ */
 return [
     'Development' => [
-        ['Mobile App Development',    'https://mediaclock.com.au/mobile-app-development/'],
-        ['Web Application',           'https://mediaclock.com.au/web-application/'],
-        ['Website Development',       'https://mediaclock.com.au/website-development/'],
-        ['eCommerce Website Design',  'https://mediaclock.com.au/ecommerce-website-design/'],
+        ['Mobile App Development',    'mobile-app-development'],
+        ['Web Application',           'web-application'],
+        ['Website Development',       'website-development'],
+        ['eCommerce Website Design',  'ecommerce-website-design'],
     ],
     'Design & Experience' => [
-        ['UI/UX Design',              'https://mediaclock.com.au/ui-ux-design/'],
+        ['UI/UX Design',              'ui-ux-design'],
     ],
     'Marketing & Growth' => [
-        ['Digital Marketing',         'https://mediaclock.com.au/digital-marketing/'],
-        ['SEO Packages',              '#top'],
-        ['Business Digitisation',     'https://mediaclock.com.au/business-digitisation/'],
+        ['Digital Marketing',         'digital-marketing'],
+        ['SEO Packages',              'package'],
+        ['Business Digitisation',     'business-digitisation'],
     ],
 ];

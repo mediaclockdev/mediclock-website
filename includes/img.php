@@ -33,3 +33,26 @@ if (!function_exists('img_src')) {
         return asset_url('assets/images/' . ltrim($path, '/'));
     }
 }
+/* * page_url() — internal page links
+   Same base as asset_url(), with the trailing slash the live URLs use.
+   .htaccess maps /about-us/ back to about-us.php, so visitors never see
+   the .php. Never hard-code https://mediaclock.com.au/ for our own pages:
+   a relative link keeps staging on staging.
+
+     page_url('about-us')  // /about-us/
+     page_url('')          // /
+   ============================================================ */
+if (!function_exists('page_url')) {
+    function page_url(string $slug): string
+    {
+        $slug = trim($slug, '/');
+        return $slug === '' ? asset_url('') : asset_url($slug . '/');
+    }
+}
+/* * current_slug() — the running page's slug, e.g. 'about-us' for about-us.php */
+if (!function_exists('current_slug')) {
+    function current_slug(): string
+    {
+        return pathinfo((string) ($_SERVER['SCRIPT_NAME'] ?? ''), PATHINFO_FILENAME);
+    }
+}
