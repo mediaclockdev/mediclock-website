@@ -50,6 +50,18 @@
 @media (max-width: 991.98px) {
   .portfolio-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    /* the container already holds the gutter at this width */
+    padding: 0;
+  }
+  .portfolio-lead {
+    font-size: 18px;
+  }
+  .portfolio h2 {
+    margin-bottom: 24px;
+  }
+  .portfolio-more {
+    margin: 26px 0 0;
   }
 }
 @media (max-width: 575.98px) {

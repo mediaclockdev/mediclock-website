@@ -21,6 +21,8 @@ $nav_current = current_slug();
 $nav_service_slugs = [];
 foreach ($services as $navItems) foreach ($navItems as [, $navSlug]) $nav_service_slugs[] = $navSlug;
 $nav_on_service = in_array($nav_current, $nav_service_slugs, true);
+/* "Blogs" covers the index and every article (blog-post.php) */
+$nav_on_blog = in_array($nav_current, ['blog', 'blog-post'], true);
 unset($navItems, $navSlug);
 ?>
 <!doctype html>
@@ -85,8 +87,7 @@ unset($navItems, $navSlug);
                         </div>
                     </li>
                     <li><a href="<?= $e(page_url('our-process')) ?>"<?= $nav_current === 'our-process' ? ' class="current"' : '' ?>>Our Process</a></li>
-                    <!-- TODO : /blog/ still lives on the old WordPress site — will 404 once this site takes over the domain -->
-                    <li><a href="https://mediaclock.com.au/blog/" target="_blank" rel="noopener">Blogs</a></li>
+                    <li><a href="<?= $e(page_url('blog')) ?>"<?= $nav_on_blog ? ' class="current"' : '' ?>>Blogs</a></li>
                     <li><a href="<?= $e(page_url('portfolio')) ?>"<?= $nav_current === 'portfolio' ? ' class="current"' : '' ?>>Portfolio</a></li>
                     <li>
                         <a href="<?= $e(page_url('contact-us')) ?>"<?= $nav_current === 'contact-us' ? ' class="current"' : '' ?>>Get In Touch</a>
@@ -132,7 +133,7 @@ unset($navItems, $navSlug);
         </details>
         <?php endforeach; ?>
             <a class="fs-link<?= $nav_current === 'our-process' ? ' current' : '' ?>" href="<?= $e(page_url('our-process')) ?>">Our Process</a>
-            <a class="fs-link" href="https://mediaclock.com.au/blog/" target="_blank" rel="noopener">Blogs</a>
+            <a class="fs-link<?= $nav_on_blog ? ' current' : '' ?>" href="<?= $e(page_url('blog')) ?>">Blogs</a>
             <a class="fs-link<?= $nav_current === 'portfolio' ? ' current' : '' ?>" href="<?= $e(page_url('portfolio')) ?>">Portfolio</a>
             <a class="fs-link<?= $nav_current === 'contact-us' ? ' current' : '' ?>" href="<?= $e(page_url('contact-us')) ?>">Get In Touch</a>
             <div class="fs-menu-cta d-flex flex-column align-items-center">

@@ -197,16 +197,56 @@
   color: #000;
 }
 
-/* tablet + phone: copy spans the full width, so tint evenly */
-@media (max-width: 767.98px) {
+/* ------------------------------------------------------------
+   Tablet + phone
+   ------------------------------------------------------------ */
+/* Below 992px the compact header is the one on screen, so the hero clears
+   --header-h-mobile: with the desktop value it left ~50px of dead space
+   above the copy. The slide also doesn't need its full desktop height. */
+@media (max-width: 991.98px) {
+  .home-hero-slide {
+    min-height: 620px;
+    padding: calc(var(--header-h-mobile) + 40px) 0 72px;
+  }
+  .home-hero-title {
+    margin-bottom: 14px;
+  }
+  .home-hero-sub {
+    margin-bottom: 26px;
+  }
+  /* one even tint: the copy runs the full width once the columns stack */
   .home-hero-slide::before {
     background: rgba(12, 23, 28, 0.68);
+  }
+  .home-service {
+    padding: 20px;
   }
 }
 @media (max-width: 575.98px) {
   .home-hero-slide {
-    min-height: 560px;
-    padding-top: calc(var(--header-h-mobile) + 28px);
+    min-height: 520px;
+    padding: calc(var(--header-h-mobile) + 32px) 0 64px;
+  }
+  .home-hero-title {
+    font-size: 34px;
+  }
+  .home-hero-sub {
+    font-size: 19px;
+    margin-bottom: 22px;
+  }
+  /* the hero CTA spans the column, like the service pages' hero button */
+  .home-hero .service-hero-cta {
+    width: 100%;
+    justify-content: center;
+  }
+  .home-hero .mc-slider-dots {
+    bottom: 18px;
+  }
+  .svc-intro {
+    padding: 36px 0;
+  }
+  .svc-intro-text {
+    font-size: 17px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

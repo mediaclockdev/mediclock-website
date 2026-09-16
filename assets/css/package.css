@@ -756,6 +756,7 @@
 }
 
 @media (max-width: 640px) {
+  /* same phone step as every other page's bands (main.css rhythm) */
   #services,
   #packages,
   #process,
@@ -763,7 +764,7 @@
   #why,
   #locations,
   #faqs {
-    padding: 52px 0;
+    padding: 36px 0;
   }
   .plans {
     grid-template-columns: 1fr;

@@ -431,6 +431,29 @@
   }
 }
 @media (max-width: 991.98px) {
+  /* the icon tile and its overhang shrink with the card, so the title isn't
+     pushed down by a 117px tile on a 343px card */
+  .svc-card {
+    padding: 48px 20px 24px;
+  }
+  .svc-card-icon {
+    width: 96px;
+    height: 96px;
+    margin-top: -58px;
+  }
+  .svc-cards .svc-card-title {
+    font-size: 24px;
+  }
+  .svc-cards .svc-cards-cta-title {
+    font-size: 26px;
+  }
+  .svc-cards-cta {
+    margin-top: 36px;
+  }
+  .feature-card {
+    padding: 24px 18px;
+    gap: 12px;
+  }
   .project + .project {
     margin-top: 48px;
   }

@@ -530,6 +530,28 @@ p {
   cursor: pointer;
 }
 
+/* * Side gutters — Bootstrap's 12px is too tight once the layout is one or two
+   columns wide, so tablets and phones get a real margin. The rows inside keep
+   their own 12px padding, so column gaps are unchanged.
+
+   It runs to 1199px on purpose: some sections cap the container at 1140px
+   (contact, why-us), which overrides Bootstrap's own 960px width at lg, so the
+   container is full-bleed from 992px up. Rows with the 48px gutter pull
+   -24px either side, which hung past the screen edge on 12px of padding —
+   24px here is half the widest gutter, so the row lands exactly on the edge. */
+@media (max-width: 1199.98px) {
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+@media (max-width: 575.98px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
 /* * Header — scroll lock while the overlay is open. Scoped to the mobile
    breakpoint on purpose: if the viewport widens while the menu is open, the
    lock lifts by itself without needing JS to notice. */
@@ -562,9 +584,10 @@ p {
   .site-header.is-scrolled {
     background: #fff;
   }
+  /* the tab sat on top of the right-hand edge of cards and links; on these
+     widths the header already carries Call, and the menu carries Get a Quote */
   .sticky-quote {
-    font-size: 13px;
-    padding: 12px 14px;
+    display: none;
   }
 }
 
@@ -1674,10 +1697,41 @@ p {
     padding-top: 24px;
   }
 }
+/* * Vertical rhythm — tablet + phone
+   At desktop the bands deliberately differ (50 / 56 / 64 / 72). On a narrow
+   screen that reads as random gaps between stacked sections, so every band
+   drops to one shared step, with the form and FAQ bands slightly roomier. */
+@media (max-width: 991.98px) {
+  .section,
+  .logo-band,
+  .testimonial-band {
+    padding: 44px 0;
+  }
+  .faq-section {
+    padding: 48px 0;
+  }
+  .head {
+    margin-bottom: 22px;
+  }
+}
+@media (max-width: 575.98px) {
+  .section,
+  .logo-band,
+  .testimonial-band {
+    padding: 36px 0;
+  }
+  .faq-section {
+    padding: 40px 0;
+  }
+  .head {
+    margin-bottom: 18px;
+  }
+}
+
 /* tablet + phone: the copy stacks above the form */
 @media (max-width: 991.98px) {
   .contact--static {
-    padding: 64px 0;
+    padding: 48px 0;
   }
   .contact--static > .container > .row {
     --bs-gutter-y: 40px;
@@ -1691,7 +1745,7 @@ p {
 }
 @media (max-width: 575.98px) {
   .contact--static {
-    padding: 52px 0;
+    padding: 40px 0;
   }
   .contact--static > .container > .row {
     --bs-gutter-y: 32px;
@@ -1712,12 +1766,11 @@ p {
   }
 }
 
-/* * Shared components — tighter vertical rhythm on phones */
+/* * Shared components — tighter vertical rhythm on phones
+   (the band step itself is set with the rest of the rhythm above) */
 @media (max-width: 575.98px) {
-  .contact,
-  .logo-band,
-  .testimonial-band {
-    padding: 52px 0;
+  .contact {
+    padding: 40px 0;
   }
   .form {
     padding: 22px 18px;

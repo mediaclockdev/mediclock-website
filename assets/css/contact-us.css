@@ -133,7 +133,49 @@
   font-weight: 600;
 }
 
+/* ------------------------------------------------------------
+   Tablet + phone
+   ------------------------------------------------------------ */
+@media (max-width: 991.98px) {
+  .contact-direct {
+    padding: 40px 0;
+  }
+  .contact-direct-card {
+    padding: 22px 24px;
+    gap: 14px 36px;
+  }
+  .contact-direct-card a {
+    font-size: 20px;
+  }
+  .contact-direct-card svg {
+    flex-basis: 30px;
+    width: 30px;
+    height: 30px;
+  }
+  .offices {
+    padding-bottom: 30px;
+  }
+  .offices-map {
+    height: 340px;
+  }
+  /* two even columns: the addresses wrap to a second row here, and the
+     shorthand gap carried no row gap, so the rows sat flush together */
+  .offices-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 20px;
+  }
+  .offices-tab {
+    padding: 16px 18px;
+  }
+  .subscribe-form {
+    max-width: 360px;
+  }
+}
 @media (max-width: 575.98px) {
+  .contact-direct {
+    padding: 34px 0;
+  }
   .contact-direct-card a {
     font-size: 18px;
   }
@@ -141,6 +183,7 @@
     height: 300px;
   }
   .offices-tabs {
+    grid-template-columns: 1fr;
     gap: 8px;
   }
   .offices-tab {

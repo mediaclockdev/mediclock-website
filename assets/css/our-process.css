@@ -82,13 +82,44 @@
   margin-top: 20px;
 }
 
+/* ------------------------------------------------------------
+   Tablet + phone
+   ------------------------------------------------------------ */
+@media (max-width: 991.98px) {
+  /* the zoom is a pointer flourish: on a touch screen it sticks after a tap
+     and pushes the summary box past the edge of its column */
+  .process-step-head:hover {
+    transform: none;
+  }
+  .process-badge {
+    flex: 0 0 180px;
+    width: 180px;
+  }
+  .process-summary {
+    padding: 10px 18px;
+    font-size: 18px;
+  }
+  .process-points {
+    padding: 22px 20px 22px 44px;
+  }
+  .process-points li {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  .process-points li + li {
+    margin-top: 16px;
+  }
+  .process-step + .process-step {
+    margin-top: 48px;
+  }
+}
 @media (max-width: 767.98px) {
   .process-step-head {
     flex-direction: column;
   }
   .process-badge {
     flex-basis: auto;
-    width: 180px;
+    width: 160px;
   }
   .process-summary,
   .process-points li {
@@ -97,5 +128,10 @@
   }
   .process-points {
     padding: 20px 16px 20px 36px;
+  }
+  /* the illustrations are 300–611px wide: let them fill the panel on a phone */
+  .process-media img {
+    width: 100%;
+    max-width: 320px;
   }
 }
