@@ -736,6 +736,38 @@ p {
 .service-hero-inner {
   min-height: 580px;
 }
+/* * Service hero — no proposal card (contact-us)
+   With the card, the row fills the 580px band on its own. Without it the row
+   is only as tall as the copy, so .align-items-center centres the copy inside
+   that short row and it sits near the top. Stretching the row to the band's
+   height puts the copy in the middle of the photo instead. */
+/* the fixed header covers the top of the photo, so the bottom padding is
+   mirrored below it — the copy then centres on what the visitor actually sees */
+.service-hero--no-form {
+  padding-top: calc(var(--header-h) + 63px);
+}
+.service-hero--no-form .service-hero-inner {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+}
+.service-hero--no-form .service-hero-inner > .row {
+  flex: 1 1 auto;
+  width: 100%;
+}
+/* On desktop the band is sized to the window instead of a fixed 580px: with no
+   proposal card the hero would otherwise run past the fold, and copy centred in
+   the band still looks low on screen. Phones keep the shared content height. */
+@media (min-width: 992px) {
+  .service-hero--no-form {
+    display: flex;
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+  .service-hero--no-form .service-hero-inner {
+    min-height: 0;
+  }
+}
 
 /* * Service hero — copy column */
 .service-hero-copy .eyebrow {

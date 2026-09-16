@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Digital Marketing – Media Clock';
-$page_description = ''; // the live page has no meta description
+$page_description = 'Digital marketing for Australian businesses: SEO, paid ad campaigns, social media and content, with a dedicated account manager and clear reporting.';
 $page_css         = ['service', 'digital-marketing'];
 include 'includes/layout/header.php';
 

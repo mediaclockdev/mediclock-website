@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'eCommerce Website Design – Media Clock';
-$page_description = ''; // the live page has no meta description
+$page_description = 'eCommerce website design on Shopify, WooCommerce, Magento, BigCommerce and more: secure, scalable online stores built for Australian businesses.';
 $page_css         = ['service', 'ecommerce-website-design'];
 include 'includes/layout/header.php';
 

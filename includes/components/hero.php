@@ -28,7 +28,7 @@ $h = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 require_once dirname(__DIR__) . '/img.php';
 ?>
 <!-- * Service hero -->
-<section class="service-hero" style="background-image:url('<?= $h(img_src($hero_image)) ?>')">
+<section class="service-hero<?= $hero_form ? '' : ' service-hero--no-form' ?>" style="background-image:url('<?= $h(img_src($hero_image)) ?>')">
     <div class="container service-hero-inner">
         <div class="row align-items-center g-4">
 

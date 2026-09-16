@@ -16,12 +16,12 @@
   margin: 0 0 24px;
   font-size: 20px;
   line-height: 1.5;
-  color: #000;
+  color: var(--ink);
 }
+/* orange heading, as on the live page; the size comes from the shared
+   section-heading scale so it matches the other pages */
 .portfolio h2 {
   margin: 0 0 30px;
-  font-size: 32px;
-  letter-spacing: 0;
   color: var(--orange);
 }
 
@@ -43,7 +43,7 @@
   font-family: var(--font-head);
   font-size: 20px;
   font-weight: 600;
-  color: #000;
+  color: var(--ink);
   text-align: right;
 }
 

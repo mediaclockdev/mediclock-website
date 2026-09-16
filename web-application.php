@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Web Application – Media Clock';
-$page_description = ''; // the live page has no meta description
+$page_description = 'Custom web application development for Australian businesses: bespoke systems that replace manual, paper-based processes. Book a free consultation.';
 $page_css         = ['service', 'web-application'];
 include 'includes/layout/header.php';
 

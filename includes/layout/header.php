@@ -89,9 +89,7 @@ unset($navItems, $navSlug);
                     <li><a href="https://mediaclock.com.au/blog/" target="_blank" rel="noopener">Blogs</a></li>
                     <li><a href="<?= $e(page_url('portfolio')) ?>"<?= $nav_current === 'portfolio' ? ' class="current"' : '' ?>>Portfolio</a></li>
                     <li>
-                        <button type="button" class="contactBtn" data-interest="Free consultation">
-                            Get In Touch
-                        </button>
+                        <a href="<?= $e(page_url('contact-us')) ?>"<?= $nav_current === 'contact-us' ? ' class="current"' : '' ?>>Get In Touch</a>
                     </li>
                 </ul>
             </nav>
@@ -136,9 +134,7 @@ unset($navItems, $navSlug);
             <a class="fs-link<?= $nav_current === 'our-process' ? ' current' : '' ?>" href="<?= $e(page_url('our-process')) ?>">Our Process</a>
             <a class="fs-link" href="https://mediaclock.com.au/blog/" target="_blank" rel="noopener">Blogs</a>
             <a class="fs-link<?= $nav_current === 'portfolio' ? ' current' : '' ?>" href="<?= $e(page_url('portfolio')) ?>">Portfolio</a>
-            <button type="button" class="fs-link contactBtn" data-interest="Free consultation">
-                Get in Touch
-            </button>
+            <a class="fs-link<?= $nav_current === 'contact-us' ? ' current' : '' ?>" href="<?= $e(page_url('contact-us')) ?>">Get In Touch</a>
             <div class="fs-menu-cta d-flex flex-column align-items-center">
                 <a class="fs-btn call" href="tel:0489906090">Call Us</a>
                 <button type="button" class="fs-btn quote contactBtn" data-interest="Free consultation">

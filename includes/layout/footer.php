@@ -51,9 +51,7 @@ require_once dirname(__DIR__) . '/img.php';
                     <a href="<?= htmlspecialchars(page_url('about-us'), ENT_QUOTES, 'UTF-8') ?>">About us</a>
                     <a href="<?= htmlspecialchars(page_url('portfolio'), ENT_QUOTES, 'UTF-8') ?>">Portfolio</a>
                     <a href="<?= htmlspecialchars(page_url('our-process'), ENT_QUOTES, 'UTF-8') ?>">Our Process</a>
-                    <button type="button" class="contactBtn" data-interest="Free consultation">
-                        Get In Touch
-                    </button>
+                    <a href="<?= page_url('contact-us') ?>"<?= current_slug() === 'contact-us' ? ' class="current"' : '' ?>>Get In Touch</a>
                     <!-- TODO : /career/ and /privacy-policy/ still live on the old WordPress site -->
                     <a href="https://mediaclock.com.au/career/" target="_blank" rel="noopener">Careers</a>
                 </div>

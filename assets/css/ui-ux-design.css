@@ -28,10 +28,11 @@
 }
 
 /* * Proof of Concept — zigzag: odd steps drop the circle below the copy */
+/* headings left, like the other sections; the step circles and the copy
+   inside them stay centred */
 .poc .head,
 .uiux-why .head {
-  margin-inline: auto;
-  text-align: center;
+  max-width: none;
 }
 .poc .head {
   margin-bottom: 60px;

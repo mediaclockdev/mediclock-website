@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'UI/UX Design – Media Clock';
-$page_description = ''; // the live page has no meta description
+$page_description = 'UI/UX design for websites, web and mobile apps: process flows, personas, wireframes and high-fidelity designs, at a fixed cost with unlimited revisions.';
 $page_css         = ['service', 'ui-ux-design'];
 include 'includes/layout/header.php';
 

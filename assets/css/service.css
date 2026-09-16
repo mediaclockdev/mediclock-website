@@ -139,9 +139,10 @@
 /* ------------------------------------------------------------
    Roadmap — the process infographic
    ------------------------------------------------------------ */
+/* heading sits left like every other section heading (live centres this one,
+   but it is the odd one out there — the infographic below stays centred) */
 .svc-roadmap .head {
-  margin-inline: auto;
-  text-align: center;
+  max-width: none;
 }
 .roadmap-img {
   display: block;

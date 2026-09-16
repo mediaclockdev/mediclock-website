@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Website Development – Media Clock';
-$page_description = ''; // the live page has no meta description
+$page_description = 'Website development for Australian businesses: informative, responsive, lead generation, brand awareness and NDIS websites that work on every device.';
 $page_css         = ['service', 'website-development'];
 include 'includes/layout/header.php';
 

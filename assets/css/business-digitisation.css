@@ -15,10 +15,11 @@
    Footer          dark
    ============================================================ */
 
-/* * Intro band — centred orange heading over one white paragraph */
+/* * Intro band — orange heading over one white paragraph, left like the
+   intro band on the other service pages */
 .svc-intro {
   padding: 36px 0;
-  text-align: center;
+  text-align: left;
 }
 .svc-intro-text {
   max-width: none;

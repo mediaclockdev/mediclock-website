@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Business Digitisation – Media Clock';
-$page_description = ''; // the live page has no meta description
+$page_description = 'Business digitisation: business name consultation, logo and branding, business cards, letterheads, email signatures and professional email setup.';
 $page_css         = ['service', 'business-digitisation'];
 include 'includes/layout/header.php';
 

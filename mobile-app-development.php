@@ -1,5 +1,5 @@
 <?php
-$page_title       = 'Mobile App Development - Media Clock';
+$page_title       = 'Mobile App Development – Media Clock';
 $page_description = 'Need a custom mobile app? Our expert team delivers top-tier mobile app development services, eCommerce & custom solutions near you. Get an instant quote today!';
 $page_css         = 'service';
 include 'includes/layout/header.php';

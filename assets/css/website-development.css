@@ -78,8 +78,6 @@
 /* * Our Recent Works — two screenshots per view */
 #recent-works .head {
   max-width: none;
-  margin-inline: auto;
-  text-align: center;
 }
 #recent-works .head h2,
 .svc-roadmap .head h2 {
