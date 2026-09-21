@@ -40,16 +40,19 @@ $why_us_title = 'Our Values';
 $why_us_items = [
     [
         'title' => 'Innovation',
+        'icon'  => 'pages/about-us/icons/innovation.svg',
         'text'  => 'We embrace forward-thinking to deliver solutions that are ahead of the curve. Innovation drives us to create unique digital experiences that keep our clients at the forefront of their industry.',
         'image' => 'pages/web-application/why/tailored-solutions.webp',
     ],
     [
         'title' => 'Quality',
+        'icon'  => 'pages/about-us/icons/quality.svg',
         'text'  => 'Quality is the cornerstone of our work at Media Clock. We take pride in our meticulous attention to detail, ensuring that every line of code, every design element, and every interaction reflects our commitment to excellence. From inception to delivery, we uphold the highest standards to ensure the utmost satisfaction of our clients.',
         'image' => 'pages/web-application/why/expertise-experience.webp',
     ],
     [
         'title' => 'Collaboration',
+        'icon'  => 'pages/about-us/icons/collaboration.svg',
         'text'  => 'We value collaboration, partnering closely with our clients to truly understand their vision. By working together, we create strong relationships that lead to successful, impactful outcomes.',
         'image' => 'pages/web-application/why/scalability-flexibility.webp',
     ],

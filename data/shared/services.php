@@ -15,6 +15,7 @@
 return [
     'Development' => [
         ['Mobile App Development',    'mobile-app-development'],
+        ['iOS App Development',       'ios-development'],
         ['Web Application',           'web-application'],
         ['Website Development',       'website-development'],
         ['eCommerce Website Design',  'ecommerce-website-design'],

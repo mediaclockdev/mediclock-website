@@ -73,7 +73,11 @@
   border-top: 0;
   border-radius: 0 0 20px 20px;
 }
+.process-points {
+  list-style: disc; /* nested in the steps' <ol>, so the browser would draw hollow circles */
+}
 .process-points li {
+  font-family: var(--font-head);
   font-size: 20px;
   line-height: 30px;
   color: #192b33;

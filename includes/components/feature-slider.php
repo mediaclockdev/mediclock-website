@@ -8,8 +8,11 @@
          'icon'  => 'pages/<slug>/icons/x.svg',   relative to assets/images/
          'title' => 'User Friendly Navigation',
          'text'  => '…',
+         'number' => '01',                        big orange step number instead of an icon, optional
        ], … ]
      $feature_slider_title    (string)  default 'Features'
+     $feature_slider_lead     (string)  line under the heading, optional
+     $feature_slider_link     (array)   ['label' => '…', 'href' => '…'] appended to the lead, optional
      $feature_slider_id       (string)  section id                — default 'features'
      $feature_slider_theme    (string)  'dark' | 'light'          — default 'dark'
      $feature_slider_per_view (array)   [desktop, tablet, phone]  — default [4, 2, 1]
@@ -19,6 +22,8 @@
 $feature_slider_items    = $feature_slider_items    ?? [];
 $feature_slider_title    = $feature_slider_title    ?? 'Features';
 $feature_slider_id       = $feature_slider_id       ?? 'features';
+$feature_slider_lead     = $feature_slider_lead     ?? '';
+$feature_slider_link     = $feature_slider_link     ?? [];
 $feature_slider_theme    = ($feature_slider_theme ?? 'dark') === 'light' ? 'light' : 'dark';
 $feature_slider_per_view = $feature_slider_per_view ?? [4, 2, 1];
 $feature_slider_autoplay = (int) ($feature_slider_autoplay ?? 5000);
@@ -32,6 +37,9 @@ require_once dirname(__DIR__) . '/img.php';
     <div class="container">
         <div class="head">
             <h2 class="feature-slider-title" id="<?= $h($feature_slider_id) ?>-title"><?= $h($feature_slider_title) ?></h2>
+            <?php if ($feature_slider_lead !== ''): ?>
+            <p><?= $h($feature_slider_lead) ?><?php if (!empty($feature_slider_link['label']) && !empty($feature_slider_link['href'])): ?> <a href="<?= $h($feature_slider_link['href']) ?>"><?= $h($feature_slider_link['label']) ?></a>.<?php endif; ?></p>
+            <?php endif; ?>
         </div>
 
         <div class="mc-slider" data-slider data-autoplay="<?= $feature_slider_autoplay ?>"
@@ -41,7 +49,9 @@ require_once dirname(__DIR__) . '/img.php';
                 <?php foreach ($feature_slider_items as $fsI => $fsItem): ?>
                 <article class="mc-slide feature-card" role="group" aria-roledescription="slide"
                     aria-label="<?= $fsI + 1 ?> of <?= count($feature_slider_items) ?>">
-                    <?php if (!empty($fsItem['icon'])): ?>
+                    <?php if (!empty($fsItem['number'])): ?>
+                    <span class="feature-card-num" aria-hidden="true"><?= $h($fsItem['number']) ?></span>
+                    <?php elseif (!empty($fsItem['icon'])): ?>
                     <img class="feature-card-icon" src="<?= $h(img_src($fsItem['icon'])) ?>" alt="" width="64" height="64" loading="lazy" decoding="async" />
                     <?php endif; ?>
                     <h3 class="feature-card-title"><?= $h($fsItem['title']) ?></h3>
@@ -54,5 +64,5 @@ require_once dirname(__DIR__) . '/img.php';
     </div>
 </section>
 <?php endif; ?>
-<?php unset($feature_slider_items, $feature_slider_title, $feature_slider_id, $feature_slider_theme,
+<?php unset($feature_slider_items, $feature_slider_title, $feature_slider_id, $feature_slider_lead, $feature_slider_link, $feature_slider_theme,
     $feature_slider_per_view, $feature_slider_autoplay, $fsPv, $fsPvMd, $fsPvSm, $fsI, $fsItem); ?>

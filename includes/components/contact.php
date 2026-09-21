@@ -16,8 +16,10 @@
      $contact_points_title (string) heading over the bullet list — default 'Why?'
      $contact_points       (array)  bullet list — default []
      $contact_note         (string) orange highlight line — default ''
+     $contact_details      (array)  phone / email / address rows under the copy, optional:
+                                    [ ['type' => 'phone'|'email'|'address', 'text' => '…', 'href' => '…'], … ]
      $contact_privacy      (string) small print — default: the NDA line
-     $contact_budget       (bool)   static form only: "Project Budget" slider — default false
+     $contact_budget       (bool)   static form only: "Project Budget" range picker (one required) — default false
      $contact_interests    (array)  panel only: "Interested In" options. Include every
                                     data-interest value used on the page, or that
                                     button can't preselect its option. Default:
@@ -30,6 +32,7 @@ $contact_lead         = $contact_lead         ?? '';
 $contact_points_title = $contact_points_title ?? 'Why?';
 $contact_points       = $contact_points       ?? [];
 $contact_note         = $contact_note         ?? '';
+$contact_details      = $contact_details      ?? [];
 $contact_budget       = $contact_budget       ?? false;
 $contact_privacy      = $contact_privacy      ?? 'We prioritise confidentiality and have a Non-Disclosure Agreement (NDA) in place to safeguard and protect your ideas.';
 if (!isset($contact_interests)) {
@@ -59,6 +62,20 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
                 <ul class="contact-points">
                     <?php foreach ($contact_points as $csPoint): ?>
                     <li><?= $h($csPoint) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+                <?php endif; ?>
+                <?php if ($contact_details): ?>
+                <ul class="contact-details">
+                    <?php foreach ($contact_details as $csDetail):
+                        $csIcon = [
+                            'phone'   => '<path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z" fill="currentColor" stroke="none"/>',
+                            'email'   => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/>',
+                            'address' => '<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',
+                        ][$csDetail['type'] ?? 'address'] ?? '';
+                        $csInner = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . $csIcon . '</svg><span>' . $h($csDetail['text']) . '</span>';
+                    ?>
+                    <li><?php if (!empty($csDetail['href'])): ?><a href="<?= $h($csDetail['href']) ?>"><?= $csInner ?></a><?php else: ?><?= $csInner ?><?php endif; ?></li>
                     <?php endforeach; ?>
                 </ul>
                 <?php endif; ?>
@@ -102,7 +119,7 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
                                             <circle cx="15" cy="8.3" r=".6" />
                                         </g>
                                     </svg><span class="visually-hidden">Australia</span> +61</span>
-                                <input id="cPhone" name="phone" type="tel" required placeholder="412 345 678"
+                                <input id="cPhone" name="phone" type="tel" required placeholder="412 345 678" inputmode="tel" maxlength="16" data-phone="au"
                                     autocomplete="tel-national" aria-describedby="cPhonePrefix" />
                             </div>
                             <input type="hidden" name="phone_country" value="+61" />
@@ -113,12 +130,18 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
                                 autocomplete="organization" />
                         </div>
                         <?php if ($contact_budget): ?>
-                        <div class="field field-budget col-12">
-                            <label for="cBudget">Project Budget: $ <?= $csReq ?></label>
-                            <input id="cBudget" name="budget" type="range" min="1000" max="100000" step="1" value="1000" required
-                                oninput="this.nextElementSibling.value = this.value" />
-                            <output for="cBudget">1000</output>
-                        </div>
+                        <!-- * Contact : project budget — pick a range (radio pills, one required) -->
+                        <fieldset class="field field-budget col-12">
+                            <legend>Project Budget (AUD) <?= $csReq ?></legend>
+                            <div class="budget-options">
+                                <?php foreach (['Under $5k', '$5k – $15k', '$15k – $30k', '$30k – $60k', '$60k – $100k', '$100k+', 'Not sure yet'] as $csBi => $csBudget): ?>
+                                <label class="budget-option">
+                                    <input type="radio" name="budget" value="<?= $h($csBudget) ?>"<?= $csBi === 0 ? ' required' : '' ?> />
+                                    <span><?= $h($csBudget) ?></span>
+                                </label>
+                                <?php endforeach; ?>
+                            </div>
+                        </fieldset>
                         <?php endif; ?>
                         <div class="field col-12">
                             <!-- * Contact : label left, character count right (wraps on narrow screens) -->
@@ -160,12 +183,12 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
                         </div>
                         <div class="field col-12 col-sm-6">
                             <label for="cPhone">Contact No *</label>
-                            <input id="cPhone" name="phone" type="tel" required placeholder="Contact number"
+                            <input id="cPhone" name="phone" type="tel" required placeholder="Contact number" inputmode="tel" maxlength="20"
                                 autocomplete="tel" />
                         </div>
                         <div class="field col-12">
                             <label for="cSite">Website</label>
-                            <input id="cSite" name="website" type="url" placeholder="https://yourwebsite.com.au" />
+                            <input id="cSite" name="website" type="text" inputmode="url" autocomplete="url" placeholder="https://yourwebsite.com.au" />
                         </div>
                         <div class="field col-12">
                             <label for="interest">Interested In</label>
@@ -196,6 +219,6 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
         </div>
     </div>
 </section>
-<?php unset($contact_visible, $contact_eyebrow, $contact_title, $contact_lead, $contact_points_title,
+<?php unset($contact_visible, $contact_eyebrow, $contact_title, $contact_lead, $contact_points_title, $contact_details, $csDetail, $csIcon, $csInner,
     $contact_points, $contact_note, $contact_privacy, $contact_budget, $contact_interests, $csGroup, $csLabel, $csPoint,
-    $csOption, $csReq); ?>
+    $csOption, $csReq, $csBi, $csBudget); ?>

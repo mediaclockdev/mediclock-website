@@ -38,7 +38,7 @@ $map = fn($q) => 'https://maps.google.com/maps?q=' . rawurlencode($q) . '&t=m&z=
     </div>
 </section>
 <?php
-// * Book A Free Consultation (contact section, shown open, with the budget slider)
+// * Book A Free Consultation (contact section, shown open, with the budget range picker)
 $contact_visible = true;
 $contact_eyebrow = '';
 $contact_title   = 'Book A Free Consultation';
@@ -53,7 +53,7 @@ include 'includes/components/contact.php';
 <!-- * Offices : map + address tabs (assets/js/contact-us.js swaps the map) -->
 <section class="section offices band-light" id="offices" aria-labelledby="offices-title">
     <div class="container">
-        <h2 id="offices-title" class="visually-hidden">Our offices</h2>
+        <h2 id="offices-title" class="offices-title">Our Locations</h2>
         <iframe class="offices-map" id="officeMap" src="<?= $e($map($offices[0][2])) ?>"
             title="Map: <?= $e($offices[0][2]) ?>" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <div class="offices-tabs">

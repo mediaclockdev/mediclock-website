@@ -178,11 +178,14 @@ if ($post) {
                     <div class="blog-card-body">
                         <span class="blog-chip"><?= $e($rp['cat']) ?></span>
                         <h3 class="blog-card-title"><a href="<?= $e(page_url('blog/' . $rp['slug'])) ?>"><?= $e($rp['title']) ?></a></h3>
-                        <p class="blog-meta">
-                            <time datetime="<?= $e($rp['date']) ?>"><?= $e($blogDate($rp['date'])) ?></time>
-                            <span aria-hidden="true">•</span>
-                            <span><?= (int) $rp['minutes'] ?> min read</span>
-                        </p>
+                        <div class="blog-card-foot">
+                            <p class="blog-meta">
+                                <time datetime="<?= $e($rp['date']) ?>"><?= $e($blogDate($rp['date'])) ?></time>
+                                <span aria-hidden="true">•</span>
+                                <span><?= (int) $rp['minutes'] ?> min read</span>
+                            </p>
+                            <a class="blog-read-more" href="<?= $e(page_url('blog/' . $rp['slug'])) ?>">Read more<span class="visually-hidden">: <?= $e($rp['title']) ?></span> <span aria-hidden="true">&rarr;</span></a>
+                        </div>
                     </div>
                 </article>
             </li>

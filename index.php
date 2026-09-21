@@ -16,7 +16,8 @@ $logos_items = require __DIR__ . '/data/shared/clients.php';
 include 'includes/components/logo-slider.php';
 
 // * Intro band
-$intro_text = 'Established in 2017, we have designed 100s of mobile apps and website design.';
+$intro_text = 'Established in 2017, we have designed 100s of mobile apps and websites.';
+$intro_bold = true;
 include 'includes/components/intro.php';
 
 // * One-off sections (includes/sections/home/)

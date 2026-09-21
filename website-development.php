@@ -133,8 +133,7 @@ include 'includes/components/why-us.php';
 
 // * Tech stack
 $logos_id            = 'tech';
-$logos_title         = 'Technologies we use';
-$logos_title_visible = false;
+$logos_title         = 'Technologies We Use';
 $logos_theme         = 'light';
 $logos_items         = require __DIR__ . '/data/shared/tech-stack-website.php';
 include 'includes/components/logo-slider.php';

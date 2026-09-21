@@ -3,9 +3,9 @@
 $homeServices = [
     ['UX/UI', 'Design', 'home/services/ux-ui.webp', 'Creating user-friendly application designs to ensure error-free development.', 'ui-ux-design/'],
     ['Mobile App', 'Development', 'home/services/mobile-app.webp', 'Turn your vision into a seamless mobile experience that engages users on the go.', 'mobile-app-development/'],
-    ['Web App', 'Development', 'home/services/web-app.webp', 'Empower your business with dynamic web solutions tailored to your unique needs.', 'website-development/'],
+    ['Web App', 'Development', 'home/services/web-app.webp', 'Empower your business with dynamic web solutions tailored to your unique needs.', 'web-application/'],
     ['Website', 'Design', 'home/services/website.webp', 'Elevate your online presence with captivating designs that leave a lasting impression.', 'website-development/'],
-    ['eCommerce', 'Design', 'home/services/mobile-app.webp', 'Transform your online store into a thriving marketplace with design and functionality.', 'ecommerce-website-design/'],
+    ['eCommerce', 'Design', 'home/services/ecommerce.webp', 'Transform your online store into a thriving marketplace with design and functionality.', 'ecommerce-website-design/'],
     ['Digital', 'Marketing', 'home/services/digital-marketing.webp', "Amplify your brand's online presence and drive results through targeted digital strategies.", 'digital-marketing/'],
 ];
 ?>

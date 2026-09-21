@@ -324,12 +324,20 @@ p {
   padding: 13px 12px;
   background: #fff;
 }
+/* the logo shrinks on very narrow phones (320px) instead of pushing the
+   call + menu buttons off the edge; 203 x 28 is its normal size */
+.header-mobile-logo {
+  flex: 0 1 auto;
+  min-width: 0;
+}
 .header-mobile-logo img {
-  height: 28px;
-  width: auto;
   display: block;
+  width: 203px;
+  max-width: 100%;
+  height: auto;
 }
 .header-mobile-actions {
+  flex: 0 0 auto;
   gap: 12px;
 }
 .header-icon-btn {
@@ -608,6 +616,11 @@ p {
   font-family: var(--font-head);
 }
 
+/* a dark contact band straight above the dark footer gets a hairline seam */
+.contact--static + .global-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* * Footer — 3-column top block (live ratio 449 / 285 / 285) */
 /* columns come from Bootstrap's .row/.col-lg-*; only the band padding is ours */
 .footer-top {
@@ -619,6 +632,9 @@ p {
 }
 
 /* * Footer — brand column */
+.footer-logo {
+  display: inline-block; /* link only as wide as the logo */
+}
 .footer-brand img {
   width: 198px;
   height: auto;
@@ -676,8 +692,8 @@ p {
   color: #fff;
 }
 .footer-social svg {
-  width: 23px;
-  height: 23px;
+  width: 25px;
+  height: 25px;
 }
 
 /* * Footer — link columns */
@@ -838,6 +854,22 @@ p {
   background: var(--orange);
 }
 
+/* * Service hero — second, outlined button next to the CTA ($hero_cta2) */
+.service-hero-cta--outline {
+  margin-left: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: transparent;
+}
+.service-hero-cta--outline:hover {
+  border-color: var(--orange);
+  color: #fff;
+}
+/* * Service hero — page graphic in place of the proposal card ($hero_aside) */
+.service-hero-aside {
+  display: flex;
+  justify-content: center;
+}
+
 /* * Service hero — stats strip */
 .service-hero-stats {
   display: flex;
@@ -971,6 +1003,9 @@ p {
   .service-hero-cta {
     width: 100%;
     justify-content: center;
+  }
+  .service-hero-cta--outline {
+    margin: 12px 0 0;
   }
 }
 
@@ -1480,6 +1515,7 @@ p {
 }
 .field {
   display: grid;
+  align-content: start; /* a neighbour's error message makes the row taller — keep label + input at the top */
   gap: 5px;
 }
 .field label {
@@ -1509,6 +1545,26 @@ p {
 .field textarea {
   min-height: 86px;
   resize: vertical;
+}
+/* * Forms : email / phone error (added by main.js) */
+.field-error {
+  display: block;
+  font-size: 13px;
+  line-height: 1.3;
+  color: #e51919;
+}
+.field-error:empty {
+  display: none;
+}
+.contact--static .field-error {
+  color: #ff7b7b;
+}
+input.is-invalid,
+select.is-invalid,
+textarea.is-invalid,
+.contact--static .field input.is-invalid,
+.contact--static .field textarea.is-invalid {
+  border-color: #e51919;
 }
 .formnote {
   margin-top: 8px;
@@ -1613,17 +1669,76 @@ p {
 .contact--static .field ::placeholder {
   color: #757575;
 }
-/* Project Budget slider ($contact_budget) — the text-input rule above would box it */
-.contact--static .field-budget input {
-  height: auto;
+/* * Contact : Project Budget ($contact_budget) — radio inputs styled as pills */
+/* no margin/padding reset here: Bootstrap's reboot already zeroes the fieldset,
+   and the .row > * column gutters must still apply */
+.field-budget {
+  min-width: 0;
+  border: 0;
+}
+.field-budget legend {
+  float: none;
+  width: auto;
+  margin: 0 0 12px;
+  padding: 0;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+}
+.budget-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.budget-option {
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+}
+/* the real radio stays in the layout (keyboard + screen readers), just invisible */
+.contact--static .field .budget-option input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   padding: 0;
   border: 0;
-  background: none;
-  accent-color: var(--orange);
+  opacity: 0;
+  cursor: pointer;
 }
-.contact--static .field-budget output {
-  font-size: 14px;
+.budget-option span {
+  display: block;
+  padding: 10px 18px;
+  border: 1px solid #d9dfe3;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #192b33;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+.budget-option:hover span {
+  border-color: var(--orange);
+}
+.budget-option input:checked + span {
+  border-color: var(--orange);
+  background: var(--orange);
   color: #fff;
+}
+.budget-option input:focus-visible + span {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.field-budget .field-error {
+  margin-top: 8px;
 }
 /* Contact : +61 prefix sits inside the phone input */
 .phone-field {
@@ -1726,6 +1841,38 @@ p {
   .head {
     margin-bottom: 18px;
   }
+}
+
+/* * Contact — phone / email / address rows ($contact_details) */
+.contact-details {
+  display: grid;
+  gap: 14px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.contact-details li,
+.contact-details a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-head);
+  font-size: 18px;
+  color: #fff;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.contact-details a:hover {
+  color: var(--orange);
+}
+.contact-details svg {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  padding: 11px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--orange);
 }
 
 /* tablet + phone: the copy stacks above the form */
@@ -1921,4 +2068,11 @@ p {
   .why-card-back {
     padding: 30px;
   }
+}
+
+/* * Intro band — "Established in 2017" proof line ($intro_bold), same on every page.
+   Specific enough to beat the page/band weights (service.css sets 300 on light bands) */
+.svc-intro p.svc-intro-text.svc-intro-text--bold {
+  font-family: var(--font-head);
+  font-weight: 700;
 }

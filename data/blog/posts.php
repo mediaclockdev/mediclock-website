@@ -57,7 +57,7 @@ return [
         'slug' => 'marketing-strategies-for-the-attention-scarce-generation',
         'title' => 'Top Tips and Tricks for Efficient Mobile App Development',
         'date' => '2024-04-19',
-        'cat' => 'Web Development',
+        'cat' => 'Mobile Development',
         'img' => '',
         'excerpt' => 'Before diving into any coding, it’s crucial to have a clear plan in place. Sit down and map out your app’s purpose, target audience, features, and goals. This blueprint…',
         'minutes' => 1,

@@ -95,6 +95,147 @@
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 })();
 
+/* * Forms : validation for every form on the site (contact, RFP card, subscribe)
+   Rules per field (by type / name) — every message shows under its field:
+     required     not empty, and not just spaces
+     name         letters, spaces, ' - . only, 2+ characters
+     company      2+ characters
+     email        name@domain.tld
+     tel          digits, spaces, + - ( ) only; 8–15 digits, or a valid
+                  Australian number when data-phone="au" (field behind +61)
+     website      optional; domain with or without http(s)://
+     message      10+ characters
+     select       an option picked
+     radio group  one option picked, when any radio in the group is required
+                  (the group is checked through its first radio)
+   On submit an invalid form is stopped here (before the forms' own success
+   handlers below), every error is shown and the first bad field is focused. */
+(function () {
+  const forms = document.querySelectorAll("form[novalidate]");
+  if (!forms.length) return;
+  const EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-z]{2,}$/i,
+    AU_PHONE = /^0?[2-478]\d{8}$/,
+    PERSON = /^[\p{L}][\p{L}\s'.-]*$/u,
+    WEBSITE = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(:\d+)?([/?#]\S*)?$/i;
+
+  const kind = (el) => {
+    const n = el.name.replace(/^rfp_/, "");
+    if (el.type === "radio") return n === "budget" ? "budget" : "choice";
+    if (el.type === "email") return "email";
+    if (el.type === "tel") return "phone";
+    if (el.tagName === "SELECT") return "select";
+    if (el.tagName === "TEXTAREA" || n === "message") return "message";
+    if (/name$/.test(n) && n !== "company") return "person";
+    if (n === "company") return "company";
+    if (n === "website") return "website";
+    return "text";
+  };
+  const EMPTY = {
+    email: "Please enter your email address.",
+    phone: "Please enter your phone number.",
+    select: "Please select a service.",
+    budget: "Please select your project budget.",
+    choice: "Please choose an option.",
+    message: "Please write your requirements.",
+    person: "Please enter your name.",
+    company: "Please enter your company name.",
+    text: "This field is required.",
+  };
+
+  function problem(el) {
+    if (el.type === "radio") {
+      const picked = el.form.querySelector(`input[name="${el.name}"]:checked`);
+      return picked ? "" : EMPTY[kind(el)];
+    }
+    const v = el.value.trim(),
+      k = kind(el);
+    if (!v) return el.required ? EMPTY[k] || EMPTY.text : "";
+    switch (k) {
+      case "email":
+        return EMAIL.test(v) ? "" : "Please enter a valid email address, e.g. name@company.com.au.";
+      case "phone": {
+        if (/[^\d\s()+.-]/.test(v)) return "Phone number can only contain digits, spaces, +, - and brackets.";
+        let digits = v.replace(/\D/g, "");
+        if (el.dataset.phone === "au") {
+          if (digits.length === 11 && digits.startsWith("61")) digits = digits.slice(2);
+          return AU_PHONE.test(digits) ? "" : "Please enter a valid Australian phone number, e.g. 412 345 678.";
+        }
+        return digits.length >= 8 && digits.length <= 15 ? "" : "Please enter a valid phone number (8–15 digits).";
+      }
+      case "person":
+        if (v.length < 2) return "Name must be at least 2 characters.";
+        return PERSON.test(v) ? "" : "Name can only contain letters, spaces, apostrophes and hyphens.";
+      case "company":
+        return v.length >= 2 ? "" : "Company name must be at least 2 characters.";
+      case "website":
+        return WEBSITE.test(v) ? "" : "Please enter a valid website, e.g. yourwebsite.com.au.";
+      case "message":
+        return v.length >= 10 ? "" : "Please add a little more detail (at least 10 characters).";
+    }
+    return "";
+  }
+
+  // the message goes after the field, or after the +61 wrapper around it
+  function errorEl(el) {
+    const anchor = el.closest(".phone-field, .budget-options") || el;
+    let out = anchor.nextElementSibling;
+    if (!out || !out.classList.contains("field-error")) {
+      out = document.createElement("small");
+      out.className = "field-error";
+      out.id = (el.id || el.name) + "Error";
+      out.setAttribute("aria-live", "polite");
+      anchor.after(out);
+      el.setAttribute("aria-describedby", [el.getAttribute("aria-describedby"), out.id].filter(Boolean).join(" "));
+    }
+    return out;
+  }
+
+  // show = paint the message; otherwise only refresh a message already on screen
+  function check(el, show) {
+    const msg = problem(el);
+    el.setCustomValidity(msg);
+    if (show || el.classList.contains("is-invalid")) {
+      el.classList.toggle("is-invalid", !!msg);
+      el.setAttribute("aria-invalid", msg ? "true" : "false");
+      errorEl(el).textContent = msg;
+    }
+    return !msg;
+  }
+
+  forms.forEach((form) => {
+    const fields = [...form.elements].filter(
+      (el) => el.name && !["hidden", "range", "submit", "button", "checkbox", "radio"].includes(el.type),
+    );
+    // radio groups: validated as one field, through the group's first radio
+    const groups = {};
+    form.querySelectorAll('input[type="radio"]').forEach((r) => (groups[r.name] = groups[r.name] || []).push(r));
+    Object.values(groups).forEach((radios) => {
+      if (!radios.some((r) => r.required)) return;
+      fields.push(radios[0]);
+      radios.forEach((r) => r.addEventListener("change", () => check(radios[0], false)));
+    });
+    fields.forEach((el) => {
+      if (el.type === "radio") return check(el, false);
+      check(el, false);
+      el.addEventListener("input", () => check(el, false));
+      el.addEventListener("change", () => check(el, false));
+      // judge a field once the visitor leaves it, not while they're typing
+      el.addEventListener("blur", () => (el.value.trim() || el.classList.contains("is-invalid")) && check(el, true));
+    });
+    form.addEventListener(
+      "submit",
+      (e) => {
+        const bad = fields.filter((el) => !check(el, true));
+        if (!bad.length) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        bad[0].focus();
+      },
+      true,
+    );
+  });
+})();
+
 /* * Service hero : Request For Proposal card */
 (function () {
   const form = document.getElementById("rfpForm"),

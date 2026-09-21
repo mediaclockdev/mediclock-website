@@ -58,11 +58,14 @@ $blogSlug = fn(string $s): string => 'cat-' . strtolower(preg_replace('/[^a-z0-9
                             <a href="<?= $e(page_url('blog/' . $bp['slug'])) ?>"><?= $e($bp['title']) ?></a>
                         </h3>
                         <p class="blog-card-excerpt"><?= $e($bp['excerpt']) ?></p>
-                        <p class="blog-meta">
-                            <time datetime="<?= $e($bp['date']) ?>"><?= $e($blogDate($bp['date'])) ?></time>
-                            <span aria-hidden="true">•</span>
-                            <span><?= (int) $bp['minutes'] ?> min read</span>
-                        </p>
+                        <div class="blog-card-foot">
+                            <p class="blog-meta">
+                                <time datetime="<?= $e($bp['date']) ?>"><?= $e($blogDate($bp['date'])) ?></time>
+                                <span aria-hidden="true">•</span>
+                                <span><?= (int) $bp['minutes'] ?> min read</span>
+                            </p>
+                            <a class="blog-read-more" href="<?= $e(page_url('blog/' . $bp['slug'])) ?>">Read more<span class="visually-hidden">: <?= $e($bp['title']) ?></span> <span aria-hidden="true">&rarr;</span></a>
+                        </div>
                     </div>
                 </article>
             </li>

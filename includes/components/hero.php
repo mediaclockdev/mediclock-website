@@ -12,6 +12,11 @@
      $hero_image    (string)            background file in assets/images/
      $hero_stats    (array)             [ ['40–150','Target keywords'], ... ]
      $hero_form     (bool)              show the "Request For Proposal" card
+     $hero_cta2     (array)             second, outlined button: ['label' => '…', 'href' => '…']
+     $hero_aside    (string)            HTML for the right column instead of the proposal card
+                                        (e.g. a product graphic); $hero_form is ignored when set
+     $hero_interest (string)            option the CTA preselects in the contact form
+                                        — default 'Free consultation'
 
    Anything not set falls back to a sensible default, so a minimal page is:
      $hero_title = 'Website Development'; include 'includes/components/hero.php';
@@ -24,11 +29,15 @@ $hero_cta_href = $hero_cta_href ?? '';
 $hero_image    = $hero_image    ?? 'hero-service.webp';
 $hero_stats    = $hero_stats    ?? [];
 $hero_form     = $hero_form     ?? true;
+$hero_cta2     = $hero_cta2     ?? [];
+$hero_aside    = $hero_aside    ?? '';
+$hero_interest = $hero_interest ?? 'Free consultation';
+if ($hero_aside !== '') $hero_form = false;
 $h = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 require_once dirname(__DIR__) . '/img.php';
 ?>
 <!-- * Service hero -->
-<section class="service-hero<?= $hero_form ? '' : ' service-hero--no-form' ?>" style="background-image:url('<?= $h(img_src($hero_image)) ?>')">
+<section class="service-hero<?= $hero_form || $hero_aside !== '' ? '' : ' service-hero--no-form' ?><?= $hero_aside !== '' ? ' service-hero--aside' : '' ?>" style="background-image:url('<?= $h(img_src($hero_image)) ?>')">
     <div class="container service-hero-inner">
         <div class="row align-items-center g-4">
 
@@ -51,9 +60,13 @@ require_once dirname(__DIR__) . '/img.php';
                 <a class="service-hero-cta" href="<?= $h($hero_cta_href) ?>"><?= $h($hero_cta) ?> <span
                         aria-hidden="true">&rarr;</span></a>
                 <?php else: ?>
-                <button type="button" class="service-hero-cta contactBtn" data-interest="Free consultation">
+                <button type="button" class="service-hero-cta contactBtn" data-interest="<?= $h($hero_interest) ?>">
                     <?= $h($hero_cta) ?> <span aria-hidden="true">&rarr;</span>
                 </button>
+                <?php endif; ?>
+
+                <?php if (!empty($hero_cta2['label']) && !empty($hero_cta2['href'])): ?>
+                <a class="service-hero-cta service-hero-cta--outline" href="<?= $h($hero_cta2['href']) ?>"><?= $h($hero_cta2['label']) ?></a>
                 <?php endif; ?>
 
                 <?php if ($hero_stats): ?>
@@ -65,13 +78,20 @@ require_once dirname(__DIR__) . '/img.php';
                 <?php endif; ?>
             </div>
 
+            <?php if ($hero_aside !== ''): ?>
+            <!-- * Service hero : page graphic (replaces the proposal card) -->
+            <div class="col-12 col-lg-4 service-hero-aside">
+                <?= $hero_aside ?>
+            </div>
+            <?php endif; ?>
+
             <?php if ($hero_form): ?>
             <!-- * Service hero : Request For Proposal card -->
             <div class="col-12 col-lg-4 rfp-card">
                 <h2 class="rfp-title">Request For Proposal</h2>
                 <form class="rfp-form d-flex flex-column" id="rfpForm" novalidate>
                     <input type="text" name="rfp_name" placeholder="Your Name" autocomplete="name" required />
-                    <input type="tel" name="rfp_phone" placeholder="Phone number" autocomplete="tel" required />
+                    <input type="tel" name="rfp_phone" placeholder="Phone number" autocomplete="tel" inputmode="tel" maxlength="20" required />
                     <input type="email" name="rfp_email" placeholder="Email" autocomplete="email" required />
                     <select name="rfp_service" required>
                         <option value="" disabled selected>Select your Service</option>
@@ -108,4 +128,5 @@ require_once dirname(__DIR__) . '/img.php';
         </div>
     </div>
 </section>
-<?php unset($hero_title, $hero_sub, $hero_eyebrow, $hero_cta, $hero_cta_href, $hero_image, $hero_stats, $hero_form); ?>
+<?php unset($hero_title, $hero_sub, $hero_eyebrow, $hero_cta, $hero_cta_href, $hero_image, $hero_stats, $hero_form,
+    $hero_cta2, $hero_aside, $hero_interest); ?>

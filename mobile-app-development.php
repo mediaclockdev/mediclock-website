@@ -31,7 +31,8 @@ $service_strip_items = [
 include 'includes/components/service-strip.php';
 
 // * Intro band
-$intro_text = 'Established in 2017, we have designed 100s of mobile apps and website design.';
+$intro_text = 'Established in 2017, we have designed 100s of mobile apps and websites.';
+$intro_bold = true;
 include 'includes/components/intro.php';
 
 // * Recent Projects
@@ -86,8 +87,7 @@ include 'includes/components/roadmap.php';
 
 // * Tech stack
 $logos_id            = 'tech';
-$logos_title         = 'Technologies we use';
-$logos_title_visible = false;
+$logos_title         = 'Technologies We Use';
 $logos_theme         = 'light';
 $logos_items         = require __DIR__ . '/data/shared/tech-stack.php';
 include 'includes/components/logo-slider.php';

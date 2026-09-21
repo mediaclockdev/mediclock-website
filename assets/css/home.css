@@ -257,3 +257,32 @@
     animation: none;
   }
 }
+
+/* * Section titles — orange, matching Our Journey / Why choose us? */
+#clients-title,
+#services-title,
+#partners-title {
+  color: var(--orange);
+}
+
+/* * Why choose us? — main.css caps this container at 1140px for the service pages;
+   on the homepage it follows the standard Bootstrap container so its title lines up
+   with every other section */
+.why-us .container {
+  max-width: 100%;
+}
+@media (min-width: 576px) {
+  .why-us .container { max-width: 540px; }
+}
+@media (min-width: 768px) {
+  .why-us .container { max-width: 720px; }
+}
+@media (min-width: 992px) {
+  .why-us .container { max-width: 960px; }
+}
+@media (min-width: 1200px) {
+  .why-us .container { max-width: 1140px; }
+}
+@media (min-width: 1400px) {
+  .why-us .container { max-width: 1320px; }
+}

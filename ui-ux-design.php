@@ -20,7 +20,8 @@ $logos_items = require __DIR__ . '/data/shared/clients.php';
 include 'includes/components/logo-slider.php';
 
 // * Intro band
-$intro_text  = 'Established in 2017, we have designed 100s of websites, web and mobile apps.';
+$intro_text  = 'Established in 2017, we have designed 100s of mobile apps and websites.';
+$intro_bold  = true;
 $intro_theme = 'light';
 include 'includes/components/intro.php';
 
@@ -132,8 +133,7 @@ include 'includes/components/why-us.php';
 
 // * Tech stack
 $logos_id            = 'tech';
-$logos_title         = 'Technologies we use';
-$logos_title_visible = false;
+$logos_title         = 'Technologies We Use';
 $logos_theme         = 'light';
 $logos_items         = require __DIR__ . '/data/shared/tech-stack.php';
 include 'includes/components/logo-slider.php';

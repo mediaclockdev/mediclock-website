@@ -11,8 +11,10 @@
          'logo'  => ['src' => '…', 'w' => 240, 'h' => 65, 'alt' => '…'],  optional, above the title
          'copy'  => ['paragraph', …],
          'stats' => ['Downloads' => '500', 'Ratings' => '4.5/5'],  optional
+         'link'  => ['label' => 'View on the App Store', 'href' => 'https://…'],  optional
        ], … ]
      $projects_title       (string) default 'Recent Projects'
+     $projects_lead        (string) line under the heading, optional
      $projects_id          (string) default 'projects'
      $projects_theme       (string) 'light' | 'dark'                          — default 'light'
      $projects_media_cols  (int)    image column width on desktop, out of 12  — default 6
@@ -22,6 +24,7 @@
    ============================================================ */
 $projects_items       = $projects_items       ?? [];
 $projects_title       = $projects_title       ?? 'Recent Projects';
+$projects_lead        = $projects_lead        ?? '';
 $projects_id          = $projects_id          ?? 'projects';
 $projects_theme       = ($projects_theme ?? 'light') === 'dark' ? 'dark' : 'light';
 $projects_media_cols  = min(max((int) ($projects_media_cols ?? 6), 3), 9);
@@ -36,9 +39,10 @@ require_once dirname(__DIR__) . '/img.php';
     <div class="container">
         <div class="head">
             <h2 id="<?= $h($projects_id) ?>-title"><?= $h($projects_title) ?></h2>
+            <?php if ($projects_lead !== ''): ?><p><?= $h($projects_lead) ?></p><?php endif; ?>
         </div>
         <?php foreach ($projects_items as $pjI => $pj): ?>
-        <article class="project row align-items-center g-4 g-lg-5<?= ($pjI % 2 === 1) !== $projects_image_first ? ' flex-lg-row-reverse' : '' ?>">
+        <article class="project row align-items-start g-4 g-lg-5<?= ($pjI % 2 === 1) !== $projects_image_first ? ' flex-lg-row-reverse' : '' ?>">
             <div class="col-12 col-lg-<?= 12 - $projects_media_cols ?> project-copy">
                 <?php if (!empty($pj['logo']['src'])): ?>
                 <img class="project-logo" src="<?= $h(img_src($pj['logo']['src'])) ?>" alt="<?= $h($pj['logo']['alt'] ?? '') ?>"
@@ -54,6 +58,9 @@ require_once dirname(__DIR__) . '/img.php';
                     <div><dt><?= $h($pjLabel) ?></dt><dd><?= $h($pjValue) ?></dd></div>
                     <?php endforeach; ?>
                 </dl>
+                <?php endif; ?>
+                <?php if (!empty($pj['link']['label']) && !empty($pj['link']['href'])): ?>
+                <a class="project-link" href="<?= $h($pj['link']['href']) ?>"<?= preg_match('#^https?://#', $pj['link']['href']) ? ' target="_blank" rel="noopener"' : '' ?>><?= $h($pj['link']['label']) ?><span class="visually-hidden"> (<?= $h($pj['title']) ?>)</span> <span aria-hidden="true">&rarr;</span></a>
                 <?php endif; ?>
             </div>
             <div class="col-12 col-lg-<?= $projects_media_cols ?> project-media">
@@ -73,5 +80,5 @@ require_once dirname(__DIR__) . '/img.php';
     </div>
 </section>
 <?php endif; ?>
-<?php unset($projects_items, $projects_title, $projects_id, $projects_theme, $projects_media_cols,
+<?php unset($projects_items, $projects_title, $projects_lead, $projects_id, $projects_theme, $projects_media_cols,
     $projects_image_first, $projects_cta, $pjI, $pj, $pjPara, $pjLabel, $pjValue); ?>

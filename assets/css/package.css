@@ -75,21 +75,6 @@
   margin: 0 0 15px;
   color: #fff;
 }
-.service-card .svclink {
-  color: #fff;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  transition: color 0.2s ease;
-}
-.service-card .svclink:hover {
-  color: var(--orange);
-}
-.service-card .svclink span {
-  margin-left: 8px;
-  font-size: 1.2em;
-  line-height: 1;
-}
 .blist {
   list-style: none;
   padding: 0;

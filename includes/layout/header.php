@@ -5,12 +5,14 @@ $recaptcha_site_key = $recaptcha_site_key ?? '';
 /* Per-page values — explicitly set in the page's root file before including this header.
      $page_title = '...';
      $page_description = '...';
+     $page_canonical = 'https://mediaclock.com.au/slug/';   // optional <link rel="canonical">
      $page_css = 'service';             // -> assets/css/service.css
      $page_css = ['service', 'about'];  // several files, in order
      $page_js  = 'about';               // -> assets/js/about.js (used by footer.php)
 */
 $page_title = $page_title ?? 'Media Clock';
 $page_description = $page_description ?? '';
+$page_canonical = $page_canonical ?? '';
 $page_css = array_filter((array) ($page_css ?? []));
 $e = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 require_once dirname(__DIR__) . '/img.php';
@@ -38,6 +40,9 @@ unset($navItems, $navSlug);
     <title><?= $e($page_title) ?></title>
     <?php if ($page_description): ?>
     <meta name="description" content="<?= $e($page_description) ?>" />
+    <?php endif; ?>
+    <?php if ($page_canonical): ?>
+    <link rel="canonical" href="<?= $e($page_canonical) ?>" />
     <?php endif; ?>
     <!-- * Header : brand fonts (Poppins nav, Open Sans dropdown) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
