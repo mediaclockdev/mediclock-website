@@ -204,6 +204,11 @@
   margin-top: 64px;
   text-align: right;
 }
+/* button on its own (no title above it): centred under the projects */
+.projects-cta--centred {
+  align-items: center;
+  text-align: center;
+}
 .svc-projects .projects-cta-title {
   margin: 0;
   font-size: 32px;
@@ -236,7 +241,7 @@
    (what-we-do.php)
    ------------------------------------------------------------ */
 .what-we-do .container {
-  max-width: 1140px;
+  max-width: var(--page);
 }
 .what-we-do .what-we-do-title {
   margin-bottom: 16px;
@@ -402,7 +407,7 @@
    (service-cards.php)
    ------------------------------------------------------------ */
 .svc-cards .container {
-  max-width: 1140px;
+  max-width: var(--page);
 }
 .svc-cards-wrap {
   padding-top: 70px;
@@ -454,8 +459,9 @@
   color: var(--orange);
   text-align: center;
 }
+/* centred under the centred heading above it */
 .svc-cards-cta-btn {
-  align-self: flex-end;
+  align-self: center;
   display: inline-flex;
   align-items: center;
   padding: 15px 40px;
@@ -489,7 +495,7 @@
    slider (feature-slider.php)
    ------------------------------------------------------------ */
 .feature-slider .container {
-  max-width: 1140px;
+  max-width: var(--page);
 }
 .feature-slider .feature-slider-title {
   color: var(--orange);
@@ -508,7 +514,14 @@
   width: 64px;
   height: 64px;
 }
+/* two-line slot: titles run to one or two lines ("Personalisation" vs
+   "Product Reviews and Ratings"), and without it the copy under them starts at
+   a different height in every card */
 .feature-slider .feature-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(2 * 22px * 1.4);
   margin: 0;
   font-family: var(--font-head);
   font-size: 22px;
@@ -569,7 +582,7 @@
   font-weight: 600;
 }
 .svc-strip--titled .container {
-  max-width: 1140px;
+  max-width: var(--page);
 }
 .svc-strip--titled .head h2 {
   color: var(--orange);
@@ -639,6 +652,10 @@
     margin-top: 48px;
     text-align: left;
   }
+  .projects-cta--centred {
+    align-items: center;
+    text-align: center;
+  }
 }
 @media (max-width: 575.98px) {
   .svc-intro-text {
@@ -670,9 +687,6 @@
   }
   .svc-cards .svc-cards-cta-title {
     font-size: 24px;
-  }
-  .svc-cards-cta-btn {
-    align-self: center;
   }
   .projects-cta-btn {
     padding: 13px 24px;

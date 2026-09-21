@@ -30,7 +30,7 @@ $intro_text  = 'Our website development service offers top-notch solutions to cr
 $intro_theme = 'light';
 include 'includes/components/intro.php';
 
-// * Our Recent Works — carousel, two per view
+// * Recent Projects — carousel, two per view
 $portfolio_items = [
     ['title' => 'Azeta Real Estate',                'category' => 'Lead Generation Website',    'image' => 'pages/website-development/portfolio/azeta-real-estate.webp'],
     ['title' => 'Compella Compression',             'category' => 'Lead Generation Website',    'image' => 'pages/website-development/portfolio/compella-compression.webp'],
@@ -45,20 +45,20 @@ $portfolio_items = [
     ['title' => 'Singh Sweets And Restaurant',      'category' => 'Brand Awareness Website',    'image' => 'pages/website-development/portfolio/singh-sweets.webp'],
     ['title' => 'Monarch Flooring',                 'category' => 'Lead Generation Website',    'image' => 'pages/website-development/portfolio/monarch-flooring.webp'],
     ['title' => 'Moga Tyre',                        'category' => 'Lead Generation Website',    'image' => 'pages/website-development/portfolio/moga-tyre.webp'],
-    ['title' => 'NDIS Clock',                       'category' => 'Lead Generation Website',    'image' => 'pages/website-development/portfolio/ndis-clock.webp'],
+    ['title' => 'NDIS Clock',                       'category' => 'NDIS Website',               'image' => 'pages/website-development/portfolio/ndis-clock.webp'],
     ['title' => 'Croydon Bakehouse',                'category' => 'Informative Website Design', 'image' => 'pages/website-development/portfolio/croydon-bakehouse.webp'],
     ['title' => 'Smashed Up',                       'category' => 'Informative Website Design', 'image' => 'pages/website-development/portfolio/smashed-up.webp'],
 ];
 ?>
-<!-- * Our Recent Works -->
+<!-- * Recent Projects -->
 <section class="section webdev-works band-dark" id="recent-works" aria-labelledby="recent-works-title">
     <div class="container">
         <div class="head">
-            <h2 id="recent-works-title">Our Recent Works</h2>
+            <h2 id="recent-works-title">Recent Projects</h2>
         </div>
         <div class="mc-slider works-slider" data-slider data-autoplay="5000"
             style="--pv:2;--pv-md:2;--pv-sm:1;--gap:20px"
-            aria-roledescription="carousel" aria-label="Our Recent Works">
+            aria-roledescription="carousel" aria-label="Recent Projects">
             <div class="mc-slider-track" tabindex="0">
                 <?php foreach ($portfolio_items as $i => $item): ?>
                 <article class="mc-slide work-card" role="group" aria-roledescription="slide"

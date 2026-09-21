@@ -6,7 +6,7 @@ include 'includes/layout/header.php';
 
 // * Hero
 $hero_title = 'Custom Web Application Developers';
-$hero_sub   = 'Business Atomisation or Concept Development';
+$hero_sub   = 'Business Automation and Concept Development';
 $hero_cta   = '';
 $hero_image = 'pages/web-application/hero.webp';
 $hero_form  = true;
@@ -63,13 +63,12 @@ $projects_items       = [
         'alt'   => 'Richards Aluminium formula builder screens',
         'logo'  => ['src' => 'pages/web-application/projects/richards-aluminium-logo.webp', 'w' => 372, 'h' => 42, 'alt' => 'Richards Aluminium Windows & Doors'],
         'copy'  => [
-            'Richard Aluminium faced significant challenges with their manual process for designing and estimating window constructions. The process involved creating window designs in Excel, manually generating formulas, and calculating the cost and length of aluminum required. This approach was not only time-consuming but also prone to errors, impacting the efficiency and accuracy of the business operations.',
-            'Media Clock recognised these issues and provided an innovative solution by developing a formula builder. This advanced tool automated the entire process, enabling Richard Aluminium to seamlessly create window sketches and generate the necessary formulas for accurate cost estimation and material calculations. The transformation from a manual, error-prone process to an automated, efficient system greatly enhanced the company’s operational efficiency and accuracy.',
+            'Richards Aluminium faced significant challenges with their manual process for designing and estimating window constructions. The process involved creating window designs in Excel, manually generating formulas, and calculating the cost and length of aluminum required. This approach was not only time-consuming but also prone to errors, impacting the efficiency and accuracy of the business operations.',
+            'Media Clock recognised these issues and provided an innovative solution by developing a formula builder. This advanced tool automated the entire process, enabling Richards Aluminium to seamlessly create window sketches and generate the necessary formulas for accurate cost estimation and material calculations. The transformation from a manual, error-prone process to an automated, efficient system greatly enhanced the company’s operational efficiency and accuracy.',
         ],
     ],
 ];
 $projects_cta = [
-    'title' => 'Take a look at our works',
     'label' => 'Book a free demo',
     'href'  => 'https://calendly.com/nithyaamediaclock/',
 ];
@@ -92,31 +91,31 @@ $why_us_items = [
         'title' => 'Tailored Solutions',
         'text'  => 'Our experts excel in creating bespoke web applications tailored to your brand’s identity and objectives. From concept to execution, we work closely with you to ensure that your vision is brought to life.',
         'icon'  => 'pages/web-application/icons/why-tailored.svg',
-        'image' => 'pages/web-application/why/tailored-solutions.webp',
+        'image' => 'pages/ecommerce-website-design/why/tailored-solutions.webp',
     ],
     [
         'title' => 'Expertise & Experience',
         'text'  => 'With years of experience in web app development, our team has the expertise to handle projects of any complexity. Whether you require a simple web application or a comprehensive enterprise solution, we have the skills to deliver.',
         'icon'  => 'pages/web-application/icons/why-expertise.svg',
-        'image' => 'pages/web-application/why/expertise-experience.webp',
+        'image' => 'pages/ecommerce-website-design/why/expert-support.webp',
     ],
     [
         'title' => 'Scalability & Flexibility',
         'text'  => 'We understand the importance of scalability and flexibility in today’s dynamic business environment. Our web applications are designed to adapt to your evolving needs and grow alongside your business seamlessly.',
         'icon'  => 'pages/web-application/icons/why-scalability.svg',
-        'image' => 'pages/web-application/why/scalability-flexibility.webp',
+        'image' => 'pages/ecommerce-website-design/why/scalable-and-flexible.webp',
     ],
     [
         'title' => 'Responsive Design',
         'text'  => 'In an era where mobile devices dominate, responsive design is paramount. Our web applications are optimised for all devices, ensuring a consistent and intuitive user experience across desktops, tablets, and smartphones.',
         'icon'  => 'pages/ecommerce-website-design/icons/feature-responsive-design.svg',
-        'image' => 'pages/web-application/why/tailored-solutions.webp',
+        'image' => 'pages/website-development/why/mobile.webp',
     ],
     [
         'title' => 'Security & Reliability',
         'text'  => 'Your data security is our top priority. We implement robust security measures to safeguard your web application against cyber threats, ensuring the confidentiality and integrity of your sensitive information.',
         'icon'  => 'pages/ecommerce-website-design/icons/why-robust-security.svg',
-        'image' => 'pages/web-application/why/expertise-experience.webp',
+        'image' => 'pages/ecommerce-website-design/why/robust-security.webp',
     ],
 ];
 include 'includes/components/why-us.php';

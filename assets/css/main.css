@@ -6,6 +6,11 @@
    ============================================================ */
 
 :root {
+  /* --page: the content width every section shares. It tracks Bootstrap's own
+     container steps (see the overrides below the :root block), so a component
+     that sets max-width: var(--page) always matches the sections around it at
+     every breakpoint instead of running wider than them */
+  --page: 100%;
   --orange: #f15a26;
   --ink: #17191b;
   --muted: #687078;
@@ -85,6 +90,32 @@ p {
 .head {
   max-width: 720px;
   margin-bottom: 26px;
+}
+/* the token follows Bootstrap's container widths, and from 1200px up it also
+   caps the container itself — Bootstrap would otherwise jump to 1320px at xxl
+   and leave those sections wider than the ones that read var(--page) */
+@media (min-width: 576px) {
+  :root {
+    --page: 540px;
+  }
+}
+@media (min-width: 768px) {
+  :root {
+    --page: 720px;
+  }
+}
+@media (min-width: 992px) {
+  :root {
+    --page: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  :root {
+    --page: 1140px;
+  }
+  .container {
+    max-width: var(--page);
+  }
 }
 .btn {
   display: inline-flex;
@@ -768,8 +799,9 @@ p {
   background-position: 50% 50%;
   background-repeat: no-repeat;
   color: #fff;
-  /* top padding clears the fixed header (see --header-h) */
-  padding: calc(var(--header-h) + 28px) 24px 63px;
+  /* top padding clears the fixed header (see --header-h); the sides are left to
+     the container inside, so the hero copy lines up with every other section */
+  padding: calc(var(--header-h) + 28px) 0 63px;
 }
 /* columns + vertical centring come from Bootstrap's .row/.col-lg-* */
 .service-hero-inner {
@@ -913,7 +945,7 @@ p {
 .rfp-form select,
 .rfp-form textarea {
   width: 100%;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 6px;
   padding: 13px 15px;
   background: #fff;
@@ -986,7 +1018,7 @@ p {
 /* * Service hero — tablet / mobile */
 @media (max-width: 991.98px) {
   .service-hero {
-    padding: calc(var(--header-h-mobile) + 24px) 20px 44px;
+    padding: calc(var(--header-h-mobile) + 24px) 0 44px;
   }
   .service-hero-inner {
     min-height: 0;
@@ -1547,21 +1579,28 @@ p {
   resize: vertical;
 }
 /* * Forms : email / phone error (added by main.js) */
+/* --field-error: the message colour for the surface the form sits on —
+   #e51919 on white cards, a lighter red on the dark navy panels so it stays
+   readable. The hero's proposal card and the consultation form then match. */
 .field-error {
   display: block;
   font-size: 13px;
   line-height: 1.3;
-  color: #e51919;
+  color: var(--field-error, #e51919);
 }
 .field-error:empty {
   display: none;
 }
-.contact--static .field-error {
-  color: #ff7b7b;
+.contact--static,
+.rfp-card {
+  --field-error: #ff7b7b;
 }
 input.is-invalid,
 select.is-invalid,
 textarea.is-invalid,
+.rfp-form input.is-invalid,
+.rfp-form select.is-invalid,
+.rfp-form textarea.is-invalid,
 .contact--static .field input.is-invalid,
 .contact--static .field textarea.is-invalid {
   border-color: #e51919;
@@ -1605,7 +1644,7 @@ textarea.is-invalid,
 }
 /* live block is ~1120px wide, so the title breaks over two lines */
 .contact--static .container {
-  max-width: 1140px;
+  max-width: var(--page);
 }
 .contact--static h2 {
   margin-bottom: 16px;
@@ -1931,7 +1970,7 @@ textarea.is-invalid,
    zooms out and fades on hover / keyboard focus, uncovering the back.
    ============================================================ */
 .why-us .container {
-  max-width: 1140px;
+  max-width: var(--page);
 }
 .why-us .head h2 {
   color: var(--orange);
@@ -2073,6 +2112,9 @@ textarea.is-invalid,
 /* * Intro band — "Established in 2017" proof line ($intro_bold), same on every page.
    Specific enough to beat the page/band weights (service.css sets 300 on light bands) */
 .svc-intro p.svc-intro-text.svc-intro-text--bold {
+  max-width: 760px;
+  margin-inline: auto;
   font-family: var(--font-head);
   font-weight: 700;
+  text-align: center;
 }

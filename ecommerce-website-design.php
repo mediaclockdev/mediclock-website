@@ -41,12 +41,12 @@ $feature_slider_items = [
     ['icon' => 'pages/ecommerce-website-design/icons/feature-seo.svg', 'title' => 'Search Engine Optimisation (SEO)', 'text' => 'Optimised content and meta tags to improve visibility on search engines.'],
     ['icon' => 'pages/ecommerce-website-design/icons/feature-personalisation.svg', 'title' => 'Personalisation', 'text' => 'Personalised recommendations and content to enhance the shopping experience.'],
     ['icon' => 'pages/ecommerce-website-design/icons/feature-wishlist.svg', 'title' => 'Wishlist and Save for Later', 'text' => 'Options for customers to save products they are interested in.'],
-    ['icon' => 'pages/ecommerce-website-design/icons/feature-inventory-management.svg', 'title' => 'Inventory Management', 'text' => 'Customer feedback features to build trust and influence purchase decisions.'],
+    ['icon' => 'pages/ecommerce-website-design/icons/feature-inventory-management.svg', 'title' => 'Inventory Management', 'text' => 'Live stock levels that update with every order, so products are never oversold.'],
     ['icon' => 'pages/ecommerce-website-design/icons/feature-order-tracking.svg', 'title' => 'Order Tracking', 'text' => 'Features that allow customers to track the status of their orders.'],
     ['icon' => 'pages/ecommerce-website-design/icons/feature-customer-accounts.svg', 'title' => 'Customer Accounts', 'text' => 'Secure user accounts where customers can view order history, track shipments, and manage their details.'],
     ['icon' => 'pages/ecommerce-website-design/icons/feature-social-media-integration.svg', 'title' => 'Social Media Integration', 'text' => 'Links and sharing options to connect with social media platforms.'],
-    ['icon' => 'pages/ecommerce-website-design/icons/feature-marketing-tools.svg', 'title' => 'Marketing Tools', 'text' => 'Customer feedback features to build trust and influence purchase decisions.'],
-    ['icon' => 'pages/ecommerce-website-design/icons/feature-analytics-reporting.svg', 'title' => 'Analytics and Reporting', 'text' => 'Optimised content and meta tags to improve visibility on search engines.'],
+    ['icon' => 'pages/ecommerce-website-design/icons/feature-marketing-tools.svg', 'title' => 'Marketing Tools', 'text' => 'Built-in discounts, promotions and email campaigns to bring customers back.'],
+    ['icon' => 'pages/ecommerce-website-design/icons/feature-analytics-reporting.svg', 'title' => 'Analytics and Reporting', 'text' => 'Sales, traffic and customer reports so you can see what is working and what is not.'],
     ['icon' => 'pages/ecommerce-website-design/icons/feature-customer-support.svg', 'title' => 'Customer Support', 'text' => 'Integrated chatbots or live chat support for instant customer assistance.'],
 ];
 include 'includes/components/feature-slider.php';
@@ -61,7 +61,7 @@ $why_us_title = 'Why choose us?';
 $why_us_items = [
     [
         'title' => 'Tailored Solutions',
-        'text'  => 'From SEO to social media management, content creation to PPC campaigns, we cover it all. Our holistic approach ensures that all aspects of your digital presence work together seamlessly to maximise your ROI.',
+        'text'  => 'We build your store around the way you actually sell — your products, pricing rules, shipping and checkout — on the platform that suits you, rather than forcing your business into a template.',
         'icon'  => 'pages/ecommerce-website-design/icons/why-tailored-solutions.svg',
         'image' => 'pages/ecommerce-website-design/why/tailored-solutions.webp',
     ],
@@ -92,10 +92,9 @@ $why_us_items = [
 ];
 include 'includes/components/why-us.php';
 
-// * eCommerce platforms (light band, heading kept for screen readers)
+// * Technologies (light band) — same heading as the other service pages
 $logos_id            = 'platforms';
-$logos_title         = 'eCommerce platforms we work with';
-$logos_title_visible = false;
+$logos_title         = 'Technologies We Use';
 $logos_theme         = 'light';
 $logos_items         = require __DIR__ . '/data/shared/tech-stack-ecommerce.php';
 include 'includes/components/logo-slider.php';
@@ -123,7 +122,7 @@ $faq_items   = [
     ],
     [
         'question' => 'How long does it take to design an ecommerce website?',
-        'answer'   => 'We provide a link where you can review each screen and type feedback directly on the design. Automatic notifications are sent to us for any necessary corrections.',
+        'answer'   => 'It depends on the size of your catalogue and the features you need. A straightforward store on an existing platform is usually a matter of weeks, while a larger build with custom features, integrations and migrated products takes longer. We confirm the timeline with you after the first scoping call, before any design work starts.',
     ],
     [
         'question' => 'Do you offer ongoing support after the website is live?',

@@ -10,7 +10,7 @@
    ============================================================ */
 
 .portfolio .container {
-  max-width: 1140px;
+  max-width: var(--page);
 }
 .portfolio-lead {
   margin: 0 0 24px;

@@ -24,15 +24,6 @@
 
 /* * Recent Projects — live block is ~1100px: copy ~650px beside the mockup */
 .svc-projects .container {
-  max-width: 1140px;
+  max-width: var(--page);
 }
 
-/* * Intro band — one left-aligned line in a tight band */
-.svc-intro {
-  padding: 24px 0;
-  text-align: left;
-}
-.svc-intro-text {
-  max-width: none;
-  margin: 0;
-}

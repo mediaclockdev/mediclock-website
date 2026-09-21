@@ -96,37 +96,37 @@ $why_us_items = [
         'title' => 'Expert Team',
         'text'  => 'Our experienced designers and developers use industry best practices and the latest trends to deliver top-notch quality.',
         'icon'  => 'pages/ui-ux-design/icons/why-expert-team.svg',
-        'image' => 'pages/ui-ux-design/why/expert-team.webp',
+        'image' => 'pages/business-digitisation/why/focus-on-your-core-business.webp',
     ],
     [
         'title' => 'Client-Centric Approach',
         'text'  => 'We tailor designs to your needs and goals, ensuring your vision is accurately represented.',
         'icon'  => 'pages/ui-ux-design/icons/why-client-centric.svg',
-        'image' => 'pages/ui-ux-design/why/client-centric.webp',
+        'image' => 'pages/business-digitisation/why/seamless-digital-foundation.webp',
     ],
     [
         'title' => 'Proven Processes',
         'text'  => 'Our structured approach includes thorough research, iterative design, and rigorous testing to meet high usability and performance standards.',
         'icon'  => 'pages/ui-ux-design/icons/why-proven-processes.svg',
-        'image' => 'pages/ui-ux-design/why/proven-processes.webp',
+        'image' => 'pages/website-development/why/custom.webp',
     ],
     [
         'title' => 'Quality Prototypes',
         'text'  => 'We create high-fidelity prototypes that validate design concepts and ensure smooth, intuitive user interactions before development.',
         'icon'  => 'pages/ui-ux-design/icons/why-expert-team.svg',
-        'image' => 'pages/ui-ux-design/why/expert-team.webp',
+        'image' => 'pages/website-development/why/mobile.webp',
     ],
     [
         'title' => 'Fixed Cost & Unlimited Revisions',
         'text'  => 'We offer clear, fixed pricing with unlimited revisions to meet your expectations without extra costs.',
         'icon'  => 'pages/ui-ux-design/icons/why-expert-team.svg',
-        'image' => 'pages/ui-ux-design/why/expert-team.webp',
+        'image' => 'pages/business-digitisation/why/time-and-cost-effective.webp',
     ],
     [
         'title' => 'Seamless Integration',
         'text'  => 'We ensure smooth coordination across all platforms and technologies for consistent, high-quality performance.',
         'icon'  => 'pages/ui-ux-design/icons/why-expert-team.svg',
-        'image' => 'pages/ui-ux-design/why/expert-team.webp',
+        'image' => 'pages/website-development/why/tech.webp',
     ],
 ];
 include 'includes/components/why-us.php';

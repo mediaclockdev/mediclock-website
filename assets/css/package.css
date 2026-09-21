@@ -18,6 +18,13 @@
    Footer:          DARK   (#192b33)
    ============================================================ */
 
+/* * Section intros — main.css caps .head at 720px, which left ~420px of the
+   1140px container empty and wrapped every one-sentence lead onto two lines.
+   The copy still stops well short of the full width on its own. */
+.head {
+  max-width: none;
+}
+
 /* ------------------------------------------------------------
    2. Services Section (Dark Section)
    ------------------------------------------------------------ */

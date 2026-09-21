@@ -6,7 +6,7 @@ include 'includes/layout/header.php';
 
 // * Hero
 $hero_title = 'Custom Mobile App Developers';
-$hero_sub   = 'Business Automation or Concept Development';
+$hero_sub   = 'Business Automation and Concept Development';
 $hero_cta   = '';
 $hero_image = 'pages/mobile-app-development/hero.webp';
 $hero_form  = true;

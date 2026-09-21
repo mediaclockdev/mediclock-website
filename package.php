@@ -5,7 +5,7 @@ $page_css         = 'package';
 include 'includes/layout/header.php';
 
 // * Hero
-$hero_title    = 'SEO packages Australia: built around what your website actually needs.';
+$hero_title    = 'SEO packages built around what your website actually needs';
 $hero_sub      = 'Basic to Custom, built for Australian businesses.';
 $hero_cta      = 'Explore SEO Packages';
 $hero_cta_href = '#packages';

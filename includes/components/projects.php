@@ -72,7 +72,7 @@ require_once dirname(__DIR__) . '/img.php';
 
         <?php if (!empty($projects_cta['label']) && !empty($projects_cta['href'])): ?>
         <!-- * Recent Projects : closing call to action -->
-        <div class="projects-cta">
+        <div class="projects-cta<?= empty($projects_cta['title']) ? ' projects-cta--centred' : '' ?>">
             <?php if (!empty($projects_cta['title'])): ?><h2 class="projects-cta-title"><?= $h($projects_cta['title']) ?></h2><?php endif; ?>
             <a class="projects-cta-btn" href="<?= $h($projects_cta['href']) ?>"<?= preg_match('#^https?://#', $projects_cta['href']) ? ' target="_blank" rel="noopener"' : '' ?>><?= $h($projects_cta['label']) ?> <span aria-hidden="true">&rarr;</span></a>
         </div>

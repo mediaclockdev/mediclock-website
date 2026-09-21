@@ -17,15 +17,6 @@
    #faqs           light  faq.php
    ============================================================ */
 
-/* * Intro band — one left-aligned line in a tight band */
-.svc-intro {
-  padding: 24px 0;
-  text-align: left;
-}
-.svc-intro-text {
-  max-width: none;
-  margin: 0;
-}
 
 /* * Proof of Concept — zigzag: odd steps drop the circle below the copy */
 /* headings left, like the other sections; the step circles and the copy
@@ -47,12 +38,26 @@
   font-size: 20px;
 }
 .poc .container {
-  max-width: 1180px;
+  max-width: var(--page);
 }
+/* two per row on a phone, three on a tablet, and the six-across zigzag only
+   once the columns are wide enough for it (below that the names wrap to three
+   lines and the steps stop lining up) */
 .poc-steps {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px 16px;
+}
+@media (min-width: 768px) {
+  .poc-steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1200px) {
+  .poc-steps {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+  }
 }
 .poc-step {
   display: flex;
@@ -68,11 +73,19 @@
   position: relative;
   z-index: 2;
 }
+/* two-line slot: some names run to one line ("User Stories") and some to two
+   ("Architectural Design"), which would otherwise shift the description under
+   or above them by a whole line */
 .poc-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(2 * 22px * 1.25);
   margin: 0;
   font-family: var(--font-head);
   font-size: 22px;
   font-weight: 600;
+  line-height: 1.25;
   color: var(--orange);
 }
 .poc-text {
@@ -81,17 +94,20 @@
   line-height: 1.5;
   color: #fff;
 }
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   .poc-steps {
     position: relative;
     z-index: 1;
     overflow: hidden;
   }
+  /* three fixed rows per step, mirrored either side of the dashed line, so the
+     name always sits the same distance from its circle and the descriptions
+     line up across the row instead of floating with their own text length */
   .poc-step {
     position: relative;
     z-index: 2;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    row-gap: 14px;
     min-height: 380px;
   }
   .poc-step::before {
@@ -103,37 +119,43 @@
     z-index: -1;
     pointer-events: none;
   }
+  /* odd: description on top (sitting on the name), then name, then circle */
   .poc-step:nth-child(odd) {
-    justify-content: flex-end;
-  }
-  .poc-step:nth-child(even) {
-    justify-content: flex-start;
-  }
-  .poc-step:nth-child(odd) .poc-circle {
-    order: 3;
-    margin-top: 0;
-    /* margin-bottom: 30px; */
-  }
-  .poc-step:nth-child(odd) .poc-name {
-    order: 2;
-    margin: 0;
+    grid-template-rows: 1fr auto auto;
   }
   .poc-step:nth-child(odd) .poc-text {
-    order: 1;
+    grid-row: 1;
+    align-self: end;
     margin: 0;
   }
+  .poc-step:nth-child(odd) .poc-name {
+    grid-row: 2;
+    margin: 0;
+  }
+  .poc-step:nth-child(odd) .poc-circle {
+    grid-row: 3;
+    margin: 0;
+  }
+  /* even: the mirror — circle, then name, then description hanging below it */
+  .poc-step:nth-child(even) {
+    grid-template-rows: auto auto 1fr;
+  }
   .poc-step:nth-child(even) .poc-circle {
-    order: 1;
-    margin-bottom: 0;
-    /* margin-top: 30px; */
+    grid-row: 1;
+    margin: 0;
   }
   .poc-step:nth-child(even) .poc-name {
-    order: 2;
+    grid-row: 2;
     margin: 0;
   }
   .poc-step:nth-child(even) .poc-text {
-    order: 3;
+    grid-row: 3;
+    align-self: start;
     margin: 0;
+  }
+  /* the circle is the anchor of the zigzag: same size in every column */
+  .poc-step .poc-circle {
+    justify-self: center;
   }
   .poc-step:nth-child(odd)::before {
     top: 50%;
@@ -152,12 +174,6 @@
   }
   .poc-step:last-child::before {
     border-right: none;
-  }
-}
-@media (max-width: 991.98px) {
-  .poc-steps {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 40px;
   }
 }
 @media (max-width: 575.98px) {
@@ -187,7 +203,7 @@
 
 /* * Why UI/UX Design? — mockups, then orange-led paragraphs */
 .uiux-why .container {
-  max-width: 1140px;
+  max-width: var(--page);
 }
 .uiux-why-img {
   display: block;

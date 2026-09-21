@@ -21,7 +21,7 @@
 
 /* * About us — copy either side of the two team photos */
 .about .container {
-  max-width: 1140px;
+  max-width: var(--page);
 }
 .about-title {
   margin: 0 0 20px;

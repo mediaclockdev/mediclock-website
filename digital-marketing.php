@@ -22,7 +22,6 @@ $logos_items         = require __DIR__ . '/data/shared/marketing-services.php';
 include 'includes/components/logo-slider.php';
 
 // * Intro band
-$intro_lead  = 'Media Clock:';
 $intro_text  = 'Dedicated to solving your digital marketing challenges with personalised account managers, brand reputation expertise, and results-driven strategies, working closely with you on strategic planning and content creation.';
 $intro_theme = 'light';
 include 'includes/components/intro.php';
@@ -88,7 +87,6 @@ $why_us_items = [
     ],
     [
         'title'       => 'Full-Service Digital Marketing',
-        'front_title' => 'Full Fledge Digital Marketing',
         'text'        => 'From SEO to social media management, content creation to PPC campaigns, we cover it all. Our holistic approach ensures that all aspects of your digital presence work together seamlessly to maximise your ROI.',
         'icon'        => 'pages/digital-marketing/icons/why-full-service.svg',
         'image'       => 'pages/digital-marketing/why/full-service-digital-marketing.webp',

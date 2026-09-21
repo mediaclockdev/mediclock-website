@@ -48,7 +48,7 @@
 /* * Offices — map above the address tabs */
 .offices .container,
 .subscribe .container {
-  max-width: 1140px;
+  max-width: var(--page);
 }
 .offices {
   padding-bottom: 20px;

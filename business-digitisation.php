@@ -21,7 +21,7 @@ $logos_items = require __DIR__ . '/data/shared/clients-dark.php';
 include 'includes/components/logo-slider.php';
 
 // * Intro band
-$intro_title = 'You are in the right place for digital success for your businesses!';
+$intro_title = 'Your Partner in Digital Success';
 $intro_text  = 'Building a brand identity can be challenging, from designing a memorable logo and crafting professional business cards to setting up an effective letterhead. We’re here to make these tasks easier and help you create a cohesive and impactful brand.';
 $intro_theme = 'dark';
 include 'includes/components/intro.php';
