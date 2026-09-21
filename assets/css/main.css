@@ -398,7 +398,12 @@ p {
   overflow-y: auto;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s;
+  /* visibility is transitioned as well, so on close it flips to hidden only
+     once the fade has finished — with opacity alone the panel disappeared at
+     once and the closing animation was never seen */
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 }
 .fs-menu.open {
   opacity: 1;
@@ -774,8 +779,13 @@ p {
 
 /* * Footer — mobile: single column stack */
 @media (max-width: 991.98px) {
+  /* the logo sat 56px below the footer's top edge (22px band + 34px row);
+     on a phone that read as a gap between the page and the footer */
+  .global-footer {
+    padding-top: 12px;
+  }
   .footer-top {
-    padding-block: 34px 26px;
+    padding-block: 12px 26px;
   }
   .footer-col {
     padding-top: 30px;
@@ -784,7 +794,19 @@ p {
     width: 250px;
   }
   .footer-bottom > .row > [class^="col"] + [class^="col"] {
-    margin-top: 10px;
+    margin-top: 6px;
+  }
+  /* the copyright block ran 26px + 30px + the footer's own 22px deep, which is
+     a lot of empty navy under three short lines */
+  .footer-bottom {
+    padding-top: 16px;
+    padding-bottom: 4px;
+  }
+  .global-footer {
+    padding-bottom: 16px;
+  }
+  .footer-top {
+    padding-bottom: 16px;
   }
 }
 
@@ -1303,7 +1325,7 @@ p {
 /* 24px hit area per dot (touch-target minimum), 8px visible dot inside */
 .mc-slider-dots {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   gap: 2px;
   margin-top: 22px;
@@ -2052,14 +2074,20 @@ textarea.is-invalid,
 }
 
 /* * Why choose us : back — optional photo, icon, title, copy */
+/* "safe center" centres the copy but never pushes it past the top edge, and
+   the scroll keeps the longest card (About us → Quality) readable instead of
+   clipping it — plain `center` cut the icon off the top and the last lines off
+   the bottom */
 .why-card-back {
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  gap: 16px;
-  padding: 30px 44px;
+  justify-content: safe center;
+  gap: 12px;
+  padding: 26px 30px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: rgba(0, 0, 0, 0.314);
   text-align: left;
 }
@@ -2089,8 +2117,8 @@ textarea.is-invalid,
 }
 .why-card-back p {
   margin: 0;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 15px;
+  line-height: 1.5;
   color: #fff;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2098,14 +2126,73 @@ textarea.is-invalid,
     transition: none;
   }
 }
-@media (max-width: 575.98px) {
+/* 992–1199px: still three cards across but in a 960px container, so each one
+   is ~290px wide and the longer copy (website development → Cutting-Edge
+   Technologies) ran past the bottom */
+@media (min-width: 992px) and (max-width: 1199.98px) {
   .why-card-front-title,
   .why-card-title {
-    font-size: 28px;
-    line-height: 34px;
+    font-size: 26px;
+    line-height: 32px;
   }
   .why-card-back {
-    padding: 30px;
+    padding: 22px 20px;
+    gap: 10px;
+  }
+  .why-card-back p {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+}
+
+/* the 450px card is sized for three across on a desktop; on a tablet or phone
+   it is one or two across and that height is far taller than it needs to be */
+/* these cards carry a paragraph each, so two across below 768px leaves them
+   ~255px wide and the copy runs past the bottom — one at a time instead */
+@media (max-width: 767.98px) {
+  .why-us .mc-slider {
+    --cur: var(--pv-sm);
+  }
+}
+@media (max-width: 991.98px) {
+  .why-us .why-card {
+    height: 400px;
+    border-radius: 24px;
+  }
+  .why-card-front-title,
+  .why-card-title {
+    font-size: 26px;
+    line-height: 32px;
+  }
+  .why-card-back {
+    padding: 22px 22px;
+    gap: 10px;
+  }
+  .why-card-back p {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+}
+@media (max-width: 575.98px) {
+  .why-us .why-card {
+    height: 340px;
+    border-radius: 20px;
+  }
+  .why-card-back {
+    padding: 20px 18px;
+    gap: 10px;
+  }
+  .why-card-back p {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .why-card-front-title,
+  .why-card-title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+  .why-card-back {
+    padding: 24px;
   }
 }
 

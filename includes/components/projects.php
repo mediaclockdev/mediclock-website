@@ -49,6 +49,12 @@ require_once dirname(__DIR__) . '/img.php';
                     width="<?= (int) ($pj['logo']['w'] ?? 0) ?>" height="<?= (int) ($pj['logo']['h'] ?? 0) ?>" loading="lazy" decoding="async" />
                 <?php endif; ?>
                 <h3 class="project-title"><?= $h($pj['title']) ?></h3>
+                
+                <div class="project-media d-lg-none my-4">
+                    <img src="<?= $h(img_src($pj['image'])) ?>" alt="<?= $h($pj['alt'] ?? $pj['title']) ?>"
+                        width="<?= (int) $pj['w'] ?>" height="<?= (int) $pj['h'] ?>" loading="lazy" decoding="async" />
+                </div>
+
                 <?php foreach ($pj['copy'] ?? [] as $pjPara): ?>
                 <p><?= $h($pjPara) ?></p>
                 <?php endforeach; ?>
@@ -63,7 +69,7 @@ require_once dirname(__DIR__) . '/img.php';
                 <a class="project-link" href="<?= $h($pj['link']['href']) ?>"<?= preg_match('#^https?://#', $pj['link']['href']) ? ' target="_blank" rel="noopener"' : '' ?>><?= $h($pj['link']['label']) ?><span class="visually-hidden"> (<?= $h($pj['title']) ?>)</span> <span aria-hidden="true">&rarr;</span></a>
                 <?php endif; ?>
             </div>
-            <div class="col-12 col-lg-<?= $projects_media_cols ?> project-media">
+            <div class="col-12 col-lg-<?= $projects_media_cols ?> project-media d-none d-lg-flex">
                 <img src="<?= $h(img_src($pj['image'])) ?>" alt="<?= $h($pj['alt'] ?? $pj['title']) ?>"
                     width="<?= (int) $pj['w'] ?>" height="<?= (int) $pj['h'] ?>" loading="lazy" decoding="async" />
             </div>

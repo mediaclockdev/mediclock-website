@@ -30,8 +30,10 @@ require_once dirname(__DIR__) . '/img.php';
             <h2 id="<?= $h($roadmap_id) ?>-title"><?= $h($roadmap_title) ?></h2>
             <?php if ($roadmap_lead !== ''): ?><p><?= $h($roadmap_lead) ?></p><?php endif; ?>
         </div>
-        <img class="roadmap-img" src="<?= $h(img_src($roadmap_image)) ?>" alt="<?= $h($roadmap_alt) ?>"
-            width="<?= (int) ($roadmap_w ?? 0) ?>" height="<?= (int) ($roadmap_h ?? 0) ?>" loading="lazy" decoding="async"<?= $roadmap_max_width ? ' style="max-width:' . $roadmap_max_width . 'px"' : '' ?> />
+        <div class="roadmap-img-wrapper">
+            <img class="roadmap-img" src="<?= $h(img_src($roadmap_image)) ?>" alt="<?= $h($roadmap_alt) ?>"
+                width="<?= (int) ($roadmap_w ?? 0) ?>" height="<?= (int) ($roadmap_h ?? 0) ?>" loading="lazy" decoding="async"<?= $roadmap_max_width ? ' style="max-width:' . $roadmap_max_width . 'px"' : '' ?> />
+        </div>
     </div>
 </section>
 <?php endif; ?>

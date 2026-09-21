@@ -7,14 +7,14 @@
    intro, projects, what-we-do, feature slider, service strip, faq,
    contact), styled in main.css / service.css. This file only covers:
    .ios-phone*        the iPhone graphic in the hero's right column
-   .ios-compare       Swift vs React Native (light band, dark cards)
+   .ios-compare       Swift vs React Native (grey band, white cards)
    .ios-pricing       three plans (white band, light cards, middle one dark)
    .ios-checks        tick list shared by the two sections above
 
    Band order — each section on the band that suits it:
    hero (photo)     · clients (grey)      · intro (dark, proof statement)
    apps (grey, mockups read best on grey) · services (dark cards)
-   Swift/RN (grey, dark cards)            · process (dark slider)
+   Swift/RN (grey, white cards)           · process (dark slider)
    industries (grey, dark pills)          · pricing (white — light for reading
    prices; white so it doesn't merge with the grey industries band)
    contact form (dark)                    · FAQ (grey, last like every page)
@@ -250,13 +250,15 @@
 }
 
 /* ------------------------------------------------------------
-   * Swift or React Native? — dark cards on the light band,
-   the same card as .svc-card (20px radius, #192b33)
+   * Swift or React Native? — white cards on the grey band, like the
+   pricing plans below. Dark cards here sat directly under the dark
+   services band and read as a continuation of it.
    ------------------------------------------------------------ */
 .ios-tech {
   padding: 32px 30px;
+  border: 1px solid #dbe0e4;
   border-radius: 20px;
-  background: #192b33;
+  background: #fff;
 }
 .ios-compare .ios-tech-title {
   margin: 0;
@@ -264,17 +266,17 @@
   font-size: 28px;
   font-weight: 600;
   line-height: 1.3;
-  color: #fff;
+  color: var(--ink);
 }
 .ios-tech-for {
   margin: 4px 0 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid #dbe0e4;
   font-size: 17px;
   color: var(--orange);
 }
 .ios-tech .ios-checks li {
-  color: #fff;
+  color: #2f3a41;
 }
 
 /* ------------------------------------------------------------

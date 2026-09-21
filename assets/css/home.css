@@ -249,6 +249,18 @@
     font-size: 17px;
   }
 }
+
+/* tighter cards while they are one per row: the link sat 20px off the card's
+   bottom edge with another 24px of gutter under it, which read as a big gap */
+@media (max-width: 767.98px) {
+  .home-service {
+    padding: 16px 16px 14px;
+    gap: 8px;
+  }
+  #services .row {
+    --bs-gutter-y: 16px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .home-hero-words span + span {
     display: none;

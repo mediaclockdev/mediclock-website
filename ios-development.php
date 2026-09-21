@@ -5,9 +5,9 @@ $page_canonical   = 'https://mediaclock.com.au/ios-development/';
 $page_css         = ['service', 'ios-development'];
 include 'includes/layout/header.php';
 
-/* Phone number used on this page (from the approved iOS copy) */
-$ios_tel      = '0410576590';
-$ios_tel_text = '0410 576 590';
+/* Phone number — the same one the header, footer and every other page use */
+$ios_tel      = '0489906090';
+$ios_tel_text = '0489 906 090';
 
 /* Tick icon shared by the phone graphic and the checklists */
 $ios_tick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
@@ -100,7 +100,6 @@ $projects_items = [
         'h'     => 486,
         'alt'   => 'Star Calendar Calculator app screens',
         'copy'  => ['A specialised calendar tool that turns complex date calculations into something you can see at a glance.'],
-        'link'  => ['label' => 'View on the App Store', 'href' => 'https://apps.apple.com/au/app/star-calendar-calculator/id1671957657'],
     ],
 ];
 include 'includes/components/projects.php';
@@ -273,20 +272,19 @@ $ios_plans = [
 // * Final call to action (shared contact section, shown open)
 $contact_visible      = true;
 $contact_eyebrow      = '';
-$contact_title        = 'Got an app idea you’ve been sitting on?';
+$contact_title        = 'Book A Free Consultation';
 $contact_lead         = 'Tell us about it. On a free 30-minute call we’ll talk through what you want to build and whether iPhone, Android or both makes sense. We’ll also give you an honest idea of what it involves.';
 $contact_details      = [
     ['type' => 'phone', 'text' => $ios_tel_text, 'href' => 'tel:' . $ios_tel],
     ['type' => 'email', 'text' => 'info@mediaclock.com.au', 'href' => 'mailto:info@mediaclock.com.au'],
-    ['type' => 'address', 'text' => '392 A St Kilda Rd, St Kilda VIC 3182'],
+    ['type' => 'address', 'text' => '392 A St Kilda Rd, St Kilda VIC 3182', 'href' => 'https://maps.google.com/maps?q=' . rawurlencode('Media Clock, 392 A St Kilda Rd, St Kilda VIC 3182')],
 ];
 include 'includes/components/contact.php';
 
 // * Questions we get asked
 $faq_id      = 'faqs';
 $faq_eyebrow = '';
-$faq_title   = 'Questions we get asked';
-$faq_lead    = 'Anything else? Call us on ' . $ios_tel_text . '.';
+$faq_title   = 'FAQ';
 $faq_items   = [
     [
         'question' => 'How much does an iOS app cost?',

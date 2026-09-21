@@ -17,12 +17,10 @@
    hero, logo-slider, testimonials, contact and faq are in main.css.
    ============================================================ */
 
-/* the service pages use the live site's grey for every light band */
+/* the service pages use the live site's grey for every light band
+   (the FAQ band itself is set in main.css, so every page matches) */
 :root {
   --band-light: #dbe0e4;
-}
-.faq-section {
-  background: var(--band-light);
 }
 
 /* ------------------------------------------------------------
@@ -161,10 +159,15 @@
 .svc-roadmap .head {
   max-width: none;
 }
+.roadmap-img-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .roadmap-img {
   display: block;
   width: 100%;
   max-width: 1024px;
+  min-width: 600px;
   height: auto;
   margin: 0 auto;
 }
@@ -506,7 +509,8 @@
   align-items: center;
   gap: 14px;
   padding: 28px 22px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 1px solid transparent;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
   border-radius: 20px;
   text-align: center;
 }
@@ -536,7 +540,7 @@
   color: #fff;
 }
 .feature-slider.band-light .feature-card {
-  border-color: var(--line);
+  box-shadow: inset 0 0 0 1px var(--line);
   background: #fff;
 }
 .feature-slider.band-light .feature-card-title {
@@ -580,6 +584,7 @@
 .feature-slider .head a {
   color: var(--orange);
   font-weight: 600;
+  text-decoration: none;
 }
 .svc-strip--titled .container {
   max-width: var(--page);

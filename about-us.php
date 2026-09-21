@@ -20,17 +20,30 @@ include 'includes/components/logo-slider.php';
 <!-- * About us -->
 <section class="section about band-light" aria-labelledby="about-title">
     <div class="container">
-        <h1 id="about-title" class="about-title">About us</h1>
-        <p>Welcome to Media Clock, your premier destination for tailored software solutions designed to meet the diverse needs of modern Australian businesses and individuals. At Media Clock, we pride ourselves on delivering exceptional results with a professional touch that’s second to none.</p>
-        <p>With a strong emphasis on creativity, quality, and efficiency, we specialize in crafting cutting-edge software products that elevate businesses to new heights. Whether you’re a bustling urban startup, a thriving family-run enterprise, or a growing business in regional areas, our solutions are meticulously crafted to suit your unique requirements.</p>
-
-        <div class="about-media">
-            <img src="<?= img_src('pages/about-us/team.webp') ?>" alt="The Media Clock team at work" loading="lazy" decoding="async" />
-            <img src="<?= img_src('pages/about-us/team-2.webp') ?>" alt="Media Clock team members collaborating" loading="lazy" decoding="async" />
+        <div class="head">
+            <h1 id="about-title" class="about-title">About us</h1>
         </div>
 
-        <p>Our team of seasoned developers, designers, and strategists is dedicated to understanding the intricacies of today’s digital landscape. From intuitive web and mobile applications to bespoke software solutions, we leverage the latest technologies and industry best practices to ensure your success.</p>
-        <p>But we’re more than just a software development company. We’re your trusted partners, committed to providing personalized service and support at every stage of your journey. Whether you’re looking to streamline operations, enhance online presence, or innovate within your industry, Media Clock is here to help you achieve your goals.</p>
+        <!-- * About us : copy beside a photo, sides alternating -->
+        <div class="about-row">
+            <div class="about-copy">
+            <p>Welcome to Media Clock, your premier destination for tailored software solutions designed to meet the diverse needs of modern Australian businesses and individuals. At Media Clock, we pride ourselves on delivering exceptional results with a professional touch that’s second to none.</p>
+            <p>With a strong emphasis on creativity, quality, and efficiency, we specialize in crafting cutting-edge software products that elevate businesses to new heights. Whether you’re a bustling urban startup, a thriving family-run enterprise, or a growing business in regional areas, our solutions are meticulously crafted to suit your unique requirements.</p>
+            </div>
+            <figure class="about-figure">
+                <img src="<?= img_src('pages/about-us/team.webp') ?>" alt="The Media Clock team at work" loading="lazy" decoding="async" />
+            </figure>
+        </div>
+
+        <div class="about-row about-row--flip">
+            <figure class="about-figure">
+                <img src="<?= img_src('pages/about-us/team-2.webp') ?>" alt="Media Clock team members collaborating" loading="lazy" decoding="async" />
+            </figure>
+            <div class="about-copy">
+            <p>Our team of seasoned developers, designers, and strategists is dedicated to understanding the intricacies of today’s digital landscape. From intuitive web and mobile applications to bespoke software solutions, we leverage the latest technologies and industry best practices to ensure your success.</p>
+            <p>But we’re more than just a software development company. We’re your trusted partners, committed to providing personalized service and support at every stage of your journey. Whether you’re looking to streamline operations, enhance online presence, or innovate within your industry, Media Clock is here to help you achieve your goals.</p>
+            </div>
+        </div>
     </div>
 </section>
 <?php
