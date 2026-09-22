@@ -60,7 +60,11 @@ include 'includes/components/contact.php';
             <?php foreach ($offices as $i => [$line1, $line2, $query]): ?>
             <button type="button" class="offices-tab" data-map="<?= $e($map($query)) ?>" data-title="Map: <?= $e($query) ?>"
                 aria-controls="officeMap" aria-pressed="<?= $i === 0 ? 'true' : 'false' ?>">
-                <?= $e($line1) ?><br /><?= $e($line2) ?>
+                <svg class="offices-pin" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <path fill="currentColor"
+                        d="M12 2a7 7 0 0 0-7 7c0 5.05 6.24 12.31 6.5 12.62a.66.66 0 0 0 1 0C12.76 21.31 19 14.05 19 9a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 14.5 9 2.5 2.5 0 0 1 12 11.5Z" />
+                </svg>
+                <span class="offices-tab-address"><?= $e($line1) ?><br /><?= $e($line2) ?></span>
             </button>
             <?php endforeach; ?>
         </div>

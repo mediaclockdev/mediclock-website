@@ -15,7 +15,7 @@ include 'includes/components/hero.php';
 $intro_text = 'At Media Clock, we excel in creating innovative web and mobile applications that cater to diverse needs, from business automation to cutting-edge concept-based solutions. Our robust project delivery model ensures that we understand your vision, refine your requirements, and deliver high-quality results efficiently and effectively.';
 include 'includes/components/intro.php';
 
-// * Three-step process — badge images carry the step number and name, so the alt repeats them
+// * Three-step process
 $steps = [
     [
         'name'    => 'Initial Planning & Analysis',
@@ -69,8 +69,13 @@ $steps = [
             <li class="process-step">
                 <!-- * Process : step badge + summary -->
                 <div class="process-step-head">
-                    <img class="process-badge" src="<?= $e(img_src('pages/our-process/badge-' . ($i + 1) . '.webp')) ?>"
-                        alt="Step <?= $i + 1 ?>: <?= $e($step['name']) ?>" width="226" height="136" loading="lazy" decoding="async" />
+                    <!-- the badge used to be a 226px image with the step name baked
+                         into it over three lines; as markup the box widens to the
+                         name and keeps it on one line -->
+                    <div class="process-badge">
+                        <span class="process-badge-mark"><span class="process-badge-num"><?= $i + 1 ?></span></span>
+                        <h3 class="process-badge-name"><?= $e($step['name']) ?></h3>
+                    </div>
                     <p class="process-summary"><?= $e($step['summary']) ?></p>
                 </div>
                 <!-- * Process : illustration -->

@@ -7,7 +7,6 @@ $page_js          = 'privacy-policy';
 include 'includes/layout/header.php';
 
 /* Reviewed date shown under the title. Update it whenever the wording below changes. */
-$policy_updated = '22 September 2026';
 
 /* * The policy itself.
    Each section becomes an <h2> with an id, and the contents list is built from
@@ -254,7 +253,6 @@ $policy_sections = [
         <div class="eyebrow">Media Clock Pty Ltd</div>
         <h1>Privacy Policy</h1>
         <p class="legal-hero-lead">How we collect, use, store and disclose your personal information, under the Australian Privacy Principles and the GDPR.</p>
-        <p class="legal-updated">Last updated <?= $e($policy_updated) ?></p>
     </div>
 </section>
 
@@ -316,7 +314,7 @@ $policy_sections = [
     </div>
 </section>
 <?php
-unset($policy_sections, $ppSection, $ppBlock, $ppType, $ppValue, $ppItem, $policy_email, $policy_updated);
+unset($policy_sections, $ppSection, $ppBlock, $ppType, $ppValue, $ppItem, $policy_email);
 
 // * Contact panel (hidden until a .contactBtn opens it; the header and footer buttons need it)
 include 'includes/components/contact.php';

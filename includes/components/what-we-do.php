@@ -60,17 +60,14 @@ require_once dirname(__DIR__) . '/img.php';
 </section>
 <?php elseif ($what_we_do_items): ?>
 <!-- * What we do -->
-<section class="section what-we-do band-<?= $what_we_do_theme ?>" id="<?= $h($what_we_do_id) ?>" aria-labelledby="<?= $h($what_we_do_id) ?>-title">
+<section class="section what-we-do<?= $what_we_do_cta ? ' what-we-do--cta' : '' ?> band-<?= $what_we_do_theme ?>" id="<?= $h($what_we_do_id) ?>" aria-labelledby="<?= $h($what_we_do_id) ?>-title">
     <div class="container">
         <div class="row g-4 g-lg-5 align-items-center">
 
-            <!-- * What we do : intro + call to action -->
+            <!-- * What we do : intro -->
             <div class="col-12 col-lg-4 what-we-do-copy">
                 <h2 class="what-we-do-title" id="<?= $h($what_we_do_id) ?>-title"><?= $h($what_we_do_title) ?></h2>
                 <?php if ($what_we_do_intro !== ''): ?><p class="what-we-do-intro"><?= $h($what_we_do_intro) ?></p><?php endif; ?>
-                <?php if (!empty($what_we_do_cta['label']) && !empty($what_we_do_cta['href'])): ?>
-                <a class="projects-cta-btn what-we-do-cta" href="<?= $h($what_we_do_cta['href']) ?>"><?= $h($what_we_do_cta['label']) ?> <span aria-hidden="true">&rarr;</span></a>
-                <?php endif; ?>
             </div>
 
             <!-- * What we do : services grid -->
@@ -96,6 +93,14 @@ require_once dirname(__DIR__) . '/img.php';
             </div>
 
         </div>
+
+        <?php if (!empty($what_we_do_cta['label']) && !empty($what_we_do_cta['href'])): ?>
+        <!-- * What we do : call to action.
+             Outside the row, so it closes the section at every width. Inside the
+             left column it landed above the whole service grid once the columns
+             stacked below 992px, roughly 700px short of the section's end. -->
+        <a class="projects-cta-btn what-we-do-cta" href="<?= $h($what_we_do_cta['href']) ?>"><?= $h($what_we_do_cta['label']) ?> <span aria-hidden="true">&rarr;</span></a>
+        <?php endif; ?>
     </div>
 </section>
 <?php endif; ?>

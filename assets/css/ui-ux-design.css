@@ -194,6 +194,16 @@
 .uiux-why p:last-child {
   margin-bottom: 0;
 }
+/* justified only from 1200px, where the lines are 1116px long and the widest
+   stretched space measures 7.5px against a natural 4.4px — close enough to
+   normal spacing to pass unnoticed. In the 960px container below that, one
+   line pulled its spaces out to 9.9px, so those widths stay left aligned. */
+@media (min-width: 1200px) {
+  .uiux-why p {
+    text-align: justify;
+    text-wrap: pretty;
+  }
+}
 .uiux-why strong {
   font-weight: 600;
   color: var(--orange);

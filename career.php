@@ -7,21 +7,28 @@ $page_js          = 'career';
 include 'includes/layout/header.php';
 
 /* * Open roles — one list, used by the vacancy cards and by the "Apply for
-   position" picker in the form, so the two can never fall out of step. */
+   position" picker in the form, so the two can never fall out of step.
+   Every role the live site lists is here: it carries eight as vacancy cards and
+   a further five in the form's picker only (its two lists had drifted apart),
+   so this is the union of both, grouped by area. */
 $career_roles = [
     'Business Development Executive (IT)',
     'Business Development Manager (IT)',
-    'Laravel Developer',
     'IT Business Analyst',
-    'UX/UI Designer',
-    'Video Editor',
-    'Graphics Designer',
+    'Laravel Developer',
     'Quality Tester (IT)',
+    'UX/UI Designer',
+    'Graphics Designer',
+    'Senior Graphics Designer',
+    'Video Editor',
+    'Senior Video Editor',
+    'Content Writer',
+    'Digital Marketing Manager',
+    'Google Ads Specialist',
 ];
 
 // * Hero — no proposal card here: this page asks for applications, not projects
 $hero_title    = 'Join Our Dynamic Team';
-$hero_sub      = 'Build apps and websites for Australian businesses, with a team that backs you.';
 $hero_cta      = 'See open roles';
 $hero_cta_href = '#vacancies';
 $hero_image    = 'pages/our-process/hero.webp';
@@ -134,8 +141,10 @@ include 'includes/components/service-strip.php';
                         </div>
                         <div class="field col-12">
                             <label for="aResume">Upload your CV <span class="req" aria-hidden="true">*</span></label>
+                            <!-- accept filters the picker; main.js enforces the type and
+                                 the size, which data-max-mb sets -->
                             <input id="aResume" name="resume" type="file" required accept=".pdf,.doc,.docx"
-                                data-empty="Please attach your CV." aria-describedby="aResumeHint" />
+                                data-empty="Please attach your CV." data-max-mb="5" aria-describedby="aResumeHint" />
                             <small class="field-hint" id="aResumeHint">PDF or Word, up to 5MB.</small>
                         </div>
                         <div class="field col-12">

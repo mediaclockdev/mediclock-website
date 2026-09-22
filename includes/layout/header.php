@@ -140,6 +140,7 @@ unset($navItems, $navSlug);
             <a class="fs-link<?= $nav_current === 'our-process' ? ' current' : '' ?>" href="<?= $e(page_url('our-process')) ?>">Our Process</a>
             <a class="fs-link<?= $nav_on_blog ? ' current' : '' ?>" href="<?= $e(page_url('blog')) ?>">Blogs</a>
             <a class="fs-link<?= $nav_current === 'portfolio' ? ' current' : '' ?>" href="<?= $e(page_url('portfolio')) ?>">Portfolio</a>
+            <a class="fs-link<?= $nav_current === 'career' ? ' current' : '' ?>" href="<?= $e(page_url('career')) ?>">Careers</a>
             <a class="fs-link<?= $nav_current === 'contact-us' ? ' current' : '' ?>" href="<?= $e(page_url('contact-us')) ?>">Get In Touch</a>
             <div class="fs-menu-cta d-flex flex-column align-items-center">
                 <a class="fs-btn call" href="tel:0489906090">Call Us</a>

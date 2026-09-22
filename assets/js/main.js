@@ -174,6 +174,29 @@
         return WEBSITE.test(v) ? "" : "Please enter a valid website, e.g. yourwebsite.com.au.";
       case "message":
         return v.length >= 10 ? "" : "Please add a little more detail (at least 10 characters).";
+      case "file": {
+        /* `accept` only filters the picker: the visitor can switch it to "all
+           files" or drag one in, so the type and the size are checked here too */
+        const f = el.files && el.files[0];
+        if (!f) return "";
+        const exts = (el.accept || "")
+          .split(",")
+          .map((a) => a.trim().toLowerCase())
+          .filter((a) => a.startsWith("."));
+        const name = f.name.toLowerCase(),
+          ext = name.slice(name.lastIndexOf("."));
+        if (exts.length && !exts.includes(ext)) {
+          const list = exts.map((a) => a.slice(1).toUpperCase());
+          return `That file is ${ext || "not a recognised type"}. Please attach a ${list
+            .slice(0, -1)
+            .join(", ")} or ${list[list.length - 1]} file.`;
+        }
+        const maxMb = parseFloat(el.dataset.maxMb || "5");
+        if (f.size > maxMb * 1024 * 1024) {
+          return `That file is ${(f.size / 1048576).toFixed(1)}MB. Please attach one under ${maxMb}MB.`;
+        }
+        return "";
+      }
     }
     return "";
   }
@@ -221,7 +244,9 @@
       if (el.type === "radio") return check(el, false);
       check(el, false);
       el.addEventListener("input", () => check(el, false));
-      el.addEventListener("change", () => check(el, false));
+      /* a file is chosen in one action, so a rejected one is called out straight
+         away rather than waiting for blur or submit */
+      el.addEventListener("change", () => check(el, el.type === "file"));
       // judge a field once the visitor leaves it, not while they're typing
       el.addEventListener("blur", () => (el.value.trim() || el.classList.contains("is-invalid")) && check(el, true));
     });

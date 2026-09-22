@@ -95,6 +95,9 @@ $why_us_items = [
         'title' => 'Comprehensive One-Stop Solution',
         'text'  => 'We offer a complete suite of business digitisation services under one roof. From crafting a memorable logo to securing your online identity with domain registration and professional email, we handle it all, saving you time and effort.',
         'icon'  => 'pages/business-digitisation/icons/why-one-stop.svg',
+        /* the photo this replaced had the word SOLUTIONS running off its right
+           edge and a misshapen hand; this one is a hand with the services
+           fanning out of it, which is the card's point and carries no text */
         'image' => 'pages/business-digitisation/why/comprehensive-one-stop-solution.webp',
         'back'  => 'pages/business-digitisation/why/card-back.webp',
     ],

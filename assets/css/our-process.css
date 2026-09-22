@@ -45,10 +45,61 @@
 .process-step-head:hover {
   transform: scale(1.1);
 }
+/* * Process : the step badge
+   A bordered box with a grey arrow band carrying the step number, then the
+   step name. It was a fixed 226px image with the name set over three lines;
+   as markup the box takes its width from the name and keeps it on one line. */
 .process-badge {
-  flex: 0 0 226px;
-  width: 226px;
-  height: auto;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: stretch;
+  min-height: 98px;
+  overflow: hidden;
+  /* the same 3px rule the summary box beside it carries */
+  border: 3px solid #17272f;
+  border-radius: 14px;
+  background: #fff;
+}
+.process-badge-mark {
+  position: relative;
+  flex: 0 0 128px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+/* the grey band, notched on its left edge so it reads as an arrow */
+.process-badge-mark::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 34px;
+  background: #dbe1e4;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 36% 50%);
+}
+.process-badge-num {
+  position: relative;
+  font-family: var(--font-head);
+  font-size: 54px;
+  font-weight: 500;
+  line-height: 1;
+  color: #17272f;
+}
+.process-badge-name {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 14px 26px 14px 14px;
+  font-family: var(--font-head);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #17272f;
+}
+/* one line from 576px up: the widest name is ~310px, so even the 540px
+   container of a large phone holds the whole badge */
+@media (min-width: 576px) {
+  .process-badge-name {
+    white-space: nowrap;
+  }
 }
 .process-summary {
   display: flex;
@@ -104,9 +155,27 @@
   .process-step-head:hover {
     transform: none;
   }
+  /* the badge is as wide as its name now, which leaves too little beside it
+     for the summary — the two stack from here down */
+  .process-step-head {
+    flex-direction: column;
+    gap: 14px;
+  }
   .process-badge {
-    flex: 0 0 180px;
-    width: 180px;
+    align-self: flex-start;
+    max-width: 100%;
+    min-height: 88px;
+  }
+  .process-badge-mark {
+    flex-basis: 112px;
+    padding-left: 16px;
+  }
+  .process-badge-num {
+    font-size: 46px;
+  }
+  .process-badge-name {
+    padding: 12px 22px 12px 12px;
+    font-size: 20px;
   }
   .process-summary {
     padding: 10px 18px;
@@ -126,14 +195,27 @@
     margin-top: 48px;
   }
 }
-@media (max-width: 767.98px) {
-  .process-step-head {
-    flex-direction: column;
-  }
+@media (max-width: 575.98px) {
+  /* below 576px the name is allowed to wrap: a 345px container cannot hold
+     "Initial Planning & Analysis" on one line at any readable size */
+  /* the 40px number's glyph box is a little taller than its 40px line box,
+     and the badge clips — 64px keeps it clear of the rounded border */
   .process-badge {
-    flex-basis: auto;
-    width: 160px;
+    min-height: 64px;
   }
+  .process-badge-mark {
+    flex-basis: 96px;
+    padding-left: 14px;
+  }
+  .process-badge-num {
+    font-size: 40px;
+  }
+  .process-badge-name {
+    padding: 14px 18px 14px 10px;
+    font-size: 18px;
+  }
+}
+@media (max-width: 767.98px) {
   .process-summary,
   .process-points li {
     font-size: 17px;

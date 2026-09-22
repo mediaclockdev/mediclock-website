@@ -18,6 +18,15 @@
      file field and the vacancy list.
    ============================================================ */
 
+/* * Hero — the team photo is 16:9 and this hero is much taller than that, so
+   `cover` drops about 280px off the width. Centred, it halved the person on
+   the left and the person on the right and left the copy over the busiest part
+   of the frame. Anchored right, the whole crop comes off the left edge: the
+   group at the desk stays intact and the copy sits over the wall behind them. */
+.service-hero {
+  background-position: 100% 50%;
+}
+
 /* * Why Media Clock? — the strip's lead reads as body copy, not a caption */
 #why-media-clock .head p {
   font-size: 18px;

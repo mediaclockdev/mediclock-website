@@ -102,7 +102,10 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 22px;
+  /* the link is bottom-aligned, so the card's bottom padding is the gap under
+     it — 22px all round left a noticeably bigger space below the link than
+     beside it */
+  padding: 22px 22px 14px;
   border-radius: 20px;
   box-shadow: 0 6px 20px rgba(25, 43, 51, 0.08);
   transition:
@@ -219,7 +222,7 @@
     background: rgba(12, 23, 28, 0.68);
   }
   .home-service {
-    padding: 20px;
+    padding: 20px 20px 12px;
   }
 }
 @media (max-width: 575.98px) {
@@ -254,7 +257,7 @@
    bottom edge with another 24px of gutter under it, which read as a big gap */
 @media (max-width: 767.98px) {
   .home-service {
-    padding: 16px 16px 14px;
+    padding: 16px 16px 10px;
     gap: 8px;
   }
   #services .row {

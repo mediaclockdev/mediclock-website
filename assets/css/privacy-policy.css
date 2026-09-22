@@ -35,18 +35,14 @@
   line-height: 1.55;
   color: #b9c2c8;
 }
-.legal-updated {
-  margin: 17px 0 0;
-  font-family: var(--font-head);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--orange);
-}
 
 /* * Contents beside the policy from 992px up, stacked above it below that */
 .legal .container {
   max-width: var(--page);
 }
+/* the blog article's .post-layout, to the pixel: a 230px rail, a 64px gap and
+   the pair centred in 1010px. It was a wider rail in a full 1140px container,
+   which is why the same contents list read as a different component here. */
 .legal-layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -54,9 +50,11 @@
 }
 @media (min-width: 992px) {
   .legal-layout {
-    grid-template-columns: 272px minmax(0, 1fr);
-    gap: 47px;
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 64px;
     align-items: start;
+    max-width: 1010px;
+    margin: 0 auto;
   }
 }
 
@@ -72,7 +70,7 @@
 
 /* * The policy — one measure for the copy, so a long clause stays readable */
 .legal-body {
-  max-width: 72ch;
+  max-width: 68ch;
 }
 .legal-section + .legal-section {
   margin-top: 33px;

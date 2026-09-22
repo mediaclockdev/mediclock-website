@@ -661,8 +661,11 @@ p {
 
 /* * Footer — 3-column top block (live ratio 449 / 285 / 285) */
 /* columns come from Bootstrap's .row/.col-lg-*; only the band padding is ours */
+/* the logo sat 42px below the footer's top edge (22px band + 20px row), which
+   read as a gap between the page and the footer rather than as the footer's
+   own breathing room */
 .footer-top {
-  padding-block: 20px 26px;
+  padding-block: 4px 26px;
 }
 /* live pulls the brand block up, so the headings start ~60px lower */
 .footer-col {
@@ -857,7 +860,12 @@ p {
   .service-hero--no-form {
     display: flex;
     min-height: 100vh;
-    min-height: 100svh;
+    /* capped: a full-height band on a tall tablet is far narrower than the
+       16:9 photo behind it, and `cover` then crops several hundred pixels off
+       each side — on Careers that cut two of the three people out of the team
+       shot. 760px keeps the band generous and the photo close to its own
+       shape. */
+    min-height: min(100svh, 760px);
   }
   .service-hero--no-form .service-hero-inner {
     min-height: 0;
@@ -1985,8 +1993,16 @@ textarea.is-invalid,
 .why-us .head h2 {
   color: var(--orange);
 }
+/* The card takes its height from its own copy, and the slider's flex track
+   stretches every card in the row to the tallest. It used to be a fixed 450px
+   with the back absolutely positioned, which meant the copy could not push the
+   card taller — the longest cards had as little as 37px of slack, and anything
+   that made the text taller (a different system font for the body stack, a
+   larger default text size, the heading font still loading) tipped them into
+   `overflow-y: auto` and the copy scrolled or clipped inside the card. */
 .why-us .why-card {
-  height: 450px;
+  display: flex;
+  min-height: 380px;
   border-radius: 30px;
 }
 .why-us .why-card:focus-visible {
@@ -2001,10 +2017,12 @@ textarea.is-invalid,
 }
 .why-card-inner {
   position: relative;
-  height: 100%;
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
 }
-.why-card-front,
-.why-card-back {
+/* the front is the overlay; the back is in flow and sets the card's height */
+.why-card-front {
   position: absolute;
   inset: 0;
 }
@@ -2062,20 +2080,18 @@ textarea.is-invalid,
 }
 
 /* * Why choose us : back — optional photo, icon, title, copy */
-/* "safe center" centres the copy but never pushes it past the top edge, and
-   the scroll keeps the longest card (About us → Quality) readable instead of
-   clipping it — plain `center` cut the icon off the top and the last lines off
-   the bottom */
+/* plain `center` is safe now that the card grows with its copy: the content is
+   never taller than the box, so centring can never push the icon off the top */
 .why-card-back {
+  position: relative;
   z-index: 1;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: safe center;
+  justify-content: center;
   gap: 12px;
-  padding: 26px 30px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  padding: 24px 26px;
   background: rgba(0, 0, 0, 0.314);
   text-align: left;
 }
@@ -2144,7 +2160,7 @@ textarea.is-invalid,
 }
 @media (max-width: 991.98px) {
   .why-us .why-card {
-    height: 400px;
+    min-height: 350px;
     border-radius: 24px;
   }
   .why-card-front-title,
@@ -2163,7 +2179,7 @@ textarea.is-invalid,
 }
 @media (max-width: 575.98px) {
   .why-us .why-card {
-    height: 340px;
+    min-height: 300px;
     border-radius: 20px;
   }
   .why-card-back {
