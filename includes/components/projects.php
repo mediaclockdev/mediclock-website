@@ -19,6 +19,11 @@
      $projects_theme       (string) 'light' | 'dark'                          — default 'light'
      $projects_media_cols  (int)    image column width on desktop, out of 12  — default 6
      $projects_image_first (bool)   true = first project's image on the left  — default false
+     $projects_layout      (string) 'rows'  copy and image side by side, alternating (default)
+                                    'grid'  equal cards in a row — mockup on top, copy under.
+                                            For pages whose projects carry one short paragraph:
+                                            the alternating rows leave a tall mockup beside a
+                                            three-line paragraph and a column of empty space.
      $projects_cta         (array)  optional closing call to action:
                                     ['title' => '…', 'label' => '…', 'href' => '…']
    ============================================================ */
@@ -30,17 +35,49 @@ $projects_theme       = ($projects_theme ?? 'light') === 'dark' ? 'dark' : 'ligh
 $projects_media_cols  = min(max((int) ($projects_media_cols ?? 6), 3), 9);
 $projects_image_first = $projects_image_first ?? false;
 $projects_cta         = $projects_cta         ?? [];
+$projects_layout      = ($projects_layout ?? 'rows') === 'grid' ? 'grid' : 'rows';
 $h = fn($s) => htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8');
 require_once dirname(__DIR__) . '/img.php';
 ?>
 <?php if ($projects_items): ?>
 <!-- * Recent Projects — copy and image side by side, alternating -->
-<section class="section svc-projects band-<?= $projects_theme ?>" id="<?= $h($projects_id) ?>" aria-labelledby="<?= $h($projects_id) ?>-title">
+<section class="section svc-projects band-<?= $projects_theme ?><?= $projects_layout === 'grid' ? ' svc-projects--grid' : '' ?>" id="<?= $h($projects_id) ?>" aria-labelledby="<?= $h($projects_id) ?>-title">
     <div class="container">
         <div class="head">
             <h2 id="<?= $h($projects_id) ?>-title"><?= $h($projects_title) ?></h2>
             <?php if ($projects_lead !== ''): ?><p><?= $h($projects_lead) ?></p><?php endif; ?>
         </div>
+        <?php if ($projects_layout === 'grid'): ?>
+        <!-- * Recent Projects : equal cards, mockup on top -->
+        <div class="row g-4 g-lg-5">
+            <?php foreach ($projects_items as $pj): ?>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <article class="project-card">
+                    <div class="project-media">
+                        <img src="<?= $h(img_src($pj['image'])) ?>" alt="<?= $h($pj['alt'] ?? $pj['title']) ?>"
+                            width="<?= (int) $pj['w'] ?>" height="<?= (int) $pj['h'] ?>" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="project-copy">
+                        <h3 class="project-title"><?= $h($pj['title']) ?></h3>
+                        <?php foreach ($pj['copy'] ?? [] as $pjPara): ?>
+                        <p><?= $h($pjPara) ?></p>
+                        <?php endforeach; ?>
+                        <?php if (!empty($pj['stats'])): ?>
+                        <dl class="project-stats">
+                            <?php foreach ($pj['stats'] as $pjLabel => $pjValue): ?>
+                            <div><dt><?= $h($pjLabel) ?></dt><dd><?= $h($pjValue) ?></dd></div>
+                            <?php endforeach; ?>
+                        </dl>
+                        <?php endif; ?>
+                        <?php if (!empty($pj['link']['label']) && !empty($pj['link']['href'])): ?>
+                        <a class="project-link" href="<?= $h($pj['link']['href']) ?>"<?= preg_match('#^https?://#', $pj['link']['href']) ? ' target="_blank" rel="noopener"' : '' ?>><?= $h($pj['link']['label']) ?><span class="visually-hidden"> (<?= $h($pj['title']) ?>)</span> <span aria-hidden="true">&rarr;</span></a>
+                        <?php endif; ?>
+                    </div>
+                </article>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <?php else: ?>
         <?php foreach ($projects_items as $pjI => $pj): ?>
         <article class="project row align-items-start g-4 g-lg-5<?= ($pjI % 2 === 1) !== $projects_image_first ? ' flex-lg-row-reverse' : '' ?>">
             <div class="col-12 col-lg-<?= 12 - $projects_media_cols ?> project-copy">
@@ -75,6 +112,7 @@ require_once dirname(__DIR__) . '/img.php';
             </div>
         </article>
         <?php endforeach; ?>
+        <?php endif; ?>
 
         <?php if (!empty($projects_cta['label']) && !empty($projects_cta['href'])): ?>
         <!-- * Recent Projects : closing call to action -->
@@ -87,4 +125,4 @@ require_once dirname(__DIR__) . '/img.php';
 </section>
 <?php endif; ?>
 <?php unset($projects_items, $projects_title, $projects_lead, $projects_id, $projects_theme, $projects_media_cols,
-    $projects_image_first, $projects_cta, $pjI, $pj, $pjPara, $pjLabel, $pjValue); ?>
+    $projects_image_first, $projects_cta, $projects_layout, $pjI, $pj, $pjPara, $pjLabel, $pjValue); ?>

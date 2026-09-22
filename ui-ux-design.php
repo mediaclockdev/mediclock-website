@@ -25,7 +25,7 @@ $intro_bold  = true;
 $intro_theme = 'light';
 include 'includes/components/intro.php';
 
-// * Proof of Concept — the circle images carry the step number, so they stay decorative
+// * Proof of Concept — the number is text; the image is only the icon, so it stays decorative
 $poc_items = [
     ['Process Flow', 'We map out the overall workflow to visualise the steps and interactions involved in your app.'],
     ['Architectural Design', 'We create the structural framework of your application to ensure it works well and is easy to use.'],
@@ -45,10 +45,15 @@ $poc_items = [
         <ol class="poc-steps list-unstyled mb-0">
             <?php foreach ($poc_items as $i => [$name, $text]): ?>
             <li class="poc-step">
-                <img class="poc-circle" src="<?= $e(img_src('pages/ui-ux-design/poc/' . ($i + 1) . '.webp')) ?>" alt=""
-                    width="241" height="241" loading="lazy" decoding="async" />
-                <h3 class="poc-name"><span class="visually-hidden"><?= $i + 1 ?>. </span><?= $e($name) ?></h3>
-                <p class="poc-text"><?= $e($text) ?></p>
+                <span class="poc-badge">
+                    <img class="poc-icon" src="<?= $e(img_src('pages/ui-ux-design/poc/icon-' . ($i + 1) . '.webp')) ?>" alt=""
+                        width="92" height="92" loading="lazy" decoding="async" />
+                    <span class="poc-num"><?= $i + 1 ?></span>
+                </span>
+                <div class="poc-body">
+                    <h3 class="poc-name"><?= $e($name) ?></h3>
+                    <p class="poc-text"><?= $e($text) ?></p>
+                </div>
             </li>
             <?php endforeach; ?>
         </ol>

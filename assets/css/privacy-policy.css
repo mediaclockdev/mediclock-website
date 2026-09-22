@@ -1,0 +1,196 @@
+/* ============================================================
+   privacy-policy.css
+   Privacy Policy page only. Loads after main.css + service.css.
+   Media Clock — static rebuild
+
+   Section rhythm:
+   .legal-hero     dark   page title + last-updated line
+   .legal          white  contents list beside the policy
+   #contact        panel  contact.php (hidden until opened)
+   Footer          dark
+
+   The page is long-form reading, so the copy column is capped at a
+   comfortable measure rather than running the full 1140px container,
+   and the type runs 1px larger than the shared body size.
+   ============================================================ */
+
+/* * Header band — the compact dark header the blog index uses, no photo */
+.legal-hero {
+  padding: calc(var(--header-h) + 40px) 0 43px;
+}
+.legal-hero .container {
+  max-width: var(--page);
+}
+.legal-hero h1 {
+  margin: 10px 0 17px;
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 4.6vw, 55px);
+  font-weight: 600;
+  line-height: 1.15;
+  color: #fff;
+}
+.legal-hero-lead {
+  margin: 0;
+  font-size: 21px;
+  line-height: 1.55;
+  color: #b9c2c8;
+}
+.legal-updated {
+  margin: 17px 0 0;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--orange);
+}
+
+/* * Contents beside the policy from 992px up, stacked above it below that */
+.legal .container {
+  max-width: var(--page);
+}
+.legal-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 27px;
+}
+@media (min-width: 992px) {
+  .legal-layout {
+    grid-template-columns: 272px minmax(0, 1fr);
+    gap: 47px;
+    align-items: start;
+  }
+}
+
+/* the contents rail itself is .post-toc in service.css, shared with the blog
+   article; only the sticky offset for this page's longer list is set here */
+@media (min-width: 992px) {
+  .legal-layout .post-toc {
+    max-height: calc(100vh - var(--header-h) - 40px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+/* * The policy — one measure for the copy, so a long clause stays readable */
+.legal-body {
+  max-width: 72ch;
+}
+.legal-section + .legal-section {
+  margin-top: 33px;
+}
+/* clicking a contents link must not park the heading under the fixed header */
+.legal-section {
+  scroll-margin-top: calc(var(--header-h) + 20px);
+}
+.legal-section h2 {
+  margin: 0 0 15px;
+  font-family: var(--font-head);
+  font-size: clamp(1.5rem, 2.4vw, 32px);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--orange);
+}
+.legal-section h3 {
+  margin: 23px 0 11px;
+  font-family: var(--font-head);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.legal-section h3:first-of-type {
+  margin-top: 0;
+}
+.legal-section p {
+  margin: 0 0 15px;
+  font-size: 18px;
+  line-height: 1.65;
+  color: #3b464d;
+}
+.legal-section ul {
+  margin: 0 0 15px;
+  padding-left: 22px;
+  list-style: disc;
+}
+.legal-section li {
+  margin-bottom: 9px;
+  font-size: 18px;
+  line-height: 1.65;
+  color: #3b464d;
+}
+.legal-section li::marker {
+  color: var(--orange);
+}
+.legal-section > :last-child {
+  margin-bottom: 0;
+}
+
+/* * Contact card — the "details below" that the clauses point at */
+.legal-contact {
+  margin-top: 21px;
+  padding: 25px 27px;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: #fff;
+}
+.legal-contact-name {
+  margin: 0 0 13px;
+  font-family: var(--font-head);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.legal-contact-name span {
+  display: block;
+  margin-top: 2px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--muted);
+}
+/* scoped to .legal-section, or the bulleted list rule above out-specifies it */
+.legal-section .legal-contact-list {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.legal-section .legal-contact-list li {
+  margin: 0;
+}
+.legal-contact-list a {
+  font-size: 18px;
+  color: var(--orange);
+  text-decoration: none;
+}
+.legal-contact-list a:hover,
+.legal-contact-list a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ------------------------------------------------------------
+   Tablet + phone
+   ------------------------------------------------------------ */
+@media (max-width: 991.98px) {
+  .legal-hero {
+    padding-bottom: 35px;
+  }
+  .legal-section + .legal-section {
+    margin-top: 29px;
+  }
+}
+@media (max-width: 575.98px) {
+  .legal-hero-lead {
+    font-size: 19px;
+  }
+  .legal-section p,
+  .legal-section li {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .legal-section h3 {
+    font-size: 19px;
+  }
+  .legal-contact {
+    padding: 22px 20px;
+  }
+}

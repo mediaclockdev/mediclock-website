@@ -9,65 +9,29 @@ include 'includes/layout/header.php';
 $ios_tel      = '0489906090';
 $ios_tel_text = '0489 906 090';
 
-/* Tick icon shared by the phone graphic and the checklists */
+/* Tick icon shared by the checklists */
 $ios_tick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 
-// * Hero — shared service hero; the proposal card is swapped for an iPhone
-//   showing the App Store review steps (drawn in CSS, no image to load)
-ob_start(); ?>
-<figure class="ios-phone-wrap">
-    <div class="ios-phone">
-        <div class="ios-phone-screen">
-            <div class="ios-phone-island" aria-hidden="true"></div>
-            <div class="ios-phone-app">
-                <span class="ios-phone-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg>
-                </span>
-                <div>
-                    <p class="ios-phone-name">Your app</p>
-                    <p class="ios-phone-version">version 1.0</p>
-                </div>
-            </div>
-            <p class="ios-phone-label">App Store review</p>
-            <ol class="ios-review">
-                <?php foreach (['Build uploaded', 'Waiting for review', 'In review', 'Ready for distribution'] as $reviewStep): ?>
-                <li><span class="ios-review-tick"><?= $ios_tick ?></span><?= $e($reviewStep) ?></li>
-                <?php endforeach; ?>
-            </ol>
-        </div>
-    </div>
-    <!-- <figcaption>We handle submission, including the back and forth with Apple.</figcaption> -->
-</figure>
-<?php
-$hero_aside    = ob_get_clean();
+// * Hero — the same proposal-card hero every other service page uses
 $hero_title    = 'iOS App Development Melbourne';
 $hero_sub      = 'Custom iPhone and iPad apps, from first idea to App Store.';
-$hero_cta      = 'Book a free call';
-$hero_interest = 'iOS App Development';
-// $hero_cta2     = ['label' => 'Call ' . $ios_tel_text, 'href' => 'tel:' . $ios_tel];
+$hero_cta      = 'Schedule a call';
+$hero_cta_href = 'tel:' . $ios_tel;
 $hero_image    = 'pages/mobile-app-development/hero.webp';
-// $hero_stats    = [
-//     ['Since 2017', 'Building apps in Melbourne'],
-//     ['50+ apps', 'Delivered for clients'],
-//     ['NDA first', 'Before we talk details'],
-//     ['Your code', 'Full ownership at handover'],
-// ];
+$hero_form     = true;
 include 'includes/components/hero.php';
 
-// * Happy Clients (light band, dark client cards)
+// * Happy Clients (dark band, white client cards)
 $logos_id    = 'clients';
 $logos_title = 'Happy Clients';
-$logos_theme = 'light';
-$logos_items = require __DIR__ . '/data/shared/clients-dark.php';
+$logos_theme = 'dark';
+$logos_items = require __DIR__ . '/data/shared/clients.php';
 include 'includes/components/logo-slider.php';
 
 // * iPhone app developers in Melbourne (intro band)
 $intro_title = 'iPhone app developers in Melbourne';
-$intro_text  = [
-    'We’ve been building iPhone and iPad apps for Australian businesses since 2017. Some clients arrive with a detailed spec. Others have a sketch on a napkin. We’re happy to start from either.',
-    'Before we talk details, we sign an NDA. We look after the tricky Apple parts too: developer accounts, App Store listings and getting through review. When it’s done, the code is yours.',
-];
-$intro_theme = 'dark';
+$intro_text  = 'We’ve been building iPhone and iPad apps for Australian businesses since 2017. Some clients arrive with a detailed spec. Others have a sketch on a napkin. We’re happy to start from either. Before we talk details, we sign an NDA. We look after the tricky Apple parts too: developer accounts, App Store listings and getting through review. When it’s done, the code is yours.';
+$intro_theme = 'light';
 include 'includes/components/intro.php';
 
 // * Apps we've built
@@ -76,6 +40,8 @@ include 'includes/components/intro.php';
 $projects_id    = 'apps';
 $projects_title = 'Apps we’ve built';
 $projects_lead  = 'A few of the apps our team has designed, built and launched.';
+$projects_theme  = 'dark';
+$projects_layout = 'grid';
 $projects_items = [
     [
         'title' => 'Visit Tasmania',
@@ -109,7 +75,7 @@ $what_we_do_id    = 'ios-services';
 $what_we_do_title = 'iPhone and iPad app development services';
 $what_we_do_intro = 'New apps, second versions and fixes to apps someone else started. Here’s what we usually help with.';
 $what_we_do_cta   = [];
-$what_we_do_theme = 'dark';
+$what_we_do_theme = 'light';
 $what_we_do_layout = 'stacked';
 $what_we_do_items = [
     [
@@ -139,7 +105,7 @@ include 'includes/components/what-we-do.php';
 ?>
 
 <!-- * Swift or React Native? -->
-<section class="section band-light ios-compare" id="swift-or-react-native" aria-labelledby="swift-or-react-native-title">
+<section class="section band-dark ios-compare" id="swift-or-react-native" aria-labelledby="swift-or-react-native-title">
     <div class="container">
         <div class="head">
             <h2 id="swift-or-react-native-title">Swift or React Native?</h2>
@@ -180,7 +146,7 @@ $feature_slider_id       = 'process';
 $feature_slider_title    = 'How we build your app';
 $feature_slider_lead     = 'You’ll know what’s happening at every stage, and you’ll see the app long before it goes live.';
 $feature_slider_link     = ['label' => 'More on our process', 'href' => page_url('our-process')];
-$feature_slider_theme    = 'dark';
+$feature_slider_theme    = 'light';
 $feature_slider_per_view = [3, 2, 1];
 $feature_slider_autoplay = 0;
 $feature_slider_items    = [
@@ -197,6 +163,7 @@ include 'includes/components/feature-slider.php';
 $service_strip_id            = 'industries';
 $service_strip_title         = 'Industries we work with';
 $service_strip_title_visible = true;
+$service_strip_theme         = 'dark';
 $service_strip_cols          = 4;
 $service_strip_lead          = 'If yours isn’t listed, get in touch anyway. Most of what makes a good app carries across industries.';
 $service_strip_items         = [

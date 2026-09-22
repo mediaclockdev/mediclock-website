@@ -16,6 +16,8 @@
   --muted: #687078;
   --soft: #f7f7f5;
   --line: #e8e8e5;
+  /* hairline for white cards sitting on a white band */
+  --line-soft: #dbe0e4;
   --dark: #202326;
   --r: 10px;
   /* height of the fixed header — first section must clear it */
@@ -1253,8 +1255,8 @@ p {
 
 /* ============================================================
    * Section bands — shared light / dark backgrounds for components
-   A page can re-tint every light band with --band-light (the service
-   pages use the live site's #dbe0e4; the package page keeps white).
+   Light bands are white on every page, the same as the FAQ band, so a
+   page reads as one surface. --band-light can re-tint them per page.
    ============================================================ */
 .band-dark {
   background: #192b33;
@@ -1560,13 +1562,6 @@ p {
   border-radius: 50%;
   background: var(--orange);
 }
-.form {
-  background: #fff;
-  color: var(--ink);
-  border-radius: 14px;
-  padding: 26px 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
 .field {
   display: grid;
   align-content: start; /* a neighbour's error message makes the row taller — keep label + input at the top */
@@ -1613,7 +1608,7 @@ p {
 .field-error:empty {
   display: none;
 }
-.contact--static,
+.contact--form,
 .rfp-card {
   --field-error: #ff7b7b;
 }
@@ -1623,24 +1618,9 @@ textarea.is-invalid,
 .rfp-form input.is-invalid,
 .rfp-form select.is-invalid,
 .rfp-form textarea.is-invalid,
-.contact--static .field input.is-invalid,
-.contact--static .field textarea.is-invalid {
+.contact--form .field input.is-invalid,
+.contact--form .field textarea.is-invalid {
   border-color: #e51919;
-}
-.formnote {
-  margin-top: 8px;
-  font-size: 13px;
-  color: var(--muted);
-}
-.formactions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
-}
-.formactions .btn {
-  padding: 11px 26px;
-  font-size: 15px;
-  font-weight: 700;
 }
 .success {
   display: none;
@@ -1661,49 +1641,49 @@ textarea.is-invalid,
 
 /* * Contact : service-page variant ($contact_visible) — matches the live
      "Book A Free Consultation" form: fields straight on the dark band */
-.contact--static {
+.contact--form {
   padding: 80px 0;
 }
 /* live block is ~1120px wide, so the title breaks over two lines */
-.contact--static .container {
+.contact--form .container {
   max-width: var(--page);
 }
-.contact--static h2 {
+.contact--form h2 {
   margin-bottom: 16px;
   font-size: 48px;
   line-height: 1.35;
 }
-.contact--static .contact-points-title {
+.contact--form .contact-points-title {
   margin: 0 0 12px;
   font-size: 30px;
 }
-.contact--static .contact-points {
+.contact--form .contact-points {
   gap: 8px;
   padding-left: 20px;
   list-style: disc;
 }
-.contact--static .contact-points li {
+.contact--form .contact-points li {
   padding-left: 0;
   color: #fff;
 }
-.contact--static .contact-points li::before {
+.contact--form .contact-points li::before {
   content: none;
 }
-.contact--static .form {
+.contact--form .form {
   padding: 0 calc(var(--bs-gutter-x) * 0.5); /* keep the column gutter */
   border-radius: 0;
   background: none;
   box-shadow: none;
   color: #fff;
 }
-.contact--static .field {
+.contact--form .field {
   gap: 8px;
 }
 /* one spacing scale for the form: 8px label -> field, 24px between rows */
-.contact--static .form .row {
+.contact--form .form .row {
   --bs-gutter-y: 24px;
 }
-.contact--static .field label {
+.contact--form .field label {
   font-size: 16px;
   font-weight: 600;
   line-height: 1.2;
@@ -1712,8 +1692,9 @@ textarea.is-invalid,
 .contact .req {
   color: #e51919;
 }
-.contact--static .field input,
-.contact--static .field textarea {
+.contact--form .field input,
+.contact--form .field select,
+.contact--form .field textarea {
   height: 54px;
   padding: 0 16px;
   border: 1px solid #d9dfe3;
@@ -1722,12 +1703,22 @@ textarea.is-invalid,
   font-size: 16px;
   color: #000;
 }
-.contact--static .field textarea {
+/* the native select is shorter and carries its own arrow, so it is drawn to
+   match the inputs beside it */
+.contact--form .field select {
+  appearance: none;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23192b33' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 6 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px 16px;
+}
+.contact--form .field textarea {
   height: 120px;
   min-height: 120px;
   padding: 12px 16px;
 }
-.contact--static .field ::placeholder {
+.contact--form .field ::placeholder {
   color: #757575;
 }
 /* * Contact : Project Budget ($contact_budget) — radio inputs styled as pills */
@@ -1759,7 +1750,7 @@ textarea.is-invalid,
   cursor: pointer;
 }
 /* the real radio stays in the layout (keyboard + screen readers), just invisible */
-.contact--static .field .budget-option input {
+.contact--form .field .budget-option input {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -1805,7 +1796,7 @@ textarea.is-invalid,
 .phone-field {
   position: relative;
 }
-.contact--static .phone-field input {
+.contact--form .phone-field input {
   padding-left: 78px;
 }
 .phone-prefix {
@@ -1865,11 +1856,11 @@ textarea.is-invalid,
   outline: 3px solid #fff;
   outline-offset: 2px;
 }
-.contact--static .success h3 {
+.contact--form .success h3 {
   color: #fff;
 }
 @media (min-width: 992px) {
-  .contact--static .contact-copy {
+  .contact--form .contact-copy {
     padding-top: 24px;
   }
 }
@@ -1938,33 +1929,33 @@ textarea.is-invalid,
 
 /* tablet + phone: the copy stacks above the form */
 @media (max-width: 991.98px) {
-  .contact--static {
+  .contact--form {
     padding: 48px 0;
   }
-  .contact--static > .container > .row {
+  .contact--form > .container > .row {
     --bs-gutter-y: 40px;
   }
-  .contact--static h2 {
+  .contact--form h2 {
     font-size: 36px;
   }
-  .contact--static .contact-points-title {
+  .contact--form .contact-points-title {
     font-size: 24px;
   }
 }
 @media (max-width: 575.98px) {
-  .contact--static {
+  .contact--form {
     padding: 40px 0;
   }
-  .contact--static > .container > .row {
+  .contact--form > .container > .row {
     --bs-gutter-y: 32px;
   }
-  .contact--static h2 {
+  .contact--form h2 {
     font-size: 32px;
   }
-  .contact--static .contact-points-title {
+  .contact--form .contact-points-title {
     font-size: 22px;
   }
-  .contact--static .form .row {
+  .contact--form .form .row {
     --bs-gutter-y: 20px;
   }
   .contact .form-privacy,
@@ -1979,9 +1970,6 @@ textarea.is-invalid,
 @media (max-width: 575.98px) {
   .contact {
     padding: 40px 0;
-  }
-  .form {
-    padding: 22px 18px;
   }
 }
 

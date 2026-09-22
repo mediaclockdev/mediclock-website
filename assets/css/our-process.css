@@ -10,9 +10,18 @@
    #contact        panel  contact.php (hidden until opened)
    ============================================================ */
 
-/* * Intro band — the live paragraph runs the full container width */
+/* * Intro band — full container width and justified, the same treatment the
+   Website Development and iOS intros use (the shared band centres its text) */
+.svc-intro {
+  text-align: left;
+}
 .svc-intro-text {
   max-width: none;
+}
+@media (min-width: 992px) {
+  .svc-intro-text {
+    text-align: justify;
+  }
 }
 
 /* * Process — orange heading, 1140px column as on the live page */

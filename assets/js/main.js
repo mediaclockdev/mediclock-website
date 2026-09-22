@@ -121,6 +121,7 @@
   const kind = (el) => {
     const n = el.name.replace(/^rfp_/, "");
     if (el.type === "radio") return n === "budget" ? "budget" : "choice";
+    if (el.type === "file") return "file";
     if (el.type === "email") return "email";
     if (el.type === "tel") return "phone";
     if (el.tagName === "SELECT") return "select";
@@ -139,6 +140,7 @@
     message: "Please write your requirements.",
     person: "Please enter your name.",
     company: "Please enter your company name.",
+    file: "Please choose a file.",
     text: "This field is required.",
   };
 
@@ -149,7 +151,8 @@
     }
     const v = el.value.trim(),
       k = kind(el);
-    if (!v) return el.required ? EMPTY[k] || EMPTY.text : "";
+    // data-empty lets a page word its own "this is required" line
+    if (!v) return el.required ? el.dataset.empty || EMPTY[k] || EMPTY.text : "";
     switch (k) {
       case "email":
         return EMAIL.test(v) ? "" : "Please enter a valid email address, e.g. name@company.com.au.";

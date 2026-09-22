@@ -6,22 +6,22 @@
    Most sections are the shared service components (hero, logo slider,
    intro, projects, what-we-do, feature slider, service strip, faq,
    contact), styled in main.css / service.css. This file only covers:
-   .ios-phone*        the iPhone graphic in the hero's right column
-   .ios-compare       Swift vs React Native (grey band, white cards)
-   .ios-pricing       three plans (white band, light cards, middle one dark)
+   .ios-compare       Swift vs React Native (dark band, white cards)
+   .ios-pricing       three plans (light band, white cards, middle one dark)
    .ios-checks        tick list shared by the two sections above
 
-   Band order — each section on the band that suits it:
-   hero (photo)     · clients (grey)      · intro (dark, proof statement)
-   apps (grey, mockups read best on grey) · services (dark cards)
-   Swift/RN (grey, white cards)           · process (dark slider)
-   industries (grey, dark pills)          · pricing (white — light for reading
-   prices; white so it doesn't merge with the grey industries band)
-   contact form (dark)                    · FAQ (grey, last like every page)
+   Band order — dark and light alternate the whole way down, the same rhythm
+   every other service page uses (hero and Happy Clients read as one dark
+   block at the top, and the contact form is always the last dark band):
+   hero + clients (dark)   · intro (light)      · apps (dark)
+   services (light)        · Swift/RN (dark)    · process (light)
+   industries (dark)       · pricing (light)    · contact (dark)
+   FAQ (white, last like every page)
    ============================================================ */
 
-/* * Intro band — heading + two paragraphs, left like the titled intro on
-   Business Digitisation (the untitled one-liners elsewhere stay centred) */
+/* * Intro band — heading + one paragraph, left and full width like the
+   titled intros on Website Development and Business Digitisation
+   (the untitled one-liners elsewhere stay centred) */
 .svc-intro {
   padding: 50px 0;
   text-align: left;
@@ -35,10 +35,15 @@
   font-size: clamp(1.8rem, 3vw, 2.7rem);
 }
 .svc-intro-text {
-  max-width: 900px;
+  max-width: none;
   margin: 0;
   font-size: 18px;
   line-height: 1.65;
+}
+@media (min-width: 992px) {
+  .svc-intro-text {
+    text-align: justify;
+  }
 }
 
 /* the two page-only sections use the same width as the shared components */
@@ -48,172 +53,6 @@
 }
 .ios-compare .head h2 {
   color: var(--orange);
-}
-
-/* four short facts: one even row instead of the flex strip's 3 + 1 wrap */
-.service-hero--aside .service-hero-stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
-  max-width: 720px;
-}
-.service-hero--aside .service-hero-stats strong {
-  font-size: 22px;
-}
-.service-hero--aside .service-hero-stats span {
-  display: block;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-/* ------------------------------------------------------------
-   * Hero — iPhone graphic (pure CSS; no image to load)
-   ------------------------------------------------------------ */
-.ios-phone-wrap {
-  margin: 0;
-  text-align: center;
-}
-.ios-phone {
-  width: 290px;
-  padding: 10px;
-  border-radius: 48px;
-  background: #0c1519;
-  box-shadow:
-    0 0 0 2px #2c434d,
-    0 40px 80px rgba(0, 0, 0, 0.45);
-}
-.ios-phone-screen {
-  position: relative;
-  min-height: 500px;
-  padding: 56px 20px 26px;
-  border-radius: 38px;
-  background: #f4f6f8;
-  color: var(--ink);
-  text-align: left;
-}
-.ios-phone-island {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  width: 94px;
-  height: 28px;
-  border-radius: 20px;
-  background: #0c1519;
-  transform: translateX(-50%);
-}
-.ios-phone-app {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e1e5e8;
-}
-.ios-phone-icon {
-  display: inline-flex;
-  flex: 0 0 56px;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
-  background: linear-gradient(145deg, #f7784a, var(--orange));
-  color: #fff;
-}
-.ios-phone-icon svg {
-  width: 28px;
-  height: 28px;
-}
-.ios-phone-name {
-  font-family: var(--font-head);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--ink);
-}
-.ios-phone-version {
-  font-size: 14px;
-  color: var(--muted);
-}
-.ios-phone-label {
-  margin: 22px 0 14px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.ios-review {
-  display: grid;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.ios-review li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 14px;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(23, 25, 27, 0.06);
-  font-size: 15px;
-  font-weight: 500;
-  animation: ios-step-in 0.5s ease both;
-}
-.ios-review li:nth-child(2) {
-  animation-delay: 0.35s;
-}
-.ios-review li:nth-child(3) {
-  animation-delay: 0.7s;
-}
-.ios-review li:nth-child(4) {
-  animation-delay: 1.05s;
-}
-.ios-review-tick {
-  display: inline-flex;
-  flex: 0 0 24px;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: rgba(241, 90, 38, 0.14);
-  color: var(--orange);
-}
-.ios-review-tick svg {
-  width: 14px;
-  height: 14px;
-}
-/* the last step is the finish line: green, like App Store Connect */
-.ios-review li:last-child {
-  background: #e8f7ec;
-  color: #1d6b34;
-}
-.ios-review li:last-child .ios-review-tick {
-  background: #34c759;
-  color: #fff;
-}
-.ios-phone-wrap figcaption {
-  max-width: 290px;
-  margin: 20px auto 0;
-  font-size: 15px;
-  line-height: 1.5;
-  color: #dfe6ea;
-}
-@keyframes ios-step-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ios-review li {
-    animation: none;
-  }
 }
 
 /* ------------------------------------------------------------
@@ -250,7 +89,7 @@
 }
 
 /* ------------------------------------------------------------
-   * Swift or React Native? — white cards on the grey band, like the
+   * Swift or React Native? — white cards on the dark band, like the
    pricing plans below. Dark cards here sat directly under the dark
    services band and read as a continuation of it.
    ------------------------------------------------------------ */
@@ -280,11 +119,8 @@
 }
 
 /* ------------------------------------------------------------
-   * Pricing — light cards on a white band, highlighted plan dark
+   * Pricing — white cards on the light band, highlighted plan dark
    ------------------------------------------------------------ */
-.ios-pricing {
-  background: #fff;
-}
 .ios-pricing .head h2 {
   color: var(--orange);
 }
@@ -374,16 +210,13 @@
   margin: 28px 0 0;
   font-size: 16px;
   line-height: 1.6;
-  color: var(--muted);
+  color: #4a5258;
 }
 
 /* ------------------------------------------------------------
    Tablet + phone
    ------------------------------------------------------------ */
 @media (max-width: 991.98px) {
-  .service-hero--aside .service-hero-aside {
-    margin-top: 12px;
-  }
   .ios-tech,
   .ios-plan {
     padding: 26px 24px;
@@ -412,37 +245,12 @@
   .ios-plan .ios-checks { grid-area: list; align-self: center; margin: 0; padding-left: 32px; border-left: 1px solid #e8ecef; }
   .ios-plan-time { grid-area: time; align-self: end; }
 }
-@media (max-width: 767.98px) {
-  .service-hero--aside .service-hero-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px 20px;
-  }
-}
 @media (max-width: 575.98px) {
   .svc-intro {
     padding: 36px 0;
   }
   .svc-intro-text {
     font-size: 16px;
-  }
-  .ios-phone {
-    width: 250px;
-    border-radius: 42px;
-  }
-  /* no fixed height on phones: the screen hugs its steps, so the hero
-     isn't a screen and a half tall */
-  .ios-phone-screen {
-    min-height: 0;
-    padding: 50px 14px 20px;
-    border-radius: 32px;
-  }
-  .ios-phone-wrap figcaption {
-    margin-top: 16px;
-    font-size: 14px;
-  }
-  .ios-review li {
-    padding: 12px;
-    font-size: 14px;
   }
   .ios-tech,
   .ios-plan {

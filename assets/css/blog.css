@@ -19,8 +19,10 @@
 .blog-hero {
   padding: calc(var(--header-h) + 44px) 0 52px;
 }
+/* no character cap on either line: 16ch / 62ch left most of the container
+   empty on the right and broke the title so only "on" sat on the second line */
 .blog-hero h1 {
-  max-width: 16ch;
+  max-width: none;
   margin: 10px 0 18px;
   font-family: var(--font-head);
   font-size: clamp(2.2rem, 4.6vw, 55px);
@@ -29,7 +31,7 @@
   color: #fff;
 }
 .blog-hero-lead {
-  max-width: 62ch;
+  max-width: none;
   margin: 0;
   font-size: 20px;
   line-height: 1.6;
@@ -185,7 +187,7 @@
   margin: 0;
   padding: 0;
 }
-/* white cards on the grey band, so each article reads as its own tile */
+/* cards on the white band: hairline + soft shadow, so each article reads as its own tile */
 .blog-card {
   display: flex;
   flex-direction: column;
@@ -274,7 +276,7 @@
 }
 
 /* * Closing call to action — dark panel on a white band, so it separates
-   from both the grey article list above and the dark footer below */
+   from both the article list above and the dark footer below */
 .blog-cta {
   background: #fff;
 }
@@ -334,8 +336,9 @@
   white-space: nowrap;
   color: #6f7c85;
 }
+/* same as the index hero: the title uses the container it sits in */
 .post-header h1 {
-  max-width: 24ch;
+  max-width: none;
   margin: 16px 0 18px;
   font-family: var(--font-head);
   font-size: clamp(2rem, 3.8vw, 46px);
@@ -373,61 +376,14 @@
   max-width: 720px;
 }
 
-/* * Article : contents rail */
-.post-toc {
-  position: sticky;
-  top: calc(var(--header-h) + 20px);
-  padding: 22px;
-  border-radius: 16px;
-  background: #fff;
-}
-.post-toc summary {
-  font-family: var(--font-head);
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  cursor: pointer;
-  list-style: none;
-}
-.post-toc summary::-webkit-details-marker {
-  display: none;
-}
-.post-toc[open] summary {
-  margin-bottom: 14px;
-}
-.post-toc summary:focus-visible {
-  outline: 3px solid var(--orange);
-  outline-offset: 3px;
-}
-.post-toc ol {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin: 0;
-  counter-reset: toc;
-}
-.post-toc a {
-  display: block;
-  padding-left: 14px;
-  border-left: 2px solid #e2e7ea;
-  font-size: 15px;
-  line-height: 1.45;
-  color: #3b464d;
-  text-decoration: none;
-}
-.post-toc a:hover,
-.post-toc a.is-current {
-  border-left-color: var(--orange);
-  color: var(--orange);
-}
+/* * Article : contents rail — styled in service.css (.post-toc), shared with
+   the Privacy Policy so both pages get the same list */
 
 /* * Article : copy
    One comfortable measure (~68 characters) for everything in the column, a
    little more air between paragraphs than between the lines inside them, and
    headings that sit closer to the text they introduce than to the text above. */
-/* the copy sits on white, not on the grey band: long reading needs the
+/* the copy sits on plain white: long reading needs the
    contrast, and the card keeps the measure honest at any window width */
 .post-article {
   max-width: 764px;
@@ -585,10 +541,6 @@
   .post-layout {
     grid-template-columns: minmax(0, 1fr);
     gap: 24px;
-  }
-  .post-toc {
-    position: static;
-    padding: 16px 20px;
   }
   .post-article {
     max-width: none;

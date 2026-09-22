@@ -1,0 +1,160 @@
+/* ============================================================
+   career.css
+   Careers page only. Loads after main.css + service.css.
+   Media Clock — static rebuild
+
+   Section rhythm — dark and light alternate, the same as every other page:
+   the hero and "Why Media Clock?" read as one dark block at the top, and the
+   form is the last dark band, as the consultation form is everywhere else.
+   hero              dark   hero.php (no proposal card)
+   #why-media-clock  dark   service-strip.php (heading, lead, five pills)
+   #vacancies        light  career.php (the open roles)
+   #apply            dark   career.php — the shared .contact--form styling
+   #contact          panel  contact.php (hidden until opened)
+   Footer            dark
+
+   * the application form is the consultation form's dark band, so the two
+     forms on the site look and behave the same; the page only adds the
+     file field and the vacancy list.
+   ============================================================ */
+
+/* * Why Media Clock? — the strip's lead reads as body copy, not a caption */
+#why-media-clock .head p {
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* * Job vacancies — one card per open role */
+.vacancies .container {
+  max-width: var(--page);
+}
+/* the same gutter the card grids elsewhere use (Bootstrap g-4 / g-lg-5) */
+.vacancy-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 576px) {
+  .vacancy-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 992px) {
+  .vacancy-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+/* the card is a column so "Apply Now" sits on the bottom edge whatever the
+   title length — two-line titles are the norm here, one-line ones the exception */
+.vacancy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  /* bottom padding is short by the 10px the link's tap target adds back */
+  padding: 26px 24px 16px;
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(25, 43, 51, 0.06);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+.vacancy:hover {
+  border-color: rgba(241, 90, 38, 0.6);
+  box-shadow: 0 16px 36px rgba(25, 43, 51, 0.1);
+  transform: translateY(-3px);
+}
+.vacancy-title {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+}
+/* padded to a 44px tap target; the card's bottom padding is reduced to match,
+   so the visible gap under the link equals the gap above the title */
+.vacancy-apply {
+  margin-top: auto;
+  padding: 10px 0;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--orange);
+  text-decoration: none;
+}
+.vacancy-apply:hover,
+.vacancy-apply:focus-visible {
+  color: var(--orange);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* * Apply — everything but the file field comes from .contact--form */
+.careers-apply {
+  scroll-margin-top: var(--header-h);
+}
+/* the shared style assumes the list follows the heading straight away; here a
+   paragraph comes first, so the sub-heading needs its own space above it */
+.careers-apply .contact-points-title {
+  margin-top: 24px;
+}
+/* drawn as a field, with the browser's own button turned into our small one */
+.careers-apply .field input[type="file"] {
+  padding: 13px 16px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.careers-apply .field input[type="file"]::file-selector-button {
+  margin-right: 14px;
+  padding: 7px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #192b33;
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.careers-apply .field input[type="file"]:hover::file-selector-button {
+  background: var(--orange);
+}
+.field-hint {
+  display: block;
+  font-size: 14px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+}
+.careers-apply .form-privacy a {
+  color: var(--orange);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ------------------------------------------------------------
+   Tablet + phone
+   ------------------------------------------------------------ */
+@media (max-width: 991.98px) {
+  .vacancy {
+    padding: 22px 20px 12px;
+    gap: 14px;
+  }
+  .vacancy-title {
+    font-size: 20px;
+  }
+}
+@media (max-width: 575.98px) {
+  #why-media-clock .head p {
+    font-size: 17px;
+  }
+  .careers-apply .field input[type="file"] {
+    padding: 11px 14px;
+    font-size: 15px;
+  }
+}

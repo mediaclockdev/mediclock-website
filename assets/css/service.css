@@ -17,10 +17,11 @@
    hero, logo-slider, testimonials, contact and faq are in main.css.
    ============================================================ */
 
-/* the service pages use the live site's grey for every light band
-   (the FAQ band itself is set in main.css, so every page matches) */
+/* every light band is white, the same as the FAQ band on every page, so the
+   page reads as one surface instead of alternating white and grey. Cards that
+   sit on a light band carry a hairline border to stand off it. */
 :root {
-  --band-light: #dbe0e4;
+  --band-light: #fff;
 }
 
 /* ------------------------------------------------------------
@@ -40,6 +41,10 @@
     transform 0.25s ease,
     box-shadow 0.25s ease;
 }
+.svc-strip.band-dark .svc-pill {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+}
 .svc-pill:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(25, 43, 51, 0.25);
@@ -56,6 +61,70 @@
   font-weight: 600;
   line-height: 1.3;
   color: #fff;
+}
+
+/* ------------------------------------------------------------
+   Contents rail (.post-toc) — "On this page" beside long-form copy.
+   Used by the blog article and the Privacy Policy, so the two match.
+   A <details> element: blog.js / privacy-policy.js fold it shut on
+   phones and mark the section being read with .is-current.
+   ------------------------------------------------------------ */
+.post-toc {
+  position: sticky;
+  top: calc(var(--header-h) + 20px);
+  padding: 22px;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: #fff;
+}
+.post-toc summary {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  list-style: none;
+}
+.post-toc summary::-webkit-details-marker {
+  display: none;
+}
+.post-toc[open] summary {
+  margin-bottom: 14px;
+}
+.post-toc summary:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+.post-toc ol {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  counter-reset: toc;
+}
+.post-toc a {
+  display: block;
+  padding-left: 14px;
+  border-left: 2px solid #e2e7ea;
+  font-size: 15px;
+  line-height: 1.45;
+  color: #3b464d;
+  text-decoration: none;
+}
+.post-toc a:hover,
+.post-toc a.is-current {
+  border-left-color: var(--orange);
+  color: var(--orange);
+}
+
+@media (max-width: 991.98px) {
+  /* the rail becomes a fold-out strip above the copy */
+  .post-toc {
+    position: static;
+    padding: 16px 20px;
+  }
 }
 
 /* ------------------------------------------------------------
@@ -119,6 +188,54 @@
   max-width: 100%;
   height: auto;
 }
+/* * Grid layout ($projects_layout = 'grid') — mockup on top, copy under, in
+   equal cards. For pages whose projects carry one short paragraph, where the
+   alternating rows would stand a 500px mockup beside three lines of text. */
+.svc-projects--grid .project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 28px 26px 30px;
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(25, 43, 51, 0.08);
+}
+/* width + align-self, not the auto margins the row layout uses: auto cross-axis
+   margins switch off stretch, and a lazy image in a shrink-to-fit box measures 0
+   and never loads */
+.svc-projects--grid .project-media {
+  align-self: center;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: 22px;
+}
+/* a set height, not max-height: until it loads a lazy image has no size, and a
+   zero-height image never scrolls into view to trigger the load */
+.svc-projects--grid .project-media img {
+  width: auto;
+  height: 340px;
+  object-fit: contain;
+}
+.svc-projects--grid .project-title {
+  font-size: 22px;
+}
+/* narrow columns: justifying three lines opens rivers, so these stay ragged */
+.svc-projects--grid .project-copy p {
+  text-align: left;
+  hyphens: none;
+}
+.svc-projects--grid .project-link {
+  margin-top: 14px;
+}
+.svc-projects--grid .project-stats {
+  margin-top: 20px;
+}
+/* cards already carry the gutters */
+.svc-projects--grid .project + .project {
+  margin-top: 0;
+}
+
 /* number above label, orange divider between the two stats */
 .project-stats {
   display: flex;
@@ -190,6 +307,23 @@
 }
 .svc-projects.band-dark .project-stats dt {
   color: #fff;
+}
+/* * Grid cards on the dark band — the site's dark-card surface, and copy
+   sized for a card rather than the row layout's half-width column */
+.svc-projects--grid.band-dark .project-card {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: none;
+}
+/* the row layout sets 18px copy for a half-width column; a card is narrower */
+.svc-projects--grid.band-dark .project-copy p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #cdd6db;
+}
+.svc-projects--grid.band-dark .project-title {
+  font-size: 22px;
 }
 /* client logo above a project title, at its natural size */
 .project-logo {
@@ -309,7 +443,9 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
 }
+/* the light band is white, so a white card needs the hairline to show at all */
 .what-we-do--stacked.band-light .wwd-card {
+  border: 1px solid var(--line-soft);
   background: #fff;
 }
 .wwd-card-icon {
@@ -412,27 +548,75 @@
 .svc-cards .container {
   max-width: var(--page);
 }
+/* room for the icon tile that hangs over the top of the first row's cards:
+   70px of overhang on desktop, 10px once the tile and padding shrink */
 .svc-cards-wrap {
   padding-top: 70px;
 }
+/* * The titles run from one line ("Email Signature") to three at some widths
+   ("Business Name Consultation"), which started every description at a
+   different height. The cards share the grid's row tracks through subgrid, so
+   icon, title and copy line up across a row whatever the title length. */
 .svc-cards-grid {
-  --bs-gutter-x: 20px;
-  --bs-gutter-y: 94px;
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 20px;
+  /* no row gap: it would also open up between a card's own three tracks. The
+     space between rows of cards is the card's own margin (the icon overhangs
+     the top edge, so the rows need it), cancelled again after the last row. */
+  row-gap: 0;
+  /* the space between rows is the card's own margin (each row's icons overhang
+     the card top, so the rows need it), cancelled again after the last row */
+  --card-row-gap: 94px;
+  margin-bottom: calc(-1 * var(--card-row-gap));
+}
+@media (min-width: 768px) {
+  .svc-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 992px) {
+  .svc-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.svc-cards-grid > li {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  margin-bottom: var(--card-row-gap);
 }
 .svc-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  justify-items: center;
   padding: 58px 22px 26px;
   border-radius: 20px;
   background: #192b33;
 }
+/* without subgrid the three tracks collapse to the content, so the title keeps
+   a two-line floor and most rows still line up */
+@supports not (grid-template-rows: subgrid) {
+  .svc-cards-grid > li,
+  .svc-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .svc-card-icon {
   width: 117px;
   height: 117px;
   margin: -128px auto 14px;
 }
+/* Subgrid lines the three cards of one row up with each other, but the second
+   row has its own tracks: a one-line title there ("Email ID Creation") would
+   start its description higher than a two-line title above it. The two-line
+   floor is what makes every description in the grid start on the same line. */
 .svc-cards .svc-card-title {
+  min-height: calc(2 * 1.3em);
   margin: 0 0 12px;
   font-family: var(--font-head);
   font-size: 28px;
@@ -540,7 +724,7 @@
   color: #fff;
 }
 .feature-slider.band-light .feature-card {
-  box-shadow: inset 0 0 0 1px var(--line);
+  box-shadow: inset 0 0 0 1px var(--line-soft);
   background: #fff;
 }
 .feature-slider.band-light .feature-card-title {
@@ -611,19 +795,33 @@
    Responsive
    ------------------------------------------------------------ */
 @media (min-width: 992px) {
-  .svc-projects.band-dark .project-copy p {
+  /* the row layout's half-width column takes justification; a card column is
+     too narrow for it, so the grid layout stays ragged */
+  .svc-projects.band-dark:not(.svc-projects--grid) .project-copy p {
     text-align: justify;
   }
   .svc-card p {
     text-align: justify;
   }
+}
+/* 32px needs a card wider than the 992px container's third of a row, where it
+   broke "Business Name Consultation" over three lines */
+@media (min-width: 1200px) {
   .svc-cards .svc-card-title {
     font-size: 32px;
   }
 }
 @media (max-width: 991.98px) {
   /* the icon tile and its overhang shrink with the card, so the title isn't
-     pushed down by a 117px tile on a 343px card */
+     pushed down by a 117px tile on a 343px card. The overhang drops from 70px
+     to 10px, so the space above the first row and between rows follows it —
+     70px and 94px here left a gap three times the desktop one. */
+  .svc-cards-wrap {
+    padding-top: 10px;
+  }
+  .svc-cards-grid {
+    --card-row-gap: 34px;
+  }
   .svc-card {
     padding: 48px 20px 24px;
   }
@@ -651,6 +849,16 @@
   .project-media {
     max-width: 560px;
     margin-inline: auto;
+  }
+  .svc-projects--grid .project-card {
+    padding: 24px 22px 26px;
+  }
+  .svc-projects--grid .project-media {
+    min-height: 0;
+    max-width: 240px;
+  }
+  .svc-projects--grid .project-media img {
+    height: 300px;
   }
   .projects-cta {
     align-items: flex-start;
@@ -700,9 +908,8 @@
 }
 
 /* ------------------------------------------------------------
-   Band seams — testimonials straight after a grey logo band
-   (Web Application, Website Development) go white, so the two
-   light sections don't run together as one grey block
+   Band seams — kept from when light bands were grey; every light
+   band is white now, so this only restates the band colour
    ------------------------------------------------------------ */
 .logo-band.band-light + .testimonial-band.band-light {
   background: #fff;

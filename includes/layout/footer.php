@@ -53,8 +53,7 @@ require_once dirname(__DIR__) . '/img.php';
                     <a href="<?= htmlspecialchars(page_url('our-process'), ENT_QUOTES, 'UTF-8') ?>">Our Process</a>
                     <a href="<?= htmlspecialchars(page_url('blog'), ENT_QUOTES, 'UTF-8') ?>"<?= in_array(current_slug(), ['blog', 'blog-post'], true) ? ' class="current"' : '' ?>>Blogs</a>
                     <a href="<?= page_url('contact-us') ?>"<?= current_slug() === 'contact-us' ? ' class="current"' : '' ?>>Get In Touch</a>
-                    <!-- TODO : /career/ and /privacy-policy/ still live on the old WordPress site -->
-                    <a href="https://mediaclock.com.au/career/" target="_blank" rel="noopener">Careers</a>
+                    <a href="<?= htmlspecialchars(page_url('career'), ENT_QUOTES, 'UTF-8') ?>"<?= current_slug() === 'career' ? ' class="current"' : '' ?>>Careers</a>
                 </div>
 
                 <!-- * Footer : Services -->
@@ -83,7 +82,7 @@ require_once dirname(__DIR__) . '/img.php';
                 </div>
                 <div class="col-12 col-lg-3">ABN 65 617 380 006</div>
                 <div class="col-12 col-lg-3">
-                    <a href="https://mediaclock.com.au/privacy-policy/" target="_blank" rel="noopener">Privacy
+                    <a href="<?= htmlspecialchars(page_url('privacy-policy'), ENT_QUOTES, 'UTF-8') ?>"<?= current_slug() === 'privacy-policy' ? ' class="current"' : '' ?>>Privacy
                         Policy</a>
                 </div>
             </div>

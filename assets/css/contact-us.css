@@ -8,7 +8,7 @@
    .contact-direct   light  phone + email card
    #contact          dark   contact.php (static, with budget range pills)
    #offices          light  "Our Locations" title, map + address tabs
-   .subscribe        white  blog subscribe form (seam after the grey offices band)
+   .subscribe        white  blog subscribe form
    ============================================================ */
 
 /* * Phone + email — one dark pill, centred */
@@ -92,9 +92,8 @@
   outline-offset: 2px;
 }
 
-/* * Subscribe To Our Blog
-   White, so it doesn't merge with the grey offices band above it — the same
-   seam rule the service pages use between their two light sections */
+/* * Subscribe To Our Blog — every light band is white now, so this only
+   restates the band colour; the spacing above does the separating */
 .subscribe {
   background: #fff;
 }

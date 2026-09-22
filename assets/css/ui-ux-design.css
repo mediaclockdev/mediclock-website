@@ -7,7 +7,7 @@
    Hero            dark   includes/components/hero.php
    #clients        dark   logo-slider.php
    .svc-intro      light  intro.php
-   #poc            dark   ui-ux-design.php (six numbered circles)
+   #poc            dark   ui-ux-design.php (six numbered cards)
    .uiux-cta       light  ui-ux-design.php
    #why-ui-ux      dark   ui-ux-design.php
    #testimonials   light  testimonials.php
@@ -18,15 +18,14 @@
    ============================================================ */
 
 
-/* * Proof of Concept — zigzag: odd steps drop the circle below the copy */
-/* headings left, like the other sections; the step circles and the copy
-   inside them stay centred */
+/* * Proof of Concept — six numbered cards, three to a row */
+/* headings left, like the other sections; the cards' own content stays centred */
 .poc .head,
 .uiux-why .head {
   max-width: none;
 }
 .poc .head {
-  margin-bottom: 60px;
+  margin-bottom: 44px;
 }
 .poc .head h2,
 .uiux-why .head h2 {
@@ -40,42 +39,65 @@
 .poc .container {
   max-width: var(--page);
 }
-/* two per row on a phone, three on a tablet, and the six-across zigzag only
-   once the columns are wide enough for it (below that the names wrap to three
-   lines and the steps stop lining up) */
+/* six equal cards: one per row on a phone, two on a tablet, three from 992px.
+   The zigzag this replaced could only ever line up one edge of each description
+   — the copy runs from four lines to seven, so anchoring the short ones to the
+   dashed line left their other edge 45px adrift of the column beside them. */
 .poc-steps {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px 16px;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
-@media (min-width: 768px) {
+@media (min-width: 576px) {
   .poc-steps {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
   .poc-steps {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
   }
 }
 .poc-step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  padding: 34px 28px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
   text-align: center;
 }
-.poc-circle {
-  width: 100%;
-  max-width: 150px;
-  height: auto;
-  position: relative;
-  z-index: 2;
+/* the circle is drawn here and the number is text: the six source images had
+   the number above the icon on the even steps and below it on the odd ones,
+   which only made sense while the steps mirrored each other */
+.poc-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 124px;
+  height: 124px;
+  border: 2px solid var(--orange);
+  border-radius: 50%;
+  background: #dbe1e4;
+}
+.poc-icon {
+  width: 50px;
+  height: 50px;
+}
+.poc-num {
+  font-family: var(--font-head);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  color: #192b33;
 }
 /* two-line slot: some names run to one line ("User Stories") and some to two
-   ("Architectural Design"), which would otherwise shift the description under
-   or above them by a whole line */
+   ("Architectural Design"), so without it the descriptions would start a line
+   apart across a row */
 .poc-name {
   display: flex;
   align-items: center;
@@ -88,105 +110,55 @@
   line-height: 1.25;
   color: var(--orange);
 }
+.poc-body {
+  display: flex;
+  flex-direction: column;
+}
 .poc-text {
   margin: 0;
   font-size: 15px;
-  line-height: 1.5;
-  color: #fff;
+  line-height: 1.6;
+  color: #cdd6db;
 }
-@media (min-width: 1200px) {
-  .poc-steps {
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-  }
-  /* three fixed rows per step, mirrored either side of the dashed line, so the
-     name always sits the same distance from its circle and the descriptions
-     line up across the row instead of floating with their own text length */
-  .poc-step {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    row-gap: 14px;
-    min-height: 380px;
-  }
-  .poc-step::before {
-    content: "";
-    position: absolute;
-    left: -9px;
-    right: -9px;
-    border: 2px dashed rgba(255, 255, 255, 0.7);
-    z-index: -1;
-    pointer-events: none;
-  }
-  /* odd: description on top (sitting on the name), then name, then circle */
-  .poc-step:nth-child(odd) {
-    grid-template-rows: 1fr auto auto;
-  }
-  .poc-step:nth-child(odd) .poc-text {
-    grid-row: 1;
-    align-self: end;
-    margin: 0;
-  }
-  .poc-step:nth-child(odd) .poc-name {
-    grid-row: 2;
-    margin: 0;
-  }
-  .poc-step:nth-child(odd) .poc-circle {
-    grid-row: 3;
-    margin: 0;
-  }
-  /* even: the mirror — circle, then name, then description hanging below it */
-  .poc-step:nth-child(even) {
-    grid-template-rows: auto auto 1fr;
-  }
-  .poc-step:nth-child(even) .poc-circle {
-    grid-row: 1;
-    margin: 0;
-  }
-  .poc-step:nth-child(even) .poc-name {
-    grid-row: 2;
-    margin: 0;
-  }
-  .poc-step:nth-child(even) .poc-text {
-    grid-row: 3;
-    align-self: start;
-    margin: 0;
-  }
-  /* the circle is the anchor of the zigzag: same size in every column */
-  .poc-step .poc-circle {
-    justify-self: center;
-  }
-  .poc-step:nth-child(odd)::before {
-    top: 50%;
-    bottom: 0;
-    border-top: none;
-    border-radius: 0 0 50% 50%;
-  }
-  .poc-step:nth-child(even)::before {
-    top: 0;
-    bottom: 50%;
-    border-bottom: none;
-    border-radius: 50% 50% 0 0;
-  }
-  .poc-step:first-child::before {
-    border-left: none;
-  }
-  .poc-step:last-child::before {
-    border-right: none;
-  }
-}
+/* on a phone the six stacked cards run to two screens, so the badge moves
+   beside the copy instead of above it — the same shape as the What we do cards */
 @media (max-width: 575.98px) {
-  .poc-steps {
-    grid-template-columns: 1fr;
+  .poc-step {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 24px 22px;
+    text-align: left;
+  }
+  .poc-badge {
+    flex: 0 0 84px;
+    width: 84px;
+    height: 84px;
+    gap: 0;
+  }
+  .poc-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .poc-num {
+    font-size: 17px;
+  }
+  .poc-body {
+    min-width: 0;
+    gap: 8px;
+  }
+  .poc-name {
+    justify-content: flex-start;
+    min-height: 0;
+    font-size: 20px;
   }
 }
 
-/* * Get Started Today — white card on the grey band */
+/* * Get Started Today — card on the white band, so it carries the hairline */
 .uiux-cta-card {
   max-width: 900px;
   margin: 0 auto;
   padding: 48px 24px;
+  border: 1px solid var(--line-soft);
   border-radius: 20px;
   background: #fff;
   text-align: center;

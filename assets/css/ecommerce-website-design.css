@@ -44,3 +44,16 @@
     line-height: 26px;
   }
 }
+
+/* * Features slider — three-line title slot
+   The shared slider reserves two lines, which is enough on most pages. These
+   sixteen features include "Display Products Images/Videos" and "Shopping Cart
+   and Checkout", and at the widths where a card is narrowest (three across in a
+   960px container, and two across on a small tablet) they take a third line —
+   which pushed their description 30px below the card beside them. */
+@media (min-width: 576px) and (max-width: 767.98px),
+  (min-width: 992px) and (max-width: 1199.98px) {
+  #features .feature-card-title {
+    min-height: calc(3 * 22px * 1.4);
+  }
+}
