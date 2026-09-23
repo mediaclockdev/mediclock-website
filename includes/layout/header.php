@@ -6,6 +6,7 @@ $recaptcha_site_key = $recaptcha_site_key ?? '';
      $page_title = '...';
      $page_description = '...';
      $page_canonical = 'https://mediaclock.com.au/slug/';   // optional <link rel="canonical">
+     $page_robots    = 'noindex, follow';                   // optional <meta name="robots">
      $page_css = 'service';             // -> assets/css/service.css
      $page_css = ['service', 'about'];  // several files, in order
      $page_js  = 'about';               // -> assets/js/about.js (used by footer.php)
@@ -13,6 +14,7 @@ $recaptcha_site_key = $recaptcha_site_key ?? '';
 $page_title = $page_title ?? 'Media Clock';
 $page_description = $page_description ?? '';
 $page_canonical = $page_canonical ?? '';
+$page_robots    = $page_robots    ?? '';
 $page_css = array_filter((array) ($page_css ?? []));
 $e = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 require_once dirname(__DIR__) . '/img.php';
@@ -44,6 +46,9 @@ unset($navItems, $navSlug);
     <?php if ($page_canonical): ?>
     <link rel="canonical" href="<?= $e($page_canonical) ?>" />
     <?php endif; ?>
+    <?php if ($page_robots): ?>
+    <meta name="robots" content="<?= $e($page_robots) ?>" />
+    <?php endif; ?>
     <!-- * Header : brand fonts (Poppins nav, Open Sans dropdown) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -58,7 +63,9 @@ unset($navItems, $navSlug);
     <?php endforeach; ?>
 </head>
 
-<body>
+<!-- data-site-base: the site root, so JS can build a URL without assuming the
+     site lives at the domain root (it may be served from a subfolder) -->
+<body data-site-base="<?= $e(page_url('')) ?>">
     <!-- * Header : scroll sentinel (drives the sticky state, see JS) -->
     <div class="header-sentinel" aria-hidden="true"></div>
 
@@ -106,7 +113,7 @@ unset($navItems, $navSlug);
             <a class="header-mobile-logo" href="<?= $e(page_url('')) ?>" aria-label="Media Clock home"><img src="<?= $e(img_src('logo-dark.png')) ?>" alt="Media Clock" width="261"
                     height="36" /></a>
             <div class="header-mobile-actions d-flex align-items-center">
-                <a class="header-icon-btn" href="tel:0489906090" aria-label="Call 0489 906 090"><svg viewBox="0 0 24 24"
+                <a class="header-icon-btn" href="<?= $e(mc_tel()) ?>" aria-label="Call <?= $e(mc_tel_text()) ?>"><svg viewBox="0 0 24 24"
                         fill="currentColor" aria-hidden="true">
                         <path
                             d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z" />
@@ -143,7 +150,7 @@ unset($navItems, $navSlug);
             <a class="fs-link<?= $nav_current === 'career' ? ' current' : '' ?>" href="<?= $e(page_url('career')) ?>">Careers</a>
             <a class="fs-link<?= $nav_current === 'contact-us' ? ' current' : '' ?>" href="<?= $e(page_url('contact-us')) ?>">Get In Touch</a>
             <div class="fs-menu-cta d-flex flex-column align-items-center">
-                <a class="fs-btn call" href="tel:0489906090">Call Us</a>
+                <a class="fs-btn call" href="<?= $e(mc_tel()) ?>">Call Us</a>
                 <button type="button" class="fs-btn quote contactBtn" data-interest="Free consultation">
                     Get a Quote
                 </button>
@@ -169,7 +176,3 @@ unset($navItems, $navSlug);
         </div>
     </div>
 
-    <!-- * Header : sticky side quote tab -->
-    <button type="button" class="sticky-quote contactBtn" data-interest="Free consultation">
-        GET A QUOTE
-    </button>

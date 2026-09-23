@@ -83,6 +83,11 @@ $roadmap_image = 'pages/mobile-app-development/roadmap.webp';
 $roadmap_w     = 1024;
 $roadmap_h     = 932;
 $roadmap_alt   = 'Mobile app development roadmap';
+$roadmap_steps = [
+    ['Scope of Work', 'Together, we define the project purpose, goals, features, functionalities needed and project scope.'],
+    ['Design & Prototyping', 'Create process flow chart, architect & use case diagram, user persona, low & high fidelity wireframe designs.'],
+    ['Application Development', 'Develop the Mobile App based on designs, test thoroughly and ensure it works flawlessly after launch.'],
+];
 include 'includes/components/roadmap.php';
 
 // * Tech stack

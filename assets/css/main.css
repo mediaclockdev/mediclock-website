@@ -558,24 +558,6 @@ p {
   height: 22px;
 }
 
-/* * Header — sticky "Get a Quote" side tab */
-.sticky-quote {
-  position: fixed;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  z-index: 99999;
-  padding: 14px 16px;
-  border: 0;
-  border-radius: 10px 0 0 10px;
-  background: #ff4d00;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
-  writing-mode: vertical-rl;
-  cursor: pointer;
-}
-
 /* * Side gutters — Bootstrap's 12px is too tight once the layout is one or two
    columns wide, so tablets and phones get a real margin. The rows inside keep
    their own 12px padding, so column gaps are unchanged.
@@ -629,11 +611,6 @@ p {
   .site-header,
   .site-header.is-scrolled {
     background: #fff;
-  }
-  /* the tab sat on top of the right-hand edge of cards and links; on these
-     widths the header already carries Call, and the menu carries Get a Quote */
-  .sticky-quote {
-    display: none;
   }
 }
 
@@ -703,6 +680,26 @@ p {
 }
 .footer-contact a:hover {
   color: #fff;
+}
+/* * The two numbers.
+   The landline is what every call button dials, so it leads: larger and
+   heavier than the mobile beneath it. The mobile stays orange and callable —
+   quieter, not hidden. */
+.footer-phone {
+  font-family: var(--font-head);
+  font-weight: 600;
+}
+.footer-contact .footer-phone {
+  margin-bottom: 4px;
+  font-size: 22px;
+  line-height: 28px;
+}
+.footer-contact .footer-phone--alt {
+  margin-bottom: 12px;
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 500;
+  opacity: 0.85;
 }
 
 /* * Footer — column headings */
@@ -801,6 +798,14 @@ p {
   .footer-bottom > .row > [class^="col"] + [class^="col"] {
     margin-top: 6px;
   }
+  /* Stacked, the three read as a list, and the copyright line belongs at the
+     foot of it rather than above the ABN and the policy link. Ordered rather
+     than reordered in the markup, so the desktop row keeps copyright on the
+     left where it is read first. */
+  .footer-bottom > .row > [class^="col"]:first-child {
+    order: 1;
+    margin-top: 6px;
+  }
   /* the copyright block ran 26px + 30px + the footer's own 22px deep, which is
      a lot of empty navy under three short lines */
   .footer-bottom {
@@ -821,17 +826,28 @@ p {
    sub-line on the left, dark "Request For Proposal" card on the right.
    ============================================================ */
 .service-hero {
+  position: relative;
   background-color: #192b33;
-  background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
   color: #fff;
   /* top padding clears the fixed header (see --header-h); the sides are left to
      the container inside, so the hero copy lines up with every other section */
   padding: calc(var(--header-h) + 28px) 0 63px;
 }
+/* * Service hero — the photo, as a layer rather than the section's background.
+   Fills the band on desktop; on a phone its height is capped (see the mobile
+   block below) so the form's height no longer decides how the photo is cropped. */
+.service-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
 /* columns + vertical centring come from Bootstrap's .row/.col-lg-* */
 .service-hero-inner {
+  position: relative;
+  z-index: 2;
   min-height: 580px;
 }
 /* * Service hero — no proposal card (contact-us)
@@ -1051,6 +1067,68 @@ p {
 @media (max-width: 991.98px) {
   .service-hero {
     padding: calc(var(--header-h-mobile) + 24px) 0 44px;
+  }
+  /* A logo band straight after a hero is the same dark colour, so the two read
+     as one block and their padding stacks: 44px below the form plus 36px above
+     "Happy Clients" left an 80px void on a phone. The hero's own bottom padding
+     is enough.
+     Two conditions, both necessary:
+     - .band-dark, because the tightening is only right where there is no seam.
+       On a light band (the SEO package's "Trusted by…") the colour changes at
+       that edge, and the heading needs the band's normal padding to sit in.
+     - both hero kinds, since the homepage's slider hero is .home-hero, not
+       .service-hero, and was the one page left on the old 36px. */
+  .service-hero + .logo-band.band-dark,
+  .home-hero + .logo-band.band-dark {
+    padding-top: 10px;
+  }
+  /* Same stacking below the proposal card: its own 28px plus the band's 44px
+     put 72px of empty dark under the Send button. The 44px was sized for a
+     hero whose last element is a line of copy, not a full-width button. The
+     card's own bottom padding comes in with it, since the two are read as one
+     gap — the card is dark on a dark band, so the only edge the eye sees is
+     where the next band's colour starts. */
+  .service-hero:not(.service-hero--no-form) {
+    padding-bottom: 8px;
+  }
+  /* * How much photo is left above the proposal card.
+     Stacked, the card starts wherever the copy ends, so the strip of photo a
+     visitor actually sees is set by the length of the heading. Portfolio's one
+     line left 110px of it; Website Development's three lines left 292px, and
+     the short pages read as though they had a smaller banner than the rest.
+     A floor on the copy column holds the card down to a consistent start, and
+     the copy is centred in it so a short heading sits in the middle of the
+     photo rather than tight under the header. Pages whose copy is already
+     taller than the floor are untouched. */
+  .service-hero:not(.service-hero--no-form) .service-hero-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Sized to the tallest copy any page has (the SEO package's title, sub and
+       button come to 332px here), so every page's card starts at the same
+       point and every banner shows the same amount of photo. A floor rather
+       than a fixed height: longer copy in future grows instead of clipping,
+       at the cost of that one page being taller. */
+    min-height: 340px;
+  }
+  .rfp-card {
+    padding-bottom: 20px;
+  }
+  /* The photo stops above the form instead of stretching behind it. Covering
+     the full 900–1050px band scaled a 16:9 photo to ~1780px wide and showed a
+     360px strip of it — 80% cropped away. Capped, the crop is about 45% and the
+     photo keeps a shape close to its own. The mask fades the bottom edge into
+     the band's dark colour, so where the copy runs past the photo there is no
+     hard line. */
+  .service-hero:not(.service-hero--no-form) .service-hero-bg {
+    bottom: auto;
+    /* runs to where the card begins: 100px of band padding + the 340px copy
+       floor + the row's 24px gutter */
+    height: 470px;
+    /* never taller than the band itself */
+    max-height: 100%;
+    -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 80%, transparent 100%);
   }
   .service-hero-inner {
     min-height: 0;
@@ -1339,6 +1417,14 @@ p {
   justify-content: center;
   gap: 2px;
   margin-top: 22px;
+}
+/* The dots only appear below 992px, where the logos need paging. Their 24px
+   row is mostly tap target around an 8px dot, so the band's own padding on top
+   of it read as a gap with nothing in it. */
+@media (max-width: 991.98px) {
+  .logo-band .mc-slider-dots {
+    margin-top: 14px;
+  }
 }
 .mc-slider-dots button {
   display: grid;
@@ -1882,6 +1968,11 @@ textarea.is-invalid,
   .testimonial-band {
     padding: 44px 0;
   }
+  /* a logo band ends on its pager dots, which are mostly tap target around an
+     8px dot — the full band padding under that read as an empty gap */
+  .logo-band {
+    padding-bottom: 22px;
+  }
   .faq-section {
     padding: 48px 0;
   }
@@ -1889,11 +1980,23 @@ textarea.is-invalid,
     margin-bottom: 22px;
   }
 }
+/* tablet: the same idea, sized to the tallest copy at these widths (304px) */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .service-hero:not(.service-hero--no-form) .service-hero-copy {
+    min-height: 310px;
+  }
+  .service-hero:not(.service-hero--no-form) .service-hero-bg {
+    height: 440px;
+  }
+}
 @media (max-width: 575.98px) {
   .section,
   .logo-band,
   .testimonial-band {
     padding: 36px 0;
+  }
+  .logo-band {
+    padding-bottom: 18px;
   }
   .faq-section {
     padding: 40px 0;

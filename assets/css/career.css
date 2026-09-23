@@ -23,7 +23,7 @@
    the left and the person on the right and left the copy over the busiest part
    of the frame. Anchored right, the whole crop comes off the left edge: the
    group at the desk stays intact and the copy sits over the wall behind them. */
-.service-hero {
+.service-hero-bg {
   background-position: 100% 50%;
 }
 

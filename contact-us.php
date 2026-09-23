@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Get In Touch – Media Clock';
-$page_description = 'Contact Media Clock: call 0489 906 090, email info@mediaclock.com.au, or book a free consultation with our Melbourne, Sydney, Brisbane or Hobart team.';
+$page_description = 'Contact Media Clock: call 03 9016 4442 or 0410 576 590, email info@mediaclock.com.au, or book a free consultation with our Melbourne, Sydney, Brisbane or Hobart team.';
 $page_css         = ['service', 'contact-us'];
 $page_js          = 'contact-us';
 include 'includes/layout/header.php';
@@ -9,7 +9,7 @@ include 'includes/layout/header.php';
 $hero_title    = "Let's Connect and Grow";
 $hero_sub      = 'Start Your Journey Here';
 $hero_cta      = 'Schedule a Meeting';
-$hero_cta_href = 'tel:0489906090';
+$hero_cta_href = mc_tel();
 $hero_image    = 'pages/contact-us/hero.webp';
 $hero_form     = false;
 include 'includes/components/hero.php';
@@ -27,9 +27,12 @@ $map = fn($q) => 'https://maps.google.com/maps?q=' . rawurlencode($q) . '&t=m&z=
 <section class="contact-direct band-light" aria-label="Call or email us">
     <div class="container">
         <div class="contact-direct-card">
-            <a href="tel:0489906090"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <a href="<?= $e(mc_tel()) ?>"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z" />
-                </svg>0489 906 090</a>
+                </svg><?= $e(mc_tel_text()) ?></a>
+            <!-- the mobile sits beside it, quieter: the landline is the number
+                 every call button dials -->
+            <a class="is-secondary" href="<?= $e(mc_tel('mobile')) ?>"><?= $e(mc_tel_text('mobile')) ?></a>
             <a href="mailto:info@mediaclock.com.au"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <rect x="3" y="5" width="18" height="14" rx="2" />
                     <path d="M3 7l9 6 9-6" />

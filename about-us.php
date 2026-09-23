@@ -4,8 +4,9 @@ $page_description = 'Media Clock crafts tailored software, web and mobile apps f
 $page_css         = ['service', 'about-us'];
 include 'includes/layout/header.php';
 
-// * Hero : photo + Request For Proposal card, no heading (the page h1 is in the About band)
-$hero_title = '';
+// * Hero : photo + Request For Proposal card, carrying the page h1 — the same
+//   shape Portfolio, Careers and Contact Us use (a statement, not the page name)
+$hero_title = 'Built Around Your Business';
 $hero_cta   = '';
 $hero_image = 'pages/about-us/hero.webp';
 include 'includes/components/hero.php';
@@ -21,7 +22,8 @@ include 'includes/components/logo-slider.php';
 <section class="section about band-light" aria-labelledby="about-title">
     <div class="container">
         <div class="head">
-            <h1 id="about-title" class="about-title">About us</h1>
+            <!-- h2: the page's h1 is the hero title above -->
+            <h2 id="about-title" class="about-title">About us</h2>
         </div>
 
         <!-- * About us : copy beside a photo, sides alternating -->

@@ -8,7 +8,7 @@ include 'includes/layout/header.php';
 $hero_title    = 'Modernising Your Business Identity';
 $hero_sub      = '';
 $hero_cta      = "Let's Start";
-$hero_cta_href = 'tel:0489906090';
+$hero_cta_href = mc_tel();
 $hero_image    = 'pages/business-digitisation/hero.webp';
 $hero_form     = true;
 include 'includes/components/hero.php';
@@ -63,7 +63,7 @@ $service_cards_items = [
 $service_cards_cta = [
     'title' => "Get ready to conquer the digital realm with Media Clock. Let's kickstart your journey to online success today!",
     'label' => 'Get a Quote',
-    'href'  => 'tel:0489906090',
+    'href'  => mc_tel(),
 ];
 include 'includes/components/service-cards.php';
 

@@ -1,9 +1,9 @@
 <?php
 /* ============================================================
    * Contact section — shared component
-   Every page needs exactly one: the header, footer, hero and the
-   "GET A QUOTE" tab all open it through .contactBtn (main.js). Without
-   it on the page, those buttons do nothing.
+   Every page needs exactly one: the menu, footer, hero and package
+   buttons all open it through .contactBtn (main.js). Without it on the
+   page, those buttons do nothing.
 
      $contact_visible      (bool)   true  = always-visible "Book A Free Consultation" section
                                     false = the same section, hidden until any .contactBtn

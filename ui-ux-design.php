@@ -7,7 +7,7 @@ include 'includes/layout/header.php';
 // * Hero
 $hero_title    = 'User Interface (UI) & User Experience (UX) Designers';
 $hero_cta      = 'Schedule a call';
-$hero_cta_href = 'tel:0489906090';
+$hero_cta_href = mc_tel();
 $hero_image    = 'pages/ui-ux-design/hero.webp';
 $hero_form     = true;
 include 'includes/components/hero.php';
@@ -66,7 +66,7 @@ $poc_items = [
         <div class="uiux-cta-card">
             <h2 id="uiux-cta-title">Get Started Today</h2>
             <p>Ready to take your digital presence to new heights?</p>
-            <a class="projects-cta-btn" href="tel:0489906090">Let's Talk <span aria-hidden="true">&rarr;</span></a>
+            <a class="projects-cta-btn" href="<?= $e(mc_tel()) ?>">Let's Talk <span aria-hidden="true">&rarr;</span></a>
         </div>
     </div>
 </section>

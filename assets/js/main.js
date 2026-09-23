@@ -69,12 +69,11 @@
     if (e.key === "Escape") setMenu(false);
   });
 
-  // The quote tab is painted ABOVE the menu (z-index 99999 vs 9999) and sits
-  // outside it, so a tap there would otherwise open the contact panel behind
-  // a still-open menu, with the body scroll still locked. Close the menu for
-  // any contact trigger, wherever it lives.
+  // A .contactBtn outside the menu (a hero or package button) sits above it and
+  // would otherwise open the contact panel behind a still-open menu, with the
+  // body scroll still locked. Close the menu for any contact trigger.
   document
-    .querySelectorAll(".sticky-quote, .contactBtn")
+    .querySelectorAll(".contactBtn")
     .forEach((el) => el.addEventListener("click", () => setMenu(false)));
 
   // Opening the menu on a phone and then widening past the mobile breakpoint
@@ -113,9 +112,15 @@
 (function () {
   const forms = document.querySelectorAll("form[novalidate]");
   if (!forms.length) return;
-  const EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-z]{2,}$/i,
+  /* local part: dot-separated runs of the characters an address may use, so
+     "dana..x@", ".dana@" and "dana.@" are all refused. Domain: labels with at
+     least one character between the dots, then a 2+ letter suffix. */
+  const EMAIL =
+      /^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[^\s@.]+(\.[^\s@.]+)*\.[a-z]{2,}$/i,
     AU_PHONE = /^0?[2-478]\d{8}$/,
-    PERSON = /^[\p{L}][\p{L}\s'.-]*$/u,
+    /* \u2019 as well as ': phones and word processors substitute a typographic
+       apostrophe automatically, so O\u2019Brien would otherwise be rejected */
+    PERSON = /^[\p{L}][\p{L}\s'\u2019.-]*$/u,
     WEBSITE = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(:\d+)?([/?#]\S*)?$/i;
 
   const kind = (el) => {
@@ -144,6 +149,25 @@
     text: "This field is required.",
   };
 
+  /* * What a field will accept as it is typed.
+     The validator below says whether a value is *right*; these say which
+     characters can appear at all, so a letter typed into a phone number never
+     shows up rather than sitting there until the visitor is told off for it.
+     Each one mirrors the pattern its field is checked against.
+     Deliberately not applied to the message, company or website fields: those
+     take almost anything, and silently eating a character while someone writes
+     is worse than telling them afterwards. */
+  const collapse = (v) => v.replace(/\s{2,}/g, " ").replace(/^\s+/, "");
+  const SANITISE = {
+    phone: (v) => collapse(v.replace(/[^\d\s()+.-]/g, "")),
+    person: (v) => collapse(v.replace(/[^\p{L}\s'\u2019.-]/gu, "")),
+    /* only whitespace: an address is too varied to filter safely, and
+       stripping more could turn a mistyped address into a valid wrong one.
+       A space is the one thing that is never part of one and is the usual
+       leftover when pasting out of a signature. */
+    email: (v) => v.replace(/\s+/g, ""),
+  };
+
   function problem(el) {
     if (el.type === "radio") {
       const picked = el.form.querySelector(`input[name="${el.name}"]:checked`);
@@ -169,7 +193,9 @@
         if (v.length < 2) return "Name must be at least 2 characters.";
         return PERSON.test(v) ? "" : "Name can only contain letters, spaces, apostrophes and hyphens.";
       case "company":
-        return v.length >= 2 ? "" : "Company name must be at least 2 characters.";
+        if (v.length < 2) return "Company name must be at least 2 characters.";
+        /* length alone let "12" and "@@" through */
+        return /\p{L}/u.test(v) ? "" : "Please enter a valid company name.";
       case "website":
         return WEBSITE.test(v) ? "" : "Please enter a valid website, e.g. yourwebsite.com.au.";
       case "message":
@@ -242,6 +268,23 @@
     });
     fields.forEach((el) => {
       if (el.type === "radio") return check(el, false);
+      /* registered before the check below, so check() reads the cleaned value */
+      const clean = SANITISE[kind(el)];
+      if (clean && el.tagName === "INPUT") {
+        el.addEventListener("input", () => {
+          const next = clean(el.value);
+          if (next === el.value) return;
+          /* keep the caret where the visitor left it, not at the end */
+          const at = Math.max(0, (el.selectionStart || 0) - (el.value.length - next.length));
+          el.value = next;
+          try {
+            el.setSelectionRange(at, at);
+          } catch (err) {
+            /* email inputs refuse the selection API in some browsers; the
+               value is still clean, the caret just lands at the end */
+          }
+        });
+      }
       check(el, false);
       el.addEventListener("input", () => check(el, false));
       /* a file is chosen in one action, so a rejected one is called out straight
@@ -264,6 +307,16 @@
   });
 })();
 
+/* * Where a sent form goes.
+   A confirmation page rather than an inline message, so the submission has a
+   URL an analytics goal or an ad conversion can be set against. `kind` picks
+   the wording on the other side. The inline success blocks are kept as the
+   fallback for anything that stops the redirect. */
+function mcThankYou(kind) {
+  const base = document.body.dataset.siteBase || "/";
+  window.location.href = base + "thank-you/?form=" + encodeURIComponent(kind);
+}
+
 /* * Service hero : Request For Proposal card */
 (function () {
   const form = document.getElementById("rfpForm"),
@@ -277,6 +330,7 @@
     }
     form.hidden = true;
     success.hidden = false;
+    mcThankYou("proposal");
   });
 })();
 
@@ -311,6 +365,7 @@
       }
       e.target.classList.add("hidden");
       document.getElementById("success").classList.add("show");
+      mcThankYou("enquiry");
     });
   // * Contact : live "0 / 180" counter for any textarea with data-counter
   document.querySelectorAll("[data-counter]").forEach((ta) => {

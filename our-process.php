@@ -7,7 +7,7 @@ include 'includes/layout/header.php';
 // * Hero
 $hero_title    = 'Transforming Ideas into Reality';
 $hero_cta      = "Let's Talk";
-$hero_cta_href = 'tel:0489906090';
+$hero_cta_href = mc_tel();
 $hero_image    = 'pages/our-process/hero.webp';
 include 'includes/components/hero.php';
 

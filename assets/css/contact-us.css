@@ -35,6 +35,12 @@
   color: #fff;
   text-decoration: none;
 }
+/* the mobile beside the landline: a step quieter, since the landline is the
+   number every call button dials */
+.contact-direct-card a.is-secondary {
+  font-size: 18px;
+  opacity: 0.82;
+}
 .contact-direct-card a:hover {
   color: var(--orange);
 }
@@ -51,7 +57,7 @@
    from 992px up) it cut into her arm while trimming grey off the left. Anchored
    right, every crop comes out of the empty left side instead and she stays
    whole at any viewport shape. */
-.service-hero {
+.service-hero-bg {
   background-position: 100% 50%;
 }
 

@@ -8,7 +8,7 @@ include 'includes/layout/header.php';
 $hero_title    = 'Digital Marketing Agency';
 $hero_sub      = 'Get quality leads, Make more sales';
 $hero_cta      = 'Let’s Start';
-$hero_cta_href = 'tel:0489906090';
+$hero_cta_href = mc_tel();
 $hero_image    = 'pages/digital-marketing/hero.webp';
 $hero_form     = true;
 include 'includes/components/hero.php';
@@ -29,7 +29,7 @@ include 'includes/components/intro.php';
 // * What we do
 $what_we_do_title = 'What we do?';
 $what_we_do_intro = 'We don’t believe in one-size-fits-all approaches. Our team of seasoned digital strategists understands your unique business goals, audience demographics and market dynamics to craft bespoke strategies that deliver tangible results.';
-$what_we_do_cta   = ['label' => 'Let’s Discuss', 'href' => 'tel:0489906090'];
+$what_we_do_cta   = ['label' => 'Let’s Discuss', 'href' => mc_tel()];
 $what_we_do_items = [
     [
         'icon'  => 'pages/digital-marketing/icons/what-organic-marketing.svg',

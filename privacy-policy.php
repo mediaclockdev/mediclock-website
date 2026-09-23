@@ -303,7 +303,8 @@ $policy_sections = [
                         <p class="legal-contact-name">Media Clock Pty Ltd<span>ABN 65 617 380 006</span></p>
                         <ul class="legal-contact-list">
                             <li><a href="mailto:<?= $e($policy_email) ?>"><?= $e($policy_email) ?></a></li>
-                            <li><a href="tel:0489906090">0489 906 090</a></li>
+                            <li><a href="<?= $e(mc_tel()) ?>"><?= $e(mc_tel_text()) ?></a></li>
+                            <li><a href="<?= $e(mc_tel('mobile')) ?>"><?= $e(mc_tel_text('mobile')) ?></a></li>
                             <li><a href="https://maps.google.com/maps?q=<?= $e(rawurlencode('Media Clock, 392 A St Kilda Rd, St Kilda VIC 3182')) ?>" target="_blank" rel="noopener">392 A St Kilda Rd, St Kilda VIC 3182</a></li>
                         </ul>
                     </div>

@@ -37,7 +37,12 @@ $h = fn($s) => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 require_once dirname(__DIR__) . '/img.php';
 ?>
 <!-- * Service hero -->
-<section class="service-hero<?= $hero_form || $hero_aside !== '' ? '' : ' service-hero--no-form' ?><?= $hero_aside !== '' ? ' service-hero--aside' : '' ?>" style="background-image:url('<?= $h(img_src($hero_image)) ?>')">
+<section class="service-hero<?= $hero_form || $hero_aside !== '' ? '' : ' service-hero--no-form' ?><?= $hero_aside !== '' ? ' service-hero--aside' : '' ?>">
+    <!-- the photo is its own layer, not the section's background: the form makes
+         the section ~1000px tall on a phone, and a background had to cover that
+         whole box, magnifying the photo and cropping 80% of its width away.
+         As a layer its height is set independently of how tall the form is. -->
+    <div class="service-hero-bg" style="background-image:url('<?= $h(img_src($hero_image)) ?>')" aria-hidden="true"></div>
     <div class="container service-hero-inner">
         <div class="row align-items-center g-4">
 
@@ -90,10 +95,18 @@ require_once dirname(__DIR__) . '/img.php';
             <div class="col-12 col-lg-4 rfp-card">
                 <h2 class="rfp-title">Request For Proposal</h2>
                 <form class="rfp-form d-flex flex-column" id="rfpForm" novalidate>
-                    <input type="text" name="rfp_name" placeholder="Your Name" autocomplete="name" required />
-                    <input type="tel" name="rfp_phone" placeholder="Phone number" autocomplete="tel" inputmode="tel" maxlength="20" required />
-                    <input type="email" name="rfp_email" placeholder="Email" autocomplete="email" required />
-                    <select name="rfp_service" required>
+                    <!-- The card is placeholder-only by design, but a placeholder is not an
+                         accessible name: it disappears the moment someone types and screen
+                         readers are not required to announce it. Each field gets a real
+                         label, hidden visually, so the design is unchanged. -->
+                    <label class="visually-hidden" for="rfpName">Your name</label>
+                    <input type="text" id="rfpName" name="rfp_name" placeholder="Your Name" autocomplete="name" required />
+                    <label class="visually-hidden" for="rfpPhone">Phone number</label>
+                    <input type="tel" id="rfpPhone" name="rfp_phone" placeholder="Phone number" autocomplete="tel" inputmode="tel" maxlength="20" required />
+                    <label class="visually-hidden" for="rfpEmail">Email address</label>
+                    <input type="email" id="rfpEmail" name="rfp_email" placeholder="Email" autocomplete="email" required />
+                    <label class="visually-hidden" for="rfpService">Service you are interested in</label>
+                    <select id="rfpService" name="rfp_service" required>
                         <option value="" disabled selected>Select your Service</option>
                         <?php foreach (($hero_services ?? require dirname(__DIR__, 2) . '/data/shared/services.php') as $group => $items): ?>
                     <optgroup label="<?= $h($group) ?>">
@@ -103,7 +116,8 @@ require_once dirname(__DIR__) . '/img.php';
                     </optgroup>
                     <?php endforeach; ?>
                     </select>
-                    <textarea name="rfp_message" placeholder="Write the requirements in brief here.."
+                    <label class="visually-hidden" for="rfpMessage">Your requirements</label>
+                    <textarea id="rfpMessage" name="rfp_message" placeholder="Write the requirements in brief here.."
                         required></textarea>
 
                     <p class="rfp-nda">

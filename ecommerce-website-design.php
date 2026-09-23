@@ -8,7 +8,7 @@ include 'includes/layout/header.php';
 $hero_title    = 'eCommerce Website Designers';
 $hero_sub      = 'Make your online business easy';
 $hero_cta      = 'Schedule a call';
-$hero_cta_href = 'tel:0489906090';
+$hero_cta_href = mc_tel();
 $hero_image    = 'pages/ecommerce-website-design/hero.webp';
 $hero_form     = true;
 include 'includes/components/hero.php';

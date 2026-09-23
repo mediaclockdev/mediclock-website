@@ -6,8 +6,8 @@ $page_css         = ['service', 'ios-development'];
 include 'includes/layout/header.php';
 
 /* Phone number — the same one the header, footer and every other page use */
-$ios_tel      = '0489906090';
-$ios_tel_text = '0489 906 090';
+$ios_tel      = mc_contact()['dialer']['tel'];
+$ios_tel_text = mc_tel_text();
 
 /* Tick icon shared by the checklists */
 $ios_tick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
@@ -17,7 +17,7 @@ $hero_title    = 'iOS App Development Melbourne';
 $hero_sub      = 'Custom iPhone and iPad apps, from first idea to App Store.';
 $hero_cta      = 'Schedule a call';
 $hero_cta_href = 'tel:' . $ios_tel;
-$hero_image    = 'pages/mobile-app-development/hero.webp';
+$hero_image    = 'pages/ios-development/hero.webp';
 $hero_form     = true;
 include 'includes/components/hero.php';
 

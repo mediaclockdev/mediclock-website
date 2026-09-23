@@ -24,7 +24,23 @@ if (!function_exists('asset_url')) {
             }
             $base = rtrim($dir === '.' ? '' : $dir, '/') . '/';
         }
-        return $base . ltrim($path, '/');
+        $rel = ltrim($path, '/');
+        $url = $base . $rel;
+        /* * Cache-busting, CSS and JS only.
+           The dev server sends no Last-Modified, ETag or Cache-Control, so a
+           browser reuses a stale main.css for the whole session and a fix that
+           is already in the file still looks broken on screen. ?v=<mtime>
+           changes the URL whenever the file changes, so the browser refetches
+           it — and on Apache it does the same for visitors after a deploy.
+           Images are left alone: they rarely change, and a stat() per <img>
+           on a page with dozens of them is not worth it. */
+        if (preg_match('/\.(css|js)$/i', $rel)) {
+            $mtime = @filemtime(dirname(__DIR__) . '/' . $rel);
+            if ($mtime) {
+                $url .= '?v=' . $mtime;
+            }
+        }
+        return $url;
     }
 }
 if (!function_exists('img_src')) {
@@ -54,5 +70,38 @@ if (!function_exists('current_slug')) {
     function current_slug(): string
     {
         return pathinfo((string) ($_SERVER['SCRIPT_NAME'] ?? ''), PATHINFO_FILENAME);
+    }
+}
+
+/* ============================================================
+   * Contact numbers — read from data/shared/contact.php.
+   These live here because this is the one file every page and every component
+   already requires, so a number is available wherever it is needed without
+   each caller loading the data file itself.
+
+     mc_contact()     the whole array
+     mc_tel()         'tel:…' for the number call buttons dial
+     mc_tel_text()    that number, formatted for display
+   ============================================================ */
+if (!function_exists('mc_contact')) {
+    function mc_contact(): array
+    {
+        static $c = null;
+        if ($c === null) {
+            $c = require dirname(__DIR__) . '/data/shared/contact.php';
+        }
+        return $c;
+    }
+}
+if (!function_exists('mc_tel')) {
+    function mc_tel(string $which = 'dialer'): string
+    {
+        return 'tel:' . mc_contact()[$which]['tel'];
+    }
+}
+if (!function_exists('mc_tel_text')) {
+    function mc_tel_text(string $which = 'dialer'): string
+    {
+        return mc_contact()[$which]['text'];
     }
 }

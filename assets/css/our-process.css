@@ -113,10 +113,15 @@
   color: #192b33;
 }
 
-/* * Process : illustration on the dark panel */
+/* * Process : illustration on the dark panel.
+   The panel and the bullet list below it are one card: the list rounds off its
+   bottom two corners, so the panel has to round the top two. It had none, which
+   left the card square at the top and rounded at the bottom. */
 .process-media {
   display: flex;
   justify-content: center;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
   background: #192b33;
 }
 .process-media img {
@@ -161,9 +166,10 @@
     flex-direction: column;
     gap: 14px;
   }
+  /* full width, so it squares up with the summary box stacked beneath it —
+     shrink-wrapped to the name it read as a ragged tab above a full-width box */
   .process-badge {
-    align-self: flex-start;
-    max-width: 100%;
+    align-self: stretch;
     min-height: 88px;
   }
   .process-badge-mark {
@@ -224,9 +230,16 @@
   .process-points {
     padding: 20px 16px 20px 36px;
   }
-  /* the illustrations are 300–611px wide: let them fill the panel on a phone */
+  /* The three illustrations are a set: all 451px tall, and only their widths
+     differ (300 / 596 / 611) because step 1 holds one shape and the others
+     two. Capping the *width* at 320px therefore broke the one thing that made
+     them consistent — the tall narrow first image grew to 481px while the wide
+     ones shrank to ~240px, so step 1 read as twice the size of its siblings.
+     A fixed panel height with object-fit keeps all three the same height, and
+     each image scales inside it without distortion. */
   .process-media img {
     width: 100%;
-    max-width: 320px;
+    height: 240px;
+    object-fit: contain;
   }
 }

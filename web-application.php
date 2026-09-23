@@ -80,6 +80,11 @@ $roadmap_image     = 'pages/web-application/roadmap.webp';
 $roadmap_w         = 1024;
 $roadmap_h         = 931;
 $roadmap_alt       = 'Web app development roadmap';
+$roadmap_steps     = [
+    ['Scope of Work', 'Together, we define the project purpose, goals, features, functionalities needed and project scope.'],
+    ['Design & Prototyping', 'Create process flow chart, architect & use case diagram, user persona, low & high fidelity wireframe designs.'],
+    ['Application Development', 'Develop the Web App based on designs, test thoroughly and ensure it works flawlessly after launch.'],
+];
 $roadmap_theme     = 'light';
 $roadmap_max_width = 616;
 include 'includes/components/roadmap.php';

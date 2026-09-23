@@ -36,5 +36,7 @@
     e.preventDefault();
     form.classList.add("hidden");
     success.classList.add("show");
+    /* the applicant's own confirmation page, worded for an application */
+    if (typeof mcThankYou === "function") mcThankYou("application");
   });
 })();

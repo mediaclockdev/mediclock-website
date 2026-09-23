@@ -8,7 +8,7 @@ include 'includes/layout/header.php';
 $hero_title    = 'Stunning Website Development';
 $hero_sub      = 'Where creativity meets technology';
 $hero_cta      = 'Schedule a call';
-$hero_cta_href = 'tel:0489906090';
+$hero_cta_href = mc_tel();
 $hero_image    = 'pages/website-development/hero.webp';
 $hero_form     = true;
 include 'includes/components/hero.php';
@@ -87,6 +87,14 @@ $roadmap_w         = 1039;
 $roadmap_h         = 1628;
 $roadmap_alt       = 'Website process: Consultation, Design, Development, Testing, Launch, Support & Maintenance';
 $roadmap_theme     = 'light';
+$roadmap_steps     = [
+    ['Consultation', 'We start by understanding your business goals, target audience, and unique requirements through a thorough discovery meeting.'],
+    ['Design', 'Our team of designers will craft custom designs that align with your brand identity and vision, ensuring a visually stunning website that stands out from the competition.'],
+    ['Development', 'Once the design is approved, our developers will bring it to life using the latest technologies and coding standards, ensuring a seamless and bug-free website.'],
+    ['Testing', 'Before launch, we rigorously test the website across different browsers, devices, and screen sizes to ensure compatibility and performance.'],
+    ['Launch', 'Once everything is perfect, we launch your website and do a final testing post launch.'],
+    ['Support & Maintenance', 'We provide ongoing support and maintenance to ensure it continues to perform optimally.'],
+];
 $roadmap_max_width = 775;
 include 'includes/components/roadmap.php';
 

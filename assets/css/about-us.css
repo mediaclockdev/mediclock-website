@@ -4,7 +4,7 @@
    Media Clock — static rebuild
 
    Section rhythm (matches the live page):
-   Hero            dark   includes/components/hero.php (no heading)
+   Hero            dark   includes/components/hero.php (carries the page h1)
    #clients        dark   logo-slider.php
    .about          light  about-us.php (page h1, copy, two photos)
    #values         dark   why-us.php
@@ -12,6 +12,27 @@
    #contact        dark   contact.php
    #partners       light  logo-slider.php
    ============================================================ */
+
+/* * Hero — scrim behind the heading.
+   Every other service hero relies on its photo being dark enough on its own,
+   but this one has a bright monitor exactly where the copy sits: that area
+   peaks at luminance 177, against 95–123 on the others, which puts white text
+   at about 2:1. The gradient darkens the copy side and clears by 62%, so the
+   photo still reads on the right. Same device the homepage hero uses. */
+/* on the photo layer itself, so it tracks the photo's box at every width —
+   including the capped height on a phone */
+.service-hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(12, 23, 28, 0.62) 0%,
+    rgba(12, 23, 28, 0.42) 35%,
+    rgba(12, 23, 28, 0) 62%
+  );
+  pointer-events: none;
+}
 
 /* * Headings — orange section titles, as on the live page */
 .logo-band .head h2,

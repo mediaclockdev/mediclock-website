@@ -20,7 +20,7 @@
      $projects_media_cols  (int)    image column width on desktop, out of 12  — default 6
      $projects_image_first (bool)   true = first project's image on the left  — default false
      $projects_layout      (string) 'rows'  copy and image side by side, alternating (default)
-                                    'grid'  equal cards in a row — mockup on top, copy under.
+                                    'grid'  equal cards in a row — title, then mockup, then copy.
                                             For pages whose projects carry one short paragraph:
                                             the alternating rows leave a tall mockup beside a
                                             three-line paragraph and a column of empty space.
@@ -48,17 +48,17 @@ require_once dirname(__DIR__) . '/img.php';
             <?php if ($projects_lead !== ''): ?><p><?= $h($projects_lead) ?></p><?php endif; ?>
         </div>
         <?php if ($projects_layout === 'grid'): ?>
-        <!-- * Recent Projects : equal cards, mockup on top -->
+        <!-- * Recent Projects : equal cards, title over the mockup, copy under -->
         <div class="row g-4 g-lg-5">
             <?php foreach ($projects_items as $pj): ?>
             <div class="col-12 col-sm-6 col-lg-4">
                 <article class="project-card">
+                    <h3 class="project-title"><?= $h($pj['title']) ?></h3>
                     <div class="project-media">
                         <img src="<?= $h(img_src($pj['image'])) ?>" alt="<?= $h($pj['alt'] ?? $pj['title']) ?>"
                             width="<?= (int) $pj['w'] ?>" height="<?= (int) $pj['h'] ?>" loading="lazy" decoding="async" />
                     </div>
                     <div class="project-copy">
-                        <h3 class="project-title"><?= $h($pj['title']) ?></h3>
                         <?php foreach ($pj['copy'] ?? [] as $pjPara): ?>
                         <p><?= $h($pjPara) ?></p>
                         <?php endforeach; ?>

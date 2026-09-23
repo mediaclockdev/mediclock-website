@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Careers – Media Clock';
-$page_description = 'Join the Media Clock team in Melbourne. Current openings in development, design, business development, marketing and testing.';
+$page_description = 'Join the Media Clock team in Melbourne. Current openings in design, video, business development and marketing.';
 $page_canonical   = 'https://mediaclock.com.au/career/';
 $page_css         = ['service', 'career'];
 $page_js          = 'career';
@@ -8,23 +8,16 @@ include 'includes/layout/header.php';
 
 /* * Open roles — one list, used by the vacancy cards and by the "Apply for
    position" picker in the form, so the two can never fall out of step.
-   Every role the live site lists is here: it carries eight as vacancy cards and
-   a further five in the form's picker only (its two lists had drifted apart),
-   so this is the union of both, grouped by area. */
+   Grouped by area. Add or retire a role here and both places follow. */
 $career_roles = [
     'Business Development Executive (IT)',
     'Business Development Manager (IT)',
-    'IT Business Analyst',
-    'Laravel Developer',
-    'Quality Tester (IT)',
     'UX/UI Designer',
     'Graphics Designer',
     'Senior Graphics Designer',
     'Video Editor',
     'Senior Video Editor',
-    'Content Writer',
     'Digital Marketing Manager',
-    'Google Ads Specialist',
 ];
 
 // * Hero — no proposal card here: this page asks for applications, not projects
