@@ -2,12 +2,29 @@
 /* * Landing : hero — headline, proof points, stats and the form.
    The form sits in the hero on purpose: paid traffic converts on the first
    screen or not at all, so it is visible without scrolling on a laptop. */
+$lpVideo    = dirname(__DIR__, 3) . '/assets/images/landing/trust.mp4';
+$lpHasVideo = is_file($lpVideo);
+$lpPoster   = is_file(dirname(__DIR__, 3) . '/assets/images/landing/trust-poster.webp')
+    ? img_src('landing/trust-poster.webp')
+    : '';
 ?>
 <section class="lp-hero">
     <div class="lp-container lp-hero-grid">
 
         <div class="lp-hero-copy">
             <h1><?= $e($lp['hero_title']) ?></h1>
+            
+            <div class="lp-hero-media lp-hide-desktop">
+                <?php if ($lpHasVideo): ?>
+                <video src="<?= $e(img_src('landing/trust.mp4')) ?>"<?= $lpPoster ? ' poster="' . $e($lpPoster) . '"' : '' ?>
+                    autoplay muted loop playsinline preload="metadata"
+                    aria-label="Media Clock app development showreel"></video>
+                <?php else: ?>
+                <img src="<?= $e(img_src('landing/projects/01.webp')) ?>" alt="Apps built by Media Clock" width="800"
+                    height="663" loading="lazy" />
+                <?php endif; ?>
+            </div>
+
             <ul class="lp-hero-points">
                 <?php foreach ($lp['hero_points'] as $lpPoint): ?>
                 <li><?= $e($lpPoint) ?></li>

@@ -13,7 +13,7 @@ $lpPoster   = is_file(dirname(__DIR__, 3) . '/assets/images/landing/trust-poster
     ? img_src('landing/trust-poster.webp')
     : '';
 ?>
-<section class="lp-band-dark lp-trust">
+<section class="lp-band-dark lp-trust lp-hide-mobile">
     <div class="lp-container">
         <p class="lp-eyebrow"><?= $e($lp['trust_eyebrow']) ?></p>
         <h2 class="lp-section-title"><?= $e($lp['trust_title']) ?></h2>

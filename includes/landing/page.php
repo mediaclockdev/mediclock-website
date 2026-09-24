@@ -39,6 +39,7 @@ $e = fn($s) => htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8');
 
 include __DIR__ . '/header.php';
 
+echo '<main class="lp-main">';
 foreach ([
     'hero',
     'trusted',
@@ -54,6 +55,7 @@ foreach ([
 ] as $lpSection) {
     include __DIR__ . '/sections/' . $lpSection . '.php';
 }
+echo '</main>';
 unset($lpSection);
 
 include __DIR__ . '/footer.php';

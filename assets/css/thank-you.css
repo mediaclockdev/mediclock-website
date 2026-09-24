@@ -89,8 +89,8 @@
 }
 .ty-direct-links a:hover,
 .ty-direct-links a:focus-visible {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  text-decoration: none;
+  opacity: 0.8;
 }
 .ty-direct-links svg {
   flex: 0 0 22px;

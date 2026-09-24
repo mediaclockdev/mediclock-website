@@ -91,20 +91,18 @@ ol {
    Type
    ------------------------------------------------------------ */
 .lp-section-title {
-  margin: 0 0 24px;
+  margin: 0 0 28px;
   font-family: var(--font-head);
-  font-size: clamp(2.2rem, 4vw, 2.75rem);
+  font-size: clamp(2.2rem, 4vw, 43px);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.015em;
   text-align: center;
-}
-.lp-band-dark .lp-section-title {
-  color: #fff;
+  color: var(--orange);
 }
 .lp-section-lead {
   max-width: 60ch;
-  margin: -8px auto 24px;
+  margin: 0 auto;
   font-size: 17px;
   line-height: 1.6;
   color: var(--muted);
@@ -251,10 +249,10 @@ ol {
 }
 .lp-hero-points li {
   position: relative;
-  min-height: 24px;
-  padding-left: 34px;
-  font-size: 16px;
-  line-height: 24px;
+  min-height: 30px;
+  padding-left: 36px;
+  font-size: 20px;
+  line-height: 30px;
   color: #fff;
 }
 /* a filled orange disc with a white tick drawn on top of it — two
@@ -264,7 +262,7 @@ ol {
   content: "";
   position: absolute;
   left: 0;
-  top: 1px;
+  top: 4px;
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -274,7 +272,7 @@ ol {
   content: "";
   position: absolute;
   left: 7px;
-  top: 8px;
+  top: 11px;
   width: 8px;
   height: 4px;
   border-left: 2px solid #fff;
@@ -328,7 +326,7 @@ ol {
 .lp-form-card h2 {
   margin: 0 0 6px;
   font-family: var(--font-head);
-  font-size: 22px;
+  font-size: 32px;
   font-weight: 700;
   line-height: 1.25;
 }
@@ -452,6 +450,7 @@ ol {
   width: 210px;
   height: 150px;
   padding: 6px;
+  margin-right: 32px;
 }
 .lp-marquee-track img {
   display: block;
@@ -1524,6 +1523,8 @@ ol {
 .lp-cta-panel--horizontal .lp-cta-panel-icon {
   flex-shrink: 0;
   color: #1b2a34;
+  min-width: 40px;
+  min-height: 40px;
 }
 .lp-cta-panel--horizontal .lp-cta-panel-content {
   flex: 1;
@@ -1537,6 +1538,7 @@ ol {
   color: #444;
   margin: 0;
   font-size: 16px;
+  max-width: none;
 }
 .lp-cta-panel--horizontal .lp-cta-panel-action {
   flex-shrink: 0;
@@ -1754,16 +1756,33 @@ ol {
   color: #fff;
 }
 @media (max-width: 991.98px) {
+  .lp-footer-contact-grid {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    margin: 16px auto 0 auto;
+  }
+  .lp-footer-contact-row {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin: 0;
+  }
   .lp-footer-contact-row > * {
     border-right: none;
-    padding: 8px 16px;
-    width: 100%;
-    justify-content: center;
+    padding: 10px 0;
+    width: auto;
+    justify-content: flex-start;
   }
 }
 
 /* ---- Projects Hover Effect ---- */
+/* Force equal heights on the new project slider */
+.lp-project-slider .mc-slider-track {
+  align-items: stretch !important;
+}
 .lp-project {
+  height: auto !important;
   border: 2px solid transparent;
   transition: all 0.3s ease;
 }
@@ -1782,6 +1801,7 @@ ol {
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   border: none;
+  height: auto !important;
 }
 .lp-review-head {
   display: flex;
@@ -1852,6 +1872,9 @@ ol {
 .lp-review-slider .mc-slider-dots {
   margin-top: 32px;
 }
+.lp-review-slider .mc-slider-track {
+  align-items: stretch !important;
+}
 
 /* ---- Utility: orange section title ---- */
 .lp-section-title--orange {
@@ -1864,6 +1887,25 @@ ol {
   .lp-band-light {
     padding: 40px 0;
   }
+  .lp-marquee-track li {
+    width: 170px;
+    height: 120px;
+    margin-right: 28px;
+  }
+  
+  .lp-hide-desktop { display: block !important; }
+  .lp-hide-mobile { display: none !important; }
+  
+  /* Reorder sections on mobile */
+  .lp-main {
+    display: flex;
+    flex-direction: column;
+  }
+  .lp-main > * { order: 5; } /* default order for all other sections */
+  .lp-hero { order: 1; }
+  .lp-logos--marquee { order: 2; }
+  .lp-projects { order: 3; }   /* Moved up! */
+  .lp-platforms { order: 4; }  /* Pushed down! */
 }
 @media (max-width: 575.98px) {
   .lp-band-dark,
@@ -1873,4 +1915,32 @@ ol {
   .lp-section-title {
     margin-bottom: 20px;
   }
+  .lp-marquee-track li {
+    width: 140px;
+    height: 100px;
+    margin-right: 24px;
+  }
+}
+/* ---- Visibility Helpers ---- */
+.lp-hide-desktop {
+  display: none !important;
+}
+
+/* ---- Mobile Hero Video ---- */
+.lp-hero-media {
+  position: relative;
+  border-radius: var(--lp-radius);
+  overflow: hidden;
+  background: var(--lp-dark-2);
+  aspect-ratio: 16 / 9;
+  margin-bottom: 24px;
+}
+.lp-hero-media video,
+.lp-hero-media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

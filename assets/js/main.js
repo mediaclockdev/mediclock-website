@@ -541,3 +541,79 @@ function mcThankYou(kind) {
     start();
   });
 })();
+
+/* * FAQ Smooth Accordion */
+(function() {
+  const details = document.querySelectorAll('.lp-faq-item');
+  if (details.length === 0) return;
+
+  details.forEach((el) => {
+    const summary = el.querySelector('summary');
+    const content = el.querySelector('p');
+
+    let animation = null;
+    let isClosing = false;
+    let isExpanding = false;
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      el.style.overflow = 'hidden';
+
+      // Close others
+      details.forEach((other) => {
+        if (other !== el && other.hasAttribute('open')) {
+          other.style.overflow = 'hidden';
+          const startHeight = `${other.offsetHeight}px`;
+          const endHeight = `${other.querySelector('summary').offsetHeight}px`;
+          if (other.animation) other.animation.cancel();
+          other.animation = other.animate({ height: [startHeight, endHeight] }, { duration: 300, easing: 'ease' });
+          other.animation.onfinish = () => {
+            other.removeAttribute('open');
+            other.style.height = '';
+            other.style.overflow = '';
+            other.animation = null;
+          };
+        }
+      });
+
+      if (isClosing || !el.hasAttribute('open')) {
+        open();
+      } else if (isExpanding || el.hasAttribute('open')) {
+        shrink();
+      }
+    });
+
+    function shrink() {
+      isClosing = true;
+      const startHeight = `${el.offsetHeight}px`;
+      const endHeight = `${summary.offsetHeight}px`;
+      if (animation) animation.cancel();
+      animation = el.animate({ height: [startHeight, endHeight] }, { duration: 300, easing: 'ease' });
+      animation.onfinish = () => {
+        el.removeAttribute('open');
+        animation = null;
+        isClosing = false;
+        el.style.height = '';
+        el.style.overflow = '';
+      };
+    }
+
+    function open() {
+      el.style.height = `${el.offsetHeight}px`;
+      el.setAttribute('open', true);
+      window.requestAnimationFrame(() => {
+        isExpanding = true;
+        const startHeight = `${el.offsetHeight}px`;
+        const endHeight = `${summary.offsetHeight + content.offsetHeight}px`;
+        if (animation) animation.cancel();
+        animation = el.animate({ height: [startHeight, endHeight] }, { duration: 300, easing: 'ease' });
+        animation.onfinish = () => {
+          animation = null;
+          isExpanding = false;
+          el.style.height = '';
+          el.style.overflow = '';
+        };
+      });
+    }
+  });
+})();
