@@ -1,0 +1,1876 @@
+/* ============================================================
+   landing.css
+   Advertisement landing pages only — /mobile-app-development-perth/ and
+   /mobile-app-development-melbourne/. Loads after main.css, which supplies
+   the brand tokens, the fonts and the reset.
+
+   Every selector here starts .lp-, apart from one deliberate element-level
+   list reset (see below). That is the isolation story: no rule in this file
+   can reach a page on the main site, because this file is only ever loaded by
+   the two landing pages, and no rule on the main site is written against
+   .lp- class names. The two can be changed
+   independently, which is the point — an ad campaign moves faster than a
+   website and should never be able to shift a section on one.
+
+   Band rhythm. The light bands run in groups and the dark ones break them up,
+   so the page reads as a few chapters rather than a stripe per section:
+     .lp-hero        dark    headline + form
+     .lp-logos       light   trusted by
+     .lp-trust       dark    why businesses trust us
+     .lp-platforms   light   what we build
+     .lp-projects    light   recent work
+     .lp-pricing     light   what it costs
+     .lp-roadmap     dark    how we build it
+     .lp-logos       light   technologies
+     .lp-categories  light   what kind of app + CTA
+     .lp-reviews     dark    client feedback
+     .lp-faq         light   questions
+     .lp-footer      dark
+   ============================================================ */
+
+:root {
+  --lp-dark: #192b33;
+  --lp-dark-2: #1f333c;
+  --lp-light: #dbe0e4;
+  /* the lighter slate the hero stats sit on */
+  --lp-slate: #46545b;
+  /* the hero form card is off-white, not pure white: it reads as a panel on
+     the dark band rather than a hole punched in it */
+  --lp-card: #f5f5f5;
+  --lp-field-line: #d4dce0;
+  --lp-header-h: 95px;
+  --lp-radius: 20px;
+}
+
+/* ------------------------------------------------------------
+   Shell
+   ------------------------------------------------------------ */
+.lp-body {
+  background: var(--lp-light);
+  overflow-x: hidden;
+}
+.lp-container {
+  width: 100%;
+  /* the live page runs its content to within 50px of the window rather than
+     inside a narrow column — that width is most of what makes it read as
+     relaxed, because every card gets wider and the copy wraps less. Capped so
+     it stops growing on a very large monitor. */
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+.lp-band-dark {
+  background: var(--lp-dark);
+  color: #fff;
+  padding: 48px 0;
+}
+.lp-band-light {
+  background: var(--lp-light);
+  color: var(--ink);
+  padding: 48px 0;
+}
+.lp-center {
+  display: flex;
+  justify-content: center;
+}
+
+/* Lists: these pages are built from lists, and none of them want bullets.
+   Deliberately NOT written as `.lp-body ul` — that is specificity (0,1,1) and
+   would outrank every single-class .lp-* rule below it, silently killing the
+   margins they set on a <ul> or <ol>. At element specificity (0,0,1) the
+   components win, which is what we want. landing.css only ever loads on these
+   two pages, so a bare element selector here cannot reach the main site. */
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ------------------------------------------------------------
+   Type
+   ------------------------------------------------------------ */
+.lp-section-title {
+  margin: 0 0 24px;
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-align: center;
+}
+.lp-band-dark .lp-section-title {
+  color: #fff;
+}
+.lp-section-lead {
+  max-width: 60ch;
+  margin: -8px auto 24px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--muted);
+  text-align: center;
+}
+.lp-eyebrow {
+  margin: 0 0 8px;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  text-align: center;
+}
+
+.lp-eyebrow-title {
+  margin: 0 0 15px;
+  font-family: var(--font-head);
+  font-size: 32px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------
+   Buttons
+   ------------------------------------------------------------ */
+.lp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  /* 48px tall: a comfortable thumb target, not the 32px a mouse would allow */
+  min-height: 48px;
+  padding: 14px 30px;
+  border: 0;
+  /* the live page's buttons are 12px rounded rectangles, not pills */
+  border-radius: 12px;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+.lp-btn-primary {
+  background: var(--orange);
+  color: #fff;
+}
+.lp-btn-primary:hover,
+.lp-btn-primary:focus-visible {
+  background: #d94a1a;
+  color: #fff;
+  transform: translateY(-1px);
+}
+.lp-btn-block {
+  width: 100%;
+}
+.lp-btn-call {
+  /* a 12px rounded rectangle, not the pill the other buttons use — this is
+     the one control in the header and it reads as a chip, not a CTA */
+  border-radius: 12px;
+  background: var(--orange);
+  color: #fff;
+  padding: 10px 26px;
+  min-height: 44px;
+  font-size: 17px;
+  font-weight: 500;
+}
+.lp-btn-call:hover,
+.lp-btn-call:focus-visible {
+  background: #d94a1a;
+  color: #fff;
+}
+.lp-btn-call svg {
+  flex: 0 0 17px;
+  width: 17px;
+  height: 17px;
+}
+
+/* ------------------------------------------------------------
+   Header — logo and one call button. No nav: see includes/landing/header.php
+   ------------------------------------------------------------ */
+.lp-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--lp-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+/* the header runs the full width rather than sitting in the 1140 container:
+   logo hard left, call button hard right, the way the live page has it */
+.lp-header .lp-container {
+  max-width: none;
+  padding: 0 20px;
+}
+.lp-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: var(--lp-header-h);
+}
+.lp-logo img {
+  display: block;
+  width: auto;
+  height: 48px;
+}
+
+/* ------------------------------------------------------------
+   Hero
+   ------------------------------------------------------------ */
+.lp-hero {
+  background: var(--lp-dark);
+  color: #fff;
+  padding: 20px 0;
+}
+.lp-hero-grid {
+  display: grid;
+  /* the form is a fixed column so it never squeezes to a width that is
+     uncomfortable to type into; the copy takes whatever is left */
+  grid-template-columns: minmax(0, 1fr) 435px;
+  gap: 34px;
+  align-items: center;
+}
+.lp-hero h1 {
+  margin: 0 0 26px;
+  font-family: var(--font-head);
+  /* 68px on a desktop, easing down to 40px on a phone */
+  font-size: clamp(2.5rem, 4.8vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.13;
+  letter-spacing: -0.027em;
+  color: #fff;
+}
+.lp-hero-points {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 26px;
+}
+.lp-hero-points li {
+  position: relative;
+  min-height: 24px;
+  padding-left: 34px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #fff;
+}
+/* a filled orange disc with a white tick drawn on top of it — two
+   pseudo-elements rather than an icon file, so it scales with the text and
+   needs no extra request */
+.lp-hero-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+.lp-hero-points li::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg);
+}
+
+/* Stats strip */
+.lp-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 25px 20px;
+  border-radius: 12px;
+  background: var(--lp-slate);
+}
+.lp-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+}
+.lp-stat img {
+  width: 68px;
+  height: 68px;
+  margin-bottom: 10px;
+}
+.lp-stat strong {
+  font-family: var(--font-head);
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+}
+.lp-stat span {
+  font-size: 17px;
+  line-height: 1.35;
+  color: #fff;
+}
+
+/* ------------------------------------------------------------
+   Hero form
+   ------------------------------------------------------------ */
+.lp-form-card {
+  padding: 32px 30px 28px;
+  border-radius: 18px;
+  background: var(--lp-card);
+  color: var(--ink);
+}
+.lp-form-card h2 {
+  margin: 0 0 6px;
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.lp-form-lead {
+  margin: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.lp-form-card input,
+.lp-form-card textarea {
+  width: 100%;
+  margin-bottom: 14px;
+  /* ~66px tall, matching the live form: a generous target on a page whose
+     whole job is getting this filled in */
+  padding: 20px 18px;
+  border: 1px solid var(--lp-field-line);
+  border-radius: 13px;
+  font-family: inherit;
+  /* 17px, and never below 16px: iOS zooms the page in on focus for anything
+     smaller */
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--ink);
+  background: #fff;
+}
+.lp-form-card textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+/* the submit follows the fields, so it is a rounded rectangle here rather
+   than the pill used for CTAs elsewhere on the page */
+.lp-form-card .lp-btn {
+  min-height: 70px;
+  border-radius: 13px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.lp-form-card input:focus,
+.lp-form-card textarea:focus {
+  outline: 2px solid var(--orange);
+  outline-offset: 1px;
+  border-color: var(--orange);
+}
+.lp-form-card input::placeholder,
+.lp-form-card textarea::placeholder {
+  color: #8d979e;
+}
+/* the shared validator in main.js adds .is-invalid and a .field-error */
+.lp-form-card .is-invalid {
+  border-color: #d93025;
+}
+.lp-form-card .field-error {
+  display: block;
+  margin: -8px 0 10px;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: #d93025;
+}
+.lp-form-note {
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+  text-align: center;
+}
+.lp-form-success {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 600;
+  color: #1c7c3c;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------
+   Logo strips — Trusted by, Technologies we use
+   ------------------------------------------------------------ */
+.lp-logos {
+  padding: 48px 0;
+}
+.lp-logo-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+.lp-logo-row li {
+  flex: 0 0 auto;
+}
+.lp-logo-row img {
+  display: block;
+  width: auto;
+  height: 76px;
+  border-radius: 12px;
+}
+
+/* * Trusted by — one row that scrolls forever, matching the live page.
+   .lp-marquee is the window; the track inside holds the client list twice and
+   slides left by exactly half its own width, so the instant the animation
+   loops the second copy is already where the first began and the seam is
+   invisible. The duration is set from the distance, not picked by eye: half
+   the track is 12 logos x 170px = 2040px, and 2040px / 24s = 85px per second,
+   the speed the live marquee runs at. Change the logo count and the speed
+   holds as long as the duration moves with it (12s per 1020px). */
+.lp-marquee {
+  overflow: hidden;
+}
+.lp-marquee-track {
+  display: flex;
+  /* max-content, or the flex line would shrink to the window and the halves
+     would stop being equal — which is what -50% depends on */
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: lp-marquee-scroll 24s linear infinite;
+}
+.lp-marquee-track li {
+  flex: 0 0 auto;
+  width: 210px;
+  height: 150px;
+  padding: 6px;
+}
+.lp-marquee-track img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* the tiles are 335x209 artwork; contain letterboxes rather than crops */
+  object-fit: contain;
+  border-radius: 12px;
+}
+/* stop it while someone is looking at a particular client */
+.lp-marquee:hover .lp-marquee-track,
+.lp-marquee:focus-within .lp-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes lp-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ------------------------------------------------------------
+   Why businesses trust us
+   ------------------------------------------------------------ */
+/* Measured off the live page at 1512px: two equal columns with a 20px gap,
+   tops aligned (not centred), the video 3:2 and square-cornered on the left,
+   the points on the right. Live collapses this to one column at 1024px, so
+   the stack is the base here and the two-column rule starts at 1025px. */
+.lp-trust-grid {
+  display: grid;
+  gap: 20px;
+  margin: 36px 0 0;
+}
+@media (min-width: 1025px) {
+  .lp-trust-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* stretch, so the media column is exactly as tall as the list beside it
+       rather than a short rectangle floating against a long one */
+    align-items: stretch;
+  }
+}
+/* the media box is the frame: it carries the rounding and does the clipping,
+   and the video is laid absolutely inside it so it can fill a height it does
+   not itself determine */
+.lp-trust-media {
+  position: relative;
+  border-radius: var(--lp-radius);
+  overflow: hidden;
+  background: var(--lp-dark-2);
+}
+/* Stacked, the box has no row height to fill and its absolutely-placed video
+   contributes none, so it sets its own shape — the 3:2 crop the live page
+   uses. Written as a max-width query on purpose: a plain `aspect-ratio: auto`
+   override for wide screens would have to sit after this rule to win, and the
+   two are easier to keep straight when only one of them can ever apply. */
+@media (max-width: 1024.98px) {
+  .lp-trust-media {
+    aspect-ratio: 3 / 2;
+  }
+}
+.lp-trust-media video,
+.lp-trust-media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* cover crops rather than squashing whatever height it is given */
+  object-fit: cover;
+}
+/* live uses plain white discs and one type size for both lines, the bold
+   lead-in separated from its sentence only by weight */
+.lp-trust-points {
+  margin: 0;
+  padding-left: 40px;
+  list-style: disc;
+  font-size: 22px;
+  line-height: 1.5;
+  color: #fff;
+}
+.lp-trust-points li + li {
+  margin-top: 14px;
+}
+.lp-trust-points strong {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: #fff;
+}
+.lp-trust-points span {
+  display: block;
+  color: #fff;
+}
+
+/* ------------------------------------------------------------
+   Platforms
+   ------------------------------------------------------------ */
+.lp-platform-grid,
+.lp-project-grid,
+.lp-category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 0;
+}
+.lp-platform,
+.lp-project,
+.lp-category {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 22px;
+  border: 1px solid #cfd6db;
+  border-radius: var(--lp-radius);
+  background: #fff;
+}
+.lp-platform-media,
+.lp-project-media {
+  margin-bottom: 16px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--lp-light);
+}
+.lp-platform-media img,
+.lp-project-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.lp-platform h3,
+.lp-project h3,
+.lp-category h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-head);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.lp-platform p,
+.lp-category p {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.lp-project h3 {
+  margin: 0;
+  font-size: 17px;
+}
+/* ------------------------------------------------------------
+   Platforms — five across, title / copy / picture
+   The live page runs all five in one row and orders each card heading, then
+   description, then image. The image is bottom-aligned with margin-top:auto
+   so the five pictures form a line across the row no matter how long the copy
+   above them runs.
+   ------------------------------------------------------------ */
+.lp-platform-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 25px;
+}
+.lp-platform {
+  gap: 20px;
+  padding: 30px 25px;
+  border: 0;
+  border-radius: 10px;
+  background: #fff;
+}
+.lp-platform h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--orange);
+  text-align: center;
+}
+.lp-platform p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.lp-platform .lp-platform-media {
+  /* the only thing holding the pictures to the foot of the cards */
+  margin: auto 0 0;
+  border-radius: 10px;
+  background: none;
+}
+
+/* ------------------------------------------------------------
+   Recent work — title above, picture below
+   Three across, the title centred above the shot, and the picture running the
+   full width of the card down to its bottom edge. The card clips (overflow
+   hidden), so the image's bottom corners take the card's radius without the
+   image needing one of its own — which is what lets it sit flush.
+   ------------------------------------------------------------ */
+.lp-project-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+.lp-project {
+  gap: 10px;
+  /* no padding at the sides or foot: the picture reaches the card edges */
+  padding: 25px 0 0;
+  border: 0;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+.lp-project h3 {
+  margin: 0;
+  /* the card has no side padding, so the title carries its own */
+  padding: 0 20px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  color: var(--ink);
+  text-align: center;
+}
+.lp-project .lp-project-media {
+  /* holds the pictures to the foot of the cards, so they line up across a row
+     however many lines the title above them runs to */
+  margin: auto 0 0;
+  border-radius: 0;
+  background: none;
+}
+.lp-project .lp-project-media img {
+  width: 100%;
+  height: auto;
+}
+
+.lp-projects .lp-center,
+.lp-pricing .lp-center,
+.lp-trust .lp-center {
+  margin-top: 25px;
+}
+
+/* ------------------------------------------------------------
+   Pricing
+   ------------------------------------------------------------ */
+.lp-price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  /* room above for the "Most popular" flag, which sits outside its card */
+  margin-top: 0;
+  align-items: start;
+}
+.lp-price {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 30px 26px;
+  border: 1px solid #cfd6db;
+  border-radius: var(--lp-radius);
+  background: #fff;
+}
+.lp-price.lp-is-popular {
+  border-color: var(--orange);
+  box-shadow: 0 14px 38px rgba(241, 90, 38, 0.18);
+}
+.lp-price-flag {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: var(--orange);
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+}
+.lp-price h3 {
+  margin: 0 0 4px;
+  font-family: var(--font-head);
+  font-size: 21px;
+  font-weight: 600;
+}
+.lp-price-blurb {
+  margin: 0 0 16px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.lp-price-figure {
+  margin: 0 0 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line-soft);
+  font-family: var(--font-head);
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--orange);
+}
+.lp-price-features {
+  display: grid;
+  gap: 11px;
+  /* pushes the timing line to the bottom so all three cards align */
+  margin-bottom: 22px;
+  flex: 1 1 auto;
+}
+.lp-price-features li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+.lp-price-features li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.32em;
+  width: 11px;
+  height: 6px;
+  border-left: 2px solid var(--orange);
+  border-bottom: 2px solid var(--orange);
+  transform: rotate(-45deg);
+}
+.lp-price-timing {
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-soft);
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.lp-price-note {
+  max-width: 62ch;
+  margin: 28px auto 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ------------------------------------------------------------
+   Roadmap
+   ------------------------------------------------------------ */
+.lp-roadmap-art {
+  margin-top: 0;
+}
+.lp-roadmap-art img {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  margin: 0 auto;
+}
+/* the wide artwork carries the detail on a laptop; the text steps take over
+   on a phone, where it would be unreadable */
+.lp-roadmap-steps {
+  display: none;
+}
+
+/* ------------------------------------------------------------
+   Categories + closing CTA
+   ------------------------------------------------------------ */
+.lp-category {
+  align-items: flex-start;
+}
+.lp-category-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  background: rgba(241, 90, 38, 0.1);
+  color: var(--orange);
+}
+.lp-category-icon svg {
+  width: 26px;
+  height: 26px;
+}
+.lp-cta-panel {
+  margin-top: 40px;
+  padding: 44px 28px;
+  border-radius: var(--lp-radius);
+  background: var(--lp-dark);
+  text-align: center;
+}
+.lp-cta-panel h2 {
+  margin: 0 0 8px;
+  font-family: var(--font-head);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 600;
+  color: #fff;
+}
+.lp-cta-panel p {
+  max-width: 52ch;
+  margin: 0 auto 24px;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: #cdd6db;
+}
+
+/* ------------------------------------------------------------
+   Reviews
+   ------------------------------------------------------------ */
+.lp-review-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 0;
+}
+.lp-review {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--lp-radius);
+  background: rgba(255, 255, 255, 0.04);
+}
+.lp-review-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.lp-review-head img {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--lp-dark-2);
+}
+.lp-review-head strong {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+.lp-review-when {
+  font-size: 13.5px;
+  color: #9fadb5;
+}
+.lp-review-stars {
+  margin: 0 0 10px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #f5b301;
+}
+.lp-review-body p {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #cdd6db;
+  /* clamped rather than truncated: the whole review stays in the DOM, so
+     find-in-page and screen readers still reach it */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  overflow: hidden;
+}
+.lp-review.is-open .lp-review-body p {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+}
+.lp-review-more {
+  align-self: flex-start;
+  margin-top: 10px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-head);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--orange);
+  cursor: pointer;
+}
+.lp-review-more:hover,
+.lp-review-more:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ------------------------------------------------------------
+   FAQ
+   ------------------------------------------------------------ */
+.lp-faq-list {
+  max-width: 860px;
+  margin: 34px auto 0;
+  display: grid;
+  gap: 12px;
+}
+.lp-faq-item {
+  border: 1px solid #cfd6db;
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+}
+.lp-faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 5px;
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+  list-style: none;
+}
+/* Safari draws its own triangle unless this is removed */
+.lp-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.lp-faq-item summary svg {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  color: var(--orange);
+  transition: transform 0.2s ease;
+}
+.lp-faq-item[open] summary svg {
+  transform: rotate(180deg);
+}
+.lp-faq-item p {
+  margin: 0;
+  padding: 0 20px 20px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------
+   Footer
+   ------------------------------------------------------------ */
+.lp-footer {
+  background: var(--lp-dark);
+  color: #cdd6db;
+  padding: 20px 0px;
+  text-align: center;
+}
+.lp-footer-logo {
+  display: block;
+  width: auto;
+  height: 42px;
+  margin: 0 auto 18px;
+}
+.lp-footer-tagline {
+  max-width: 68ch;
+  margin: 0 auto 32px;
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.lp-footer-contact h2 {
+  margin: 0 0 12px;
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+.lp-footer-legal {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.lp-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 26px;
+  margin: 0;
+}
+.lp-footer-links a {
+  /* padded to a 44px tap target without pushing the lines apart */
+  padding: 10px 2px;
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--orange);
+  text-decoration: none;
+}
+.lp-footer-links a:hover,
+.lp-footer-links a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+/* the landline leads: it is the number every call button on the page dials */
+.lp-footer-phone {
+  font-size: 20px;
+}
+.lp-footer-links .lp-is-alt {
+  font-size: 16px;
+  opacity: 0.85;
+}
+.lp-footer-copy {
+  margin: 28px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 14.5px;
+}
+
+/* ------------------------------------------------------------
+   Sticky quote button
+   ------------------------------------------------------------ */
+.lp-sticky-quote {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  padding: 14px 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--orange);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  /* starts hidden and out of the tab order; landing.js reveals it once the
+     hero form has scrolled away */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s;
+}
+.lp-sticky-quote.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.lp-sticky-quote:hover,
+.lp-sticky-quote:focus-visible {
+  background: #d94a1a;
+}
+
+/* ------------------------------------------------------------
+   Laptop and small desktop
+   ------------------------------------------------------------ */
+@media (max-width: 1199.98px) {
+  .lp-hero-grid {
+    grid-template-columns: minmax(0, 1fr) 390px;
+    gap: 28px;
+  }
+  /* still five across, but the cards are ~170px now, so the type eases down
+     rather than the row breaking up */
+  .lp-platform-grid {
+    gap: 18px;
+  }
+  .lp-platform {
+    padding: 24px 18px;
+    gap: 16px;
+  }
+  .lp-platform h3 {
+    font-size: 21px;
+  }
+  .lp-platform p {
+    font-size: 16px;
+  }
+}
+
+/* ------------------------------------------------------------
+   Tablet
+   ------------------------------------------------------------ */
+@media (max-width: 991.98px) {
+  .lp-container {
+    padding: 0 24px;
+  }
+  .lp-band-dark,
+  .lp-band-light {
+    padding: 56px 0;
+  }
+  .lp-logos {
+    padding: 40px 0;
+  }
+  .lp-hero {
+    padding: 56px 0 60px;
+  }
+  /* still two columns on a tablet, as the live page has it — just a narrower
+     form column */
+  .lp-hero-grid {
+    grid-template-columns: minmax(0, 1fr) 330px;
+    gap: 24px;
+  }
+  .lp-form-card {
+    padding: 26px 22px 22px;
+  }
+  .lp-stats {
+    padding: 20px 14px;
+  }
+  .lp-stat img {
+    width: 54px;
+    height: 54px;
+    margin-bottom: 8px;
+  }
+  .lp-stat strong {
+    font-size: 23px;
+  }
+  .lp-stat span {
+    font-size: 15px;
+  }
+  /* Live hides this section outright below 768px; we keep it — it is the
+     credibility block on a page buying mobile traffic — so it needs the
+     responsive pass live never had: a shorter crop and type that fits. */
+  .lp-trust-grid {
+    margin-top: 26px;
+  }
+  .lp-trust-media video {
+    aspect-ratio: 16 / 9;
+  }
+  .lp-trust-points {
+    padding-left: 24px;
+    font-size: 17px;
+  }
+  .lp-platform-grid,
+  .lp-project-grid,
+  .lp-category-grid,
+  .lp-price-grid,
+  .lp-review-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+  /* three across, not the five the live page keeps at this width — five
+     leaves each card about 110px wide, which is too narrow to read */
+  .lp-platform-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  /* live keeps recent work at three across here too */
+  .lp-project-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .lp-project h3 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  .lp-logo-row img {
+    height: 64px;
+  }
+}
+
+/* ------------------------------------------------------------
+   Phone
+   ------------------------------------------------------------ */
+/* ------------------------------------------------------------
+   Roadmap: artwork above, text steps below
+   The artwork is 1253px wide. Below 992px it renders at under 60% of that and
+   the labels inside it stop being readable, so the same three steps take over
+   as real text. The service pages swap at 768px because their roadmap is a
+   narrower export; this one needs the extra room.
+   ------------------------------------------------------------ */
+@media (max-width: 991.98px) {
+  .lp-roadmap-art {
+    display: none;
+  }
+  .lp-roadmap-steps {
+    display: grid;
+    gap: 14px;
+    margin-top: 30px;
+  }
+  .lp-roadmap-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .lp-step-num {
+    flex: 0 0 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--orange);
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .lp-roadmap-steps strong {
+    display: block;
+    margin-bottom: 3px;
+    font-family: var(--font-head);
+    font-size: 16.5px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .lp-roadmap-steps p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #cdd6db;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* all three across on a tablet: it is a three-step sequence, and two columns
+     would strand the third step on a row of its own */
+  .lp-roadmap-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ------------------------------------------------------------
+   Phone — the hero stacks
+   ------------------------------------------------------------ */
+@media (max-width: 767.98px) {
+  /* below this the form column can no longer be typed into comfortably, so
+     it drops under the copy — the same point the live page stacks at */
+  .lp-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+  .lp-form-card {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  /* one per row from here down, the same point the live page stacks them */
+  .lp-platform-grid,
+  .lp-project-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .lp-project h3 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+  .lp-platform {
+    padding: 26px 22px;
+    gap: 18px;
+  }
+  .lp-platform h3 {
+    font-size: 23px;
+  }
+  .lp-platform p {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  /* 16px gutter on a phone, so nothing touches the bezel */
+  .lp-container {
+    padding: 0 16px;
+  }
+  .lp-band-dark,
+  .lp-band-light {
+    padding: 44px 0;
+  }
+  .lp-logos {
+    padding: 34px 0;
+  }
+  .lp-hero {
+    padding: 34px 0 42px;
+  }
+  .lp-header .lp-container {
+    padding: 0 14px;
+  }
+  .lp-header-inner {
+    min-height: 74px;
+  }
+  .lp-logo img {
+    height: 40px;
+  }
+  /* the number will not fit beside the logo at this width, so the button
+     becomes the icon on its own — still a 50px target, still dials */
+  .lp-btn-call {
+    width: 50px;
+    height: 50px;
+    min-height: 50px;
+    padding: 0;
+    gap: 0;
+  }
+  .lp-btn-call span {
+    display: none;
+  }
+  .lp-btn-call svg {
+    flex: 0 0 21px;
+    width: 21px;
+    height: 21px;
+  }
+  .lp-platform-grid,
+  .lp-project-grid,
+  .lp-category-grid,
+  .lp-price-grid,
+  .lp-review-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  /* three stats stay three across — stacking them makes the hero very tall
+     before the form is reached */
+  .lp-stats {
+    padding: 18px 8px;
+    gap: 6px;
+  }
+  .lp-stat img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 6px;
+  }
+  .lp-stat strong {
+    font-size: 20px;
+  }
+  .lp-stat span {
+    font-size: 12px;
+  }
+  .lp-hero-points li {
+    padding-left: 30px;
+    font-size: 15.5px;
+  }
+  .lp-hero-points li::before {
+    width: 20px;
+    height: 20px;
+  }
+  .lp-hero-points li::after {
+    left: 6px;
+    top: 7px;
+  }
+  .lp-form-card {
+    padding: 24px 18px 20px;
+  }
+  .lp-form-card .lp-btn {
+    min-height: 56px;
+    font-size: 17px;
+  }
+  .lp-logo-row {
+    gap: 10px;
+  }
+  .lp-logo-row img {
+    height: 54px;
+  }
+  .lp-cta-panel {
+    padding: 34px 20px;
+  }
+  .lp-faq-item summary {
+    padding: 16px;
+    font-size: 16px;
+  }
+  .lp-faq-item p {
+    padding: 0 16px 16px;
+    font-size: 15.5px;
+  }
+  /* full width at the bottom of the screen, clear of the home indicator */
+  .lp-sticky-quote {
+    right: 12px;
+    left: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    padding: 15px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-btn,
+  .lp-sticky-quote,
+  .lp-faq-item summary svg {
+    transition: none;
+  }
+  .lp-btn-primary:hover {
+    transform: none;
+  }
+  /* the marquee stops moving and becomes a swipeable row instead, so the
+     logos past the edge are still reachable; the duplicate copy only exists
+     to hide the loop, so it goes */
+  .lp-marquee {
+    overflow-x: auto;
+  }
+  .lp-marquee-track {
+    animation: none;
+  }
+  .lp-marquee-track li[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* ---- Tech Stack Slider (Decoupled from main.css logo-band) ---- */
+.lp-tech-band {
+  padding: 25px 0 0 0;
+}
+.lp-tech-band-head {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.lp-tech-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lp-tech-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+@media (max-width: 991.98px) {
+  .lp-tech-band .mc-slider-dots {
+    margin-top: 14px;
+  }
+}
+
+/* ---- Categories (New Design) ---- */
+.lp-category-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.lp-category {
+  background: var(--lp-dark);
+  color: #fff;
+  border: none;
+  text-align: center;
+  align-items: center;
+}
+.lp-category h3 {
+  color: #fff;
+}
+.lp-category p {
+  color: rgba(255, 255, 255, 0.8);
+}
+.lp-category-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--orange);
+}
+.lp-category-icon svg {
+  width: 28px;
+  height: 28px;
+}
+@media (max-width: 1199.98px) {
+  .lp-category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 991.98px) {
+  .lp-category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 575.98px) {
+  .lp-category-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---- Categories CTA (Horizontal Design) ---- */
+.lp-cta-panel--horizontal {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  background: transparent;
+  border: 1px solid var(--orange);
+  padding: 24px 32px;
+  gap: 24px;
+}
+.lp-cta-panel--horizontal .lp-cta-panel-icon {
+  flex-shrink: 0;
+  color: #1b2a34;
+}
+.lp-cta-panel--horizontal .lp-cta-panel-content {
+  flex: 1;
+}
+.lp-cta-panel--horizontal h2 {
+  color: #1b2a34;
+  margin: 0 0 4px;
+  font-size: 24px;
+}
+.lp-cta-panel--horizontal p {
+  color: #444;
+  margin: 0;
+  font-size: 16px;
+}
+.lp-cta-panel--horizontal .lp-cta-panel-action {
+  flex-shrink: 0;
+}
+@media (max-width: 767.98px) {
+  .lp-cta-panel--horizontal {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 24px;
+  }
+}
+
+/* ---- Pricing Section Redesign ---- */
+.lp-price-grid {
+  gap: 16px;
+}
+.lp-price {
+  background: transparent;
+  border: 1px solid var(--orange);
+  text-align: center;
+  padding: 40px 24px;
+}
+.lp-price.lp-is-popular {
+  background: #fff;
+  box-shadow: 0 14px 38px rgba(241, 90, 38, 0.18);
+  transform: scale(1.03);
+  z-index: 2;
+}
+.lp-price h3 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.lp-price-blurb {
+  font-size: 15.5px;
+  color: #555;
+  margin-bottom: 24px;
+}
+.lp-price-figure {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  border: none;
+  padding: 0;
+  margin-bottom: 24px;
+}
+.lp-price-features {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: stretch;
+  border: none;
+  padding: 0;
+  margin: 0 0 28px 0;
+  flex: 1 1 auto;
+}
+.lp-price-features li {
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+  color: var(--ink);
+}
+.lp-price-features li::before {
+  content: "";
+  position: static;
+  flex-shrink: 0;
+  width: 10px;
+  height: 6px;
+  margin-top: 6px;
+  border-left: 2px solid var(--orange);
+  border-bottom: 2px solid var(--orange);
+  transform: rotate(-45deg);
+}
+.lp-price-timing {
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.lp-price.lp-is-popular .lp-price-timing {
+  color: #012169;
+}
+@media (max-width: 991.98px) {
+  .lp-price.lp-is-popular {
+    transform: none;
+  }
+}
+
+/* ---- Roadmap Size Override ---- */
+.lp-roadmap-art img {
+  max-width: 800px;
+}
+
+/* ---- FAQ Redesign ---- */
+.lp-faq {
+  background: #fff;
+}
+.lp-faq .lp-section-title {
+  color: var(--orange);
+}
+.lp-faq-list {
+  gap: 0;
+  max-width: 1040px;
+}
+.lp-faq-item {
+  border: none;
+  border-bottom: 1px solid #cfd6db;
+  border-radius: 0;
+  background: transparent;
+}
+
+.lp-faq-item summary {
+  padding: 16px 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.lp-faq-item[open] summary {
+  padding-bottom: 16px;
+}
+.lp-faq-item p {
+  padding: 24px;
+  font-size: 17px;
+  line-height: 1.7;
+  border: 1px solid var(--line-soft);
+  background: #fff;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.lp-faq-toggle {
+  position: relative;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+}
+.lp-faq-toggle::before,
+.lp-faq-toggle::after {
+  content: "";
+  position: absolute;
+  background: var(--orange);
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  margin-top: -1.5px;
+}
+.lp-faq-toggle::after {
+  transform: rotate(90deg);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.lp-faq-item[open] .lp-faq-toggle::after {
+  transform: rotate(0deg);
+  opacity: 0;
+}
+
+/* ---- Footer Redesign ---- */
+.lp-footer-logo {
+  height: 56px;
+  margin-bottom: 24px;
+}
+.lp-footer-tagline {
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.6;
+}
+.lp-footer-contact h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+.lp-footer-contact-grid {
+  margin-top: 16px;
+}
+.lp-footer-contact-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.lp-footer-contact-row > * {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 24px;
+  border-right: 1px solid var(--orange);
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.lp-footer-contact-row > *:last-child {
+  border-right: none;
+}
+.lp-footer-contact-row svg {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  color: var(--orange);
+}
+.lp-footer-contact-row a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+.lp-footer-copy {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid #fff;
+  font-size: 16px;
+  color: #fff;
+}
+@media (max-width: 991.98px) {
+  .lp-footer-contact-row > * {
+    border-right: none;
+    padding: 8px 16px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---- Projects Hover Effect ---- */
+.lp-project {
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+.lp-project:hover {
+  border-color: var(--orange);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(241, 90, 38, 0.15);
+}
+
+/* ---- Reviews Slider Redesign ---- */
+.lp-review {
+  display: flex;
+  flex-direction: column;
+  background: #fcfcfc;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: none;
+}
+.lp-review-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.lp-review-head img {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.lp-review-info {
+  flex: 1;
+}
+.lp-review-info strong {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  color: #012169;
+  margin-bottom: 2px;
+}
+.lp-review-when {
+  display: block;
+  font-size: 12px;
+  color: #888;
+}
+.lp-review-g-icon {
+  flex: 0 0 20px;
+  align-self: flex-start;
+}
+.lp-review-stars {
+  color: var(--orange);
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.lp-review-body {
+  flex: 1;
+  position: relative;
+}
+.lp-review-body p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #444;
+  height: 130px;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+.lp-review-body p::-webkit-scrollbar {
+  width: 4px;
+}
+.lp-review-body p::-webkit-scrollbar-track {
+  background: #e4e4e4;
+  border-radius: 4px;
+}
+.lp-review-body p::-webkit-scrollbar-thumb {
+  background: #a0a0a0;
+  border-radius: 4px;
+}
+.lp-review-more {
+  display: none !important;
+}
+.lp-review-slider .mc-slider-dots {
+  margin-top: 32px;
+}
+
+/* ---- Utility: orange section title ---- */
+.lp-section-title--orange {
+  color: var(--orange);
+}
+
+/* ---- Responsive section spacing ---- */
+@media (max-width: 991.98px) {
+  .lp-band-dark,
+  .lp-band-light {
+    padding: 40px 0;
+  }
+}
+@media (max-width: 575.98px) {
+  .lp-band-dark,
+  .lp-band-light {
+    padding: 32px 0;
+  }
+  .lp-section-title {
+    margin-bottom: 20px;
+  }
+}

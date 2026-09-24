@@ -41,6 +41,13 @@
   font-size: 18px;
   opacity: 0.82;
 }
+/* its icon follows the smaller type, so the pair still reads as a hierarchy
+   rather than two numbers of equal weight */
+.contact-direct-card a.is-secondary svg {
+  flex-basis: 28px;
+  width: 28px;
+  height: 28px;
+}
 .contact-direct-card a:hover {
   color: var(--orange);
 }

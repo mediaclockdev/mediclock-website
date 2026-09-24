@@ -81,6 +81,12 @@
   font-size: 17px;
   opacity: 0.82;
 }
+/* its icon follows the smaller type, so the pair still reads as a hierarchy */
+.ty-direct-links a.is-secondary svg {
+  flex-basis: 19px;
+  width: 19px;
+  height: 19px;
+}
 .ty-direct-links a:hover,
 .ty-direct-links a:focus-visible {
   text-decoration: underline;

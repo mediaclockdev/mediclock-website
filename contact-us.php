@@ -32,7 +32,11 @@ $map = fn($q) => 'https://maps.google.com/maps?q=' . rawurlencode($q) . '&t=m&z=
                 </svg><?= $e(mc_tel_text()) ?></a>
             <!-- the mobile sits beside it, quieter: the landline is the number
                  every call button dials -->
-            <a class="is-secondary" href="<?= $e(mc_tel('mobile')) ?>"><?= $e(mc_tel_text('mobile')) ?></a>
+            <a class="is-secondary" href="<?= $e(mc_tel('mobile')) ?>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="6" y="2.5" width="12" height="19" rx="2.5" />
+                    <path d="M10.6 5.6h2.8" />
+                    <circle cx="12" cy="18.2" r="1" fill="currentColor" stroke="none" />
+                </svg><?= $e(mc_tel_text('mobile')) ?></a>
             <a href="mailto:info@mediaclock.com.au"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <rect x="3" y="5" width="18" height="14" rx="2" />
                     <path d="M3 7l9 6 9-6" />
