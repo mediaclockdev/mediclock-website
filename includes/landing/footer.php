@@ -10,8 +10,9 @@ $lpC = mc_contact();
     <!-- * Landing footer -->
     <footer class="lp-footer">
         <div class="lp-container">
-            <img class="lp-footer-logo" src="<?= $e(img_src('logo-light.webp')) ?>" alt="Media Clock" width="239"
-                height="48" />
+            <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" aria-label="Scroll to top">
+                <img class="lp-footer-logo" src="<?= $e(img_src('logo-light.webp')) ?>" alt="Media Clock" width="239" height="48" />
+            </a>
             <p class="lp-footer-tagline">
                 Media Clock delivers innovative digital solutions including mobile and web app development,
                 UX/UI design, e-commerce, website development, digital marketing, and business digitisation.
