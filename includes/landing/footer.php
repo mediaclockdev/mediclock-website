@@ -28,10 +28,10 @@ $lpC = mc_contact();
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                             ABN: 65 617 380 006
                         </span>
-                        <span>
+                        <a href="https://maps.google.com/?q=392+A+St+Kilda+Rd,+St+Kilda+VIC+3182" target="_blank" rel="noopener noreferrer">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                             392 A St Kilda Rd, St Kilda VIC 3182
-                        </span>
+                        </a>
                     </div>
                     <div class="lp-footer-contact-row">
                         <a href="<?= $e(mc_tel('mobile')) ?>">

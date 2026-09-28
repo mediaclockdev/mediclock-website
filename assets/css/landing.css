@@ -62,12 +62,12 @@
 .lp-band-dark {
   background: var(--lp-dark);
   color: #fff;
-  padding: 48px 0;
+  padding: 24px 0;
 }
 .lp-band-light {
   background: var(--lp-light);
   color: var(--ink);
-  padding: 48px 0;
+  padding: 24px 0;
 }
 .lp-center {
   display: flex;
@@ -91,7 +91,7 @@ ol {
    Type
    ------------------------------------------------------------ */
 .lp-section-title {
-  margin: 0 0 28px;
+  margin: 0 0 20px;
   font-family: var(--font-head);
   font-size: clamp(2.2rem, 4vw, 43px);
   font-weight: 700;
@@ -102,7 +102,7 @@ ol {
 }
 .lp-section-lead {
   max-width: 60ch;
-  margin: 0 auto;
+  margin: -12px auto 28px;
   font-size: 17px;
   line-height: 1.6;
   color: var(--muted);
@@ -405,9 +405,9 @@ ol {
 /* ------------------------------------------------------------
    Logo strips — Trusted by, Technologies we use
    ------------------------------------------------------------ */
-.lp-logos {
+/* .lp-logos {
   padding: 48px 0;
-}
+} */
 .lp-logo-row {
   display: flex;
   flex-wrap: wrap;
@@ -686,7 +686,12 @@ ol {
 .lp-projects .lp-center,
 .lp-pricing .lp-center,
 .lp-trust .lp-center {
-  margin-top: 25px;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.lp-projects {
+  padding: 0px !important;
 }
 
 /* ------------------------------------------------------------
@@ -697,7 +702,7 @@ ol {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
   /* room above for the "Most popular" flag, which sits outside its card */
-  margin-top: 0;
+  margin-top: 20px;
   align-items: start;
 }
 .lp-price {
@@ -834,7 +839,7 @@ ol {
   height: 26px;
 }
 .lp-cta-panel {
-  margin-top: 40px;
+  margin-top: 24px;
   padding: 44px 28px;
   border-radius: var(--lp-radius);
   background: var(--lp-dark);
@@ -945,7 +950,7 @@ ol {
    ------------------------------------------------------------ */
 .lp-faq-list {
   max-width: 860px;
-  margin: 34px auto 0;
+  margin: 0px auto 0;
   display: grid;
   gap: 12px;
 }
@@ -982,6 +987,11 @@ ol {
 .lp-faq-item[open] summary svg {
   transform: rotate(180deg);
 }
+
+.lp-faq-item:first-child summary {
+  padding-top: 3px;
+}
+
 .lp-faq-item p {
   margin: 0;
   padding: 0 20px 20px;
@@ -1132,7 +1142,7 @@ ol {
   }
   .lp-band-dark,
   .lp-band-light {
-    padding: 56px 0;
+    padding: 24px 0;
   }
   .lp-logos {
     padding: 40px 0;
@@ -1312,7 +1322,7 @@ ol {
   }
   .lp-band-dark,
   .lp-band-light {
-    padding: 44px 0;
+    padding: 20px 0;
   }
   .lp-logos {
     padding: 34px 0;
@@ -1673,6 +1683,7 @@ ol {
   color: var(--muted);
   margin-bottom: 28px;
 }
+
 .lp-faq-toggle {
   position: relative;
   flex: 0 0 18px;
@@ -1692,7 +1703,9 @@ ol {
 }
 .lp-faq-toggle::after {
   transform: rotate(90deg);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 .lp-faq-item[open] .lp-faq-toggle::after {
   transform: rotate(0deg);
@@ -1745,8 +1758,8 @@ ol {
   color: var(--orange);
 }
 .lp-footer-contact-row a:hover {
-  text-decoration: underline;
-  color: #fff;
+  text-decoration: none;
+  opacity: 0.8;
 }
 .lp-footer-copy {
   margin-top: 48px;
@@ -1780,6 +1793,8 @@ ol {
 /* Force equal heights on the new project slider */
 .lp-project-slider .mc-slider-track {
   align-items: stretch !important;
+  padding: 8px 0;
+  margin: -8px 0;
 }
 .lp-project {
   height: auto !important;
@@ -1799,7 +1814,7 @@ ol {
   background: #fcfcfc;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border: none;
   height: auto !important;
 }
@@ -1876,51 +1891,6 @@ ol {
   align-items: stretch !important;
 }
 
-/* ---- Utility: orange section title ---- */
-.lp-section-title--orange {
-  color: var(--orange);
-}
-
-/* ---- Responsive section spacing ---- */
-@media (max-width: 991.98px) {
-  .lp-band-dark,
-  .lp-band-light {
-    padding: 40px 0;
-  }
-  .lp-marquee-track li {
-    width: 170px;
-    height: 120px;
-    margin-right: 28px;
-  }
-  
-  .lp-hide-desktop { display: block !important; }
-  .lp-hide-mobile { display: none !important; }
-  
-  /* Reorder sections on mobile */
-  .lp-main {
-    display: flex;
-    flex-direction: column;
-  }
-  .lp-main > * { order: 5; } /* default order for all other sections */
-  .lp-hero { order: 1; }
-  .lp-logos--marquee { order: 2; }
-  .lp-projects { order: 3; }   /* Moved up! */
-  .lp-platforms { order: 4; }  /* Pushed down! */
-}
-@media (max-width: 575.98px) {
-  .lp-band-dark,
-  .lp-band-light {
-    padding: 32px 0;
-  }
-  .lp-section-title {
-    margin-bottom: 20px;
-  }
-  .lp-marquee-track li {
-    width: 140px;
-    height: 100px;
-    margin-right: 24px;
-  }
-}
 /* ---- Visibility Helpers ---- */
 .lp-hide-desktop {
   display: none !important;
@@ -1932,7 +1902,7 @@ ol {
   border-radius: var(--lp-radius);
   overflow: hidden;
   background: var(--lp-dark-2);
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 3;
   margin-bottom: 24px;
 }
 .lp-hero-media video,
@@ -1943,4 +1913,57 @@ ol {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* ---- Utility: orange section title ---- */
+.lp-section-title--orange {
+  color: var(--orange);
+}
+
+/* ---- Responsive section spacing ---- */
+@media (max-width: 991.98px) {
+  .lp-marquee-track li {
+    width: 170px;
+    height: 120px;
+    margin-right: 28px;
+  }
+
+  .lp-hide-desktop {
+    display: block !important;
+  }
+  .lp-hide-mobile {
+    display: none !important;
+  }
+
+  /* Reorder sections on mobile */
+  .lp-main {
+    display: flex;
+    flex-direction: column;
+  }
+  .lp-main > * {
+    order: 5;
+  } /* default order for all other sections */
+  .lp-hero {
+    order: 1;
+  }
+  .lp-logos--marquee {
+    order: 2;
+  }
+  .lp-projects {
+    order: 3;
+  } /* Moved up! */
+  .lp-platforms {
+    order: 4;
+  } /* Pushed down! */
+}
+
+@media (max-width: 575.98px) {
+  .lp-section-title {
+    margin-bottom: 14px;
+  }
+  .lp-marquee-track li {
+    width: 140px;
+    height: 100px;
+    margin-right: 24px;
+  }
 }
