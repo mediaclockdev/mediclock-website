@@ -19,8 +19,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px 60px;
-  max-width: 673px;
+  gap: 16px 40px;
+  max-width: 780px;
   margin: 0 auto;
   padding: 25px 30px;
   border-radius: 20px;
@@ -31,30 +31,17 @@
   align-items: center;
   gap: 15px;
   font-family: var(--font-head);
-  font-size: 22px;
+  font-size: 18px;
   color: #fff;
   text-decoration: none;
-}
-/* the mobile beside the landline: a step quieter, since the landline is the
-   number every call button dials */
-.contact-direct-card a.is-secondary {
-  font-size: 18px;
-  opacity: 0.82;
-}
-/* its icon follows the smaller type, so the pair still reads as a hierarchy
-   rather than two numbers of equal weight */
-.contact-direct-card a.is-secondary svg {
-  flex-basis: 28px;
-  width: 28px;
-  height: 28px;
 }
 .contact-direct-card a:hover {
   color: var(--orange);
 }
 .contact-direct-card svg {
-  flex: 0 0 36px;
-  width: 36px;
-  height: 36px;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
   color: var(--orange);
 }
 

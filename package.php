@@ -19,7 +19,7 @@ $logos_eyebrow = 'Our Clients';
 $logos_title   = 'Trusted by Australian businesses';
 $logos_lead    = 'Most agencies hand you a report. As an Australian SEO agency that also builds websites, we can go and make the fixes ourselves — which is the bit that usually stalls.';
 $logos_theme   = 'light';
-$logos_items   = require __DIR__ . '/data/shared/package-logos.php'; // SEO client logos (assets/images/pages/package/logos/)
+$logos_items   = require __DIR__ . '/data/shared/clients.php';
 include 'includes/components/logo-slider.php';
 
 // * One-off sections (includes/sections/package/)

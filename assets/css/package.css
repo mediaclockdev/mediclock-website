@@ -31,7 +31,6 @@
 #services {
   background: #192b33;
   color: #fff;
-  padding: 72px 0;
 }
 #services .eyebrow {
   color: var(--orange);
@@ -113,7 +112,6 @@
 #packages {
   background: #fff;
   color: var(--ink);
-  padding: 72px 0;
 }
 #packages .eyebrow {
   color: var(--orange);
@@ -373,7 +371,6 @@
 #process {
   background: #192b33;
   color: #fff;
-  padding: 72px 0;
 }
 #process .eyebrow {
   color: var(--orange);
@@ -448,7 +445,6 @@
    ------------------------------------------------------------ */
 #results {
   background: #fff;
-  padding: 72px 0;
 }
 #results .eyebrow {
   color: var(--orange);
@@ -556,7 +552,6 @@
 #why {
   background: #fff;
   color: var(--ink);
-  padding: 72px 0;
 }
 #why .eyebrow {
   color: var(--orange);
@@ -641,7 +636,6 @@
 #locations {
   background: #eef1f3;
   color: var(--ink);
-  padding: 72px 0;
 }
 #locations .eyebrow {
   color: var(--orange);
@@ -749,15 +743,6 @@
 
 @media (max-width: 640px) {
   /* same phone step as every other page's bands (main.css rhythm) */
-  #services,
-  #packages,
-  #process,
-  #results,
-  #why,
-  #locations,
-  #faqs {
-    padding: 36px 0;
-  }
   .plans {
     grid-template-columns: 1fr;
     gap: 30px;

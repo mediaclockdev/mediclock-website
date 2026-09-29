@@ -681,26 +681,6 @@ p {
 .footer-contact a:hover {
   color: #fff;
 }
-/* * The two numbers.
-   The landline is what every call button dials, so it leads: larger and
-   heavier than the mobile beneath it. The mobile stays orange and callable —
-   quieter, not hidden. */
-.footer-phone {
-  font-family: var(--font-head);
-  font-weight: 600;
-}
-.footer-contact .footer-phone {
-  margin-bottom: 4px;
-  font-size: 22px;
-  line-height: 28px;
-}
-.footer-contact .footer-phone--alt {
-  margin-bottom: 12px;
-  font-size: 17px;
-  line-height: 22px;
-  font-weight: 500;
-  opacity: 0.85;
-}
 
 /* * Footer — column headings */
 .footer-brand .footer-heading {
@@ -714,14 +694,21 @@ p {
   letter-spacing: -1px;
   color: #fff;
 }
+.footer-heading.follow-us {
+  margin-top: 30px;
+  margin-bottom: 7px;
+}
 
 /* * Footer — social icons (46px, subtle grey until hover) */
+.footer-social {
+  gap: 10px;
+}
 .footer-social a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
+  width: 36px;
+  height: 36px;
   border-radius: 10%;
   color: var(--orange);
   transition: color 0.3s;
@@ -738,14 +725,14 @@ p {
 .footer-col a,
 .footer-col button {
   display: block;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
   padding: 0;
   border: 0;
   background: none;
   font-family: inherit;
   font-size: 16px;
   font-weight: 400;
-  line-height: 16px;
+  line-height: 1.4;
   color: #fff;
   text-align: left;
   text-decoration: none;
