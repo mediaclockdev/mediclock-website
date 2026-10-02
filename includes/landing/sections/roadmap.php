@@ -1,26 +1,25 @@
 <?php
-/* * Landing : development roadmap.
-   The artwork is one wide image. It is legible on a laptop and unreadable on a
-   phone, so below 768px the CSS hides it and shows the same three steps as
-   real text — readable, selectable, and static rather than a slider. */
+/* * Landing : how it works.
+   Five stages as text columns under an orange rule. This replaces the single
+   wide roadmap illustration, which was legible on a laptop and unreadable on a
+   phone — as text it reflows, it can be selected and read aloud, and it needs
+   no separate mobile fallback. */
 ?>
-<section class="lp-band-dark lp-roadmap">
+<section class="lp-section lp-roadmap">
     <div class="lp-container">
-        <h2 class="lp-section-title"><?= $e($lp['roadmap_title']) ?></h2>
-
-        <div class="lp-roadmap-art">
-            <img src="<?= $e(img_src($lp['roadmap_image'])) ?>" alt="<?= $e($lp['roadmap_title']) ?>"
-                width="<?= (int) $lp['roadmap_w'] ?>" height="<?= (int) $lp['roadmap_h'] ?>" loading="lazy" />
+        <div class="lp-section-head lp-section-head--stacked">
+            <div>
+                <h2 class="lp-section-title"><?= $e($lp['roadmap_title']) ?></h2>
+                <p class="lp-section-lead"><?= $e($lp['roadmap_lead']) ?></p>
+            </div>
         </div>
 
-        <ol class="lp-roadmap-steps">
+        <ol class="lp-steps">
             <?php foreach ($lp['roadmap_steps'] as $lpI => [$lpHead, $lpBody]): ?>
-            <li>
-                <span class="lp-step-num"><?= $lpI + 1 ?></span>
-                <div>
-                    <strong><?= $e($lpHead) ?></strong>
-                    <p><?= $e($lpBody) ?></p>
-                </div>
+            <li class="lp-step">
+                <span class="lp-step-num" aria-hidden="true"><?= str_pad((string) ($lpI + 1), 2, '0', STR_PAD_LEFT) ?></span>
+                <h3><?= $e($lpHead) ?></h3>
+                <p><?= $e($lpBody) ?></p>
             </li>
             <?php endforeach; ?>
         </ol>

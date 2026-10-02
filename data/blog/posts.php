@@ -9,6 +9,15 @@
    ============================================================ */
 return [
     [
+        'slug' => 'native-vs-cross-platform-app-melbourne',
+        'title' => 'Native vs Cross-Platform App Development: What Melbourne Businesses Should Choose',
+        'date' => '2026-10-02',
+        'cat' => 'Mobile App Development',
+        'img' => 'blog/native-vs-cross-platform.webp',
+        'excerpt' => 'If you\'re weighing up native vs cross-platform app Melbourne options, you\'ve probably noticed that every developer gives you a different answer. Some insist native is the only serious choice. Others say cross-platform delivers the same result for far less money.',
+        'minutes' => 5,
+    ],
+    [
         'slug' => 'why-media-clock-is-a-leading-app-designer-melbourne-for-modern-businesses',
         'title' => 'Why Media Clock is a Leading App Designer Melbourne for Modern Businesses',
         'date' => '2026-04-13',

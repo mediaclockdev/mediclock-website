@@ -30,7 +30,7 @@ $lp = array_merge(require $lpDir . '/common.php', require $lpCityFile);
 $lp['reviews'] = require $lpDir . '/reviews.php';
 
 /* {city} is written once in the shared copy and filled in per page */
-foreach (['hero_title', 'title', 'description'] as $lpKey) {
+foreach (['hero_title_city', 'title', 'description'] as $lpKey) {
     $lp[$lpKey] = str_replace('{city}', $lp['city'], $lp[$lpKey]);
 }
 unset($lpKey, $lpDir, $lpCityFile);
@@ -41,17 +41,19 @@ include __DIR__ . '/header.php';
 
 echo '<main class="lp-main">';
 foreach ([
-    'hero',
-    'trusted',
-    'trust',
+    'hero',       /* headline + the showreel video */
+    'strip',      /* orange proof band under the hero */
+    'trusted',    /* client logo marquee */
+    'projects',   /* case studies */
     'platforms',
-    'projects',
-    'pricing',
-    'roadmap',
-    'tech',
     'categories',
+    'trust',      /* why businesses choose us */
+    'roadmap',    /* how it works */
+    'pricing',
+    'tech',
     'reviews',
     'faq',
+    'contact',    /* closing call to action + the quote form */
 ] as $lpSection) {
     include __DIR__ . '/sections/' . $lpSection . '.php';
 }

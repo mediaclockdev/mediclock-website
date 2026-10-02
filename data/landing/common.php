@@ -14,33 +14,83 @@
 return [
 
     /* ---- Hero -------------------------------------------------------- */
-    /* {city} is replaced with the city name, so the headline is written once */
-    'hero_title'   => '{city} Mobile App Development',
-    'hero_points'  => [
-        'iOS & Android Specialists',
-        '50+ apps delivered since 2017',
+    /* The headline is stored in three parts so the city can be set in orange
+       without putting markup in the data. {city} is filled in by page.php. */
+    'hero_badge'        => 'iOS + Android specialists · St Kilda, Melbourne',
+    'hero_title_before' => 'Build your mobile app with a',
+    'hero_title_city'   => '{city}',
+    'hero_title_after'  => 'development team',
+    'hero_lead'         => 'One team from idea to App Store. We scope it, design it, build it for iOS and Android, and hand you the code.',
+    'hero_cta'          => 'Book Free Discovery Call',
+    'hero_ticks'        => [
+        'NDA signed first',
         'You own the code',
-        'NDA signed before you share your idea',
+        'Reply within 4 business hours',
     ],
-    'hero_stats'   => [
-        ['10+',  'Years of Experience',  'landing/hero/01.webp'],
-        ['400+', 'Project Delivered',    'landing/hero/02.webp'],
-        ['98%',  'Client Retention',     'landing/hero/03.webp'],
+    'hero_video_label'  => 'Media Clock app development showreel',
+
+    /* ---- Proof strip — the orange band under the hero ----------------- */
+    'strip' => [
+        ['50+',  'Apps delivered since 2017'],
+        ['10+',  'Years building apps'],
+        ['100%', 'You own the code'],
+        ['NDA',  'Signed before you share'],
     ],
 
-    /* ---- Hero form --------------------------------------------------- */
+    /* ---- Quote form -------------------------------------------------- */
     'form_title'  => 'Tell us about your app',
     'form_lead'   => 'We reply within 4 business hours with next steps.',
     'form_submit' => 'Book a Free Discovery Call',
     'form_note'   => 'Your idea is protected by our NDA. We never share project details.',
 
     /* ---- Trusted by -------------------------------------------------- */
-    'trusted_title' => 'Trusted By',
+    'trusted_title' => 'Trusted by Australian businesses',
 
-    /* ---- Why businesses trust us ------------------------------------- */
-    'trust_eyebrow' => '',
+    /* ---- Projects / case studies ------------------------------------- */
+    'projects_title' => 'Real apps. Real business problems.',
+    'projects_lead'  => 'A few of the apps we have recently built for Australian businesses.',
+    'projects_cta'   => 'Explore More',
+    /* [tag, title, blurb, image] */
+    'projects'       => [
+        ['Mining · Safety',      'Mining Safety & Hazard Reporting',  'Workers report hazards on site from their phone, so issues reach supervisors straight away instead of on paper.', 'landing/projects/03.webp'],
+        ['Property · Field teams', 'Property Inspection App',         'Onsite inspection reports with photos and details, sent to clients — without ongoing per-user subscription fees.', 'landing/projects/05.webp'],
+        ['Marketplace',          'Rental Marketplace App',            'A two-sided marketplace with listings, bookings and payments for owners and renters in one app.', 'landing/projects/06.webp'],
+        ['Retail · Orders',      'Shopping & Order Management App',   'Browsing, carts and order tracking for customers, with the admin side the team runs the day on.', 'landing/projects/02.webp'],
+        ['Healthcare',           'Healthcare App',                    'Patient records, appointments and practitioner tools in one place, built around how the practice already works.', 'landing/projects/04.webp'],
+        ['Consumer',             'Photo Storage & Organisation App',  'Upload, sort and share photos from the phone, with the storage and syncing handled in the background.', 'landing/projects/01.webp'],
+    ],
+
+    /* ---- Platforms --------------------------------------------------- */
+    'platforms_title' => 'What We Build for Every Platform',
+    'platforms_lead'  => 'One team across both stores, the web, and the systems behind them.',
+    'platforms'       => [
+        ['iOS',             'Native-quality apps built for the App Store, submitted and approved by our team.',      'landing/platforms/01.webp'],
+        ['Android',         'Expand your reach across Android devices with a scalable application built for growth.', 'landing/platforms/02.webp'],
+        ['Cross-platform',  'One React Native codebase for both stores. Faster to launch, cheaper to maintain.',      'landing/platforms/03.webp'],
+        ['Custom software', 'Custom software built around your workflows and business requirements.',                 'landing/platforms/04.webp'],
+        ['Web application', 'Feature-rich web apps that work across devices, giving customers easy access.',          'landing/platforms/05.webp'],
+    ],
+
+    /* ---- App categories ---------------------------------------------- */
+    'categories_eyebrow' => '',
+    'categories_title'   => 'What Kind Of App Do You Want To Build',
+    'categories_lead'    => 'Tell us where you are. The first call is free, and you will leave it knowing your next step.',
+    'categories'         => [
+        ['Health care Apps', 'Patient tools, records and practitioner portals.', 'health'],
+        ['Booking Apps',     'Appointments, classes, calendars and reminders.',  'booking'],
+        ['Real Estate Apps', 'Listings, inspections and agent dashboards.',      'realestate'],
+        ['E-Commerce Apps',  'Product catalogues, carts and checkout.',          'ecommerce'],
+        ['Marketplace Apps', 'Two platforms with listings and payments.',        'marketplace'],
+    ],
+    'categories_cta_title' => 'Have Something In Mind?',
+    'categories_cta_lead'  => 'We would love to hear your idea and turn it into a powerful app.',
+    'categories_cta'       => 'Let’s Discuss Your Idea',
+
+    /* ---- Why businesses choose us ------------------------------------ */
+    'trust_eyebrow' => 'Why Media Clock',
     'trust_title'   => 'Why Businesses Trust What We Build',
     'trust_cta'     => 'Call Now To Discuss',
+    'trust_cta_title' => 'Want to talk it through?',
     'trust_points'  => [
         ['We Understand Before We Build', 'Discovery, requirement gathering and designs before development.'],
         ['Built Around Your Idea',        'Custom apps designed for your users, workflow and goals.'],
@@ -50,30 +100,19 @@ return [
         ['Support After Launch',          'Testing, deployment, updates and ongoing improvements.'],
     ],
 
-    /* ---- Platforms --------------------------------------------------- */
-    'platforms_title' => 'What We Build for Every Platform',
-    'platforms'       => [
-        ['iOS',             'Native-quality apps built for the App Store, submitted and approved by our team.',      'landing/platforms/01.webp'],
-        ['Android',         'Expand your reach across Android devices with a scalable application built for growth.', 'landing/platforms/02.webp'],
-        ['Cross-platform',  'One React Native codebase for both stores. Faster to launch, cheaper to maintain.',      'landing/platforms/03.webp'],
-        ['Custom software', 'Custom software built around your workflows and business requirements.',                 'landing/platforms/04.webp'],
-        ['Web application', 'Feature-rich web apps that work across devices, giving customers easy access.',          'landing/platforms/05.webp'],
-    ],
-
-    /* ---- Projects ---------------------------------------------------- */
-    'projects_title' => 'Our Latest Projects',
-    'projects_cta'   => 'Explore More',
-    'projects'       => [
-        ['Photo Storage & Organisation App', 'landing/projects/01.webp'],
-        ['Shopping & Order Management App',  'landing/projects/02.webp'],
-        ['Mining Safety & Hazard Reporting', 'landing/projects/03.webp'],
-        ['Healthcare App',                   'landing/projects/04.webp'],
-        ['Property Inspection App',          'landing/projects/05.webp'],
-        ['Rental Marketplace App',           'landing/projects/06.webp'],
+    /* ---- How it works ------------------------------------------------ */
+    'roadmap_title' => 'How it works',
+    'roadmap_lead'  => 'You see and approve each stage before we move to the next.',
+    'roadmap_steps' => [
+        ['Discovery',   'Free call to understand your idea, users and goals.'],
+        ['Strategy',    'Requirements and a Scope of Work with fixed price and dates.'],
+        ['Design',      'Wireframes and prototypes so you see it before we build it.'],
+        ['Development', 'Built and tested, with a demo build on your phone weekly.'],
+        ['Launch',      'App Store and Google Play submission, then ongoing support.'],
     ],
 
     /* ---- Pricing ----------------------------------------------------- */
-    'pricing_title' => 'What does an app actually cost?',
+    'pricing_title' => 'How much does an app cost?',
     'pricing_lead'  => 'Most agencies won’t tell you. Here’s where our projects usually land, so you know before you call.',
     'pricing_note'  => 'Every project starts with a Scope of Work document. Fixed price, fixed timeline, no surprises.',
     'pricing_cta'   => 'Get a Free App Strategy Session',
@@ -81,7 +120,8 @@ return [
         [
             'name'     => 'MVP Launch',
             'blurb'    => 'For validating an idea fast.',
-            'price'    => 'Starting from $8,000',
+            'lead_in'  => 'Starting from',
+            'price'    => '$8,000',
             'popular'  => false,
             'features' => [
                 'One platform — iOS or Android',
@@ -95,7 +135,8 @@ return [
         [
             'name'     => 'Full Product',
             'blurb'    => 'For businesses launching a real product.',
-            'price'    => 'Starting from $15,000',
+            'lead_in'  => 'Starting from',
+            'price'    => '$15,000',
             'popular'  => true,
             'features' => [
                 'iOS and Android (React Native)',
@@ -109,6 +150,7 @@ return [
         [
             'name'     => 'Enterprise',
             'blurb'    => 'For complex systems and integrations.',
+            'lead_in'  => 'Custom quote',
             'price'    => 'Let’s talk',
             'popular'  => false,
             'features' => [
@@ -122,35 +164,12 @@ return [
         ],
     ],
 
-    /* ---- Roadmap ----------------------------------------------------- */
-    'roadmap_title' => 'Mobile App Development Roadmap',
-    'roadmap_image' => 'landing/roadmap.webp',
-    'roadmap_w'     => 1253,
-    'roadmap_h'     => 1140,
-    /* the wide artwork is unreadable on a phone, so below 768px these render
-       as real text instead — same content, no pinch-and-zoom */
-    'roadmap_steps' => [
-        ['Scope of Work', 'Together we define the purpose, goals, features and scope of the project.'],
-        ['Design & Prototyping', 'Process flows, use cases, user personas, and low and high fidelity wireframes.'],
-        ['Application Development', 'We build to the approved designs, test thoroughly, and support the launch.'],
-    ],
-
     /* ---- Technologies ------------------------------------------------ */
     'tech_title' => 'Technologies We Use',
 
-    /* ---- App categories ---------------------------------------------- */
-    'categories_eyebrow' => '',
-    'categories_title'   => 'What Kind Of App Do You Want To Build',
-    'categories'         => [
-        ['Health care Apps', 'Patient tools, records and practitioner portals.', 'health'],
-        ['Booking Apps',     'Appointments, classes, calendars and reminders.',  'booking'],
-        ['Real Estate Apps', 'Listings, inspections and agent dashboards.',      'realestate'],
-        ['E-Commerce Apps',  'Product catalogues, carts and checkout.',          'ecommerce'],
-        ['Marketplace Apps', 'Two platforms with listings and payments.',        'marketplace'],
-    ],
-    'categories_cta_title' => 'Have Something In Mind?',
-    'categories_cta_lead'  => 'We would love to hear your idea and turn it into a powerful app.',
-    'categories_cta'       => 'Let’s Discuss Your Idea',
+    /* ---- Reviews ----------------------------------------------------- */
+    'reviews_title' => 'What our clients say',
+    'reviews_note'  => '★★★★★ Google reviews',
 
     /* ---- FAQ --------------------------------------------------------- */
     'faq_title' => 'Frequently Asked Questions',
@@ -163,4 +182,10 @@ return [
         ['Do you publish the app to the App Store and Google Play?', 'We handle the full submission, including store listings, screenshots and the review process. The apps stay under your developer accounts, so you keep control.'],
         ['What happens after launch?', 'Support is included for the first 1–3 months depending on your package. After that, most clients move to a monthly plan covering store updates, OS upgrades, bug fixes and new features.'],
     ],
+
+    /* ---- Closing call to action -------------------------------------- */
+    'cta_title_before' => 'Have an app idea?',
+    'cta_title_accent' => 'Let’s talk.',
+    'cta_lead'         => 'Book a free discovery call. We reply within 4 business hours with next steps.',
+    'cta_address'      => '392 A St Kilda Rd, St Kilda VIC 3182',
 ];

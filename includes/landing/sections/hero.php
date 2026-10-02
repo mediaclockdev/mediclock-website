@@ -1,7 +1,13 @@
 <?php
-/* * Landing : hero — headline, proof points, stats and the form.
-   The form sits in the hero on purpose: paid traffic converts on the first
-   screen or not at all, so it is visible without scrolling on a laptop. */
+/* * Landing : hero — badge, headline, proof ticks and the showreel.
+   The quote form used to sit here; it now lives in the closing section
+   (sections/contact.php) and keeps the same #lp-quote id, so every CTA on the
+   page — including the sticky button — still reaches it.
+
+   The media slot plays the showreel that used to sit in "Why Businesses Trust
+   What We Build". It is optional on purpose: if assets/images/landing/trust.mp4
+   has not been copied across the slot falls back to a still, so a missing file
+   never leaves a black hole on a page that is paying for its traffic. */
 $lpVideo    = dirname(__DIR__, 3) . '/assets/images/landing/trust.mp4';
 $lpHasVideo = is_file($lpVideo);
 $lpPoster   = is_file(dirname(__DIR__, 3) . '/assets/images/landing/trust-poster.webp')
@@ -12,65 +18,42 @@ $lpPoster   = is_file(dirname(__DIR__, 3) . '/assets/images/landing/trust-poster
     <div class="lp-container lp-hero-grid">
 
         <div class="lp-hero-copy">
-            <h1><?= $e($lp['hero_title']) ?></h1>
-            
-            <div class="lp-hero-media lp-hide-desktop">
-                <?php if ($lpHasVideo): ?>
-                <video src="<?= $e(img_src('landing/trust.mp4')) ?>"<?= $lpPoster ? ' poster="' . $e($lpPoster) . '"' : '' ?>
-                    autoplay muted loop playsinline preload="metadata"
-                    aria-label="Media Clock app development showreel"></video>
-                <?php else: ?>
-                <img src="<?= $e(img_src('landing/projects/01.webp')) ?>" alt="Apps built by Media Clock" width="800"
-                    height="663" loading="lazy" />
-                <?php endif; ?>
+            <p class="lp-hero-badge"><span aria-hidden="true"></span><?= $e($lp['hero_badge']) ?></p>
+
+            <h1>
+                <?= $e($lp['hero_title_before']) ?>
+                <span class="lp-hero-city"><?= $e($lp['hero_title_city']) ?></span>
+                <?= $e($lp['hero_title_after']) ?>
+            </h1>
+
+            <p class="lp-hero-lead"><?= $e($lp['hero_lead']) ?></p>
+
+            <div class="lp-hero-ctas">
+                <button type="button" class="lp-btn lp-btn-primary"
+                    data-lp-scroll-to="#lp-quote"><?= $e($lp['hero_cta']) ?></button>
+                <a class="lp-btn lp-btn-ghost" href="<?= $e(mc_tel()) ?>">Call <?= $e(mc_tel_text()) ?></a>
             </div>
 
-            <ul class="lp-hero-points">
-                <?php foreach ($lp['hero_points'] as $lpPoint): ?>
-                <li><?= $e($lpPoint) ?></li>
-                <?php endforeach; ?>
-            </ul>
-
-            <ul class="lp-stats">
-                <?php foreach ($lp['hero_stats'] as [$lpNum, $lpLabel, $lpIcon]): ?>
-                <li class="lp-stat">
-                    <img src="<?= $e(img_src($lpIcon)) ?>" alt="" width="171" height="171" loading="lazy" />
-                    <strong><?= $e($lpNum) ?></strong>
-                    <span><?= $e($lpLabel) ?></span>
-                </li>
+            <ul class="lp-hero-ticks">
+                <?php foreach ($lp['hero_ticks'] as $lpTick): ?>
+                <li><?= $e($lpTick) ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
 
-        <!-- * Landing : quote form. novalidate hands validation to the shared
-             validator in main.js — the same rules every other form on the site
-             uses, including the input-time filtering on name, phone and email -->
-        <div class="lp-form-card" id="lp-quote">
-            <h2><?= $e($lp['form_title']) ?></h2>
-            <p class="lp-form-lead"><?= $e($lp['form_lead']) ?></p>
-            <form id="lpQuoteForm" novalidate>
-                <label class="visually-hidden" for="lpName">Your name</label>
-                <input type="text" id="lpName" name="lp_name" placeholder="Your Name*" autocomplete="name" required />
-
-                <label class="visually-hidden" for="lpPhone">Phone number</label>
-                <input type="tel" id="lpPhone" name="lp_phone" placeholder="Phone Number*" autocomplete="tel" required />
-
-                <label class="visually-hidden" for="lpEmail">Email address</label>
-                <input type="email" id="lpEmail" name="lp_email" placeholder="Email*" autocomplete="email" required />
-
-                <label class="visually-hidden" for="lpMessage">Your app idea</label>
-                <textarea id="lpMessage" name="lp_message" rows="3" placeholder="What’s your app idea?"></textarea>
-
-                <!-- which city page the lead came from, so an enquiry can be
-                     traced back to the campaign that paid for it -->
-                <input type="hidden" name="lp_source" value="<?= $e($lp['city']) ?>" />
-
-                <button type="submit" class="lp-btn lp-btn-primary lp-btn-block"><?= $e($lp['form_submit']) ?></button>
-                <p class="lp-form-note"><?= $e($lp['form_note']) ?></p>
-            </form>
-            <p class="lp-form-success" id="lpQuoteSuccess" hidden>Thank you — we will be in touch shortly.</p>
+        <div class="lp-hero-media">
+            <?php if ($lpHasVideo): ?>
+            <!-- the poster is the video's own first frame, so it hands over to
+                 playback without a jump and the box is never a black hole -->
+            <video src="<?= $e(img_src('landing/trust.mp4')) ?>"<?= $lpPoster ? ' poster="' . $e($lpPoster) . '"' : '' ?>
+                autoplay muted loop playsinline preload="metadata"
+                aria-label="<?= $e($lp['hero_video_label']) ?>"></video>
+            <?php else: ?>
+            <img src="<?= $e(img_src('landing/projects/01.webp')) ?>" alt="Apps built by Media Clock" width="800"
+                height="663" />
+            <?php endif; ?>
         </div>
 
     </div>
 </section>
-<?php unset($lpPoint, $lpNum, $lpLabel, $lpIcon); ?>
+<?php unset($lpVideo, $lpHasVideo, $lpPoster, $lpTick); ?>

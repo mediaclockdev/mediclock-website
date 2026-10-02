@@ -4,10 +4,13 @@
    place — the full text is always in the DOM, so nothing is hidden from a
    screen reader or from find-in-page. */
 ?>
-<section class="lp-band-dark lp-reviews">
+<section class="lp-section lp-section--grey lp-reviews">
     <div class="lp-container">
-        <h2 class="lp-section-title lp-section-title--orange">Client Feedback</h2>
-        
+        <div class="lp-section-head">
+            <h2 class="lp-section-title"><?= $e($lp['reviews_title']) ?></h2>
+            <p class="lp-reviews-note"><?= $e($lp['reviews_note']) ?></p>
+        </div>
+
         <div class="mc-slider lp-review-slider" data-slider data-autoplay="5000"
             style="--pv:4;--pv-md:2;--pv-sm:1;--gap:20px;"
             aria-roledescription="carousel" aria-label="Client Feedback">
@@ -39,10 +42,22 @@
                         <span aria-hidden="true"><?= str_repeat('★', (int) $lpR['stars']) ?></span>
                     </div>
 
-                    <!-- Review Text -->
-                    <div class="lp-review-body">
+                    <?php /* The CSS clamps this to seven lines; the whole review stays in
+                              the DOM, so find-in-page and screen readers reach all of it
+                              either way. Once "Read more" is pressed the box scrolls, and a
+                              scrollable region has to be reachable by keyboard — hence the
+                              tabindex on the ones long enough to scroll. */ ?>
+                    <?php $lpLong = mb_strlen($lpR['text']) > 300; ?>
+                    <div class="lp-review-body"<?= $lpLong ? ' tabindex="0"' : '' ?>>
                         <p><?= $e($lpR['text']) ?></p>
                     </div>
+                    <?php /* Only the reviews long enough to actually be clipped get the
+                              control — on a two-line review a "Read more" that reveals
+                              nothing is just noise. 300 characters is a little under the
+                              seven clamped lines at the narrowest card width. */ ?>
+                    <?php if ($lpLong): ?>
+                    <button type="button" class="lp-review-more" aria-expanded="false">Read more</button>
+                    <?php endif; ?>
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -50,4 +65,4 @@
         </div>
     </div>
 </section>
-<?php unset($lpR, $lpI); ?>
+<?php unset($lpR, $lpI, $lpLong); ?>

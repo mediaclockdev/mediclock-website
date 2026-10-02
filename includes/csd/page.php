@@ -46,8 +46,8 @@ echo '<main class="csd-main">';
 foreach ([
     'hero',      /* headline, video stage and the quick form band */
     'trusted',   /* logo marquee — same as the mobile-app ad pages */
+    'projects',  /* the work comes straight after the logos: proof first */
     'pain',
-    'projects',
     'build',
     'own',
     'process',

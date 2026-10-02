@@ -1,12 +1,17 @@
 <?php
 /* * Landing : what we build for every platform.
-   Title, then the description, then the picture last — the order the live page
-   uses. The image is pushed to the bottom of the card by the CSS, so all five
-   line up across the row however long the copy runs. */
+   Title, then the description, then the picture last. The image is pushed to
+   the bottom of the card by the CSS, so all five line up across the row
+   however long the copy runs. */
 ?>
-<section class="lp-band-light lp-platforms">
+<section class="lp-section lp-section--grey lp-platforms">
     <div class="lp-container">
-        <h2 class="lp-section-title"><?= $e($lp['platforms_title']) ?></h2>
+        <div class="lp-section-head lp-section-head--stacked">
+            <div>
+                <h2 class="lp-section-title"><?= $e($lp['platforms_title']) ?></h2>
+                <p class="lp-section-lead"><?= $e($lp['platforms_lead']) ?></p>
+            </div>
+        </div>
         <ul class="lp-platform-grid">
             <?php foreach ($lp['platforms'] as [$lpName, $lpBody, $lpImg]): ?>
             <li class="lp-platform">

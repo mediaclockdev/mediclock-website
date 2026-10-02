@@ -82,10 +82,51 @@
      Typewriter headline word
      ---------------------------------------------------------- */
   (function () {
-    var el = document.getElementById("csdRotWord");
-    if (!el || reduced) return;
-    var words = ["business", "team", "customers", "workflow"],
+    var el = document.getElementById("csdRotWord"),
+      rotator = el && el.closest(".csd-rotator");
+    if (!el || !rotator || reduced) return;
+    /* the list comes from data/csd/common.php via the data attribute, so the
+       copy lives in one place rather than being repeated here */
+    var words = (rotator.dataset.csdWords || "").split("|").filter(Boolean),
       i = 0;
+    if (words.length < 2) return;
+
+    /* * Hold the headline at its tallest before any typing starts.
+       "customers" wraps the h1 onto a fourth line where "team" needs three, so
+       left alone the heading grows and shrinks every few seconds and drags the
+       whole page up and down with it. Each word is measured in place and the
+       tallest wins, so the heading box never changes size and nothing below the
+       hero moves. A half-typed word is always shorter than the finished one, so
+       it can never need more lines than the measurement allows.
+
+       The height is pinned rather than the word's width: reserving the width of
+       the longest word leaves a hole in the sentence on narrow screens, where
+       the word sits mid-line — 92px of empty space after "team" at 375px.
+
+       Re-measured once the webfont has loaded, since the fallback font wraps at
+       different points, and after a resize, since the heading is sized in vw. */
+    var heading = rotator.closest("h1");
+    function holdHeadingHeight() {
+      if (!heading) return;
+      var original = el.textContent,
+        tallest = 0;
+      heading.style.minHeight = "";
+      words.forEach(function (word) {
+        el.textContent = word;
+        tallest = Math.max(tallest, heading.getBoundingClientRect().height);
+      });
+      el.textContent = original;
+      heading.style.minHeight = Math.ceil(tallest) + "px";
+    }
+    holdHeadingHeight();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(holdHeadingHeight).catch(function () {});
+    }
+    var resizeTimer = 0;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(holdHeadingHeight, 150);
+    });
     function type(word, n, done) {
       el.textContent = word.slice(0, n);
       if (n < word.length) window.setTimeout(function () { type(word, n + 1, done); }, 90);
@@ -187,19 +228,29 @@
       });
     }
 
-    var orbs = document.querySelectorAll(".csd-orb");
+    /* Orb parallax, bound to the hero rather than to window: the orbs live
+       inside the hero and are clipped by it, so tracking the cursor while
+       someone is reading the FAQ was work with nothing on screen to show for
+       it. They settle back to centre when the cursor leaves. */
+    var orbs = hero ? hero.querySelectorAll(".csd-orb") : [];
     if (orbs.length) {
-      window.addEventListener(
+      hero.addEventListener(
         "mousemove",
         function (ev) {
-          var x = (ev.clientX / window.innerWidth - 0.5) * 30,
-            y = (ev.clientY / window.innerHeight - 0.5) * 30;
+          var r = hero.getBoundingClientRect(),
+            x = ((ev.clientX - r.left) / r.width - 0.5) * 30,
+            y = ((ev.clientY - r.top) / r.height - 0.5) * 30;
           Array.prototype.forEach.call(orbs, function (orb, i) {
             orb.style.translate = (i ? -x : x) + "px " + (i ? -y : y) + "px";
           });
         },
         { passive: true },
       );
+      hero.addEventListener("mouseleave", function () {
+        Array.prototype.forEach.call(orbs, function (orb) {
+          orb.style.translate = "";
+        });
+      });
     }
   }
 

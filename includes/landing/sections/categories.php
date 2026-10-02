@@ -10,10 +10,17 @@ $lpIcons = [
     'marketplace' => '<path d="M4 9h16l-1 10.2a1.6 1.6 0 0 1-1.6 1.4H6.6A1.6 1.6 0 0 1 5 19.2z"/><path d="M4 9 5.8 4.4A1.2 1.2 0 0 1 6.9 3.6h10.2a1.2 1.2 0 0 1 1.1.8L20 9"/><path d="M9.4 13a2.6 2.6 0 0 0 5.2 0"/>',
 ];
 ?>
-<section class="lp-band-light lp-categories">
+<section class="lp-section lp-section--grey lp-categories">
     <div class="lp-container">
-        <p class="lp-eyebrow"><?= $e($lp['categories_eyebrow']) ?></p>
-        <h2 class="lp-section-title"><?= $e($lp['categories_title']) ?></h2>
+        <div class="lp-section-head lp-section-head--stacked">
+            <div>
+                <?php if ($lp['categories_eyebrow'] !== ''): ?>
+                <p class="lp-kicker lp-kicker--orange"><?= $e($lp['categories_eyebrow']) ?></p>
+                <?php endif; ?>
+                <h2 class="lp-section-title"><?= $e($lp['categories_title']) ?></h2>
+                <p class="lp-section-lead"><?= $e($lp['categories_lead']) ?></p>
+            </div>
+        </div>
 
         <ul class="lp-category-grid">
             <?php foreach ($lp['categories'] as [$lpName, $lpBody, $lpKey]): ?>

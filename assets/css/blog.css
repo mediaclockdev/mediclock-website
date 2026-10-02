@@ -307,7 +307,7 @@
 
 /* * Article header */
 .post-header {
-  padding: calc(var(--header-h) + 56px) 0 56px;
+  padding: calc(var(--header-h) + 24px) 0 24px;
 }
 .post-crumbs ol {
   display: flex;
@@ -363,10 +363,34 @@
   border-radius: 18px;
   box-shadow: 0 18px 44px rgba(25, 43, 51, 0.16);
 }
+/* * In-article figure.
+   No forced aspect-ratio, unlike .post-cover: these are explanatory graphics
+   with text in them, and `cover` cropping an infographic loses the part the
+   reader came for. The image keeps its own shape and simply fits the column. */
+.post-figure {
+  /* Aligned with the copy, not bled to the card edge. A full-bleed image is
+     the odd one out in here: every paragraph, heading and list sits on the
+     article's gutter, so an image that ignores it reads as a mistake rather
+     than as emphasis. */
+  margin: 36px 0;
+}
+.post-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line, #e4e8ea);
+}
+.post-figure figcaption {
+  margin-top: 12px;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--muted, #5b6b72);
+}
 .post-layout {
   display: grid;
   grid-template-columns: 230px minmax(0, 1fr);
-  gap: 64px;
+  gap: 40px;
   align-items: start;
   max-width: 1010px;
   margin: 0 auto;
@@ -603,6 +627,9 @@
   }
 }
 @media (max-width: 575.98px) {
+  .post-figure {
+    margin: 26px 0;
+  }
   .post-cover {
     border-radius: 14px;
   }

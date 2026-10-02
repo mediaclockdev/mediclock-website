@@ -1,8 +1,12 @@
 <?php /* * Landing : what an app costs — the question the ad clicked on */ ?>
-<section class="lp-band-light lp-pricing">
+<section class="lp-section lp-section--grey lp-pricing">
     <div class="lp-container">
-        <h2 class="lp-section-title"><?= $e($lp['pricing_title']) ?></h2>
-        <p class="lp-section-lead"><?= $e($lp['pricing_lead']) ?></p>
+        <div class="lp-section-head lp-section-head--stacked">
+            <div>
+                <h2 class="lp-section-title"><?= $e($lp['pricing_title']) ?></h2>
+                <p class="lp-section-lead"><?= $e($lp['pricing_lead']) ?></p>
+            </div>
+        </div>
 
         <ul class="lp-price-grid">
             <?php foreach ($lp['pricing'] as $lpTier): ?>
@@ -12,7 +16,10 @@
                 <?php endif; ?>
                 <h3><?= $e($lpTier['name']) ?></h3>
                 <p class="lp-price-blurb"><?= $e($lpTier['blurb']) ?></p>
-                <p class="lp-price-figure"><?= $e($lpTier['price']) ?></p>
+                <p class="lp-price-figure">
+                    <span><?= $e($lpTier['lead_in']) ?></span>
+                    <strong><?= $e($lpTier['price']) ?></strong>
+                </p>
                 <ul class="lp-price-features">
                     <?php foreach ($lpTier['features'] as $lpFeat): ?>
                     <li><?= $e($lpFeat) ?></li>
@@ -23,9 +30,9 @@
             <?php endforeach; ?>
         </ul>
 
-        <p class="lp-price-note"><?= $e($lp['pricing_note']) ?></p>
-        <div class="lp-center">
-            <button type="button" class="lp-btn lp-btn-primary" data-lp-scroll-to="#lp-quote"><?= $e($lp['pricing_cta']) ?></button>
+        <div class="lp-price-foot">
+            <p><?= $e($lp['pricing_note']) ?></p>
+            <button type="button" class="lp-btn lp-btn-dark" data-lp-scroll-to="#lp-quote"><?= $e($lp['pricing_cta']) ?></button>
         </div>
     </div>
 </section>

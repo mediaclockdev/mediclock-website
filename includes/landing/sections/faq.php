@@ -5,9 +5,13 @@
    answers. The first one starts open so the section does not read as a wall
    of closed boxes. */
 ?>
-<section class="lp-band-light lp-faq">
+<section class="lp-section lp-faq">
     <div class="lp-container">
-        <h2 class="lp-section-title"><?= $e($lp['faq_title']) ?></h2>
+        <div class="lp-section-head lp-section-head--stacked">
+            <div>
+                <h2 class="lp-section-title"><?= $e($lp['faq_title']) ?></h2>
+            </div>
+        </div>
         <div class="lp-faq-list">
             <?php foreach ($lp['faq'] as $lpI => [$lpQ, $lpA]): ?>
             <details class="lp-faq-item"<?= $lpI === 0 ? ' open' : '' ?>>

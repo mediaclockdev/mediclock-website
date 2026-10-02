@@ -84,7 +84,7 @@ p {
   color: var(--muted);
 }
 .section {
-  padding: 50px 0;
+  padding: 24px 0;
 }
 .tight {
   padding: 44px 0;
@@ -751,8 +751,8 @@ p {
 /* * Footer — bottom bar (copyright · ABN · privacy; no divider on live) */
 .footer-bottom {
   border-top: 1px solid #fff;
-  padding-top: 26px;
-  padding-bottom: 30px;
+  padding-top: 18px;
+  /* padding-bottom: 18px; */
   font-size: 15px;
   line-height: 1.5;
   color: #fff;
@@ -1953,7 +1953,7 @@ textarea.is-invalid,
   .section,
   .logo-band,
   .testimonial-band {
-    padding: 44px 0;
+    padding: 24px 0;
   }
   /* a logo band ends on its pager dots, which are mostly tap target around an
      8px dot — the full band padding under that read as an empty gap */
@@ -1980,7 +1980,7 @@ textarea.is-invalid,
   .section,
   .logo-band,
   .testimonial-band {
-    padding: 36px 0;
+    padding: 24px 0;
   }
   .logo-band {
     padding-bottom: 18px;

@@ -14,10 +14,22 @@ $csdPoster = dirname(__DIR__, 3) . '/assets/images/csd/hero-poster.jpg';
             <span class="csd-eyebrow"><?= $e($csd['hero_eyebrow']) ?></span>
             <h1>
                 <?= $e($csd['hero_title_before']) ?>
-                <!-- csd.js types the words in hero_rotate through this span. With
-                     JS off it keeps the first word, so the sentence still reads. -->
-                <span class="csd-rotator"><span id="csdRotWord"><?= $e($csd['hero_rotate'][0]) ?></span><span
-                        class="csd-caret" aria-hidden="true"></span></span>
+                <!-- csd.js types the words through this span, reading them from
+                     data-csd-words so data/csd/common.php stays the only place the
+                     list is written. With JS off the first word simply stays put and
+                     the sentence still reads.
+
+                     Before it starts typing, csd.js measures every word and pins the
+                     span to the widest, so the headline keeps the same line breaks
+                     from the first letter to the last. Without that the h1 flips
+                     between three and four lines as each word types and erases, and
+                     every section below it slides up and down for the whole visit.
+                     The measuring is done in JS rather than with hidden copies of the
+                     words in the markup, so nothing extra lands in the heading for
+                     copy-and-paste or a crawler to pick up. -->
+                <span class="csd-rotator" data-csd-words="<?= $e(implode('|', $csd['hero_rotate'])) ?>"><span
+                        id="csdRotWord"><?= $e($csd['hero_rotate'][0]) ?></span><span class="csd-caret"
+                        aria-hidden="true"></span></span>
                 <?= $e($csd['hero_title_after']) ?>
             </h1>
             <p class="csd-hero-sub"><?= $e($csd['hero_sub']) ?></p>

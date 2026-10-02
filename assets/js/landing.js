@@ -78,13 +78,13 @@
     btn.textContent = open ? "Show less" : "Read more";
   });
 
-  /* * Hero/trust video — play it only while it is on screen.
+  /* * Hero showreel — play it only while it is on screen.
      `autoplay` alone is unreliable: several browsers refuse to start a video
      that has never been visible, and those that do start it burn data on a
      2.5MB file the visitor may never scroll to. Pausing it again on the way
      out keeps a long page from decoding video nobody is looking at. */
   (function () {
-    const video = document.querySelector(".lp-trust-media video");
+    const video = document.querySelector(".lp-hero-media video");
     if (!video || !("IntersectionObserver" in window)) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       video.removeAttribute("autoplay");

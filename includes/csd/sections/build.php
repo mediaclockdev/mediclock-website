@@ -1,7 +1,8 @@
 <?php
-/* * CSD : what we build — six numbered capability cards. The outline number in
-   the corner is decorative (aria-hidden): a screen reader reading "01" before
-   every heading adds nothing. */
+/* * CSD : what we build — six capability cards. No step numbers here on
+   purpose: these are six things we build, not an ordered sequence, so a number
+   on each card implied a running order that does not exist. The numbers in
+   "How we work" stay, because those steps really do run in order. */
 ?>
 <section class="csd-section csd-alt csd-build">
     <div class="csd-wrap">
@@ -11,10 +12,9 @@
             <p class="csd-lead"><?= $e($csd['build_lead']) ?></p>
         </div>
         <div class="csd-grid-3">
-            <?php foreach ($csd['build_cards'] as $csdI => $csdCard): ?>
+            <?php foreach ($csd['build_cards'] as $csdCard): ?>
             <div class="csd-card csd-tilt">
                 <span class="csd-glare" aria-hidden="true"></span>
-                <span class="csd-num" aria-hidden="true"><?= str_pad((string) ($csdI + 1), 2, '0', STR_PAD_LEFT) ?></span>
                 <!-- our own literal markup from data/csd/common.php, not visitor input -->
                 <div class="csd-icon" aria-hidden="true"><?= $csdCard['icon'] ?></div>
                 <h3><?= $e($csdCard['title']) ?></h3>
@@ -27,4 +27,4 @@
         </div>
     </div>
 </section>
-<?php unset($csdCard, $csdI); ?>
+<?php unset($csdCard); ?>

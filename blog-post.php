@@ -129,10 +129,28 @@ if ($post) {
                     if ($tag === 'li') {
                         if ($lead && str_starts_with($text, $lead)) {
                             $restText = ltrim(substr($text, strlen($lead)), " –—-:");
-                            echo '<li><strong>' . $e($lead) . '</strong>' . ($restText ? ' — ' . $e($restText) : '') . "</li>\n";
+                            $separator = ($restText && preg_match('/^[.,;!?]/', $restText)) ? '' : ' — ';
+                            echo '<li><strong>' . $e($lead) . '</strong>' . ($restText ? $separator . $e($restText) : '') . "</li>\n";
                         } else {
                             echo '<li>' . $e($text) . "</li>\n";
                         }
+                        continue;
+                    }
+                    /* * ['figure', src, alt, caption?]
+                       An in-article image. The src is relative to
+                       assets/images/, the same as a post's cover. The caption
+                       is optional; alt is always written out, because these
+                       are explanatory graphics rather than decoration, and a
+                       reader who cannot see the diagram still needs what it
+                       says. */
+                    if ($tag === 'figure') {
+                        $figAlt = $blk[2] ?? '';
+                        $figCap = $blk[3] ?? '';
+                        echo '<figure class="post-figure">'
+                            . '<img src="' . $e(img_src($text)) . '" alt="' . $e($figAlt) . '"'
+                            . ' width="1200" height="629" loading="lazy" decoding="async" />'
+                            . ($figCap ? '<figcaption>' . $e($figCap) . '</figcaption>' : '')
+                            . "</figure>\n";
                         continue;
                     }
                     if ($tag === 'h2' || $tag === 'h3') {

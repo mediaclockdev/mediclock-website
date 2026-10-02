@@ -23,11 +23,11 @@ $lsLabel = $logos_title !== '' ? $logos_title : 'Logos';
 ?>
 <?php if ($logos_items): ?>
 <!-- * Tech slider : <?= $h($lsLabel) ?> -->
-<section class="lp-band-<?= $logos_theme ?> lp-tech-band" id="<?= $h($logos_id) ?>"
+<section class="lp-section lp-tech-band" id="<?= $h($logos_id) ?>"
     <?= $logos_title !== '' ? 'aria-labelledby="' . $h($logos_id) . '-title"' : 'aria-label="' . $h($lsLabel) . '"' ?>>
     <div class="lp-container">
         <?php if ($logos_title !== '' || $logos_eyebrow !== '' || $logos_lead !== ''): ?>
-        <div class="lp-tech-band-head<?= $logos_title_visible ? '' : ' visually-hidden' ?>">
+        <div class="lp-section-head lp-section-head--stacked lp-tech-band-head<?= $logos_title_visible ? '' : ' visually-hidden' ?>">
             <?php if ($logos_eyebrow !== ''): ?><p class="lp-eyebrow"><?= $h($logos_eyebrow) ?></p><?php endif; ?>
             <?php if ($logos_title !== ''): ?><h2 id="<?= $h($logos_id) ?>-title" class="lp-section-title"><?= $h($logos_title) ?></h2><?php endif; ?>
             <?php if ($logos_lead !== ''): ?><p class="lp-section-lead"><?= $h($logos_lead) ?></p><?php endif; ?>

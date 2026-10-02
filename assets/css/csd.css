@@ -12,8 +12,8 @@
      .csd-hero        dark    headline, video stage
      .csd-qf          white   quick form, overlapping the hero
      .csd-logos       white   trusted by (marquee, as the other ad pages)
-     .csd-pain        grey    sound familiar?
-     .csd-projects    white   our work
+     .csd-projects    grey    our work
+     .csd-pain        white   sound familiar?
      .csd-build       grey    what we build
      .csd-own         dark    built to own, not rent
      .csd-process     grey    how we work
@@ -96,7 +96,7 @@
   line-height: 1.15;
   font-weight: 800;
   letter-spacing: -0.01em;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 .csd-body h3 {
   font-size: 1.4rem;
@@ -137,7 +137,7 @@
   padding: 0 20px;
 }
 .csd-section {
-  padding: 104px 0;
+  padding: 24px 0;
 }
 .csd-alt {
   background: var(--csd-light);
@@ -153,6 +153,8 @@
   font-size: 1.25rem;
   color: var(--csd-muted);
   max-width: 760px;
+  line-height: 1.5;
+  padding-bottom: 10px;
 }
 .csd-center .csd-lead {
   margin: 0 auto;
@@ -176,7 +178,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--csd-orange);
-  margin-bottom: 14px;
+  margin-bottom: 2px;
 }
 .csd-eyebrow::before {
   content: "";
@@ -353,7 +355,7 @@
   overflow: hidden;
   background: var(--csd-slate);
   color: var(--csd-white);
-  padding: 72px 0 170px;
+  padding: 18px 0 150px;
 }
 /* the faint grid that drifts behind everything */
 .csd-hero::before {
@@ -418,10 +420,15 @@
   color: var(--csd-muted-light);
   margin: 22px 0 26px;
   max-width: 560px;
+  padding-bottom: 10px;
 }
+/* csd.js pins the h1's min-height from the longest word in this list, so the
+   heading cannot change size as the words cycle and take the rest of the page
+   with it. Nothing is reserved when the typewriter does not run (no JS, or
+   reduced motion) — the word is static there, so there is nothing to hold. */
 .csd-rotator {
-  color: var(--csd-orange);
   display: inline-block;
+  color: var(--csd-orange);
   white-space: nowrap;
 }
 .csd-caret {
@@ -466,6 +473,7 @@
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+  padding-top: 10px;
 }
 
 /* ---- Video stage ---- */
@@ -733,7 +741,7 @@
    the track is 12 logos x 242px = 2904px at roughly 85px per second.
    ------------------------------------------------------------ */
 .csd-logos {
-  padding: 84px 0 76px;
+  padding: 24px 0px;
 }
 .csd-marquee {
   overflow: hidden;
@@ -780,7 +788,7 @@
    driven by main.js; only the band around them is styled here.
    ------------------------------------------------------------ */
 .csd-tech-band {
-  padding: 84px 0;
+  padding: 24px 0;
 }
 .csd-tech-title {
   margin-bottom: 0;
@@ -811,7 +819,26 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 26px;
-  margin-top: 52px;
+  margin-top: 20px;
+}
+/* * The project track is flex, not grid.
+   There are eight cards and three columns, so the last row holds two. A grid
+   would park that pair against the left edge with a column-wide hole beside
+   it; flex with `justify-content: center` lands it under the middle of the
+   section, which reads as deliberate. Nothing here sets a height — the cards
+   are flex items, so the default `align-items: stretch` already levels each
+   row, and a height would opt them out of it. */
+.csd-grid-projects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 26px;
+  margin-top: 20px;
+}
+.csd-grid-projects > * {
+  /* two gaps between three cards */
+  flex: 0 1 calc((100% - 2 * 26px) / 3);
+  min-width: 0;
 }
 .csd-tilt {
   position: relative;
@@ -856,14 +883,20 @@
   border-radius: inherit;
   padding: 2px;
   background: conic-gradient(from var(--csd-ang), transparent 0 55%, var(--csd-orange) 78%, #ffb38a 85%, transparent 100%);
+  /* Two mask layers — the content box (inside the 2px padding) and the whole
+     box — cut down to just the ring between them. The order below matters:
+     `mask` and `-webkit-mask` are shorthands that reset mask-composite to
+     `add`, so the composite MUST be declared after them. Written the other way
+     round the layers add instead of cancelling, the mask covers everything,
+     and the conic gradient floods the card over its own text. */
   -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
   opacity: 0;
   transition: opacity 0.35s;
   animation: csd-spin 3s linear infinite;
@@ -873,9 +906,19 @@
 .csd-tilt:hover::after {
   opacity: 1;
 }
+/* Lift the card's own content above the cursor glare, which sits at z-index 0.
+   `*:not(.csd-glare)` is specificity (0,2,0), so it outranks any single-class
+   rule a child uses to place itself — a child that sets `position: absolute`
+   gets dragged back into the flow by this. Every such child is therefore
+   restored below, at matching specificity, rather than relying on source order
+   alone within its own section. */
 .csd-tilt > *:not(.csd-glare) {
   position: relative;
   z-index: 1;
+}
+.csd-tilt > .csd-bar,
+.csd-tilt > .csd-quote-mark {
+  position: absolute;
 }
 
 .csd-card {
@@ -962,24 +1005,6 @@
   border-left: 5px solid var(--csd-orange);
 }
 
-/* outline number in the corner of the "what we build" cards */
-.csd-num {
-  position: absolute;
-  top: 26px;
-  right: 30px;
-  font-size: 3.2rem;
-  font-weight: 800;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--csd-field-line);
-  transition:
-    color 0.4s,
-    -webkit-text-stroke-color 0.4s;
-}
-.csd-tilt:hover .csd-num {
-  color: rgba(242, 101, 34, 0.12);
-  -webkit-text-stroke-color: var(--csd-orange);
-}
 .csd-more {
   display: inline-flex;
   align-items: center;
@@ -1014,7 +1039,10 @@
 .csd-thumb {
   position: relative;
   display: block;
-  aspect-ratio: 8 / 5;
+  /* the shots' own ratio (1200x833). At 8/5 `cover` would shave ~5% off the
+     top and bottom, and in most of these the phone mockup runs right to the
+     lower edge — it would lose its base. */
+  aspect-ratio: 1200 / 833;
   overflow: hidden;
   background: var(--csd-slate);
 }
@@ -1074,8 +1102,17 @@
   transform: scaleX(0);
 }
 .csd-project-body {
-  display: block;
+  /* a column, so .csd-project-points can take `margin-top: auto` and sit on
+     the bottom of every card however long the blurb above it runs */
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   padding: 28px;
+}
+/* in a column the tag would stretch the full card width and stop reading as
+   a pill — scoped, so the rule only applies where the body is a flex box */
+.csd-project-body .csd-tag {
+  align-self: flex-start;
 }
 .csd-tag {
   display: inline-block;
@@ -1106,6 +1143,40 @@
 .csd-project-text {
   display: block;
   color: var(--csd-muted);
+}
+.csd-project-points {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--csd-line);
+}
+/* the points sit under the blurb, so the blurb needs clearance from the rule
+   above them whatever its length */
+.csd-project-text + .csd-project-points {
+  margin-top: 18px;
+}
+.csd-project-point {
+  position: relative;
+  padding-left: 26px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--csd-text);
+}
+/* a drawn tick rather than a glyph: two borders on a rotated box land on the
+   same optical centre at every font size, which a character does not */
+.csd-project-point::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.34em;
+  width: 12px;
+  height: 7px;
+  border-left: 2px solid var(--csd-orange);
+  border-bottom: 2px solid var(--csd-orange);
+  transform: rotate(-45deg);
 }
 
 /* ------------------------------------------------------------
@@ -1357,7 +1428,7 @@
    ------------------------------------------------------------ */
 .csd-faq-list {
   max-width: 880px;
-  margin: 48px auto 0;
+  margin: 24px auto 0;
 }
 .csd-faq-list details {
   background: var(--csd-white);
@@ -1389,25 +1460,33 @@
 .csd-faq-list summary::-webkit-details-marker {
   display: none;
 }
+/* The + and the × are drawn, not typed. As a text glyph the mark is placed by
+   the font's own metrics inside a line box taller than the 34px circle, which
+   left it sitting visibly low — and the rotated × inherited the same offset.
+   Two background bars sit dead centre whatever the font does, and rotating
+   them 135deg turns the plus into the close cross. */
 .csd-faq-list summary::after {
-  content: "+";
+  content: "";
   flex: none;
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: rgba(242, 101, 34, 0.1);
   color: var(--csd-orange);
-  font-size: 1.5rem;
-  display: grid;
-  place-items: center;
+  background-color: rgba(242, 101, 34, 0.1);
+  background-image: linear-gradient(currentColor 0 0), linear-gradient(currentColor 0 0);
+  background-size:
+    13px 2px,
+    2px 13px;
+  background-position: center;
+  background-repeat: no-repeat;
   transition:
     transform 0.35s var(--csd-ease),
-    background 0.3s,
+    background-color 0.3s,
     color 0.3s;
 }
 .csd-faq-list details[open] summary::after {
   transform: rotate(135deg);
-  background: var(--csd-orange);
+  background-color: var(--csd-orange);
   color: #fff;
 }
 .csd-faq-list details p {
@@ -1503,12 +1582,13 @@
 .csd-footer {
   background: var(--csd-slate);
   color: var(--csd-muted-light);
-  padding: 64px 0 30px;
+  padding: 24px 0 24px;
 }
 .csd-foot-grid {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: 40px;
+  margin-bottom: 10px;
 }
 .csd-footer-logo {
   width: auto;
@@ -1586,6 +1666,10 @@
   .csd-steps {
     grid-template-columns: 1fr 1fr;
   }
+  /* two up — eight cards divide evenly, so no orphan row here */
+  .csd-grid-projects > * {
+    flex-basis: calc((100% - 26px) / 2);
+  }
   .csd-foot-grid {
     grid-template-columns: 1fr;
   }
@@ -1603,19 +1687,77 @@
 }
 
 /* ------------------------------------------------------------
+   Two-column range only
+   ------------------------------------------------------------ */
+/* * Three cards into two columns leaves one stranded against the left edge
+   with a column-wide hole beside it. Centring it across both columns, at the
+   width of a single one, reads as deliberate and matches how the eight
+   project cards handle their last row.
+
+   Both bounds matter. :nth-child(3):last-child fires only on a grid of
+   exactly three, so the six-card build and step grids are untouched — but the
+   grid is two columns only between 641px and 1024px. Below that it is one
+   column, and a `width: calc(50% - 13px)` left over from this rule would halve
+   the last card on a phone. 13px is half the 26px gap. */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .csd-grid-3 > :nth-child(3):last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 13px);
+  }
+}
+
+/* ------------------------------------------------------------
    Phone
    ------------------------------------------------------------ */
 @media (max-width: 640px) {
-  .csd-section {
-    padding: 68px 0;
-  }
-  .csd-logos,
-  .csd-tech-band {
-    padding: 56px 0;
-  }
+  /* * No section-padding override here, deliberately.
+     This block used to set 68px a side, and 56px on the logo and tech bands,
+     against the 24px the desktop rule now carries — so the page grew looser
+     as the screen got smaller, which is backwards. Letting the phone inherit
+     the desktop rhythm keeps one number to change instead of three. */
   .csd-grid-3,
   .csd-steps {
     grid-template-columns: 1fr;
+  }
+  /* one card per row, so the gap is read as space between sections of text
+     rather than as a column gutter — 26px is too much of it */
+  .csd-grid-3,
+  .csd-steps,
+  .csd-grid-projects {
+    gap: 16px;
+  }
+  .csd-grid-projects > * {
+    flex-basis: 100%;
+  }
+  /* 34px a side on a 375px screen leaves the copy about 265px to live in */
+  .csd-card,
+  .csd-compare,
+  .csd-step,
+  .csd-review {
+    padding: 22px;
+  }
+  .csd-price-card {
+    padding: 24px 22px;
+  }
+  .csd-project-body {
+    padding: 22px;
+  }
+  .csd-project-title {
+    font-size: 1.25rem;
+  }
+  /* the lead runs 20px/30px, which is a desktop size on a phone */
+  .csd-lead {
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+  .csd-body h3 {
+    font-size: 1.25rem;
+  }
+  /* the hover overlay never fires on a touch screen, so the card would carry
+     its weight for nothing */
+  .csd-thumb-ov {
+    display: none;
   }
   /* The phone number goes: the action bar at the foot of the screen carries
      it, and on a 375px header the logo and the CTA already fill the row. The
@@ -1634,9 +1776,16 @@
     padding: 10px 14px;
     font-size: 0.85rem;
     white-space: nowrap;
+    /* 10px of padding on 0.85rem text comes out at 36px, under the 44px a
+       thumb needs. The padding stays — min-height does the work without
+       widening the button in a row that is already tight. */
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
+  /* the 150px foot stays: the quick form is pulled up 110px into it */
   .csd-hero {
-    padding: 44px 0 150px;
+    padding: 18px 0 150px;
   }
   .csd-qf {
     padding: 24px 20px;
@@ -1695,8 +1844,9 @@
     background: var(--csd-slate);
     color: var(--csd-white);
   }
+  /* the action bar measures 60px, so 56px left its last 4px over the footer */
   .csd-body {
-    padding-bottom: 56px;
+    padding-bottom: 64px;
   }
 }
 

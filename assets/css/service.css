@@ -87,6 +87,8 @@
 .post-toc {
   position: sticky;
   top: calc(var(--header-h) + 20px);
+  max-height: calc(100vh - var(--header-h) - 40px);
+  overflow-y: auto;
   padding: 22px;
   border: 1px solid var(--line-soft);
   border-radius: 16px;
