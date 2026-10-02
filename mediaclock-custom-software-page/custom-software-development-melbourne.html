@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Software Development Melbourne | Media Clock</title>
+<meta name="description" content="Custom software built around how your business works. Portals, dashboards, workflow automation and integrations. Melbourne team, you own the code, no per-user fees.">
+<link rel="canonical" href="https://mediaclock.com.au/custom-software-development-melbourne/">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  @property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+  :root{
+    /* Brand colours – from the Media Clock logo only */
+    --slate:#192B34;
+    --slate-2:#20363F;
+    --slate-3:#2A4450;
+    --slate-4:#345563;
+    --orange:#F26522;
+    --orange-dark:#D9531A;
+    --orange-glow:rgba(242,101,34,.35);
+    --white:#FFFFFF;
+    --light:#F5F6F7;
+    --text:#192B34;
+    --muted:#5B6B72;
+    --muted-light:#B9C4C9;
+    /* Type scale */
+    --h1:clamp(2.4rem,4.6vw,3.9rem);
+    --h2:clamp(2rem,3.6vw,3rem);
+    --h3:1.4rem;
+    --body:1.125rem;
+    --small:1rem;
+    --radius:18px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',sans-serif;font-size:var(--body);line-height:1.65;color:var(--text);background:var(--white);overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img,video{max-width:100%;display:block}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+  section{padding:104px 0}
+  h1{font-size:var(--h1);line-height:1.08;font-weight:800;letter-spacing:-.02em}
+  h2{font-size:var(--h2);line-height:1.15;font-weight:800;margin-bottom:16px;letter-spacing:-.01em}
+  h3{font-size:var(--h3);line-height:1.3;font-weight:700;margin-bottom:10px}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+  .eyebrow::before{content:"";width:28px;height:2px;background:var(--orange)}
+  .center .eyebrow::after{content:"";width:28px;height:2px;background:var(--orange)}
+  .lead{font-size:1.25rem;color:var(--muted);max-width:760px}
+  .dark{background:var(--slate);color:var(--white)}
+  .dark .lead{color:var(--muted-light)}
+  .alt{background:var(--light)}
+  .center{text-align:center}
+  .center .lead{margin:0 auto}
+
+  /* Buttons */
+  .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--orange);color:var(--white);font-weight:700;font-size:1.1rem;padding:16px 30px;border-radius:50px;border:none;cursor:pointer;font-family:inherit;transition:background .25s,transform .25s,box-shadow .25s}
+  .btn:hover{background:var(--orange-dark);transform:translateY(-3px);box-shadow:0 12px 30px var(--orange-glow)}
+  .btn::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 3.5s infinite}
+  @keyframes shine{0%,60%{left:-120%}100%{left:160%}}
+  .btn .arr{transition:transform .25s}
+  .btn:hover .arr{transform:translateX(5px)}
+  .btn-outline{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.5)}
+  .btn-outline:hover{background:var(--white);color:var(--slate);border-color:var(--white)}
+
+  /* Header */
+  header{background:rgba(25,43,52,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(255,255,255,.08);transition:box-shadow .3s}
+  header.scrolled{box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+  .logo{font-size:1.6rem;font-weight:800;color:var(--white)}
+  .logo span{color:var(--orange)}
+  .nav-right{display:flex;align-items:center;gap:22px}
+  .nav-phone{color:var(--white);font-weight:700;font-size:1.15rem;display:flex;align-items:center;gap:8px}
+  .nav-phone .ring{width:10px;height:10px;border-radius:50%;background:#3FB37F;box-shadow:0 0 0 0 rgba(63,179,127,.6);animation:ring 2s infinite}
+  @keyframes ring{70%{box-shadow:0 0 0 10px rgba(63,179,127,0)}100%{box-shadow:0 0 0 0 rgba(63,179,127,0)}}
+  .nav .btn{padding:12px 22px;font-size:1rem}
+
+  /* ================= HERO ================= */
+  .hero{background:var(--slate);color:var(--white);padding:72px 0 170px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:48px 48px;animation:gridMove 20s linear infinite;pointer-events:none}
+  @keyframes gridMove{to{background-position:48px 48px}}
+  .orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:float 12s ease-in-out infinite}
+  .orb.o1{width:520px;height:520px;background:var(--orange);opacity:.35;top:-160px;right:-120px}
+  .orb.o2{width:360px;height:360px;background:var(--orange-dark);opacity:.18;bottom:-160px;left:-100px;animation-delay:-6s}
+  @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,40px)}}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center}
+  .hero p.sub{font-size:1.25rem;color:var(--muted-light);margin:22px 0 26px;max-width:560px}
+  .ticks{list-style:none;display:grid;gap:12px;margin-bottom:34px}
+  .ticks li{display:flex;gap:12px;align-items:center;font-size:1.12rem;font-weight:500}
+  .ticks li::before{content:"✓";flex:0 0 28px;height:28px;border-radius:50%;background:var(--orange);color:var(--white);font-weight:800;display:grid;place-items:center;font-size:.9rem}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .rotator{color:var(--orange);display:inline-block;white-space:nowrap}
+  .rotator .caret{display:inline-block;width:4px;height:.85em;background:var(--orange);margin-left:4px;vertical-align:-0.06em;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* Video stage */
+  .stage{position:relative;perspective:1400px}
+  .video-frame{position:relative;border-radius:22px;padding:3px;transform-style:preserve-3d;transform:rotateY(-8deg) rotateX(4deg);transition:transform .6s var(--ease);
+    background:conic-gradient(from var(--ang),rgba(242,101,34,.15),var(--orange),rgba(242,101,34,.15) 30%,rgba(255,255,255,.08) 60%,rgba(242,101,34,.15));animation:spin 6s linear infinite;box-shadow:0 40px 90px rgba(0,0,0,.55),0 0 80px rgba(242,101,34,.18)}
+  @keyframes spin{to{--ang:360deg}}
+  .video-frame video{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:19px;background:var(--slate-2)}
+  .live{position:absolute;top:16px;left:16px;z-index:2;display:flex;align-items:center;gap:8px;background:rgba(25,43,52,.85);backdrop-filter:blur(6px);padding:7px 14px;border-radius:30px;font-size:.85rem;font-weight:700;letter-spacing:.06em}
+  .live i{width:9px;height:9px;border-radius:50%;background:#E5484D;animation:ring 1.6s infinite;box-shadow:0 0 0 0 rgba(229,72,77,.6)}
+  .badge{position:absolute;z-index:3;background:var(--white);color:var(--text);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 40px rgba(0,0,0,.35);font-weight:700;font-size:.98rem;line-height:1.25;animation:bob 6s ease-in-out infinite}
+  .badge small{display:block;font-weight:500;color:var(--muted);font-size:.8rem}
+  .badge .ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:#fff;font-size:1.1rem;flex:none}
+  .badge.b1{left:-34px;bottom:-30px}
+  .badge.b2{right:-22px;top:-26px;animation-delay:-3s}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+  /* Hero entrance */
+  .hero .eyebrow,.hero h1,.hero p.sub,.hero .ticks li,.hero-ctas,.stage{opacity:0;transform:translateY(30px);animation:rise .9s var(--ease) forwards}
+  .hero h1{animation-delay:.1s}.hero p.sub{animation-delay:.25s}
+  .hero .ticks li:nth-child(1){animation-delay:.4s}.hero .ticks li:nth-child(2){animation-delay:.5s}
+  .hero .ticks li:nth-child(3){animation-delay:.6s}.hero .ticks li:nth-child(4){animation-delay:.7s}
+  .hero-ctas{animation-delay:.85s}
+  .stage{animation:stageIn 1.3s var(--ease) .3s forwards;transform:translateX(80px) scale(.94)}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes stageIn{to{opacity:1;transform:none}}
+
+  /* Quick form band (overlaps hero) */
+  .qf-wrap{position:relative;z-index:5;margin-top:-110px}
+  .qf{background:var(--white);border-radius:22px;padding:30px 32px;box-shadow:0 30px 70px rgba(25,43,52,.22);border-top:5px solid var(--orange);opacity:0;transform:translateY(40px);animation:rise 1s var(--ease) 1s forwards}
+  .qf-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+  .qf-head h3{font-size:1.5rem;margin:0}
+  .qf-head p{color:var(--muted);font-size:1rem}
+  .qf form{display:grid;grid-template-columns:1fr 1fr 1fr 1.2fr auto;gap:14px;align-items:end}
+  .qf label{display:block;font-size:.9rem;font-weight:600;margin-bottom:6px}
+  .qf input,.qf select{width:100%;height:54px;padding:0 16px;border:1.5px solid #D5DBDE;border-radius:12px;font:inherit;font-size:1rem;color:var(--text);background:var(--white);transition:border-color .25s,box-shadow .25s}
+  .qf input:focus,.qf select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 4px rgba(242,101,34,.15)}
+  .qf .btn{height:54px;white-space:nowrap}
+  .qf .nda{font-size:.9rem;color:var(--muted);margin-top:14px}
+
+  /* Stats */
+  .stats{padding:64px 0 24px}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+  .stat b{display:block;font-size:3rem;font-weight:800;color:var(--orange);line-height:1.1}
+  .stat span{font-size:1.05rem;color:var(--muted)}
+
+  /* ================= CARDS ================= */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:52px}
+  .tilt{position:relative;border-radius:var(--radius);transform-style:preserve-3d;will-change:transform;transition:transform .6s var(--ease),box-shadow .4s}
+  .tilt.moving{transition:transform .12s linear,box-shadow .4s}
+  .tilt:hover{box-shadow:0 30px 60px rgba(25,43,52,.18)}
+  .dark .tilt:hover{box-shadow:0 30px 60px rgba(0,0,0,.45)}
+  /* cursor spotlight */
+  .tilt .glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(242,101,34,.16),transparent 60%);opacity:0;transition:opacity .3s;z-index:0}
+  .tilt:hover .glare{opacity:1}
+  /* spinning orange border */
+  .tilt::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--ang),transparent 0 55%,var(--orange) 78%,#FFB38A 85%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s;animation:spin 3s linear infinite;pointer-events:none;z-index:2}
+  .tilt:hover::after{opacity:1}
+  .tilt > *:not(.glare){position:relative;z-index:1}
+  .lift{transform:translateZ(40px)}
+
+  .card{background:var(--white);border-radius:var(--radius);padding:34px;border:1px solid #E4E8EA}
+  .card p{color:var(--muted)}
+  .dark .card{background:var(--slate-2);border-color:var(--slate-3)}
+  .dark .card p{color:var(--muted-light)}
+
+  /* Icon boxes */
+  .icon{width:64px;height:64px;border-radius:16px;background:rgba(242,101,34,.1);display:grid;place-items:center;margin-bottom:22px;transition:background .35s,transform .5s var(--ease)}
+  .icon svg{width:32px;height:32px;stroke:var(--orange);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .35s}
+  .icon svg *{stroke-dasharray:1;stroke-dashoffset:1}
+  .in .icon svg *{animation:drawIcon 1.4s var(--ease) forwards;animation-delay:inherit}
+  @keyframes drawIcon{to{stroke-dashoffset:0}}
+  .tilt:hover .icon{background:var(--orange);transform:translateZ(50px) rotate(-8deg) scale(1.08)}
+  .tilt:hover .icon svg{stroke:var(--white)}
+  .num{position:absolute!important;top:26px;right:30px;font-size:3.2rem;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1.5px #D5DBDE;transition:color .4s,-webkit-text-stroke-color .4s}
+  .tilt:hover .num{color:rgba(242,101,34,.12);-webkit-text-stroke-color:var(--orange)}
+  .more{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-weight:700;color:var(--orange);font-size:1rem;opacity:0;transform:translateX(-10px);transition:all .35s var(--ease)}
+  .tilt:hover .more{opacity:1;transform:none}
+
+  /* Pain cards */
+  .pain .card{border-left:5px solid var(--orange)}
+  .pain .tilt:hover .icon svg{animation:wobble .6s ease}
+  @keyframes wobble{25%{transform:rotate(-12deg)}50%{transform:rotate(10deg)}75%{transform:rotate(-6deg)}}
+
+  /* Projects */
+  .project{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid #E4E8EA;display:flex;flex-direction:column}
+  .project .thumb{position:relative;aspect-ratio:8/5;overflow:hidden;background:var(--slate)}
+  .project .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease),filter .6s}
+  .project:hover .thumb img{transform:scale(1.1) rotate(1deg)}
+  .project .thumb .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(25,43,52,.92));display:flex;align-items:flex-end;padding:22px;color:var(--white);font-weight:700;opacity:0;transform:translateY(20px);transition:all .5s var(--ease)}
+  .project:hover .thumb .ov{opacity:1;transform:none}
+  .project .thumb .ov span{display:inline-flex;gap:8px;align-items:center;background:var(--orange);padding:10px 18px;border-radius:30px;font-size:.95rem}
+  .project .body{padding:28px}
+  .project .tag{display:inline-block;font-size:.8rem;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.08em;background:rgba(242,101,34,.1);padding:5px 12px;border-radius:20px;margin-bottom:12px;transition:background .3s,color .3s}
+  .project:hover .tag{background:var(--orange);color:var(--white)}
+  .project p{color:var(--muted)}
+  /* image curtain reveal */
+  .project .thumb::after{content:"";position:absolute;inset:0;background:var(--orange);transform-origin:right;transform:scaleX(1);transition:transform 1s var(--ease) .15s;z-index:2}
+  .project.in .thumb::after{transform:scaleX(0)}
+
+  /* Own it */
+  .own-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .compare{background:var(--slate-2);border-radius:var(--radius);padding:34px;border:1px solid var(--slate-3)}
+  .compare-row{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;padding:15px 0;border-bottom:1px solid var(--slate-3);font-size:1.02rem;opacity:0;transform:translateX(30px);transition:all .6s var(--ease)}
+  .compare-row:last-child{border-bottom:none}
+  .compare-row.head{font-weight:800;color:var(--orange)}
+  .compare-row .yes{color:var(--white);font-weight:700}
+  .compare-row .no{color:var(--muted-light)}
+  .compare.in .compare-row{opacity:1;transform:none}
+  .compare.in .compare-row:nth-child(2){transition-delay:.1s}.compare.in .compare-row:nth-child(3){transition-delay:.2s}
+  .compare.in .compare-row:nth-child(4){transition-delay:.3s}.compare.in .compare-row:nth-child(5){transition-delay:.4s}
+  .compare.in .compare-row:nth-child(6){transition-delay:.5s}
+
+  /* Process timeline */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:52px;counter-reset:step;position:relative}
+  .step{padding:34px;background:var(--white);border:1px solid #E4E8EA;border-radius:var(--radius)}
+  .step .sn{display:block;font-size:2.8rem;font-weight:800;line-height:1;margin-bottom:16px;color:transparent;-webkit-text-stroke:1.5px var(--orange);transition:color .4s}
+  .step:hover .sn{color:var(--orange)}
+  .step p{color:var(--muted)}
+  .step .bar{position:absolute!important;left:34px;right:34px;bottom:0;height:4px;border-radius:4px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform 1.1s var(--ease) .4s}
+  .step.in .bar{transform:scaleX(1)}
+
+  /* Pricing approach */
+  .price-card{background:var(--white);color:var(--text);border-radius:var(--radius);padding:38px;display:flex;flex-direction:column}
+  .price-card .label{font-size:.9rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)}
+  .price-card .price{font-size:2rem;font-weight:800;margin:8px 0 14px}
+  .price-card p{color:var(--muted)}
+  .price-card.featured::after{opacity:1}
+  .price-card.featured .pop{position:absolute!important;top:-14px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:.8rem;font-weight:800;letter-spacing:.08em;padding:6px 14px;border-radius:20px;white-space:nowrap}
+
+  /* Tech marquee */
+  .marquee{overflow:hidden;margin-top:44px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+  .chips{display:flex;gap:14px;width:max-content;animation:scroll 32s linear infinite}
+  .marquee:hover .chips{animation-play-state:paused}
+  .marquee.rev .chips{animation-direction:reverse;margin-top:14px}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  .chip{padding:13px 24px;border-radius:50px;background:var(--white);border:1.5px solid #D5DBDE;font-weight:600;font-size:1.02rem;white-space:nowrap;transition:all .3s}
+  .chip:hover{background:var(--orange);color:var(--white);border-color:var(--orange);transform:translateY(-4px)}
+
+  /* Reviews */
+  .review{background:var(--slate-2);border-radius:var(--radius);padding:34px;border:1px solid var(--slate-3)}
+  .review .q{position:absolute!important;top:18px;right:26px;font-size:5rem;line-height:1;color:var(--orange);opacity:.18;font-family:Georgia,serif;transition:opacity .4s,transform .5s var(--ease)}
+  .review:hover .q{opacity:.6;transform:translateZ(40px) scale(1.1)}
+  .review .stars{color:var(--orange);font-size:1.3rem;letter-spacing:3px;margin-bottom:12px}
+  .review .stars span{display:inline-block;opacity:0;transform:scale(0) rotate(-90deg)}
+  .review.in .stars span{animation:star .5s var(--ease) forwards}
+  .review.in .stars span:nth-child(2){animation-delay:.1s}.review.in .stars span:nth-child(3){animation-delay:.2s}
+  .review.in .stars span:nth-child(4){animation-delay:.3s}.review.in .stars span:nth-child(5){animation-delay:.4s}
+  @keyframes star{to{opacity:1;transform:none}}
+  .review p{color:var(--white);font-size:1.1rem}
+  .review .who{margin-top:20px;display:flex;align-items:center;gap:12px}
+  .review .av{width:44px;height:44px;border-radius:50%;background:var(--orange);display:grid;place-items:center;font-weight:800;color:#fff}
+  .review .who b{display:block;color:var(--white)}
+  .review .who small{color:var(--muted-light);font-size:.9rem}
+
+  /* FAQ */
+  .faq{max-width:880px;margin:48px auto 0}
+  details{background:var(--white);border:1px solid #E4E8EA;border-radius:14px;padding:22px 26px;margin-bottom:14px;transition:border-color .3s,box-shadow .3s}
+  details:hover{border-color:var(--orange)}
+  details[open]{border-color:var(--orange);box-shadow:0 14px 34px rgba(25,43,52,.08)}
+  summary{font-size:1.2rem;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";flex:none;width:34px;height:34px;border-radius:50%;background:rgba(242,101,34,.1);color:var(--orange);font-size:1.5rem;display:grid;place-items:center;transition:transform .35s var(--ease),background .3s,color .3s}
+  details[open] summary::after{transform:rotate(135deg);background:var(--orange);color:#fff}
+  details p{margin-top:12px;color:var(--muted);animation:fadeDown .45s var(--ease)}
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+  /* Final CTA */
+  .cta-band{background:var(--orange);color:var(--white);text-align:center;position:relative;overflow:hidden}
+  .cta-band::before,.cta-band::after{content:"";position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.25);animation:ripple 6s linear infinite}
+  .cta-band::before{width:600px;height:600px;left:-200px;top:-300px}
+  .cta-band::after{width:500px;height:500px;right:-160px;bottom:-280px;animation-delay:-3s}
+  @keyframes ripple{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.4);opacity:0}}
+  .cta-band .wrap{position:relative;z-index:1}
+  .cta-band h2{color:var(--white)}
+  .cta-band p{font-size:1.25rem;max-width:680px;margin:0 auto 32px;color:rgba(255,255,255,.9)}
+  .cta-band .btn{background:var(--slate);color:var(--white);animation:pulse 2.2s infinite}
+  .cta-band .btn:hover{background:var(--slate-2)}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(25,43,52,.5)}70%{box-shadow:0 0 0 18px rgba(25,43,52,0)}100%{box-shadow:0 0 0 0 rgba(25,43,52,0)}}
+  .cta-band .phone{display:block;margin-top:22px;font-size:1.6rem;font-weight:800}
+
+  /* Footer */
+  footer{background:var(--slate);color:var(--muted-light);padding:64px 0 30px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+  footer h4{color:var(--white);font-size:1.15rem;margin-bottom:14px}
+  footer ul{list-style:none;display:grid;gap:8px}
+  footer a:hover{color:var(--orange)}
+  .copy{border-top:1px solid var(--slate-3);margin-top:44px;padding-top:22px;font-size:.95rem;text-align:center}
+
+  /* Scroll progress */
+  .progress{position:fixed;top:0;left:0;height:4px;width:0;background:var(--orange);z-index:100;box-shadow:0 0 12px var(--orange-glow)}
+
+  /* Scroll reveal – 3D flip up */
+  .reveal{opacity:0;transform:perspective(1000px) translateY(60px) rotateX(18deg);filter:blur(6px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none;filter:none}
+
+
+  /* Client logo carousel */
+  .clients{padding:84px 0 76px}
+  .clients-title{font-size:clamp(1.5rem,2.4vw,2rem)}
+  .logo-track{overflow:hidden;margin-top:36px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .logos{display:flex;gap:28px;width:max-content;animation:scroll 38s linear infinite}
+  .logo-track:hover .logos{animation-play-state:paused}
+  .logo-item{flex:none;width:200px;height:110px;border-radius:16px;background:var(--white);border:1px solid #E4E8EA;display:grid;place-items:center;padding:18px 26px;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
+  .logo-item img{max-height:70px;max-width:100%;object-fit:contain;filter:grayscale(1);opacity:.7;transition:filter .4s,opacity .4s,transform .4s var(--ease)}
+  .logo-item:hover{transform:translateY(-6px);border-color:var(--orange);box-shadow:0 16px 34px rgba(25,43,52,.12)}
+  .logo-item:hover img{filter:none;opacity:1;transform:scale(1.06)}
+  .stats{padding:80px 0}
+  @media(max-width:640px){.clients{padding:64px 0 50px}.logo-item{width:150px;height:88px}}
+
+  .call-bar{display:none}
+
+  @media(max-width:1024px){
+    .hero-grid,.own-grid{grid-template-columns:1fr}
+    .video-frame{transform:none}
+    .qf form{grid-template-columns:1fr 1fr}
+    .qf .btn{grid-column:1/-1}
+    .grid-3,.steps{grid-template-columns:1fr 1fr}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .foot-grid{grid-template-columns:1fr}
+    .badge.b1{left:10px}.badge.b2{right:10px}
+  }
+  @media(max-width:640px){
+    section{padding:68px 0}
+    .grid-3,.steps{grid-template-columns:1fr}
+    .nav-phone{display:none}
+    .hero{padding:44px 0 150px}
+    .qf{padding:24px 20px}
+    .qf form{grid-template-columns:1fr}
+    .badge{font-size:.85rem;padding:9px 12px}.badge .ic{width:30px;height:30px}
+    .badge.b1{bottom:-22px}.badge.b2{top:-20px}
+    .compare-row{font-size:.92rem}
+    .stat b{font-size:2.4rem}
+    .call-bar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60}
+    .call-bar a{flex:1;text-align:center;padding:16px;font-weight:800;font-size:1.05rem}
+    .call-bar .c1{background:var(--orange);color:var(--white)}
+    .call-bar .c2{background:var(--slate);color:var(--white)}
+    body{padding-bottom:56px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal,.hero .eyebrow,.hero h1,.hero p.sub,.hero .ticks li,.hero-ctas,.stage,.qf,.compare-row,.review .stars span{opacity:1!important;transform:none!important;filter:none!important}
+    .project .thumb::after{display:none}
+    .icon svg *{stroke-dashoffset:0}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<!-- HEADER -->
+<header id="top">
+  <div class="wrap nav">
+    <a href="https://mediaclock.com.au" class="logo">Media<span>Clock</span></a>
+    <div class="nav-right">
+      <a href="tel:0390164442" class="nav-phone"><span class="ring"></span>03 9016 4442</a>
+      <a href="#enquire" class="btn">Get a Free Consult</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="orb o1"></span><span class="orb o2"></span>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Custom Software Development Melbourne</span>
+      <h1>Software built around how your <span class="rotator"><span id="rotWord">business</span><span class="caret"></span></span> actually works</h1>
+      <p class="sub">Juggling spreadsheets, manual processes, double-entering data and paying for tools that only do half the job? We build the system that ties it all together.</p>
+      <ul class="ticks">
+        <li>Custom software built exactly around your business requirements</li>
+        <li>Automate Complex & Manual Workflows</li>
+        <li>Capture Field Data & Generate Reports Automatically</li>
+        <li>Improve Accuracy, Transparency & Productivity</li>
+      </ul>
+      <div class="hero-ctas">
+        <a href="#enquire" class="btn">Book a Free Discovery Call <span class="arr">→</span></a>
+        <a href="tel:0390164442" class="btn btn-outline">Call 03 9016 4442</a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="video-frame" id="vframe">
+        <span class="live"><i></i>LIVE DEMO</span>
+        <!-- Upload assets/hero-video.mp4 + hero-poster.jpg to WordPress Media and update these paths -->
+        <video autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" aria-label="Animated demo of a custom business dashboard and field app">
+          <source src="assets/hero-video.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="badge b1"><span class="ic" style="background:#3FB37F">✓</span><div>Invoice synced to Xero<small>No double entry</small></div></div>
+      <div class="badge b2"><span class="ic" style="background:var(--orange)">⚡</span><div>36 admin hours saved<small>Every week, automated</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK FORM (overlaps hero) -->
+<div class="qf-wrap" id="enquire">
+  <div class="wrap">
+    <div class="qf">
+      <div class="qf-head">
+        <h3>Tell us what you need built</h3>
+        <p>Brainstorm, technology, timeline & costs</p>
+      </div>
+      <form action="#" method="post">
+        <div><label for="name">Name*</label><input id="name" name="name" type="text" required></div>
+        <div><label for="email">Email*</label><input id="email" name="email" type="email" required></div>
+        <div><label for="phone">Phone*</label><input id="phone" name="phone" type="tel" placeholder="04XX XXX XXX" required></div>
+        <div><label for="type">What do you need?</label>
+          <select id="type" name="type">
+            <option>Business system / internal tool</option>
+            <option>Customer or staff portal</option>
+            <option>Dashboard & reporting</option>
+            <option>Workflow automation</option>
+            <option>System integration / API</option>
+            <option>Replace or rebuild old software</option>
+            <option>SaaS product</option>
+            <option>Not sure yet</option>
+          </select></div>
+        <button type="submit" class="btn">Get My Free Consult <span class="arr">→</span></button>
+      </form>
+      <p class="nda">🔒 Your details are protected by our NDA. No spam, ever.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TRUSTED BY (client logo carousel) -->
+<section class="clients">
+  <div class="wrap center">
+    <span class="eyebrow">Trusted by</span>
+    <h2 class="clients-title">Businesses across Australia rely on our software</h2>
+  </div>
+  <div class="logo-track">
+    <div class="logos" id="logos">
+      <!-- Client logos from mediaclock.com.au media library -->
+      <span class="logo-item"><img src="https://mediaclock.com.au/wp-content/uploads/2025/09/80.webp" alt="Client logo" loading="lazy"></span>
+      <span class="logo-item"><img src="https://mediaclock.com.au/wp-content/uploads/2025/09/99-1.webp" alt="Client logo" loading="lazy"></span>
+      <span class="logo-item"><img src="https://mediaclock.com.au/wp-content/uploads/2025/09/digital-1.webp" alt="Client logo" loading="lazy"></span>
+      <span class="logo-item"><img src="https://mediaclock.com.au/wp-content/uploads/2025/09/888.webp" alt="Client logo" loading="lazy"></span>
+      <span class="logo-item"><img src="https://mediaclock.com.au/wp-content/uploads/2025/09/digital-2.webp" alt="Client logo" loading="lazy"></span>
+      <span class="logo-item"><img src="https://mediaclock.com.au/wp-content/uploads/2025/09/222.webp" alt="Client logo" loading="lazy"></span>
+      <span class="logo-item"><img src="https://mediaclock.com.au/wp-content/uploads/2025/09/west-coast.webp" alt="West Coast client logo" loading="lazy"></span>
+      <span class="logo-item"><img src="https://mediaclock.com.au/wp-content/uploads/2025/09/450-1.webp" alt="Client logo" loading="lazy"></span>
+      <span class="logo-item"><img src="https://mediaclock.com.au/wp-content/uploads/2025/09/44.webp" alt="Client logo" loading="lazy"></span>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN POINTS -->
+<section class="pain alt">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Sound familiar?</span>
+      <h2>Your business has outgrown off-the-shelf tools</h2>
+      <p class="lead">Generic software works until it doesn't. Here's when custom starts to make sense.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card tilt"><span class="glare"></span>
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" pathLength="1"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18" pathLength="1"/></svg></div>
+        <h3>Everything lives in spreadsheets</h3>
+        <p>Nobody's sure which version is right, and one person holds half the process in their head.</p>
+      </div>
+      <div class="card tilt"><span class="glare"></span>
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M9 7H6a4 4 0 0 0 0 8h3M15 7h3a4 4 0 0 1 0 8h-3" pathLength="1"/><path d="M4 20L20 4" pathLength="1"/></svg></div>
+        <h3>Your tools don't talk to each other</h3>
+        <p>Staff re-type the same job, customer or invoice into three systems. Mistakes creep in every week.</p>
+      </div>
+      <div class="card tilt"><span class="glare"></span>
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8" pathLength="1"/><path d="M15 7h6v6" pathLength="1"/></svg></div>
+        <h3>Subscriptions keep climbing</h3>
+        <p>Every new staff member means another monthly seat, for software that still doesn't fit how you work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Our work</span>
+      <h2>Software we've built for Australian businesses</h2>
+    </div>
+    <div class="grid-3">
+      <div class="project tilt"><span class="glare"></span>
+        <div class="thumb"><img src="assets/project-1.jpg" alt="Hazard reporting dashboard and mobile app" loading="lazy"><div class="ov"><span>Discuss a similar build →</span></div></div>
+        <div class="body"><span class="tag">Mining & Safety</span><h3>Hazard Reporting System</h3><p>Field workers log hazards on mobile with photos; supervisors review and close them out from a web dashboard.</p></div>
+      </div>
+      <div class="project tilt"><span class="glare"></span>
+        <div class="thumb"><img src="assets/project-2.jpg" alt="Property inspection app and branded PDF report" loading="lazy"><div class="ov"><span>Discuss a similar build →</span></div></div>
+        <div class="body"><span class="tag">Property</span><h3>Inspection & Reporting Platform</h3><p>Onsite inspections with photos turned into branded client reports – replacing costly per-user subscriptions.</p></div>
+      </div>
+      <div class="project tilt"><span class="glare"></span>
+        <div class="thumb"><img src="assets/project-3.jpg" alt="Parking bay availability dashboard and booking app" loading="lazy"><div class="ov"><span>Discuss a similar build →</span></div></div>
+        <div class="body"><span class="tag">Operations</span><h3>Parking Management System</h3><p>Bookings, bay availability and admin controls for a parking operator, all in one system.</p></div>
+      </div>
+    </div>
+    <div class="center" style="margin-top:44px"><a href="#enquire" class="btn">Discuss Your Project <span class="arr">→</span></a></div>
+  </div>
+</section>
+
+<!-- WHAT WE BUILD -->
+<section class="alt">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">What we build</span>
+      <h2>Custom software for real business problems</h2>
+      <p class="lead">Designed around your workflow, your people and your data – not a template.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card tilt"><span class="glare"></span><span class="num">01</span>
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2" pathLength="1"/><path d="M8 21h8M12 18v3" pathLength="1"/><path d="M6 13l3-3 3 2 5-5" pathLength="1"/></svg></div>
+        <h3>Business Systems</h3><p>Job management, inspections, bookings, scheduling, compliance – the system your team runs on every day.</p><a href="#enquire" class="more">Discuss this <span>→</span></a></div>
+      <div class="card tilt"><span class="glare"></span><span class="num">02</span>
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" pathLength="1"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7" pathLength="1"/></svg></div>
+        <h3>Customer & Staff Portals</h3><p>Secure logins where customers track orders, submit requests and manage their account without calling you.</p><a href="#enquire" class="more">Discuss this <span>→</span></a></div>
+      <div class="card tilt"><span class="glare"></span><span class="num">03</span>
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" pathLength="1"/></svg></div>
+        <h3>Dashboards & Reporting</h3><p>Live numbers in one place. No more weekly exports or chasing people for updates.</p><a href="#enquire" class="more">Discuss this <span>→</span></a></div>
+      <div class="card tilt"><span class="glare"></span><span class="num">04</span>
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" pathLength="1"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" pathLength="1"/></svg></div>
+        <h3>Workflow Automation</h3><p>Approvals, quotes, reports and reminders that run themselves, so your team can do the real work.</p><a href="#enquire" class="more">Discuss this <span>→</span></a></div>
+      <div class="card tilt"><span class="glare"></span><span class="num">05</span>
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6" pathLength="1"/><path d="M14 4l-4 16" pathLength="1"/></svg></div>
+        <h3>Integrations & APIs</h3><p>Connect Xero, MYOB, your CRM, payment gateways or hardware so data flows once, correctly.</p><a href="#enquire" class="more">Discuss this <span>→</span></a></div>
+      <div class="card tilt"><span class="glare"></span><span class="num">06</span>
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="14" height="11" rx="2" pathLength="1"/><rect x="15" y="9" width="7" height="12" rx="1.5" pathLength="1"/><path d="M6 19h6" pathLength="1"/></svg></div>
+        <h3>Web + Mobile Together</h3><p>An admin web app for the office and a mobile app for the field, built as one connected system.</p><a href="#enquire" class="more">Discuss this <span>→</span></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><b data-count="2017" data-start="2000">2017</b><span>Building software since</span></div>
+    <div class="stat"><b data-count="50" data-suffix="+">50+</b><span>Apps & platforms delivered</span></div>
+    <div class="stat"><b data-count="100" data-suffix="%">100%</b><span>Code ownership to you</span></div>
+    <div class="stat"><b data-count="0" data-prefix="$" data-start="99">$0</b><span>Per-user licence fees</span></div>
+  </div>
+</div>
+
+<!-- OWN IT -->
+<section class="dark">
+  <div class="wrap own-grid">
+    <div>
+      <span class="eyebrow">Built to own, not rent</span>
+      <h2>Pay once for the build. Own it for good.</h2>
+      <p class="lead">With off-the-shelf software you rent someone else's product forever. With us, the code, the data and the roadmap are yours.</p>
+      <ul class="ticks" style="margin-top:28px">
+        <li>Full source code handed over</li>
+        <li>Hosted on your account, not ours</li>
+        <li>Add users without adding costs</li>
+        <li>Change it whenever your business changes</li>
+      </ul>
+    </div>
+    <div class="compare">
+      <div class="compare-row head"><span></span><span>Custom</span><span>Off-the-shelf</span></div>
+      <div class="compare-row"><span>Fits your process</span><span class="yes">✓ Yes</span><span class="no">Partly</span></div>
+      <div class="compare-row"><span>Per-user fees</span><span class="yes">✓ None</span><span class="no">Monthly, forever</span></div>
+      <div class="compare-row"><span>You own the code</span><span class="yes">✓ Yes</span><span class="no">No</span></div>
+      <div class="compare-row"><span>Connects to your tools</span><span class="yes">✓ Built in</span><span class="no">If supported</span></div>
+      <div class="compare-row"><span>Feature requests</span><span class="yes">✓ Your call</span><span class="no">Their roadmap</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="alt">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">How we work</span>
+      <h2>From first call to go-live</h2>
+      <p class="lead">A clear process so you always know where the project is and what's next.</p>
+    </div>
+    <div class="steps">
+      <div class="step tilt"><span class="glare"></span><span class="sn">01</span><h3>Discovery Call</h3><p>A free chat about the problem, your team and what success looks like.</p><span class="bar"></span></div>
+      <div class="step tilt"><span class="glare"></span><span class="sn">02</span><h3>Scoping</h3><p>We map your workflows and write a Scope of Work – features, timeline and cost, in writing.</p><span class="bar"></span></div>
+      <div class="step tilt"><span class="glare"></span><span class="sn">03</span><h3>Design & Prototype</h3><p>Wireframes and a clickable prototype so you see it before a line of code is written.</p><span class="bar"></span></div>
+      <div class="step tilt"><span class="glare"></span><span class="sn">04</span><h3>Build in Sprints</h3><p>Working software every couple of weeks. You test it, we adjust.</p><span class="bar"></span></div>
+      <div class="step tilt"><span class="glare"></span><span class="sn">05</span><h3>Test & Launch</h3><p>Full QA, data migration, staff handover and a smooth go-live.</p><span class="bar"></span></div>
+      <div class="step tilt"><span class="glare"></span><span class="sn">06</span><h3>Support & Grow</h3><p>Bug fixes, updates and new features as your business grows.</p><span class="bar"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING APPROACH -->
+<section class="dark">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Pricing</span>
+      <h2>No guesswork on cost</h2>
+      <p class="lead">Every business is different, so we don't sell off-the-rack packages. Here's how we get you to a firm number.</p>
+    </div>
+    <div class="grid-3">
+      <div class="price-card tilt"><span class="glare"></span>
+        <span class="label">Step 1</span><div class="price">Free</div><h3>Discovery Call</h3>
+        <p>30 minutes to understand the problem and tell you honestly whether custom software is the right move.</p>
+      </div>
+      <div class="price-card tilt featured"><span class="glare"></span><span class="pop">WHERE THE CLARITY COMES FROM</span>
+        <span class="label">Step 2</span><div class="price">Paid Scoping</div><h3>Scope of Work</h3>
+        <p>We map workflows, users and integrations, then give you a detailed scope, timeline and fixed quote.</p>
+      </div>
+      <div class="price-card tilt"><span class="glare"></span>
+        <span class="label">Step 3</span><div class="price">Fixed Quote</div><h3>Build</h3>
+        <p>Agreed price, agreed dates, agreed deliverables. No surprise invoices halfway through.</p>
+      </div>
+    </div>
+    <div class="center" style="margin-top:44px"><a href="#enquire" class="btn">Book Your Free Discovery Call <span class="arr">→</span></a></div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section>
+  <div class="wrap center">
+    <span class="eyebrow">Technology</span>
+    <h2>Proven tools, chosen for your project</h2>
+  </div>
+  <div class="marquee"><div class="chips" id="chips1">
+    <span class="chip">React</span><span class="chip">React Native</span><span class="chip">Node.js</span><span class="chip">Laravel</span><span class="chip">PHP</span><span class="chip">Python</span><span class="chip">TypeScript</span><span class="chip">Next.js</span>
+  </div></div>
+  <div class="marquee rev"><div class="chips" id="chips2">
+    <span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">Firebase</span><span class="chip">AWS</span><span class="chip">Azure</span><span class="chip">ThingsBoard IoT</span><span class="chip">Stripe</span><span class="chip">Xero API</span><span class="chip">REST & GraphQL</span>
+  </div></div>
+</section>
+
+<!-- REVIEWS (genuine Google reviews from Media Clock's listing) -->
+<section class="dark">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Client feedback</span>
+      <h2>What our clients say</h2>
+    </div>
+    <div class="grid-3">
+      <div class="review tilt"><span class="glare"></span><span class="q">"</span>
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p>"They built a solid, easy-to-use web and mobile system for our onsite inspection reports. We use it every day – and no more expensive per-user subscriptions."</p>
+        <div class="who"><span class="av">RG</span><div><b>Ruchi Gurung</b><small>Google Review</small></div></div>
+      </div>
+      <div class="review tilt"><span class="glare"></span><span class="q">"</span>
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p>"From requirement gathering and UI/UX right through to the full web and mobile application, the whole process was smooth. On time, on budget."</p>
+        <div class="who"><span class="av">SR</span><div><b>Stephen Rainbird</b><small>Google Review</small></div></div>
+      </div>
+      <div class="review tilt"><span class="glare"></span><span class="q">"</span>
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p>"Our project stalled with another company. Media Clock got it back on track, finished it, and has maintained it for over two years."</p>
+        <div class="who"><span class="av">TC</span><div><b>Tymspen Co.</b><small>Google Review</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="alt">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>How much does custom software cost?</summary><p>It depends on the number of users, workflows and integrations. After a free discovery call, we run a paid scoping session and give you a fixed quote in writing before any build starts.</p></details>
+      <details><summary>How long does it take?</summary><p>A focused first version usually takes a few months. Larger systems with many user roles or integrations take longer. You'll get dates in writing during scoping.</p></details>
+      <details><summary>Who owns the software?</summary><p>You do. Source code, data and documentation are handed over to you. No lock-in, no exit fees.</p></details>
+      <details><summary>Can it work with the systems we already use?</summary><p>Yes. We connect to accounting software, CRMs, payment gateways, email and any system with a documented API, so you don't have to replace everything at once.</p></details>
+      <details><summary>We're a small business. Is custom software worth it?</summary><p>Often, yes – especially if you're paying for several subscriptions or losing hours to manual work. We'll tell you honestly on the discovery call if an off-the-shelf tool is the better fit.</p></details>
+      <details><summary>Can you fix or replace our existing software?</summary><p>Yes. We start with a review of what you have, then tell you whether it's cheaper to improve it or rebuild it.</p></details>
+      <details><summary>What happens after launch?</summary><p>We offer ongoing support covering bug fixes, security updates and new features, sized to what your system needs.</p></details>
+      <details><summary>Is my idea kept confidential?</summary><p>Yes. We sign an NDA before you share any details, and it stays in place for the life of the project.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Ready to stop working around your software?</h2>
+    <p>Tell us what's slowing your team down. We'll show you what a custom system could look like – free, no obligation.</p>
+    <a href="#enquire" class="btn">Book a Free Discovery Call <span class="arr">→</span></a>
+    <a href="tel:0390164442" class="phone">03 9016 4442</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="https://mediaclock.com.au" class="logo">Media<span>Clock</span></a>
+        <p style="margin-top:14px">Custom software, mobile apps and web applications for Australian businesses.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="https://mediaclock.com.au/mobile-app-development-melbourne/">Mobile App Development</a></li>
+          <li><a href="#">Custom Software Development</a></li>
+          <li><a href="#">Web Application Development</a></li>
+          <li><a href="#">UI/UX Design</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>MEDIACLOCK PTY LTD. ABN 65 617 380 006</li>
+          <li>392 A St Kilda Rd, St Kilda VIC 3182</li>
+          <li><a href="tel:0390164442">03 9016 4442</a></li>
+          <li><a href="tel:0410576590">0410 576 590</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">© 2026 Media Clock. All rights reserved.</div>
+  </div>
+</footer>
+
+<div class="call-bar">
+  <a href="tel:0390164442" class="c1">📞 Call Now</a>
+  <a href="#enquire" class="c2">Get a Quote</a>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+  // Scroll progress + header shadow
+  var bar = document.getElementById('progress'), hdr = document.getElementById('top');
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement;
+    bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+    hdr.classList.toggle('scrolled', h.scrollTop > 10);
+  }, {passive:true});
+
+  // Typewriter headline word
+  var words = ['business','team','customers','workflow'], wi = 0, el = document.getElementById('rotWord');
+  function type(w,i,done){ el.textContent = w.slice(0,i); if(i < w.length) setTimeout(function(){type(w,i+1,done)},90); else setTimeout(done,1900); }
+  function erase(i,done){ el.textContent = el.textContent.slice(0,i); if(i > 0) setTimeout(function(){erase(i-1,done)},45); else done(); }
+  function cycle(){ erase(el.textContent.length, function(){ wi=(wi+1)%words.length; type(words[wi],1,cycle); }); }
+  if(!reduce) setTimeout(cycle, 2400);
+
+  // Scroll reveal (3D flip-up, staggered per row)
+  var targets = document.querySelectorAll('section .center, .tilt, .compare, .faq details, .own-grid > div:first-child, .cta-band .wrap, .stat');
+  targets.forEach(function(t){
+    t.classList.add('reveal');
+    var idx = Array.prototype.indexOf.call(t.parentNode.children, t);
+    t.style.transitionDelay = ((idx % 3) * 0.12) + 's';
+    var ic = t.querySelector('.icon'); if(ic) ic.style.animationDelay = ((idx % 3) * 0.12 + .3) + 's';
+  });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(!e.isIntersecting) return;
+      var t = e.target; t.classList.add('in'); io.unobserve(t);
+      setTimeout(function(){ t.style.transitionDelay=''; t.classList.remove('reveal'); }, 1500);
+    });
+  }, {threshold:.15, rootMargin:'0px 0px -40px 0px'});
+  targets.forEach(function(t){ io.observe(t); });
+
+  // Count-up stats
+  var co = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(!e.isIntersecting) return;
+      var n=e.target, end=+n.dataset.count, start=+(n.dataset.start||0), pre=n.dataset.prefix||'', suf=n.dataset.suffix||'', t0=null, dur=1800;
+      function step(ts){ if(!t0) t0=ts; var p=Math.min((ts-t0)/dur,1), k=1-Math.pow(1-p,3);
+        n.textContent = pre + Math.round(start+(end-start)*k) + suf; if(p<1) requestAnimationFrame(step); }
+      if(!reduce) requestAnimationFrame(step); co.unobserve(n);
+    });
+  }, {threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(function(c){ co.observe(c); });
+
+  // 3D tilt + cursor glare on every card
+  if(finePointer && !reduce){
+    document.querySelectorAll('.tilt').forEach(function(c){
+      c.addEventListener('mouseenter', function(){ c.classList.add('moving'); });
+      c.addEventListener('mousemove', function(e){
+        var r=c.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+        c.style.setProperty('--mx', (x*100)+'%'); c.style.setProperty('--my', (y*100)+'%');
+        c.style.transform = 'perspective(1000px) rotateX('+((.5-y)*10)+'deg) rotateY('+((x-.5)*12)+'deg) translateY(-8px)';
+      });
+      c.addEventListener('mouseleave', function(){ c.classList.remove('moving'); c.style.transform=''; });
+    });
+
+    // Hero video frame follows the mouse
+    var vf = document.getElementById('vframe'), hero = document.querySelector('.hero');
+    hero.addEventListener('mousemove', function(e){
+      if(innerWidth < 1025) return;
+      var x=e.clientX/innerWidth-.5, y=e.clientY/innerHeight-.5;
+      vf.style.transform = 'rotateY('+(-8 + x*10)+'deg) rotateX('+(4 - y*8)+'deg)';
+    });
+    hero.addEventListener('mouseleave', function(){ vf.style.transform=''; });
+
+    // Orb parallax
+    var orbs = document.querySelectorAll('.orb');
+    window.addEventListener('mousemove', function(e){
+      var x=(e.clientX/innerWidth-.5)*30, y=(e.clientY/innerHeight-.5)*30;
+      orbs.forEach(function(o,i){ o.style.translate = (i?-x:x)+'px '+(i?-y:y)+'px'; });
+    }, {passive:true});
+  }
+
+  // Pause the hero video when off-screen (saves battery / CPU)
+  var vid = document.querySelector('.video-frame video');
+  if(reduce){ vid.removeAttribute('autoplay'); vid.pause(); }
+  else new IntersectionObserver(function(e){ e[0].isIntersecting ? vid.play().catch(function(){}) : vid.pause(); }).observe(vid);
+
+  // Seamless tech marquees
+  ['chips1','chips2','logos'].forEach(function(id){ var c=document.getElementById(id); c.innerHTML += c.innerHTML; });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1736 @@
+/* ============================================================
+   csd.css
+   Custom Software Development advertisement pages only
+   (/custom-software-development-perth/, /custom-software-development-melbourne/).
+
+   Loaded after main.css, which supplies the shared slider layout the
+   Technologies strip is built on. Every selector here is either namespaced
+   .csd- or scoped under .csd-body, so nothing in this file can reach the main
+   site or the mobile-app ad pages, and nothing there can reach these pages.
+
+   Band order, top to bottom:
+     .csd-hero        dark    headline, video stage
+     .csd-qf          white   quick form, overlapping the hero
+     .csd-logos       white   trusted by (marquee, as the other ad pages)
+     .csd-pain        grey    sound familiar?
+     .csd-projects    white   our work
+     .csd-build       grey    what we build
+     .csd-own         dark    built to own, not rent
+     .csd-process     grey    how we work
+     .csd-pricing     dark    pricing
+     .csd-tech-band   white   technologies (slider, as the other ad pages)
+     .csd-reviews     dark    client feedback
+     .csd-faq         grey    questions
+     .csd-cta-band    orange  closing call to action
+     .csd-footer      dark
+   ============================================================ */
+
+/* --csd-ang drives the conic gradients that spin around the video frame and
+   the card borders. Registering it as an angle is what lets them animate at
+   all — an unregistered custom property is a string and jumps instead. */
+@property --csd-ang {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.csd-body {
+  /* Brand colours, from the Media Clock logo only */
+  --csd-slate: #192b34;
+  --csd-slate-2: #20363f;
+  --csd-slate-3: #2a4450;
+  --csd-orange: #f26522;
+  --csd-orange-dark: #d9531a;
+  --csd-orange-glow: rgba(242, 101, 34, 0.35);
+  --csd-white: #fff;
+  --csd-light: #f5f6f7;
+  --csd-text: #192b34;
+  --csd-muted: #5b6b72;
+  --csd-muted-light: #b9c4c9;
+  --csd-line: #e4e8ea;
+  --csd-field-line: #d5dbde;
+  /* Type scale */
+  --csd-h1: clamp(2.2rem, 4.6vw, 3.9rem);
+  --csd-h2: clamp(1.8rem, 3.6vw, 3rem);
+  --csd-radius: 18px;
+  --csd-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  margin: 0;
+  font-family: "Plus Jakarta Sans", var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--csd-text);
+  background: var(--csd-white);
+  overflow-x: hidden;
+}
+
+/* ------------------------------------------------------------
+   Base
+   ------------------------------------------------------------ */
+/* Deliberately no `color: inherit` here. main.css already sets it on the bare
+   `a` selector, and repeating it at .csd-body a — specificity (0,1,1) — would
+   outrank every single-class rule below that colours a link (.csd-btn,
+   .csd-nav-phone, .csd-more), silently turning them all back to body text. */
+.csd-body a {
+  text-decoration: none;
+}
+.csd-body img,
+.csd-body video {
+  max-width: 100%;
+  display: block;
+}
+.csd-body h1,
+.csd-body h2,
+.csd-body h3 {
+  margin: 0;
+  font-family: inherit;
+}
+.csd-body h1 {
+  font-size: var(--csd-h1);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.csd-body h2 {
+  font-size: var(--csd-h2);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+.csd-body h3 {
+  font-size: 1.4rem;
+  line-height: 1.3;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.csd-body p {
+  margin: 0;
+}
+/* These pages are built from lists and none of them want bullets.
+   Deliberately scoped to .csd-body so it cannot reach anything else. */
+.csd-body ul,
+.csd-body ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* the accessible name for something shown only as a glyph (the star rating,
+   the comparison table caption) */
+.csd-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.csd-wrap {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.csd-section {
+  padding: 104px 0;
+}
+.csd-alt {
+  background: var(--csd-light);
+}
+.csd-dark {
+  background: var(--csd-slate);
+  color: var(--csd-white);
+}
+.csd-center {
+  text-align: center;
+}
+.csd-lead {
+  font-size: 1.25rem;
+  color: var(--csd-muted);
+  max-width: 760px;
+}
+.csd-center .csd-lead {
+  margin: 0 auto;
+}
+.csd-dark .csd-lead {
+  color: var(--csd-muted-light);
+}
+.csd-section-cta {
+  margin-top: 44px;
+}
+
+/* ------------------------------------------------------------
+   Eyebrow
+   ------------------------------------------------------------ */
+.csd-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--csd-orange);
+  margin-bottom: 14px;
+}
+.csd-eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background: var(--csd-orange);
+}
+/* a centred eyebrow gets the second rule, so the label sits between two */
+.csd-center .csd-eyebrow::after {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background: var(--csd-orange);
+}
+
+/* ------------------------------------------------------------
+   Buttons
+   ------------------------------------------------------------ */
+.csd-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--csd-orange);
+  color: var(--csd-white);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  padding: 16px 30px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    background 0.25s,
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+.csd-btn:hover {
+  background: var(--csd-orange-dark);
+  color: var(--csd-white);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px var(--csd-orange-glow);
+}
+.csd-btn:focus-visible {
+  outline: 3px solid var(--csd-white);
+  outline-offset: 3px;
+}
+/* the sheen that crosses the button every few seconds */
+.csd-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-20deg);
+  animation: csd-shine 3.5s infinite;
+}
+@keyframes csd-shine {
+  0%,
+  60% {
+    left: -120%;
+  }
+  100% {
+    left: 160%;
+  }
+}
+.csd-arr {
+  transition: transform 0.25s;
+}
+.csd-btn:hover .csd-arr {
+  transform: translateX(5px);
+}
+.csd-btn-outline {
+  background: transparent;
+  color: var(--csd-white);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+.csd-btn-outline:hover {
+  background: var(--csd-white);
+  color: var(--csd-slate);
+  border-color: var(--csd-white);
+}
+.csd-btn-dark {
+  background: var(--csd-slate);
+}
+.csd-btn-dark:hover {
+  background: var(--csd-slate-2);
+}
+
+/* ------------------------------------------------------------
+   Scroll progress + header
+   ------------------------------------------------------------ */
+.csd-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0;
+  background: var(--csd-orange);
+  z-index: 100;
+  box-shadow: 0 0 12px var(--csd-orange-glow);
+}
+.csd-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(25, 43, 52, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: box-shadow 0.3s;
+}
+.csd-header.is-scrolled {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.csd-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 78px;
+}
+.csd-logo img {
+  width: auto;
+  height: 42px;
+}
+.csd-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.csd-nav-phone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--csd-white);
+  font-weight: 700;
+  font-size: 1.15rem;
+  white-space: nowrap;
+}
+/* the green dot that pulses beside the number */
+.csd-ring {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3fb37f;
+  box-shadow: 0 0 0 0 rgba(63, 179, 127, 0.6);
+  animation: csd-ring 2s infinite;
+}
+@keyframes csd-ring {
+  70% {
+    box-shadow: 0 0 0 10px rgba(63, 179, 127, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(63, 179, 127, 0);
+  }
+}
+.csd-nav .csd-btn {
+  padding: 12px 22px;
+  font-size: 1rem;
+}
+
+/* ------------------------------------------------------------
+   Hero
+   ------------------------------------------------------------ */
+.csd-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--csd-slate);
+  color: var(--csd-white);
+  padding: 72px 0 170px;
+}
+/* the faint grid that drifts behind everything */
+.csd-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: csd-grid 20s linear infinite;
+  pointer-events: none;
+}
+@keyframes csd-grid {
+  to {
+    background-position: 48px 48px;
+  }
+}
+.csd-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: csd-float 12s ease-in-out infinite;
+}
+.csd-orb-1 {
+  width: 520px;
+  height: 520px;
+  background: var(--csd-orange);
+  opacity: 0.35;
+  top: -160px;
+  right: -120px;
+}
+.csd-orb-2 {
+  width: 360px;
+  height: 360px;
+  background: var(--csd-orange-dark);
+  opacity: 0.18;
+  bottom: -160px;
+  left: -100px;
+  animation-delay: -6s;
+}
+@keyframes csd-float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-40px, 40px);
+  }
+}
+.csd-hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 56px;
+  align-items: center;
+}
+.csd-hero-sub {
+  font-size: 1.25rem;
+  color: var(--csd-muted-light);
+  margin: 22px 0 26px;
+  max-width: 560px;
+}
+.csd-rotator {
+  color: var(--csd-orange);
+  display: inline-block;
+  white-space: nowrap;
+}
+.csd-caret {
+  display: inline-block;
+  width: 4px;
+  height: 0.85em;
+  background: var(--csd-orange);
+  margin-left: 4px;
+  vertical-align: -0.06em;
+  animation: csd-blink 1s steps(1) infinite;
+}
+@keyframes csd-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.csd-ticks {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 34px;
+}
+.csd-ticks li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 1.12rem;
+  font-weight: 500;
+}
+.csd-ticks li::before {
+  content: "✓";
+  flex: 0 0 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--csd-orange);
+  color: var(--csd-white);
+  font-weight: 800;
+  font-size: 0.9rem;
+  display: grid;
+  place-items: center;
+}
+.csd-hero-ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ---- Video stage ---- */
+.csd-stage {
+  position: relative;
+  perspective: 1400px;
+}
+.csd-video-frame {
+  position: relative;
+  border-radius: 22px;
+  padding: 3px;
+  transform-style: preserve-3d;
+  transform: rotateY(-8deg) rotateX(4deg);
+  transition: transform 0.6s var(--csd-ease);
+  background: conic-gradient(
+    from var(--csd-ang),
+    rgba(242, 101, 34, 0.15),
+    var(--csd-orange),
+    rgba(242, 101, 34, 0.15) 30%,
+    rgba(255, 255, 255, 0.08) 60%,
+    rgba(242, 101, 34, 0.15)
+  );
+  animation: csd-spin 6s linear infinite;
+  box-shadow:
+    0 40px 90px rgba(0, 0, 0, 0.55),
+    0 0 80px rgba(242, 101, 34, 0.18);
+}
+@keyframes csd-spin {
+  to {
+    --csd-ang: 360deg;
+  }
+}
+.csd-video-frame video,
+.csd-video-frame > img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 19px;
+  background: var(--csd-slate-2);
+}
+.csd-live {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(25, 43, 52, 0.85);
+  backdrop-filter: blur(6px);
+  padding: 7px 14px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.csd-live i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e5484d;
+  box-shadow: 0 0 0 0 rgba(229, 72, 77, 0.6);
+  animation: csd-ring 1.6s infinite;
+}
+.csd-badge {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--csd-white);
+  color: var(--csd-text);
+  border-radius: 14px;
+  padding: 12px 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  font-weight: 700;
+  font-size: 0.98rem;
+  line-height: 1.25;
+  animation: csd-bob 6s ease-in-out infinite;
+}
+.csd-badge small {
+  display: block;
+  font-weight: 500;
+  color: var(--csd-muted);
+  font-size: 0.8rem;
+}
+.csd-badge-ic {
+  width: 38px;
+  height: 38px;
+  flex: none;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 1.1rem;
+}
+.csd-badge-1 {
+  left: -34px;
+  bottom: -30px;
+}
+.csd-badge-2 {
+  right: -22px;
+  top: -26px;
+  animation-delay: -3s;
+}
+@keyframes csd-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* ---- Hero entrance ---- */
+.csd-hero .csd-eyebrow,
+.csd-hero h1,
+.csd-hero-sub,
+.csd-hero .csd-ticks li,
+.csd-hero-ctas,
+.csd-stage {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: csd-rise 0.9s var(--csd-ease) forwards;
+}
+.csd-hero h1 {
+  animation-delay: 0.1s;
+}
+.csd-hero-sub {
+  animation-delay: 0.25s;
+}
+.csd-hero .csd-ticks li:nth-child(1) {
+  animation-delay: 0.4s;
+}
+.csd-hero .csd-ticks li:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.csd-hero .csd-ticks li:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.csd-hero .csd-ticks li:nth-child(4) {
+  animation-delay: 0.7s;
+}
+.csd-hero-ctas {
+  animation-delay: 0.85s;
+}
+.csd-stage {
+  transform: translateX(80px) scale(0.94);
+  animation: csd-rise 1.3s var(--csd-ease) 0.3s forwards;
+}
+@keyframes csd-rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   Quick form band — overlaps the bottom of the hero
+   ------------------------------------------------------------ */
+.csd-qf-wrap {
+  position: relative;
+  z-index: 5;
+  margin-top: -110px;
+  /* the band sits over the hero, so its own background must start below it */
+  background: linear-gradient(to bottom, transparent 110px, var(--csd-white) 110px);
+}
+.csd-qf {
+  background: var(--csd-white);
+  border-radius: 22px;
+  padding: 30px 32px;
+  box-shadow: 0 30px 70px rgba(25, 43, 52, 0.22);
+  border-top: 5px solid var(--csd-orange);
+  opacity: 0;
+  transform: translateY(40px);
+  animation: csd-rise 1s var(--csd-ease) 1s forwards;
+}
+.csd-qf-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.csd-qf-head h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+.csd-qf-head p {
+  color: var(--csd-muted);
+  font-size: 1rem;
+}
+.csd-qf form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.2fr auto;
+  gap: 14px;
+  align-items: start;
+}
+.csd-qf label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.csd-qf input,
+.csd-qf select {
+  width: 100%;
+  height: 54px;
+  padding: 0 16px;
+  border: 1.5px solid var(--csd-field-line);
+  border-radius: 12px;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--csd-text);
+  background: var(--csd-white);
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
+}
+.csd-qf input:focus,
+.csd-qf select:focus {
+  outline: none;
+  border-color: var(--csd-orange);
+  box-shadow: 0 0 0 4px rgba(242, 101, 34, 0.15);
+}
+/* main.js's validator paints .is-invalid and drops a .field-error after the
+   field; both are shared styles, so only the fit is set here */
+.csd-qf input.is-invalid,
+.csd-qf select.is-invalid {
+  border-color: #d93025;
+}
+.csd-qf .field-error {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  color: #d93025;
+}
+/* the submit button lines up with the inputs, not with their labels */
+.csd-qf form > .csd-btn {
+  height: 54px;
+  margin-top: 27px;
+  white-space: nowrap;
+}
+.csd-qf-note {
+  font-size: 0.9rem;
+  color: var(--csd-muted);
+  margin-top: 14px;
+}
+.csd-qf-success {
+  margin-top: 14px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--csd-orange);
+}
+
+/* ------------------------------------------------------------
+   Trusted by — the endless logo row, matching the mobile-app ad pages.
+   .csd-marquee is the window; the track inside holds the client list twice
+   and slides left by exactly half its own width, so the instant the animation
+   loops the second copy is already where the first began and the seam is
+   invisible. The duration is set from the distance, not picked by eye: half
+   the track is 12 logos x 242px = 2904px at roughly 85px per second.
+   ------------------------------------------------------------ */
+.csd-logos {
+  padding: 84px 0 76px;
+}
+.csd-marquee {
+  overflow: hidden;
+  margin-top: 8px;
+}
+.csd-marquee-track {
+  display: flex;
+  /* max-content, or the flex line would shrink to the window and the halves
+     would stop being equal — which is what -50% depends on */
+  width: max-content;
+  animation: csd-marquee 34s linear infinite;
+}
+.csd-marquee-track li {
+  flex: 0 0 auto;
+  width: 210px;
+  height: 150px;
+  padding: 6px;
+  margin-right: 32px;
+}
+.csd-marquee-track img {
+  width: 100%;
+  height: 100%;
+  /* the tiles are 335x209 artwork; contain letterboxes rather than crops */
+  object-fit: contain;
+  border-radius: 12px;
+}
+/* stop it while someone is looking at a particular client */
+.csd-marquee:hover .csd-marquee-track,
+.csd-marquee:focus-within .csd-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes csd-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ------------------------------------------------------------
+   Technologies — the shared paged slider, matching the mobile-app ad pages.
+   .mc-slider / .mc-slider-track / .mc-slider-dots come from main.css and are
+   driven by main.js; only the band around them is styled here.
+   ------------------------------------------------------------ */
+.csd-tech-band {
+  padding: 84px 0;
+}
+.csd-tech-title {
+  margin-bottom: 0;
+}
+.csd-tech-band .mc-slider {
+  margin-top: 36px;
+}
+.csd-tech-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.csd-tech-slide img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.csd-tech-band .mc-slider-dots {
+  color: var(--csd-slate);
+}
+
+/* ------------------------------------------------------------
+   Cards — tilt, glare and the spinning border, shared by every card grid
+   ------------------------------------------------------------ */
+.csd-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  margin-top: 52px;
+}
+.csd-tilt {
+  position: relative;
+  border-radius: var(--csd-radius);
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition:
+    transform 0.6s var(--csd-ease),
+    box-shadow 0.4s;
+}
+/* while the cursor is inside, the transform must keep up with it */
+.csd-tilt.is-moving {
+  transition:
+    transform 0.12s linear,
+    box-shadow 0.4s;
+}
+.csd-tilt:hover {
+  box-shadow: 0 30px 60px rgba(25, 43, 52, 0.18);
+}
+.csd-dark .csd-tilt:hover {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+/* cursor spotlight */
+.csd-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(360px circle at var(--csd-mx, 50%) var(--csd-my, 50%), rgba(242, 101, 34, 0.16), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 0;
+}
+.csd-tilt:hover .csd-glare {
+  opacity: 1;
+}
+/* spinning orange border */
+.csd-tilt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(from var(--csd-ang), transparent 0 55%, var(--csd-orange) 78%, #ffb38a 85%, transparent 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 0.35s;
+  animation: csd-spin 3s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+.csd-tilt:hover::after {
+  opacity: 1;
+}
+.csd-tilt > *:not(.csd-glare) {
+  position: relative;
+  z-index: 1;
+}
+
+.csd-card {
+  background: var(--csd-white);
+  border: 1px solid var(--csd-line);
+  border-radius: var(--csd-radius);
+  padding: 34px;
+}
+.csd-card p {
+  color: var(--csd-muted);
+}
+.csd-dark .csd-card {
+  background: var(--csd-slate-2);
+  border-color: var(--csd-slate-3);
+}
+.csd-dark .csd-card p {
+  color: var(--csd-muted-light);
+}
+
+/* ---- Icon boxes ---- */
+.csd-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(242, 101, 34, 0.1);
+  display: grid;
+  place-items: center;
+  margin-bottom: 22px;
+  transition:
+    background 0.35s,
+    transform 0.5s var(--csd-ease);
+}
+.csd-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke: var(--csd-orange);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.35s;
+}
+/* every path carries pathLength="1", so one dash length draws any shape */
+.csd-icon svg * {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.is-in .csd-icon svg * {
+  animation: csd-draw 1.4s var(--csd-ease) forwards;
+  animation-delay: inherit;
+}
+/* not revealed (reduced motion, or JS off): the icons are simply drawn */
+.csd-tilt:not(.csd-reveal) .csd-icon svg * {
+  stroke-dashoffset: 0;
+}
+@keyframes csd-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.csd-tilt:hover .csd-icon {
+  background: var(--csd-orange);
+  transform: rotate(-8deg) scale(1.08);
+}
+.csd-tilt:hover .csd-icon svg {
+  stroke: var(--csd-white);
+}
+.csd-pain .csd-tilt:hover .csd-icon svg {
+  animation: csd-wobble 0.6s ease;
+}
+@keyframes csd-wobble {
+  25% {
+    transform: rotate(-12deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-6deg);
+  }
+}
+
+.csd-pain .csd-card {
+  border-left: 5px solid var(--csd-orange);
+}
+
+/* outline number in the corner of the "what we build" cards */
+.csd-num {
+  position: absolute;
+  top: 26px;
+  right: 30px;
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--csd-field-line);
+  transition:
+    color 0.4s,
+    -webkit-text-stroke-color 0.4s;
+}
+.csd-tilt:hover .csd-num {
+  color: rgba(242, 101, 34, 0.12);
+  -webkit-text-stroke-color: var(--csd-orange);
+}
+.csd-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--csd-orange);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition:
+    opacity 0.35s var(--csd-ease),
+    transform 0.35s var(--csd-ease);
+}
+.csd-tilt:hover .csd-more,
+.csd-more:focus-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ------------------------------------------------------------
+   Projects
+   ------------------------------------------------------------ */
+.csd-project {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--csd-white);
+  border: 1px solid var(--csd-line);
+  border-radius: var(--csd-radius);
+}
+.csd-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 8 / 5;
+  overflow: hidden;
+  background: var(--csd-slate);
+}
+.csd-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--csd-ease);
+}
+.csd-project:hover .csd-thumb img {
+  transform: scale(1.1) rotate(1deg);
+}
+.csd-thumb-ov {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 22px;
+  color: var(--csd-white);
+  font-weight: 700;
+  background: linear-gradient(180deg, transparent 30%, rgba(25, 43, 52, 0.92));
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s var(--csd-ease),
+    transform 0.5s var(--csd-ease);
+}
+.csd-project:hover .csd-thumb-ov,
+.csd-project:focus-visible .csd-thumb-ov {
+  opacity: 1;
+  transform: none;
+}
+.csd-thumb-ov span {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  background: var(--csd-orange);
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+}
+/* orange curtain that wipes off the image as the card scrolls in */
+.csd-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--csd-orange);
+  transform-origin: right;
+  transform: scaleX(1);
+  transition: transform 1s var(--csd-ease) 0.15s;
+}
+/* no curtain unless the reveal is running — otherwise a visitor with JS off,
+   or one who asked for reduced motion, would be left with an orange block */
+.csd-project:not(.csd-reveal) .csd-thumb::after,
+.csd-project.is-in .csd-thumb::after {
+  transform: scaleX(0);
+}
+.csd-project-body {
+  display: block;
+  padding: 28px;
+}
+.csd-tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--csd-orange);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(242, 101, 34, 0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+.csd-project:hover .csd-tag {
+  background: var(--csd-orange);
+  color: var(--csd-white);
+}
+.csd-project-title {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+.csd-project-text {
+  display: block;
+  color: var(--csd-muted);
+}
+
+/* ------------------------------------------------------------
+   Built to own
+   ------------------------------------------------------------ */
+.csd-own-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.csd-ticks-own {
+  margin-top: 28px;
+  margin-bottom: 0;
+}
+.csd-compare {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--csd-slate-2);
+  border: 1px solid var(--csd-slate-3);
+  border-radius: var(--csd-radius);
+  padding: 34px;
+  font-size: 1.02rem;
+  /* the radius only shows once the cells stop painting over the corners */
+  overflow: hidden;
+}
+.csd-compare th,
+.csd-compare td {
+  padding: 15px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--csd-slate-3);
+  font-weight: 400;
+}
+.csd-compare thead th {
+  font-weight: 800;
+  color: var(--csd-orange);
+}
+.csd-compare tbody tr:last-child th,
+.csd-compare tbody tr:last-child td {
+  border-bottom: none;
+}
+.csd-compare tbody th {
+  width: 40%;
+}
+.csd-compare .csd-yes {
+  color: var(--csd-white);
+  font-weight: 700;
+}
+.csd-compare .csd-no {
+  color: var(--csd-muted-light);
+}
+
+/* ------------------------------------------------------------
+   Process
+   ------------------------------------------------------------ */
+.csd-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  margin-top: 52px;
+}
+.csd-step {
+  position: relative;
+  overflow: hidden;
+  padding: 34px;
+  background: var(--csd-white);
+  border: 1px solid var(--csd-line);
+  border-radius: var(--csd-radius);
+}
+.csd-sn {
+  display: block;
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 16px;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--csd-orange);
+  transition: color 0.4s;
+}
+.csd-step:hover .csd-sn {
+  color: var(--csd-orange);
+}
+.csd-step p {
+  color: var(--csd-muted);
+}
+.csd-bar {
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  bottom: 0;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--csd-orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.1s var(--csd-ease) 0.4s;
+}
+.csd-step:not(.csd-reveal) .csd-bar,
+.csd-step.is-in .csd-bar {
+  transform: scaleX(1);
+}
+
+/* ------------------------------------------------------------
+   Pricing
+   ------------------------------------------------------------ */
+.csd-price-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--csd-white);
+  color: var(--csd-text);
+  border-radius: var(--csd-radius);
+  padding: 38px;
+}
+.csd-price-label {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--csd-orange);
+}
+.csd-price {
+  display: block;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 8px 0 14px;
+}
+.csd-price-card p {
+  color: var(--csd-muted);
+}
+/* the featured card keeps its orange ring without needing a hover */
+.csd-price-card.is-featured::after {
+  opacity: 1;
+}
+/* the child selector is deliberate: .csd-tilt > *:not(.csd-glare) above sets
+   z-index 1 at (0,2,0), which would otherwise put the spinning border in
+   front of the ribbon */
+.csd-tilt > .csd-pop {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--csd-orange);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  z-index: 3;
+}
+
+/* ------------------------------------------------------------
+   Reviews
+   ------------------------------------------------------------ */
+.csd-review {
+  margin: 0;
+  background: var(--csd-slate-2);
+  border: 1px solid var(--csd-slate-3);
+  border-radius: var(--csd-radius);
+  padding: 34px;
+}
+.csd-quote-mark {
+  position: absolute;
+  top: 18px;
+  right: 26px;
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--csd-orange);
+  opacity: 0.18;
+  font-family: Georgia, serif;
+  transition:
+    opacity 0.4s,
+    transform 0.5s var(--csd-ease);
+}
+.csd-review:hover .csd-quote-mark {
+  opacity: 0.6;
+  transform: scale(1.1);
+}
+.csd-stars {
+  color: var(--csd-orange);
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+.csd-stars span[aria-hidden] {
+  display: inline-block;
+  opacity: 0;
+  transform: scale(0) rotate(-90deg);
+}
+.csd-review:not(.csd-reveal) .csd-stars span[aria-hidden],
+.csd-review.is-in .csd-stars span[aria-hidden] {
+  animation: csd-star 0.5s var(--csd-ease) forwards;
+}
+.csd-stars span[aria-hidden]:nth-of-type(2) {
+  animation-delay: 0.1s;
+}
+.csd-stars span[aria-hidden]:nth-of-type(3) {
+  animation-delay: 0.2s;
+}
+.csd-stars span[aria-hidden]:nth-of-type(4) {
+  animation-delay: 0.3s;
+}
+.csd-stars span[aria-hidden]:nth-of-type(5) {
+  animation-delay: 0.4s;
+}
+@keyframes csd-star {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.csd-review blockquote {
+  margin: 0;
+}
+.csd-review blockquote p {
+  color: var(--csd-white);
+  font-size: 1.1rem;
+}
+.csd-who {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.csd-av {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--csd-orange);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #fff;
+}
+.csd-who b {
+  display: block;
+  color: var(--csd-white);
+}
+.csd-who small {
+  color: var(--csd-muted-light);
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------
+   FAQ
+   ------------------------------------------------------------ */
+.csd-faq-list {
+  max-width: 880px;
+  margin: 48px auto 0;
+}
+.csd-faq-list details {
+  background: var(--csd-white);
+  border: 1px solid var(--csd-line);
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-bottom: 14px;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+.csd-faq-list details:hover,
+.csd-faq-list details[open] {
+  border-color: var(--csd-orange);
+}
+.csd-faq-list details[open] {
+  box-shadow: 0 14px 34px rgba(25, 43, 52, 0.08);
+}
+.csd-faq-list summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+.csd-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+.csd-faq-list summary::after {
+  content: "+";
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(242, 101, 34, 0.1);
+  color: var(--csd-orange);
+  font-size: 1.5rem;
+  display: grid;
+  place-items: center;
+  transition:
+    transform 0.35s var(--csd-ease),
+    background 0.3s,
+    color 0.3s;
+}
+.csd-faq-list details[open] summary::after {
+  transform: rotate(135deg);
+  background: var(--csd-orange);
+  color: #fff;
+}
+.csd-faq-list details p {
+  margin-top: 12px;
+  color: var(--csd-muted);
+  animation: csd-fade-down 0.45s var(--csd-ease);
+}
+@keyframes csd-fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   Closing CTA
+   ------------------------------------------------------------ */
+.csd-cta-band {
+  position: relative;
+  overflow: hidden;
+  background: var(--csd-orange);
+  color: var(--csd-white);
+}
+.csd-cta-band::before,
+.csd-cta-band::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  animation: csd-ripple 6s linear infinite;
+}
+.csd-cta-band::before {
+  width: 600px;
+  height: 600px;
+  left: -200px;
+  top: -300px;
+}
+.csd-cta-band::after {
+  width: 500px;
+  height: 500px;
+  right: -160px;
+  bottom: -280px;
+  animation-delay: -3s;
+}
+@keyframes csd-ripple {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+.csd-cta-band .csd-wrap {
+  position: relative;
+  z-index: 1;
+}
+.csd-cta-band p {
+  font-size: 1.25rem;
+  max-width: 680px;
+  margin: 0 auto 32px;
+  color: rgba(255, 255, 255, 0.9);
+}
+.csd-cta-band .csd-btn {
+  animation: csd-pulse 2.2s infinite;
+}
+@keyframes csd-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(25, 43, 52, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 18px rgba(25, 43, 52, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(25, 43, 52, 0);
+  }
+}
+.csd-cta-phone {
+  display: block;
+  margin-top: 22px;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+/* ------------------------------------------------------------
+   Footer
+   ------------------------------------------------------------ */
+.csd-footer {
+  background: var(--csd-slate);
+  color: var(--csd-muted-light);
+  padding: 64px 0 30px;
+}
+.csd-foot-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 40px;
+}
+.csd-footer-logo {
+  width: auto;
+  height: 44px;
+  margin-bottom: 14px;
+}
+.csd-footer h2 {
+  color: var(--csd-white);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin-bottom: 14px;
+}
+.csd-foot-list {
+  display: grid;
+  gap: 8px;
+}
+.csd-footer a:hover {
+  color: var(--csd-orange);
+}
+.csd-copy {
+  border-top: 1px solid var(--csd-slate-3);
+  margin-top: 44px;
+  padding-top: 22px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------
+   Scroll reveal — 3D flip up. The class is added by csd.js, so a page
+   without JS is never left with invisible sections.
+   ------------------------------------------------------------ */
+.csd-reveal {
+  opacity: 0;
+  transform: perspective(1000px) translateY(60px) rotateX(18deg);
+  filter: blur(6px);
+  transition:
+    opacity 0.9s var(--csd-ease),
+    transform 0.9s var(--csd-ease),
+    filter 0.9s var(--csd-ease);
+}
+.csd-reveal.is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ------------------------------------------------------------
+   Phone action bar — shown only on a phone, where the header CTA
+   has scrolled away
+   ------------------------------------------------------------ */
+.csd-call-bar {
+  display: none;
+}
+
+/* ------------------------------------------------------------
+   Tablet
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .csd-hero-grid,
+  .csd-own-grid {
+    grid-template-columns: 1fr;
+  }
+  .csd-video-frame {
+    transform: none;
+  }
+  .csd-qf form {
+    grid-template-columns: 1fr 1fr;
+  }
+  .csd-qf form > .csd-btn {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+  .csd-grid-3,
+  .csd-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+  .csd-foot-grid {
+    grid-template-columns: 1fr;
+  }
+  .csd-badge-1 {
+    left: 10px;
+  }
+  .csd-badge-2 {
+    right: 10px;
+  }
+  .csd-marquee-track li {
+    width: 170px;
+    height: 120px;
+    margin-right: 28px;
+  }
+}
+
+/* ------------------------------------------------------------
+   Phone
+   ------------------------------------------------------------ */
+@media (max-width: 640px) {
+  .csd-section {
+    padding: 68px 0;
+  }
+  .csd-logos,
+  .csd-tech-band {
+    padding: 56px 0;
+  }
+  .csd-grid-3,
+  .csd-steps {
+    grid-template-columns: 1fr;
+  }
+  /* The phone number goes: the action bar at the foot of the screen carries
+     it, and on a 375px header the logo and the CTA already fill the row. The
+     CTA shrinks with it, or "Get a Free Consult" wraps onto two lines and
+     doubles the header's height. */
+  .csd-nav-phone {
+    display: none;
+  }
+  .csd-nav {
+    min-height: 64px;
+  }
+  .csd-logo img {
+    height: 28px;
+  }
+  .csd-nav .csd-btn {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+  .csd-hero {
+    padding: 44px 0 150px;
+  }
+  .csd-qf {
+    padding: 24px 20px;
+  }
+  .csd-qf form {
+    grid-template-columns: 1fr;
+  }
+  .csd-badge {
+    font-size: 0.85rem;
+    padding: 9px 12px;
+  }
+  .csd-badge-ic {
+    width: 30px;
+    height: 30px;
+  }
+  .csd-badge-1 {
+    bottom: -22px;
+  }
+  .csd-badge-2 {
+    top: -20px;
+  }
+  .csd-compare {
+    font-size: 0.92rem;
+  }
+  .csd-compare th,
+  .csd-compare td {
+    padding: 12px 8px;
+  }
+  .csd-marquee-track li {
+    width: 140px;
+    height: 100px;
+    margin-right: 24px;
+  }
+  /* the action bar covers the very bottom of the page, so the footer needs
+     room to clear it */
+  .csd-call-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
+  }
+  .csd-call-bar a {
+    flex: 1;
+    text-align: center;
+    padding: 16px;
+    font-weight: 800;
+    font-size: 1.05rem;
+  }
+  .csd-call-bar-1 {
+    background: var(--csd-orange);
+    color: var(--csd-white);
+  }
+  .csd-call-bar-2 {
+    background: var(--csd-slate);
+    color: var(--csd-white);
+  }
+  .csd-body {
+    padding-bottom: 56px;
+  }
+}
+
+/* ------------------------------------------------------------
+   Reduced motion — everything above is decoration. Nothing here is the
+   only way to read a section, so all of it simply stops.
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .csd-body *,
+  .csd-body *::before,
+  .csd-body *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .csd-reveal,
+  .csd-hero .csd-eyebrow,
+  .csd-hero h1,
+  .csd-hero-sub,
+  .csd-hero .csd-ticks li,
+  .csd-hero-ctas,
+  .csd-stage,
+  .csd-qf,
+  .csd-stars span[aria-hidden] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .csd-thumb::after {
+    display: none;
+  }
+  .csd-icon svg * {
+    stroke-dashoffset: 0;
+  }
+  .csd-bar {
+    transform: scaleX(1);
+  }
+}
