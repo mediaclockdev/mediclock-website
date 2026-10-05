@@ -20,7 +20,7 @@
                 <h3><?= $e($csdCard['title']) ?></h3>
                 <p><?= $e($csdCard['text']) ?></p>
                 <a href="#csd-enquire" class="csd-more" data-csd-scroll-to="#csd-enquire">
-                    <?= $e($csd['build_card_link']) ?> <span aria-hidden="true">&rarr;</span>
+                    <?= $e($csdCard['link']) ?> <span aria-hidden="true">&rarr;</span>
                 </a>
             </div>
             <?php endforeach; ?>

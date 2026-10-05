@@ -13,7 +13,6 @@
             <?php foreach ($csd['reviews'] as [$csdQuote, $csdWho, $csdSource]): ?>
             <figure class="csd-review csd-tilt">
                 <span class="csd-glare" aria-hidden="true"></span>
-                <span class="csd-quote-mark" aria-hidden="true">&ldquo;</span>
                 <div class="csd-stars">
                     <span class="csd-sr-only">Rated 5 out of 5</span>
                     <span aria-hidden="true">&#9733;</span><span aria-hidden="true">&#9733;</span><span
@@ -21,7 +20,7 @@
                         aria-hidden="true">&#9733;</span>
                 </div>
                 <blockquote>
-                    <p>&ldquo;<?= $e($csdQuote) ?>&rdquo;</p>
+                    <p><?= $e($csdQuote) ?></p>
                 </blockquote>
                 <figcaption class="csd-who">
                     <!-- initials, built from the name so a new review needs no extra data -->

@@ -193,6 +193,7 @@
      3D tilt + cursor glare on every card, and the hero parallax
      ---------------------------------------------------------- */
   if (finePointer && !reduced) {
+    /* 
     Array.prototype.forEach.call(document.querySelectorAll(".csd-tilt"), function (card) {
       card.addEventListener("mouseenter", function () {
         card.classList.add("is-moving");
@@ -211,6 +212,7 @@
         card.style.transform = "";
       });
     });
+    */
 
     var frame = document.getElementById("csdVideoFrame"),
       hero = document.querySelector(".csd-hero");

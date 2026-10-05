@@ -14,7 +14,7 @@ $lpC = mc_contact();
         <div class="lp-container lp-footer-inner">
             <p>&copy; <?= date('Y') ?> Mediaclock Pty Ltd &middot; ABN 65 617 380 006</p>
             <p>
-                392 A St Kilda Rd, St Kilda VIC 3182 &middot;
+                <a href="https://www.google.com/maps/search/?api=1&query=392+A+St+Kilda+Rd%2C+St+Kilda+VIC+3182" target="_blank" rel="noopener noreferrer">392 A St Kilda Rd, St Kilda VIC 3182</a> &middot;
                 <a href="<?= $e(mc_tel()) ?>"><?= $e(mc_tel_text()) ?></a> &middot;
                 <a href="<?= $e(mc_tel('mobile')) ?>"><?= $e(mc_tel_text('mobile')) ?></a> &middot;
                 <a href="mailto:<?= $e($lpC['email']) ?>"><?= $e($lpC['email']) ?></a>

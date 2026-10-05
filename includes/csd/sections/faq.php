@@ -10,7 +10,7 @@
         </div>
         <div class="csd-faq-list">
             <?php foreach ($csd['faq'] as $csdI => [$csdQ, $csdA]): ?>
-            <details<?= $csdI === 0 ? ' open' : '' ?>>
+            <details name="csd-faq"<?= $csdI === 0 ? ' open' : '' ?>>
                 <summary><?= $e($csdQ) ?></summary>
                 <p><?= $e($csdA) ?></p>
             </details>

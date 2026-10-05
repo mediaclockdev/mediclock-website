@@ -9,4 +9,5 @@ return [
     'city'        => 'Perth',
     'title'       => 'Mobile App Development Perth – Media Clock',
     'description' => 'Custom iOS and Android app development for Perth businesses. Fixed scope, fixed price, you own the code. Book a free discovery call.',
+    'hero_badge'  => 'iOS + Android specialists · Perth, WA',
 ];

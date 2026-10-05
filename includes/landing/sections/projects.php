@@ -14,8 +14,6 @@
                 <h2 class="lp-section-title"><?= $e($lp['projects_title']) ?></h2>
                 <p class="lp-section-lead"><?= $e($lp['projects_lead']) ?></p>
             </div>
-            <button type="button" class="lp-head-link"
-                data-lp-scroll-to="#lp-quote"><?= $e($lp['projects_cta']) ?> &rarr;</button>
         </div>
 
         <div class="mc-slider lp-project-slider" data-slider style="--pv:3;--pv-md:2;--pv-sm:1;--gap:24px;">
@@ -35,6 +33,10 @@
                 <?php endforeach; ?>
             </div>
             <div class="mc-slider-dots"></div>
+        </div>
+        
+        <div class="lp-projects-foot">
+            <button type="button" class="lp-head-link" data-lp-scroll-to="#lp-quote"><?= $e($lp['projects_cta']) ?> &rarr;</button>
         </div>
     </div>
 </section>

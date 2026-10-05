@@ -23,7 +23,13 @@ $lpC = mc_contact();
                 </svg>
                 <?= $e(mc_tel_text()) ?>
             </a>
-            <p class="lp-contact-address"><?= $e($lp['cta_address']) ?></p>
+            <a class="lp-contact-address" href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($lp['cta_address']) ?>" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span><?= $e($lp['cta_address']) ?></span>
+            </a>
         </div>
 
         <div class="lp-form-card" id="lp-quote">

@@ -21,7 +21,7 @@ return [
     'hero_title_city'   => '{city}',
     'hero_title_after'  => 'development team',
     'hero_lead'         => 'One team from idea to App Store. We scope it, design it, build it for iOS and Android, and hand you the code.',
-    'hero_cta'          => 'Book Free Discovery Call',
+    'hero_cta'          => 'Book a Free Discovery Call',
     'hero_ticks'        => [
         'NDA signed first',
         'You own the code',
@@ -47,7 +47,7 @@ return [
     'trusted_title' => 'Trusted by Australian businesses',
 
     /* ---- Projects / case studies ------------------------------------- */
-    'projects_title' => 'Real apps. Real business problems.',
+    'projects_title' => 'Real apps with real business problems.',
     'projects_lead'  => 'A few of the apps we have recently built for Australian businesses.',
     'projects_cta'   => 'Explore More',
     /* [tag, title, blurb, image] */
@@ -56,7 +56,7 @@ return [
         ['Property · Field teams', 'Property Inspection App',         'Onsite inspection reports with photos and details, sent to clients — without ongoing per-user subscription fees.', 'landing/projects/05.webp'],
         ['Marketplace',          'Rental Marketplace App',            'A two-sided marketplace with listings, bookings and payments for owners and renters in one app.', 'landing/projects/06.webp'],
         ['Retail · Orders',      'Shopping & Order Management App',   'Browsing, carts and order tracking for customers, with the admin side the team runs the day on.', 'landing/projects/02.webp'],
-        ['Healthcare',           'Healthcare App',                    'Patient records, appointments and practitioner tools in one place, built around how the practice already works.', 'landing/projects/04.webp'],
+        ['Health care',           'Health care App',                    'Patient records, appointments and practitioner tools in one place, built around how the practice already works.', 'landing/projects/04.webp'],
         ['Consumer',             'Photo Storage & Organisation App',  'Upload, sort and share photos from the phone, with the storage and syncing handled in the background.', 'landing/projects/01.webp'],
     ],
 

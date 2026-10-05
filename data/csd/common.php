@@ -160,34 +160,39 @@ return [
             'title' => 'Business Systems',
             'text'  => 'Job management, inspections, bookings, scheduling, compliance – the system your team runs on every day.',
             'icon'  => '<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2" pathLength="1"/><path d="M8 21h8M12 18v3" pathLength="1"/><path d="M6 13l3-3 3 2 5-5" pathLength="1"/></svg>',
+            'link'  => 'Build a business system',
         ],
         [
             'title' => 'Customer & Staff Portals',
             'text'  => 'Secure logins where customers track orders, submit requests and manage their account without calling you.',
             'icon'  => '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" pathLength="1"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7" pathLength="1"/></svg>',
+            'link'  => 'Build a custom portal',
         ],
         [
             'title' => 'Dashboards & Reporting',
             'text'  => 'Live numbers in one place. No more weekly exports or chasing people for updates.',
             'icon'  => '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" pathLength="1"/></svg>',
+            'link'  => 'Build a live dashboard',
         ],
         [
             'title' => 'Workflow Automation',
             'text'  => 'Approvals, quotes, reports and reminders that run themselves, so your team can do the real work.',
             'icon'  => '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" pathLength="1"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" pathLength="1"/></svg>',
+            'link'  => 'Automate your workflows',
         ],
         [
             'title' => 'Integrations & APIs',
             'text'  => 'Connect Xero, MYOB, your CRM, payment gateways or hardware so data flows once, correctly.',
             'icon'  => '<svg viewBox="0 0 24 24"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6" pathLength="1"/><path d="M14 4l-4 16" pathLength="1"/></svg>',
+            'link'  => 'Integrate your systems',
         ],
         [
             'title' => 'Web + Mobile Together',
             'text'  => 'An admin web app for the office and a mobile app for the field, built as one connected system.',
             'icon'  => '<svg viewBox="0 0 24 24"><rect x="2" y="4" width="14" height="11" rx="2" pathLength="1"/><rect x="15" y="9" width="7" height="12" rx="1.5" pathLength="1"/><path d="M6 19h6" pathLength="1"/></svg>',
+            'link'  => 'Build a connected app',
         ],
     ],
-    'build_card_link' => 'Discuss this',
 
     /* ---- Built to own ------------------------------------------------ */
     'own_eyebrow' => 'Built to own, not rent',
@@ -201,7 +206,7 @@ return [
     ],
     /* [row label, custom, off-the-shelf]; the first row is the header */
     'own_compare' => [
-        ['', 'Custom', 'Off-the-shelf'],
+        ['Feature', 'Custom', 'Off-the-shelf'],
         ['Fits your process', '✓ Yes', 'Partly'],
         ['Per-user fees', '✓ None', 'Monthly, forever'],
         ['You own the code', '✓ Yes', 'No'],

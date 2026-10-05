@@ -14,7 +14,7 @@
         </div>
         <div class="lp-faq-list">
             <?php foreach ($lp['faq'] as $lpI => [$lpQ, $lpA]): ?>
-            <details class="lp-faq-item"<?= $lpI === 0 ? ' open' : '' ?>>
+            <details name="lp-faq" class="lp-faq-item"<?= $lpI === 0 ? ' open' : '' ?>>
                 <summary>
                     <span><?= $e($lpQ) ?></span>
                     <span class="lp-faq-toggle" aria-hidden="true"></span>
