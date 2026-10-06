@@ -22,10 +22,12 @@ $csdC = mc_contact();
                     <h2>Contact</h2>
                     <ul class="csd-foot-list">
                         <li>MEDIACLOCK PTY LTD. &middot; ABN 65 617 380 006</li>
+                        <?php if (!empty($csd['address'])): ?>
                         <li>
-                            <a href="https://maps.google.com/?q=392+A+St+Kilda+Rd,+St+Kilda+VIC+3182" target="_blank"
-                                rel="noopener noreferrer">392 A St Kilda Rd, St Kilda VIC 3182</a>
+                            <a href="https://maps.google.com/maps?q=<?= rawurlencode($csd['address']) ?>" target="_blank"
+                                rel="noopener noreferrer"><?= $e($csd['address']) ?></a>
                         </li>
+                        <?php endif; ?>
                         <li><a href="<?= $e(mc_tel()) ?>"><?= $e(mc_tel_text()) ?></a></li>
                         <li><a href="<?= $e(mc_tel('mobile')) ?>"><?= $e(mc_tel_text('mobile')) ?></a></li>
                         <li><a href="mailto:<?= $e($csdC['email']) ?>"><?= $e($csdC['email']) ?></a></li>

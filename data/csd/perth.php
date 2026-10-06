@@ -9,4 +9,5 @@ return [
     'city'        => 'Perth',
     'title'       => 'Custom Software Development Perth | Media Clock',
     'description' => 'Custom software built around how your business works. Portals, dashboards, workflow automation and integrations. Perth team, you own the code, no per-user fees.',
+    'address'     => '',
 ];

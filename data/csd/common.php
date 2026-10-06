@@ -269,4 +269,5 @@ return [
 
     /* ---- Footer ------------------------------------------------------ */
     'footer_tagline' => 'Custom software, mobile apps and web applications for Australian businesses.',
+    'address'        => '392 A St Kilda Rd, St Kilda VIC 3182',
 ];

@@ -22,7 +22,7 @@ $csdHead  = array_shift($csdRows);
             <caption class="csd-sr-only">Custom software compared with off-the-shelf software</caption>
             <thead>
                 <tr>
-                    <td></td>
+                    <th scope="col"><?= $e($csdHead[0]) ?></th>
                     <th scope="col"><?= $e($csdHead[1]) ?></th>
                     <th scope="col"><?= $e($csdHead[2]) ?></th>
                 </tr>

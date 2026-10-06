@@ -86,11 +86,11 @@ $csdPoster = dirname(__DIR__, 3) . '/assets/images/csd/hero-poster.jpg';
             <form id="csdQuoteForm" novalidate>
                 <div>
                     <label for="csdName">Name*</label>
-                    <input id="csdName" name="csd_name" type="text" autocomplete="name" required />
+                    <input id="csdName" name="csd_name" type="text" autocomplete="name" placeholder="Name*" required />
                 </div>
                 <div>
                     <label for="csdEmail">Email*</label>
-                    <input id="csdEmail" name="csd_email" type="email" autocomplete="email" required />
+                    <input id="csdEmail" name="csd_email" type="email" autocomplete="email" placeholder="Email*" required />
                 </div>
                 <div>
                     <label for="csdPhone">Phone*</label>

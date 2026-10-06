@@ -32,7 +32,7 @@ return [
     /* ---- Proof strip — the orange band under the hero ----------------- */
     'strip' => [
         ['50+',  'Apps delivered since 2017'],
-        ['10+',  'Years building apps'],
+        ['98%',  'Client Retention'],
         ['100%', 'You own the code'],
         ['NDA',  'Signed before you share'],
     ],
