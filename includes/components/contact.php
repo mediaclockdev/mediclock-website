@@ -84,9 +84,8 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
                 <?php if ($contact_note !== ''): ?><p class="contact-note"><?= $h($contact_note) ?></p><?php endif; ?>
             </div>
 
-            <!-- * Contact : form -->
             <div class="form col-12 col-lg-6">
-                <form id="form" novalidate>
+                <form id="form" method="POST" action="<?= asset_url('send-contact.php') ?>" novalidate>
                     <!-- * Contact : one form for both variants — the panel adds
                          Website and "Interested In", everything else matches -->
                     <?php if ($contact_visible): ?>
@@ -180,7 +179,7 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
                     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
                     <?php endif; ?>
                     <?php endif; ?>
-                    <button class="form-submit" type="submit">Submit</button>
+                    <button class="form-submit" name="submit" type="submit">Submit</button>
                 </form>
                 <div class="success" id="success" role="status">
                     <h3>Thank you.</h3>

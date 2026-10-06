@@ -1,0 +1,18 @@
+
+<?php
+$lpTech = require dirname(__DIR__, 3) . '/data/shared/tech-stack.php';
+?>
+<section class="lp-band-light lp-logos">
+    <div class="lp-container">
+        <h2 class="lp-section-title"><?= $e($lp['tech_title']) ?></h2>
+        <ul class="lp-logo-row">
+            <?php foreach ($lpTech as $lpLogo): ?>
+            <li>
+                <img src="<?= $e(img_src($lpLogo['src'])) ?>" alt="<?= $e($lpLogo['alt']) ?>"
+                    width="<?= (int) $lpLogo['w'] ?>" height="<?= (int) $lpLogo['h'] ?>" loading="lazy" />
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</section>
+<?php unset($lpTech, $lpLogo); ?>

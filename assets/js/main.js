@@ -363,9 +363,46 @@ function mcThankYou(kind) {
         e.target.reportValidity();
         return;
       }
-      e.target.classList.add("hidden");
-      document.getElementById("success").classList.add("show");
-      mcThankYou("enquiry");
+      const action = enquiryForm.getAttribute("action");
+      const submitBtn = enquiryForm.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.dataset.origText = submitBtn.textContent;
+        submitBtn.textContent = "Sending...";
+      }
+
+      if (action) {
+        const formData = new FormData(enquiryForm);
+        fetch(action, {
+          method: "POST",
+          body: formData,
+          headers: { "X-Requested-With": "XMLHttpRequest" },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              e.target.classList.add("hidden");
+              document.getElementById("success").classList.add("show");
+              mcThankYou("enquiry");
+            } else {
+              alert(data.message || "Failed to send request. Please try again.");
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = submitBtn.dataset.origText || "Submit";
+              }
+            }
+          })
+          .catch((err) => {
+            console.error("Form error:", err);
+            e.target.classList.add("hidden");
+            document.getElementById("success").classList.add("show");
+            mcThankYou("enquiry");
+          });
+      } else {
+        e.target.classList.add("hidden");
+        document.getElementById("success").classList.add("show");
+        mcThankYou("enquiry");
+      }
     });
   // * Contact : live "0 / 180" counter for any textarea with data-counter
   document.querySelectorAll("[data-counter]").forEach((ta) => {
