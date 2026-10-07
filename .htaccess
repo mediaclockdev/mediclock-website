@@ -25,6 +25,9 @@ DirectoryIndex index.php
     # Let Let's Encrypt / SSL renewal through untouched
     RewriteRule ^\.well-known/ - [L]
 
+    # Form processing scripts: pass through directly with no rewrites or redirects
+    RewriteRule ^send-[^/]+\.php$ - [L]
+
     # Force HTTPS (the X-Forwarded-Proto check keeps Cloudflare from looping)
     RewriteCond %{HTTPS} !=on
     RewriteCond %{HTTP:X-Forwarded-Proto} !https
@@ -41,11 +44,18 @@ DirectoryIndex index.php
     RewriteCond %{THE_REQUEST} \s[^\s?]*/index\.php[\s?] [NC]
     RewriteRule ^index\.php$ ./ [R=301,L]
 
-    # /about-us.php -> /about-us/   (one canonical URL, no duplicate content)
-    RewriteCond %{THE_REQUEST} \s[^\s?]*/([^./\s?]+)\.php[\s?] [NC]
-    RewriteRule ^([^/.]+)\.php$ $1/ [R=301,L]
+    # Never redirect POST requests (prevents browsers from dropping POST payload and converting to GET)
+    # Never redirect form processing/API scripts (send-*.php)
+    RewriteCond %{REQUEST_METHOD} !POST
+    RewriteCond %{THE_REQUEST} !/send- [NC]
+
+ # Redirect PHP pages to clean URLs only when a matching clean URL exists
+RewriteCond %{THE_REQUEST} \s/+([^/?\s]+)\.php[\s?] [NC]
+RewriteCond %{DOCUMENT_ROOT}/%1.php -f
+RewriteRule ^([^/.]+)\.php$ /$1/ [R=301,L]
 
     # /about-us -> /about-us/       (keep the trailing slash consistent)
+      RewriteCond %{REQUEST_METHOD} !POST
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^([^/.]+)$ $1/ [R=301,L]

@@ -194,12 +194,12 @@ ol {
     transform 0.2s ease;
 }
 .lp-btn-primary {
-  background: var(--lp-orange);
+  background: #fff;
   color: var(--lp-dark);
 }
 .lp-btn-primary:hover,
 .lp-btn-primary:focus-visible {
-  background: var(--lp-orange-dark);
+  background: #f4f6f8;
   color: var(--lp-dark);
   transform: translateY(-2px);
 }
@@ -1241,7 +1241,8 @@ ol {
   transition:
     opacity 0.25s ease,
     transform 0.25s ease,
-    visibility 0.25s;
+    visibility 0.25s,
+    background-color 0.2s ease;
 }
 .lp-sticky-quote.is-shown {
   opacity: 1;

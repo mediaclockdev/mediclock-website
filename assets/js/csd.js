@@ -297,13 +297,53 @@
     if (!form) return;
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
-      if (success) {
-        form.hidden = true;
-        success.hidden = false;
+
+      var base = (document.body && document.body.dataset.siteBase) || "/";
+      var action = form.getAttribute("action") || (base + "send-contact.php");
+      var submitBtn = form.querySelector('button[type="submit"]');
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.dataset.origText = submitBtn.textContent;
+        submitBtn.textContent = "Sending...";
       }
-      if (typeof window.mcThankYou === "function") {
-        window.mcThankYou("enquiry");
-      }
+
+      var formData = new FormData(form);
+
+      fetch(action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          "Accept": "application/json",
+        },
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data && data.success) {
+            if (success) {
+              form.hidden = true;
+              success.hidden = false;
+            }
+            if (typeof window.mcThankYou === "function") {
+              window.mcThankYou(data.kind || "enquiry");
+            }
+          } else {
+            alert((data && data.message) || "Failed to send request. Please try again.");
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = submitBtn.dataset.origText || "Submit";
+            }
+          }
+        })
+        .catch(function (err) {
+          console.error("Form error:", err);
+          alert("Sorry, an error occurred while sending your request. Please try again.");
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitBtn.dataset.origText || "Submit";
+          }
+        });
     });
   })();
 })();

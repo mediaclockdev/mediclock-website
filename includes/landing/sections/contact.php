@@ -37,7 +37,8 @@ $lpC = mc_contact();
         <div class="lp-form-card" id="lp-quote">
             <h2><?= $e($lp['form_title']) ?></h2>
             <p class="lp-form-lead"><?= $e($lp['form_lead']) ?></p>
-            <form id="lpQuoteForm" novalidate>
+            <form id="lpQuoteForm" action="<?= $e(asset_url('send-contact.php')) ?>" method="POST" novalidate>
+                <input type="hidden" name="form_type" value="landing" />
                 <label class="visually-hidden" for="lpName">Your name</label>
                 <input type="text" id="lpName" name="lp_name" placeholder="Your Name*" autocomplete="name" required />
 
@@ -55,13 +56,13 @@ $lpC = mc_contact();
                 </div>
 
                 <label class="visually-hidden" for="lpMessage">Your app idea</label>
-                <textarea id="lpMessage" name="lp_message" rows="3" placeholder="What’s your app idea?"></textarea>
+                <textarea id="lpMessage" name="lp_message" rows="3" maxlength="180" placeholder="What’s your app idea?"></textarea>
 
                 <!-- which city page the lead came from, so an enquiry can be
                      traced back to the campaign that paid for it -->
                 <input type="hidden" name="lp_source" value="<?= $e($lp['city']) ?>" />
 
-                <button type="submit" class="lp-btn lp-btn-primary lp-btn-block"><?= $e($lp['form_submit']) ?></button>
+                <button type="submit" class="lp-btn lp-btn-dark lp-btn-block"><?= $e($lp['form_submit']) ?></button>
                 <p class="lp-form-note"><?= $e($lp['form_note']) ?></p>
             </form>
             <p class="lp-form-success" id="lpQuoteSuccess" hidden>Thank you — we will be in touch shortly.</p>

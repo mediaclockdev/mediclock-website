@@ -83,7 +83,8 @@ include 'includes/components/contact.php';
     <div class="container">
         <h2 id="subscribe-title">Subscribe To Our Blog</h2>
         <p>Stay updated with latest technology trends.</p>
-        <form class="subscribe-form" id="subscribeForm" novalidate>
+        <form class="subscribe-form" id="subscribeForm" action="<?= asset_url('send-contact.php') ?>" method="POST" novalidate>
+            <input type="hidden" name="form_type" value="subscribe" />
             <label for="subEmail" class="visually-hidden">Email address</label>
             <input id="subEmail" name="email" type="email" required placeholder="Enter your Email here" autocomplete="email" />
             <button type="submit">Subscribe</button>

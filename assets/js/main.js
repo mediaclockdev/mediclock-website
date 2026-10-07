@@ -185,7 +185,8 @@
         let digits = v.replace(/\D/g, "");
         if (el.dataset.phone === "au") {
           if (digits.length === 11 && digits.startsWith("61")) digits = digits.slice(2);
-          return AU_PHONE.test(digits) ? "" : "Please enter a valid Australian phone number, e.g. 412 345 678.";
+          if (AU_PHONE.test(digits)) return "";
+          return digits.length >= 8 && digits.length <= 15 ? "" : "Please enter a valid phone number (8–15 digits).";
         }
         return digits.length >= 8 && digits.length <= 15 ? "" : "Please enter a valid phone number (8–15 digits).";
       }
@@ -328,9 +329,48 @@ function mcThankYou(kind) {
       form.reportValidity();
       return;
     }
-    form.hidden = true;
-    success.hidden = false;
-    mcThankYou("proposal");
+    const base = (document.body && document.body.dataset.siteBase) || "/";
+    const action = form.getAttribute("action") || (base + "send-contact.php");
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.dataset.origText = submitBtn.textContent;
+      submitBtn.textContent = "Sending...";
+    }
+
+    const formData = new FormData(form);
+
+    fetch(action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "Accept": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.success) {
+          form.hidden = true;
+          success.hidden = false;
+          mcThankYou(data.kind || "proposal");
+        } else {
+          alert((data && data.message) || "Failed to send request. Please try again.");
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitBtn.dataset.origText || "Submit";
+          }
+        }
+      })
+      .catch((err) => {
+        console.error("RFP form error:", err);
+        alert("Sorry, an error occurred while sending your proposal request. Please try again.");
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitBtn.dataset.origText || "Submit";
+        }
+      });
   });
 })();
 
@@ -363,7 +403,8 @@ function mcThankYou(kind) {
         e.target.reportValidity();
         return;
       }
-      const action = enquiryForm.getAttribute("action");
+      const base = (document.body && document.body.dataset.siteBase) || "/";
+      const action = enquiryForm.getAttribute("action") || (base + "send-contact.php");
       const submitBtn = enquiryForm.querySelector('button[type="submit"]');
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -371,38 +412,38 @@ function mcThankYou(kind) {
         submitBtn.textContent = "Sending...";
       }
 
-      if (action) {
-        const formData = new FormData(enquiryForm);
-        fetch(action, {
-          method: "POST",
-          body: formData,
-          headers: { "X-Requested-With": "XMLHttpRequest" },
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success) {
-              e.target.classList.add("hidden");
-              document.getElementById("success").classList.add("show");
-              mcThankYou("enquiry");
-            } else {
-              alert(data.message || "Failed to send request. Please try again.");
-              if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.textContent = submitBtn.dataset.origText || "Submit";
-              }
-            }
-          })
-          .catch((err) => {
-            console.error("Form error:", err);
+      const formData = new FormData(enquiryForm);
+      fetch(action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          "Accept": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.success) {
             e.target.classList.add("hidden");
-            document.getElementById("success").classList.add("show");
-            mcThankYou("enquiry");
-          });
-      } else {
-        e.target.classList.add("hidden");
-        document.getElementById("success").classList.add("show");
-        mcThankYou("enquiry");
-      }
+            const successEl = document.getElementById("success");
+            if (successEl) successEl.classList.add("show");
+            mcThankYou(data.kind || "enquiry");
+          } else {
+            alert((data && data.message) || "Failed to send request. Please try again.");
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = submitBtn.dataset.origText || "Submit";
+            }
+          }
+        })
+        .catch((err) => {
+          console.error("Form error:", err);
+          alert("Sorry, an error occurred while sending your request. Please try again.");
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitBtn.dataset.origText || "Submit";
+          }
+        });
     });
   // * Contact : live "0 / 180" counter for any textarea with data-counter
   document.querySelectorAll("[data-counter]").forEach((ta) => {

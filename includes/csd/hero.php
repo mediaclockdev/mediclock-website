@@ -83,7 +83,8 @@ $csdPoster = dirname(__DIR__, 3) . '/assets/images/csd/hero-poster.jpg';
                 <h2><?= $e($csd['form_title']) ?></h2>
                 <p><?= $e($csd['form_lead']) ?></p>
             </div>
-            <form id="csdQuoteForm" novalidate>
+            <form id="csdQuoteForm" action="<?= $e(asset_url('send-contact.php')) ?>" method="POST" novalidate>
+                <input type="hidden" name="form_type" value="csd" />
                 <div>
                     <label for="csdName">Name*</label>
                     <input id="csdName" name="csd_name" type="text" autocomplete="name" placeholder="Name*" required />
@@ -107,7 +108,7 @@ $csdPoster = dirname(__DIR__, 3) . '/assets/images/csd/hero-poster.jpg';
                 </div>
                 <!-- which city page the lead came from, so an enquiry can be
                      traced back to the campaign that paid for it -->
-                <input type="hidden" name="csd_source" value="Custom software — <?= $e($csd['city']) ?>" />
+                <input type="hidden" name="csd_source" value="Custom software - <?= $e($csd['city']) ?>" />
                 <button type="submit" class="csd-btn">
                     <?= $e($csd['form_submit']) ?> <span class="csd-arr" aria-hidden="true">&rarr;</span>
                 </button>

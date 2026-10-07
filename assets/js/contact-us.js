@@ -12,7 +12,7 @@
   );
 })();
 
-/* * Contact us : blog subscribe (no backend yet, same as the other forms) */
+/* * Contact us : blog subscribe */
 (function () {
   const form = document.getElementById("subscribeForm"),
     success = document.getElementById("subscribeSuccess");
@@ -23,7 +23,46 @@
       form.reportValidity();
       return;
     }
-    form.hidden = true;
-    success.hidden = false;
+    const base = (document.body && document.body.dataset.siteBase) || "/";
+    const action = form.getAttribute("action") || (base + "send-contact.php");
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.dataset.origText = submitBtn.textContent;
+      submitBtn.textContent = "Subscribing...";
+    }
+
+    const formData = new FormData(form);
+
+    fetch(action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "Accept": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.success) {
+          form.hidden = true;
+          success.hidden = false;
+        } else {
+          alert((data && data.message) || "Failed to subscribe. Please try again.");
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitBtn.dataset.origText || "Subscribe";
+          }
+        }
+      })
+      .catch((err) => {
+        console.error("Subscribe error:", err);
+        alert("Sorry, an error occurred while processing your subscription.");
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitBtn.dataset.origText || "Subscribe";
+        }
+      });
   });
 })();

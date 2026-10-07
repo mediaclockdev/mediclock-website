@@ -86,7 +86,8 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
 
             <!-- * Contact : form -->
             <div class="form col-12 col-lg-6">
-                <form id="form" novalidate>
+                <form id="form" method="POST" action="<?= asset_url('send-contact.php') ?>" novalidate>
+                    <input type="hidden" name="form_type" value="contact" />
                     <!-- * Contact : one form for both variants — the panel adds
                          Website and "Interested In", everything else matches -->
                     <?php if ($contact_visible): ?>
@@ -152,7 +153,7 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
                         <fieldset class="field field-budget col-12">
                             <legend>Project Budget (AUD) <?= $csReq ?></legend>
                             <div class="budget-options">
-                                <?php foreach (['Under $5k', '$5k – $15k', '$15k – $30k', '$30k – $60k', '$60k – $100k', '$100k+', 'Not sure yet'] as $csBi => $csBudget): ?>
+                                <?php foreach (['Under $5k', '$5k - $15k', '$15k - $30k', '$30k - $60k', '$60k - $100k', '$100k+', 'Not sure yet'] as $csBi => $csBudget): ?>
                                 <label class="budget-option">
                                     <input type="radio" name="budget" value="<?= $h($csBudget) ?>"<?= $csBi === 0 ? ' required' : '' ?> />
                                     <span><?= $h($csBudget) ?></span>

@@ -94,7 +94,8 @@ require_once dirname(__DIR__) . '/img.php';
             <!-- * Service hero : Request For Proposal card -->
             <div class="col-12 col-lg-4 rfp-card">
                 <h2 class="rfp-title">Request For Proposal</h2>
-                <form class="rfp-form d-flex flex-column" id="rfpForm" novalidate>
+                <form class="rfp-form d-flex flex-column" id="rfpForm" action="<?= $h(asset_url('send-contact.php')) ?>" method="POST" novalidate>
+                    <input type="hidden" name="form_type" value="rfp" />
                     <!-- The card is placeholder-only by design, but a placeholder is not an
                          accessible name: it disappears the moment someone types and screen
                          readers are not required to announce it. Each field gets a real

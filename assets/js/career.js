@@ -26,17 +26,59 @@
     });
   });
 
-  /* * Application form : success message
+  /* * Application form : submit handler
      Registered without capture, so the shared validator in main.js (which
      listens in the capture phase) stops an invalid form before this runs. */
   var form = document.getElementById("applyForm");
   var success = document.getElementById("applySuccess");
   if (!form || !success) return;
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    form.classList.add("hidden");
-    success.classList.add("show");
-    /* the applicant's own confirmation page, worded for an application */
-    if (typeof mcThankYou === "function") mcThankYou("application");
+
+    var base = (document.body && document.body.dataset.siteBase) || "/";
+    var action = form.getAttribute("action") || (base + "send-contact.php");
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.dataset.origText = submitBtn.textContent;
+      submitBtn.textContent = "Submitting application...";
+    }
+
+    var formData = new FormData(form);
+
+    fetch(action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "Accept": "application/json",
+      },
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data && data.success) {
+          form.classList.add("hidden");
+          success.classList.add("show");
+          if (typeof mcThankYou === "function") {
+            mcThankYou(data.kind || "application");
+          }
+        } else {
+          alert((data && data.message) || "Failed to submit application. Please try again.");
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitBtn.dataset.origText || "Submit";
+          }
+        }
+      })
+      .catch(function (err) {
+        console.error("Application form error:", err);
+        alert("Sorry, an error occurred while submitting your application. Please try again.");
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitBtn.dataset.origText || "Submit";
+        }
+      });
   });
 })();

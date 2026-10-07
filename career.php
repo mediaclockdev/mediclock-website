@@ -85,7 +85,8 @@ include 'includes/components/service-strip.php';
             </div>
 
             <div class="form col-12 col-lg-6">
-                <form id="applyForm" novalidate>
+                <form id="applyForm" action="<?= $e(asset_url('send-contact.php')) ?>" method="POST" enctype="multipart/form-data" novalidate>
+                    <input type="hidden" name="form_type" value="career" />
                     <div class="row gx-4 gy-5">
                         <div class="field col-12 col-sm-6">
                             <label for="aFirst">First Name <span class="req" aria-hidden="true">*</span></label>
