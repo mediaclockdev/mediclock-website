@@ -671,7 +671,7 @@
 }
 .csd-qf form {
   display: grid;
-  grid-template-columns: 1fr 1.2fr 1.1fr max-content auto;
+  grid-template-columns: 1fr 1.15fr 1fr minmax(340px, 1.8fr) auto;
   gap: 14px;
   align-items: start;
 }
@@ -688,7 +688,6 @@
   padding: 0 16px;
   border: 1.5px solid var(--csd-field-line);
   border-radius: 12px;
-  text-overflow: ellipsis;
   font: inherit;
   font-size: 1rem;
   color: var(--csd-text);
@@ -696,6 +695,20 @@
   transition:
     border-color 0.25s,
     box-shadow 0.25s;
+}
+.csd-qf input::placeholder {
+  color: var(--csd-muted);
+  opacity: 1;
+}
+.csd-qf select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23192b33' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 6 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 14px 14px;
+  padding-right: 42px;
+  cursor: pointer;
 }
 .csd-qf input:focus,
 .csd-qf select:focus {
@@ -1653,6 +1666,16 @@
    ------------------------------------------------------------ */
 .csd-call-bar {
   display: none;
+}
+
+@media (max-width: 1200px) {
+  .csd-qf form {
+    grid-template-columns: 1fr 1fr;
+  }
+  .csd-qf form > .csd-btn {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
 }
 
 /* ------------------------------------------------------------

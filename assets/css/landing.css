@@ -29,8 +29,8 @@
 :root {
   --lp-dark: #192b34;
   --lp-dark-2: #1f333c;
-  --lp-orange: #f58220;
-  --lp-orange-dark: #d96d12;
+  --lp-orange: #f15a26;
+  --lp-orange-dark: #d64816;
   --lp-grey: #eef1f2;
   --lp-line: #dde3e6;
   --lp-ink: #192b34;
@@ -1162,7 +1162,7 @@ ol {
 .lp-form-card textarea:focus {
   outline: none;
   border-color: var(--lp-orange);
-  box-shadow: 0 0 0 3px rgba(245, 130, 32, 0.2);
+  box-shadow: 0 0 0 3px rgba(241, 90, 38, 0.2);
 }
 /* main.js's validator paints .is-invalid and drops a .field-error after the
    field; both are shared styles, so only the fit is set here */

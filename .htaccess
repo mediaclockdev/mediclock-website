@@ -19,7 +19,7 @@ DirectoryIndex index.php
     # WordPress install, so WordPress keeps its own root .htaccess and this
     # one applies only inside new/.
     # COMMENT THIS LINE OUT when the site moves to the domain root.
-    RewriteBase /website_b2369336/new/
+   # RewriteBase /website_b2369336/new/
     # -----------------------------------------------------------------
 
     # Let Let's Encrypt / SSL renewal through untouched
