@@ -16,16 +16,16 @@ return [
     /* ---- Hero -------------------------------------------------------- */
     /* The headline is stored in three parts so the city can be set in orange
        without putting markup in the data. {city} is filled in by page.php. */
-    'hero_badge'        => 'iOS + Android specialists · St Kilda, Melbourne',
-    'hero_title_before' => 'Build your mobile app with a',
+    'hero_badge'        => 'iOS + Android specialists · St Kilda 3082,Vic',
+    'hero_title_before' => 'Build your app with a',
     'hero_title_city'   => '{city}',
-    'hero_title_after'  => 'development team',
+    'hero_title_after'  => 'mobile app development team',
     'hero_lead'         => 'One team from idea to App Store. We scope it, design it, build it for iOS and Android, and hand you the code.',
     'hero_cta'          => 'Book a Free Discovery Call',
     'hero_ticks'        => [
-        'NDA signed first',
-        'You own the code',
-        'Reply within 4 business hours',
+        'Feasibility Check',
+        'Cost Estimate',
+        'Timeline',
     ],
     'hero_video_label'  => 'Media Clock app development showreel',
 

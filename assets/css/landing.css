@@ -45,13 +45,28 @@
 /* ------------------------------------------------------------
    Shell
    ------------------------------------------------------------ */
+html {
+  overflow-x: clip;
+}
 .lp-body {
   margin: 0;
   background: #fff;
   color: var(--lp-ink);
   font-family: "Plus Jakarta Sans", var(--font-body);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
+  width: 100%;
+}
+.lp-main {
+  width: 100%;
+  overflow-x: clip;
+}
+@supports not (overflow-x: clip) {
+  html,
+  .lp-body,
+  .lp-main {
+    overflow-x: hidden;
+  }
 }
 .lp-container {
   width: 100%;
@@ -374,7 +389,7 @@ ol {
    ------------------------------------------------------------ */
 .lp-strip {
   background: var(--lp-orange);
-  color: var(--lp-dark);
+  color: var(--lp-grey);
 }
 .lp-strip-grid {
   display: grid;
@@ -600,11 +615,14 @@ ol {
   width: 72px;
   height: 72px;
   border-radius: 14px;
-  background: var(--lp-orange);
+  background: var(--lp-grey);
 }
 .lp-cta-panel-icon svg {
   width: 40px;
   height: 40px;
+}
+.lp-cta-panel-icon svg path {
+  fill: var(--lp-dark);
 }
 .lp-cta-panel-content {
   flex: 1 1 320px;
@@ -626,7 +644,7 @@ ol {
    ------------------------------------------------------------ */
 .lp-trust-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
   gap: 20px;
 }
 .lp-trust-card {
@@ -635,6 +653,10 @@ ol {
   padding: 28px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.06);
+}
+.lp-trust-card > div {
+  min-width: 0;
+  flex: 1;
 }
 .lp-trust-card svg {
   flex: none;
@@ -662,7 +684,7 @@ ol {
   padding: 28px 32px;
   border-radius: 14px;
   background: var(--lp-orange);
-  color: var(--lp-dark);
+  color: var(--lp-grey);
 }
 .lp-trust-call p {
   font-size: 1.3125rem;
@@ -705,7 +727,7 @@ ol {
    ------------------------------------------------------------ */
 .lp-price-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 24px;
   align-items: stretch;
 }
@@ -1057,7 +1079,7 @@ ol {
 }
 .lp-contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 48px;
   align-items: center;
   padding-top: 24px;
@@ -1231,7 +1253,7 @@ ol {
   font-family: inherit;
   font-size: 0.9375rem;
   font-weight: 700;
-  color: var(--lp-dark);
+  color: var(--lp-grey);
   cursor: pointer;
   /* starts hidden and out of the tab order; landing.js reveals it once the
      hero has scrolled away */
@@ -1294,6 +1316,20 @@ ol {
     width: 170px;
     height: 120px;
     margin-right: 28px;
+  }
+}
+
+/* ------------------------------------------------------------
+   Small tablet & mobile landscape
+   ------------------------------------------------------------ */
+@media (max-width: 767.98px) {
+  .lp-trust-grid,
+  .lp-price-grid,
+  .lp-contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .lp-trust-grid {
+    gap: 16px;
   }
 }
 
@@ -1365,9 +1401,23 @@ ol {
   .lp-contact-address span {
     font-size: 1.25rem;
   }
+  .lp-trust-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .lp-trust-card {
+    padding: 20px 16px;
+    gap: 14px;
+  }
+  .lp-trust-card h3 {
+    font-size: 1.25rem;
+  }
+  .lp-trust-card p {
+    font-size: 0.95rem;
+  }
   .lp-trust-call,
   .lp-price-foot {
-    padding: 24px;
+    padding: 24px 18px;
     flex-direction: column;
     text-align: center;
   }
