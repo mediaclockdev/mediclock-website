@@ -13,7 +13,11 @@ $lpLogos = require dirname(__DIR__, 3) . '/data/shared/clients-dark.php';
 ?>
 <section class="lp-logos lp-logos--marquee">
     <div class="lp-container">
-        <p class="lp-kicker"><?= $e($lp['trusted_title']) ?></p>
+        <div class="lp-section-head">
+            <div>
+                <h2 class="lp-section-title"><?= $e($lp['trusted_title']) ?></h2>
+            </div>
+        </div>
     </div>
     <!-- full-bleed on purpose: the logos run off both edges instead of
          stopping at the container, which is what sells the movement -->

@@ -18,18 +18,54 @@ foreach ($posts as $i => $p) {
 }
 $bodyFile = $post ? __DIR__ . '/data/blog/body/' . $post['slug'] . '.php' : '';
 $body     = ($bodyFile && is_file($bodyFile)) ? require $bodyFile : [];
+require_once __DIR__ . '/includes/img.php';
 
 if (!$post) {
     http_response_code(404);
     $page_title       = 'Article not found – Media Clock';
     $page_description = '';
 } else {
-    $page_title       = $post['title'] . ' – Media Clock';
-    $page_description = $post['excerpt'];
+    $page_title       = !empty($post['meta_title']) ? $post['meta_title'] : ($post['title'] . ' – Media Clock');
+    $page_description = !empty($post['meta_desc']) ? $post['meta_desc'] : $post['excerpt'];
+    $page_keywords    = !empty($post['keywords']) ? $post['keywords'] : '';
+    $siteOrigin       = 'https://mediaclock.com.au';
+    $page_canonical   = $siteOrigin . (function_exists('page_url') ? page_url('blog/' . $post['slug']) : ('/blog/' . $post['slug'] . '/'));
+    $page_og_type     = 'article';
+    $page_og_title    = $page_title;
+    $page_og_desc     = $page_description;
+    $page_og_image    = !empty($post['img']) ? ($siteOrigin . (function_exists('img_src') ? img_src($post['img']) : ('/assets/images/' . $post['img']))) : '';
 }
 $page_css = ['service', 'blog'];
 $page_js  = 'blog';
 include 'includes/layout/header.php';
+
+if ($post): ?>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": <?= json_encode(!empty($post['meta_title']) ? $post['meta_title'] : $post['title']) ?>,
+  "description": <?= json_encode(!empty($post['meta_desc']) ? $post['meta_desc'] : $post['excerpt']) ?>,
+  "keywords": <?= json_encode(!empty($post['keywords']) ? $post['keywords'] : '') ?>,
+  "datePublished": <?= json_encode($post['date']) ?>,
+  "image": <?= json_encode(!empty($page_og_image) ? $page_og_image : '') ?>,
+  "author": {
+    "@type": "Organization",
+    "name": "Media Clock",
+    "url": "https://mediaclock.com.au"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Media Clock",
+    "url": "https://mediaclock.com.au"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": <?= json_encode($page_canonical) ?>
+  }
+}
+</script>
+<?php endif;
 
 $blogDate = fn(string $d): string => date('j M Y', strtotime($d));
 
@@ -115,6 +151,13 @@ if ($post) {
             <article class="post-article">
                 <?php
                 $openList = false;
+                $renderInline = function(string $s) use ($e): string {
+                    return preg_replace_callback('/\[([^\]]+)\]\(([^)]+)\)/', function ($m) {
+                        $isExt = preg_match('~^https?://(?!mediaclock\.com\.au)~i', $m[2]);
+                        $attrs = $isExt ? ' target="_blank" rel="noopener noreferrer"' : '';
+                        return '<a href="' . $m[2] . '"' . $attrs . '>' . $m[1] . '</a>';
+                    }, $e($s));
+                };
                 foreach ($body as $bIx => $blk):
                     [$tag, $text] = [$blk[0], $blk[1]];
                     $lead = $blk[2] ?? '';
@@ -130,9 +173,9 @@ if ($post) {
                         if ($lead && str_starts_with($text, $lead)) {
                             $restText = ltrim(substr($text, strlen($lead)), " –—-:");
                             $separator = ($restText && preg_match('/^[.,;!?]/', $restText)) ? '' : ' — ';
-                            echo '<li><strong>' . $e($lead) . '</strong>' . ($restText ? $separator . $e($restText) : '') . "</li>\n";
+                            echo '<li><strong>' . $e($lead) . '</strong>' . ($restText ? $separator . $renderInline($restText) : '') . "</li>\n";
                         } else {
-                            echo '<li>' . $e($text) . "</li>\n";
+                            echo '<li>' . $renderInline($text) . "</li>\n";
                         }
                         continue;
                     }
@@ -153,12 +196,43 @@ if ($post) {
                             . "</figure>\n";
                         continue;
                     }
+                    if ($tag === 'table') {
+                        $headers = $blk[1] ?? [];
+                        $rows    = $blk[2] ?? [];
+                        echo '<div class="post-table-wrap table-responsive my-4">' . "\n";
+                        echo '<table class="table post-table">' . "\n";
+                        if (!empty($headers)) {
+                            echo "<thead>\n<tr>\n";
+                            foreach ($headers as $th) {
+                                echo '<th scope="col">' . $renderInline($th) . "</th>\n";
+                            }
+                            echo "</tr>\n</thead>\n";
+                        }
+                        if (!empty($rows)) {
+                            echo "<tbody>\n";
+                            foreach ($rows as $row) {
+                                echo "<tr>\n";
+                                foreach ($row as $rIx => $cell) {
+                                    if ($rIx === 0) {
+                                        echo '<th scope="row" class="fw-semibold">' . $renderInline($cell) . "</th>\n";
+                                    } else {
+                                        echo '<td>' . $renderInline($cell) . "</td>\n";
+                                    }
+                                }
+                                echo "</tr>\n";
+                            }
+                            echo "</tbody>\n";
+                        }
+                        echo "</table>\n";
+                        echo "</div>\n";
+                        continue;
+                    }
                     if ($tag === 'h2' || $tag === 'h3') {
                         $id = $tocIds[$bIx] ?? '';
                         echo '<' . $tag . ($id ? ' id="' . $e($id) . '"' : '') . '>' . $e($text) . '</' . $tag . ">\n";
                         continue;
                     }
-                    echo '<p>' . $e($text) . "</p>\n";
+                    echo '<p>' . $renderInline($text) . "</p>\n";
                 endforeach;
                 if ($openList) {
                     echo "</ul>\n";

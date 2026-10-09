@@ -8,9 +8,9 @@
     <div class="lp-container">
         <div class="lp-section-head lp-section-head--stacked">
             <div>
-                <?php if ($lp['trust_eyebrow'] !== ''): ?>
+                <!-- <?php if ($lp['trust_eyebrow'] !== ''): ?>
                 <p class="lp-kicker lp-kicker--orange"><?= $e($lp['trust_eyebrow']) ?></p>
-                <?php endif; ?>
+                <?php endif; ?> -->
                 <h2 class="lp-section-title"><?= $e($lp['trust_title']) ?></h2>
             </div>
         </div>

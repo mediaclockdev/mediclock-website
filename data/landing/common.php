@@ -41,7 +41,7 @@ return [
     'form_title'  => 'Tell us about your app',
     'form_lead'   => 'We reply within 4 business hours with next steps.',
     'form_submit' => 'Book a Free Discovery Call',
-    'form_note'   => 'Your idea is protected by our NDA. We never share project details.',
+    'form_note'   => 'Your idea is protected by our Non-Disclosure Agreement (NDA).',
 
     /* ---- Trusted by -------------------------------------------------- */
     'trusted_title' => 'Our Happy Clients',
@@ -64,26 +64,26 @@ return [
     'platforms_title' => 'Mobile App Development Services in Australia',
     'platforms_lead'  => 'From new product builds to app upgrades, we provide end-to-end mobile app development across all major platforms.',
     'platforms'       => [
-        ['iOS',             'Native-quality apps built for the App Store, submitted and approved by our team.',      'landing/platforms/01.webp'],
-        ['Android',         'Expand your reach across Android devices with a scalable application built for growth.', 'landing/platforms/02.webp'],
-        ['Cross-platform',  'One React Native codebase for both stores. Faster to launch, cheaper to maintain.',      'landing/platforms/03.webp'],
+        ['iOS',             'Native-quality apps for iPhone users, with our team managing the complete App Store submission and approval process.',      'landing/platforms/01.webp'],
+        ['Android',         'Connect with more customers through a professional Android app that’s simple and easy to use.', 'landing/platforms/02.webp'],
+        ['Cross-platform',  'One app solution for both the App Store and Google Play. Faster to launch, cheaper to maintain.',      'landing/platforms/03.webp'],
         ['Custom software', 'Custom software built around your workflows and business requirements.',                 'landing/platforms/04.webp'],
-        ['Web application', 'Feature-rich web apps that work across devices, giving customers easy access.',          'landing/platforms/05.webp'],
+        ['Web application', 'Easy-to-use web applications that work across devices, giving your customers easy access anywhere.',          'landing/platforms/05.webp'],
     ],
 
     /* ---- App categories ---------------------------------------------- */
     'categories_eyebrow' => '',
     'categories_title'   => 'What Kind Of App Do You Want To Build',
-    'categories_lead'    => 'Tell us where you are. The first call is free, and you will leave it knowing your next step.',
+    'categories_lead'    => 'Got an idea? Tell us about it and we’ll help you work out the best way forward.',
     'categories'         => [
-        ['Health care Apps', 'Patient tools, records and practitioner portals.', 'health'],
-        ['Booking Apps',     'Appointments, classes, calendars and reminders.',  'booking'],
+        // ['Booking Apps',     'Appointments, classes, calendars and reminders.',  'booking'],
         ['Real Estate Apps', 'Listings, inspections and agent dashboards.',      'realestate'],
+        ['Health care Apps', 'Patient tools, records and practitioner portals.', 'health'],
         ['E-Commerce Apps',  'Product catalogues, carts and checkout.',          'ecommerce'],
         ['Marketplace Apps', 'Two platforms with listings and payments.',        'marketplace'],
     ],
-    'categories_cta_title' => 'Have Something In Mind?',
-    'categories_cta_lead'  => 'We would love to hear your idea and turn it into a powerful app.',
+    'categories_cta_title' => 'Your App Idea?',
+    'categories_cta_lead'  => 'Tell us your idea and let’s explore what’s possible.',
     'categories_cta'       => 'Let’s Discuss Your Idea',
 
     /* ---- Why businesses choose us ------------------------------------ */
@@ -114,7 +114,7 @@ return [
     /* ---- Pricing ----------------------------------------------------- */
     'pricing_title' => 'How much does an app cost?',
     'pricing_lead'  => 'Most agencies won’t tell you. Here’s where our projects usually land, so you know before you call.',
-    'pricing_note'  => 'Every project starts with a Scope of Work document. Fixed price, fixed timeline, no surprises.',
+    'pricing_note'  => 'Big idea or simple concept, let’s make it happen.',
     'pricing_cta'   => 'Get a Free App Strategy Session',
     'pricing'       => [
         [
@@ -124,7 +124,7 @@ return [
             'price'    => '$4,999',
             'popular'  => false,
             'features' => [
-                'One platform — iOS or Android',
+                'Both platform — iOS and Android',
                 'Up to 8 core screens',
                 'Login, profiles, push notifications',
                 'App Store / Play Store submission',
@@ -186,6 +186,6 @@ return [
     /* ---- Closing call to action -------------------------------------- */
     'cta_title_before' => 'Have an app idea?',
     'cta_title_accent' => 'Let’s talk.',
-    'cta_lead'         => 'Book a free discovery call. We reply within 4 business hours with next steps.',
+    'cta_lead'         => 'Check timeline feasibility and Cost. Book a free discovery call.',
     'cta_address'      => '392 A St Kilda Rd, St Kilda VIC 3182',
 ];

@@ -43,11 +43,39 @@ unset($navItems, $navSlug);
     <?php if ($page_description): ?>
     <meta name="description" content="<?= $e($page_description) ?>" />
     <?php endif; ?>
+    <?php if (!empty($page_keywords)): ?>
+    <meta name="keywords" content="<?= $e($page_keywords) ?>" />
+    <?php endif; ?>
     <?php if ($page_canonical): ?>
     <link rel="canonical" href="<?= $e($page_canonical) ?>" />
     <?php endif; ?>
     <?php if ($page_robots): ?>
     <meta name="robots" content="<?= $e($page_robots) ?>" />
+    <?php endif; ?>
+    <?php if (!empty($page_og_title)): ?>
+    <meta property="og:title" content="<?= $e($page_og_title) ?>" />
+    <?php endif; ?>
+    <?php if (!empty($page_og_desc)): ?>
+    <meta property="og:description" content="<?= $e($page_og_desc) ?>" />
+    <?php endif; ?>
+    <?php if (!empty($page_canonical)): ?>
+    <meta property="og:url" content="<?= $e($page_canonical) ?>" />
+    <?php endif; ?>
+    <?php if (!empty($page_og_image)): ?>
+    <meta property="og:image" content="<?= $e($page_og_image) ?>" />
+    <?php endif; ?>
+    <?php if (!empty($page_og_type)): ?>
+    <meta property="og:type" content="<?= $e($page_og_type) ?>" />
+    <?php endif; ?>
+    <?php if (!empty($page_og_title)): ?>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<?= $e($page_og_title) ?>" />
+    <?php if (!empty($page_og_desc)): ?>
+    <meta name="twitter:description" content="<?= $e($page_og_desc) ?>" />
+    <?php endif; ?>
+    <?php if (!empty($page_og_image)): ?>
+    <meta name="twitter:image" content="<?= $e($page_og_image) ?>" />
+    <?php endif; ?>
     <?php endif; ?>
     <!-- * Header : brand fonts (Poppins nav, Open Sans dropdown) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

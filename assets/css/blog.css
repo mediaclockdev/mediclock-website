@@ -372,7 +372,7 @@
      the odd one out in here: every paragraph, heading and list sits on the
      article's gutter, so an image that ignores it reads as a mistake rather
      than as emphasis. */
-  margin: 36px 0;
+  margin: 20px 0;
 }
 .post-figure img {
   display: block;
@@ -417,7 +417,7 @@
   box-shadow: 0 10px 30px rgba(25, 43, 51, 0.06);
 }
 .post-article > p {
-  margin: 0 0 26px;
+  margin: 0 0 15px;
   font-size: 19px;
   line-height: 1.75;
   color: #333f48;
@@ -429,7 +429,7 @@
   color: #192b33;
 }
 .post-article h2 {
-  margin: 56px 0 14px;
+  margin: 20px 0 14px;
   font-family: var(--font-head);
   font-size: 28px;
   font-weight: 600;
@@ -441,7 +441,7 @@
   margin-top: 0;
 }
 .post-article h3 {
-  margin: 38px 0 10px;
+  margin: 18px 0 10px;
   font-family: var(--font-head);
   font-size: 20px;
   font-weight: 600;
@@ -454,7 +454,7 @@
   margin-top: 22px;
 }
 .post-list {
-  margin: 0 0 28px;
+  margin: 0 0 10px;
   padding: 0;
   list-style: none;
 }
@@ -489,7 +489,7 @@
   justify-content: center;
   gap: 20px;
   text-align: center;
-  margin-top: 48px;
+  margin-top: 30px;
   padding: 28px 30px;
   border-radius: 20px;
   background: #192b33;
@@ -505,6 +505,58 @@
 .post-inline-cta .projects-cta-btn {
   font-size: 18px;
   padding: 13px 26px;
+}
+
+/* * In-article tables */
+.post-table-wrap {
+  margin: 32px 0 38px;
+  border-radius: 16px;
+  overflow-x: auto;
+  border: 1px solid rgba(25, 43, 51, 0.12);
+  background: #fff;
+  box-shadow: 0 6px 24px rgba(25, 43, 51, 0.05);
+}
+.post-table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+.post-table thead th {
+  background: #192b33;
+  color: #fff;
+  font-family: var(--font-head);
+  font-weight: 600;
+  padding: 14px 18px;
+  border: none;
+  font-size: 14.5px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.post-table thead th:first-child {
+  border-top-left-radius: 15px;
+}
+.post-table thead th:last-child {
+  border-top-right-radius: 15px;
+}
+.post-table tbody th,
+.post-table tbody td {
+  padding: 14px 18px;
+  border-top: 1px solid rgba(25, 43, 51, 0.08);
+  vertical-align: top;
+  color: #334155;
+}
+.post-table tbody th {
+  color: #192b33;
+  font-family: var(--font-head);
+  font-weight: 600;
+  background: #fbfcfd;
+  width: 20%;
+  white-space: nowrap;
+}
+.post-table tbody tr:hover {
+  background-color: rgba(241, 90, 38, 0.03);
 }
 
 /* * Keep reading */
@@ -603,7 +655,7 @@
   }
   /* phone reading: slightly smaller type, same rhythm */
   .post-article > p {
-    margin-bottom: 22px;
+    margin-bottom: 15px;
     font-size: 17px;
     line-height: 1.72;
   }
@@ -611,11 +663,11 @@
     font-size: 19px;
   }
   .post-article h2 {
-    margin-top: 40px;
+    margin-top: 18px;
     font-size: 24px;
   }
   .post-article h3 {
-    margin-top: 30px;
+    margin-top: 15px;
     font-size: 19px;
   }
   .post-list li {
@@ -628,13 +680,13 @@
 }
 @media (max-width: 575.98px) {
   .post-figure {
-    margin: 26px 0;
+    margin: 15px 0;
   }
   .post-cover {
     border-radius: 14px;
   }
   .post-article {
-    padding: 26px 18px;
+    padding: 26px 0px;
     border-radius: 16px;
   }
   .post-inline-cta {

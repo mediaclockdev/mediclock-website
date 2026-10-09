@@ -436,11 +436,14 @@ ol {
    the track is 12 logos x 242px = 2904px at roughly 85px per second.
    ------------------------------------------------------------ */
 .lp-logos {
-  padding: 24px 0;
+  padding: 24px 0 0;
   background: #fff;
 }
+.lp-logos .lp-section-head {
+  margin-bottom: 24px;
+}
 .lp-logos .lp-kicker {
-  text-align: center;
+  text-align: left;
   margin-bottom: 20px;
 }
 .lp-marquee {
