@@ -4,7 +4,7 @@
    place — the full text is always in the DOM, so nothing is hidden from a
    screen reader or from find-in-page. */
 ?>
-<section class="lp-section lp-section--grey lp-reviews">
+<section class="lp-section lp-section--dark lp-reviews">
     <div class="lp-container">
         <div class="lp-section-head">
             <h2 class="lp-section-title"><?= $e($lp['reviews_title']) ?></h2>

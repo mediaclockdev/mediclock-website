@@ -4,7 +4,7 @@
    the bottom of the card by the CSS, so all five line up across the row
    however long the copy runs. */
 ?>
-<section class="lp-section lp-section--grey lp-platforms">
+<section class="lp-section lp-section--dark lp-platforms">
     <div class="lp-container">
         <div class="lp-section-head lp-section-head--stacked">
             <div>

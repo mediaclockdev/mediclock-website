@@ -12,7 +12,7 @@ $lpC = mc_contact();
          nothing else — no column of links out of a paid funnel. -->
     <footer class="lp-footer">
         <div class="lp-container lp-footer-inner">
-            <p>&copy; <?= date('Y') ?> Mediaclock Pty Ltd &middot; ABN 65 617 380 006</p>
+            <p>&copy; <?= date('Y') ?> Mediaclock Pvt Ltd &middot; ABN 65 617 380 006 &middot;</p>
             <p>
                 <?php if (!empty($lp['cta_address'])): ?>
                 <a href="https://maps.google.com/maps?q=<?= rawurlencode($lp['cta_address']) ?>" target="_blank" rel="noopener noreferrer"><?= $e($lp['cta_address']) ?></a> &middot;

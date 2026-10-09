@@ -14,13 +14,13 @@
      .lp-strip       orange  four proof figures
      .lp-logos       white   trusted by (marquee)
      .lp-projects    white   case studies
-     .lp-platforms   grey    what we build
+     .lp-platforms   dark    what we build
      .lp-categories  grey    what kind of app + CTA panel
      .lp-trust       dark    why businesses trust what we build
      .lp-roadmap     white   how it works
      .lp-pricing     grey    what an app costs
      .lp-tech-band   white   technologies
-     .lp-reviews     grey    client feedback
+     .lp-reviews     dark    client feedback
      .lp-faq         white   questions
      .lp-contact     dark    closing CTA + the quote form
      .lp-footer      near-black legal line
@@ -129,7 +129,7 @@ ol {
   text-align: left;
 }
 .lp-section-lead {
-  margin-top: 12px;
+  margin-top: 15px;
   max-width: 680px;
   font-size: 1.1875rem;
   line-height: 1.6;
@@ -166,9 +166,9 @@ ol {
 .lp-section-head--stacked {
   display: block;
 }
-.lp-section-head > div {
+/* .lp-section-head > div {
   max-width: 880px;
-}
+} */
 .lp-head-link {
   padding: 10px 0;
   border: 0;
@@ -395,18 +395,18 @@ ol {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 24px;
-  padding-top: 36px;
-  padding-bottom: 36px;
+  padding-top: 28px;
+  padding-bottom: 28px;
   text-align: center;
 }
 .lp-strip-item strong {
   display: block;
-  font-size: 1.75rem;
+  font-size: 2.05rem;
   font-weight: 800;
   line-height: 1.2;
 }
 .lp-strip-item span {
-  font-size: 0.9375rem;
+  font-size: 1.075rem;
   font-weight: 600;
 }
 
@@ -504,13 +504,13 @@ ol {
   color: #8a4a0e;
 }
 .lp-project h3 {
-  font-size: 1.375rem;
+  font-size: 1.575rem;
   font-weight: 700;
   line-height: 1.3;
 }
 .lp-project-text {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.075rem;
+  line-height: 1.5;
   color: var(--lp-muted);
 }
 .lp-projects-foot {
@@ -532,19 +532,20 @@ ol {
   flex-direction: column;
   gap: 10px;
   padding: 28px 24px;
-  background: #fff;
+  background: var(--lp-dark);
   border: 1px solid var(--lp-line);
   border-radius: var(--lp-radius);
 }
 .lp-platform h3 {
-  font-size: 1.25rem;
+  font-size: 1.575rem;
   font-weight: 700;
   color: var(--lp-orange);
 }
 .lp-platform p {
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--lp-muted);
+  font-size: 1.075rem;
+  line-height: 1.5;
+  /* color: var(--lp-muted); */
+  color: var(--lp-grey);
 }
 /* pushed to the bottom so every picture in the row lines up however long the
    copy above it runs */
@@ -589,12 +590,12 @@ ol {
   height: 26px;
 }
 .lp-category h3 {
-  font-size: 1.1875rem;
+  font-size: 1.475rem;
   font-weight: 700;
 }
 .lp-category p {
-  font-size: 0.9375rem;
-  line-height: 1.6;
+  font-size: 1.075rem;
+  line-height: 1.5;
   color: var(--lp-muted);
 }
 .lp-cta-panel {
@@ -665,13 +666,13 @@ ol {
   color: var(--lp-orange);
 }
 .lp-trust-card h3 {
-  font-size: 1.45rem;
+  font-size: 1.575rem;
   font-weight: 700;
 }
 .lp-trust-card p {
   margin-top: 6px;
-  font-size: 1.05rem;
-  line-height: 1.6;
+  font-size: 1.075rem;
+  line-height: 1.5;
   color: var(--lp-muted-light);
 }
 .lp-trust-call {
@@ -713,12 +714,12 @@ ol {
   color: var(--lp-dark);
 }
 .lp-step h3 {
-  font-size: 1.3125rem;
+  font-size: 1.575rem;
   font-weight: 700;
 }
 .lp-step p {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.075rem;
+  line-height: 1.5;
   color: var(--lp-muted);
 }
 
@@ -758,11 +759,11 @@ ol {
   text-transform: uppercase;
 }
 .lp-price h3 {
-  font-size: 1.375rem;
+  font-size: 1.575rem;
   font-weight: 700;
 }
 .lp-price-blurb {
-  font-size: 1rem;
+  font-size: 1.075rem;
   color: var(--lp-muted);
 }
 .lp-is-popular .lp-price-blurb {
@@ -788,7 +789,7 @@ ol {
 .lp-price-features {
   display: grid;
   gap: 10px;
-  font-size: 1rem;
+  font-size: 1.075rem;
   line-height: 1.5;
   color: #2a3a42;
 }
@@ -810,7 +811,7 @@ ol {
    three cards however many features each one lists */
 .lp-price-timing {
   margin-top: auto;
-  font-size: 0.9375rem;
+  font-size: 1.075rem;
   font-weight: 700;
   color: var(--lp-ink);
 }
@@ -863,6 +864,9 @@ ol {
   font-weight: 600;
   color: var(--lp-muted);
 }
+.lp-section--dark .lp-reviews-note {
+  color: rgba(255, 255, 255, 0.9);
+}
 .lp-review {
   display: flex;
   flex-direction: column;
@@ -895,7 +899,7 @@ ol {
 /* 1.6 from the body is too airy for a name that wraps onto two lines, and the
    two lines read as separate items rather than one name */
 .lp-review-info strong {
-  font-size: 1rem;
+  font-size: 1.075rem;
   font-weight: 700;
   line-height: 1.3;
 }
@@ -968,6 +972,28 @@ ol {
 .lp-review-more:focus-visible {
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* Dark theme review cards */
+.lp-section--dark .lp-review {
+  background: var(--lp-dark-2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.lp-section--dark .lp-review-info strong {
+  color: #fff;
+}
+.lp-section--dark .lp-review-when {
+  color: rgba(255, 255, 255, 0.6);
+}
+.lp-section--dark .lp-review-stars {
+  color: var(--lp-orange);
+}
+.lp-section--dark .lp-review-body p {
+  color: rgba(255, 255, 255, 0.88);
+}
+.lp-section--dark .lp-review-more {
+  color: var(--lp-orange);
 }
 
 /* ------------------------------------------------------------
@@ -1218,8 +1244,9 @@ ol {
 }
 .lp-footer-inner {
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
+  /* justify-content: space-between; */
+  justify-content: center;
+  gap: 5px;
   flex-wrap: wrap;
   padding-top: 32px;
   padding-bottom: 32px;
@@ -1294,12 +1321,26 @@ ol {
   .lp-hero-copy {
     display: contents;
   }
-  .lp-hero-badge { order: 1; }
-  .lp-hero h1 { order: 2; }
-  .lp-hero-media { order: 3; margin: 8px 0; width: 100%; }
-  .lp-hero-lead { order: 4; }
-  .lp-hero-ctas { order: 5; }
-  .lp-hero-ticks { order: 6; }
+  .lp-hero-badge {
+    order: 1;
+  }
+  .lp-hero h1 {
+    order: 2;
+  }
+  .lp-hero-media {
+    order: 3;
+    margin: 8px 0;
+    width: 100%;
+  }
+  .lp-hero-lead {
+    order: 4;
+  }
+  .lp-hero-ctas {
+    order: 5;
+  }
+  .lp-hero-ticks {
+    order: 6;
+  }
   .lp-contact-grid {
     padding-top: 24px;
     padding-bottom: 24px;

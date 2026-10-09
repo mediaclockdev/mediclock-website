@@ -16,7 +16,7 @@ return [
     /* ---- Hero -------------------------------------------------------- */
     /* The headline is stored in three parts so the city can be set in orange
        without putting markup in the data. {city} is filled in by page.php. */
-    'hero_badge'        => 'iOS + Android specialists · St Kilda 3082,Vic',
+    'hero_badge'        => 'iOS + Android specialists · St Kilda 3082, VIC',
     'hero_title_before' => 'Build your app with a',
     'hero_title_city'   => '{city}',
     'hero_title_after'  => 'mobile app development team',
@@ -25,7 +25,7 @@ return [
     'hero_ticks'        => [
         'Feasibility Check',
         'Cost Estimate',
-        'Timeline',
+        'Get Timeline',
     ],
     'hero_video_label'  => 'Media Clock app development showreel',
 
@@ -47,22 +47,22 @@ return [
     'trusted_title' => 'Trusted by Australian businesses',
 
     /* ---- Projects / case studies ------------------------------------- */
-    'projects_title' => 'Real apps with real business problems.',
+    'projects_title' => 'Our Recent Projects',
     'projects_lead'  => 'A few of the apps we have recently built for Australian businesses.',
     'projects_cta'   => 'Explore More',
     /* [tag, title, blurb, image] */
     'projects'       => [
-        ['Mining · Safety',      'Mining Safety & Hazard Reporting',  'Workers report hazards on site from their phone, so issues reach supervisors straight away instead of on paper.', 'landing/projects/03.webp'],
-        ['Property · Field teams', 'Property Inspection App',         'Onsite inspection reports with photos and details, sent to clients — without ongoing per-user subscription fees.', 'landing/projects/05.webp'],
-        ['Marketplace',          'Rental Marketplace App',            'A two-sided marketplace with listings, bookings and payments for owners and renters in one app.', 'landing/projects/06.webp'],
-        ['Retail · Orders',      'Shopping & Order Management App',   'Browsing, carts and order tracking for customers, with the admin side the team runs the day on.', 'landing/projects/02.webp'],
-        ['Health care',           'Health care App',                    'Patient records, appointments and practitioner tools in one place, built around how the practice already works.', 'landing/projects/04.webp'],
+        ['Mining · Safety',      'Mining Safety & Hazard Reporting',  'A custom mobile and web solution for field workers and supervisors, digitising hazard reporting and giving management real-time visibility of site issues and records.', 'landing/projects/03.webp'],
+        ['Property · Field teams', 'Property Inspection App',         'We developed a custom inspection solution to capture site data and photos, streamline reporting and share completed reports with clients.', 'landing/projects/05.webp'],
+        ['Marketplace',          'Rental Marketplace App',            'A custom mobile app and web platform connecting owners and renters, with integrated listings, bookings and payments for a seamless rental experience.', 'landing/projects/06.webp'],
+        ['Retail · Orders',      'Shopping & Order Management App',   'A complete mobile shopping experience with product browsing, cart management and order tracking, supported by an admin platform to manage orders and daily operations.', 'landing/projects/02.webp'],
+        ['Health care',           'Health care App',                    'A mobile health app for tracking menopause symptoms and wellbeing, integrating data from Apple Watch and Google Wear OS devices to give users clearer insights into their health.', 'landing/projects/04.webp'],
         ['Consumer',             'Photo Storage & Organisation App',  'Upload, sort and share photos from the phone, with the storage and syncing handled in the background.', 'landing/projects/01.webp'],
     ],
 
     /* ---- Platforms --------------------------------------------------- */
-    'platforms_title' => 'What We Build for Every Platform',
-    'platforms_lead'  => 'One team across both stores, the web, and the systems behind them.',
+    'platforms_title' => 'Mobile App Development Services in Australia',
+    'platforms_lead'  => 'From new product builds to app upgrades, we provide end-to-end mobile app development across all major platforms.',
     'platforms'       => [
         ['iOS',             'Native-quality apps built for the App Store, submitted and approved by our team.',      'landing/platforms/01.webp'],
         ['Android',         'Expand your reach across Android devices with a scalable application built for growth.', 'landing/platforms/02.webp'],
@@ -121,7 +121,7 @@ return [
             'name'     => 'MVP Launch',
             'blurb'    => 'For validating an idea fast.',
             'lead_in'  => 'Starting from',
-            'price'    => '$8,000',
+            'price'    => '$4,999',
             'popular'  => false,
             'features' => [
                 'One platform — iOS or Android',
@@ -136,7 +136,7 @@ return [
             'name'     => 'Full Product',
             'blurb'    => 'For businesses launching a real product.',
             'lead_in'  => 'Starting from',
-            'price'    => '$15,000',
+            'price'    => '$9,999',
             'popular'  => true,
             'features' => [
                 'iOS and Android (React Native)',
