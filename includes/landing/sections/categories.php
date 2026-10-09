@@ -46,7 +46,7 @@ $lpIcons = [
                 <p><?= $e($lp['categories_cta_lead']) ?></p>
             </div>
             <div class="lp-cta-panel-action">
-                <button type="button" class="lp-btn lp-btn-primary" data-lp-scroll-to="#lp-quote"><?= $e($lp['categories_cta']) ?></button>
+                <button type="button" class="lp-btn lp-btn-primary" data-lp-open-modal aria-haspopup="dialog"><?= $e($lp['categories_cta']) ?></button>
             </div>
         </div>
     </div>

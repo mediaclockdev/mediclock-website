@@ -32,7 +32,7 @@
 
         <div class="lp-price-foot">
             <p><?= $e($lp['pricing_note']) ?></p>
-            <button type="button" class="lp-btn lp-btn-dark" data-lp-scroll-to="#lp-quote"><?= $e($lp['pricing_cta']) ?></button>
+            <button type="button" class="lp-btn lp-btn-dark" data-lp-open-modal aria-haspopup="dialog"><?= $e($lp['pricing_cta']) ?></button>
         </div>
     </div>
 </section>

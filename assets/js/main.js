@@ -314,9 +314,15 @@
    the wording on the other side. The inline success blocks are kept as the
    fallback for anything that stops the redirect. */
 function mcThankYou(kind) {
-  const base = document.body.dataset.siteBase || "/";
-  window.location.href = base + "thank-you/?form=" + encodeURIComponent(kind);
+  const base = (document.body && document.body.dataset.siteBase) || "/";
+  const url = base + "thank-you/?form=" + encodeURIComponent(kind || "enquiry");
+  try {
+    window.location.replace(url);
+  } catch (err) {
+    window.location.href = url;
+  }
 }
+window.mcThankYou = mcThankYou;
 
 /* * Service hero : Request For Proposal card */
 (function () {
@@ -352,9 +358,16 @@ function mcThankYou(kind) {
       .then((res) => res.json())
       .then((data) => {
         if (data && data.success) {
-          form.hidden = true;
-          success.hidden = false;
+          if (submitBtn) {
+            submitBtn.textContent = "Redirecting...";
+          }
           mcThankYou(data.kind || "proposal");
+          setTimeout(() => {
+            if (success) {
+              form.hidden = true;
+              success.hidden = false;
+            }
+          }, 2500);
         } else {
           alert((data && data.message) || "Failed to send request. Please try again.");
           if (submitBtn) {
@@ -424,10 +437,15 @@ function mcThankYou(kind) {
         .then((res) => res.json())
         .then((data) => {
           if (data && data.success) {
-            e.target.classList.add("hidden");
-            const successEl = document.getElementById("success");
-            if (successEl) successEl.classList.add("show");
+            if (submitBtn) {
+              submitBtn.textContent = "Redirecting...";
+            }
             mcThankYou(data.kind || "enquiry");
+            setTimeout(() => {
+              e.target.classList.add("hidden");
+              const successEl = document.getElementById("success");
+              if (successEl) successEl.classList.add("show");
+            }, 2500);
           } else {
             alert((data && data.message) || "Failed to send request. Please try again.");
             if (submitBtn) {

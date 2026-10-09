@@ -30,7 +30,7 @@ $lpPoster   = is_file(dirname(__DIR__, 3) . '/assets/images/landing/trust-poster
 
             <div class="lp-hero-ctas">
                 <button type="button" class="lp-btn lp-btn-primary"
-                    data-lp-scroll-to="#lp-quote"><?= $e($lp['hero_cta']) ?></button>
+                    data-lp-open-modal aria-haspopup="dialog"><?= $e($lp['hero_cta']) ?></button>
                 <a class="lp-btn lp-btn-ghost" href="<?= $e(mc_tel()) ?>"><?= $e(mc_tel_text()) ?></a>
             </div>
 

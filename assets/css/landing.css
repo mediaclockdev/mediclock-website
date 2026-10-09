@@ -140,9 +140,9 @@ ol {
   color: var(--lp-muted-light);
 }
 .lp-kicker {
-  margin: 0 0 10px;
-  font-size: 0.875rem;
-  font-weight: 700;
+  margin: 0 0 5px;
+  font-size: 1.275rem;
+  font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #4a5a62;
@@ -247,9 +247,10 @@ ol {
 .lp-header {
   position: sticky;
   top: 0;
-  z-index: 10;
-  background: var(--lp-dark);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 1px solid var(--lp-line);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 .lp-header-inner {
   display: flex;
@@ -262,13 +263,13 @@ ol {
 .lp-logo img {
   display: block;
   width: auto;
-  height: 40px;
+  height: 38px;
 }
 .lp-header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 16px;
+  flex-wrap: nowrap;
   justify-content: flex-end;
 }
 .lp-header-phone {
@@ -276,16 +277,32 @@ ol {
   align-items: center;
   gap: 8px;
   min-height: 44px;
-  color: #fff;
-  font-weight: 600;
-  font-size: 1rem;
+  color: var(--lp-ink);
+  font-weight: 700;
+  font-size: 1.095rem;
   text-decoration: none;
   white-space: nowrap;
+  transition: color 0.2s ease;
 }
 .lp-header-phone svg {
   width: 18px;
   height: 18px;
   flex: none;
+  color: var(--lp-orange);
+  transition: transform 0.2s ease;
+}
+.lp-header-phone:hover,
+.lp-header-phone:focus-visible {
+  color: var(--lp-orange);
+  text-decoration: none;
+}
+.lp-header-phone:hover svg {
+  transform: scale(1.08);
+}
+@media (max-width: 991.98px) {
+  .lp-header-phone--landline {
+    display: none;
+  }
 }
 .lp-header-cta {
   padding: 12px 20px;
@@ -1244,9 +1261,9 @@ ol {
 }
 .lp-footer-inner {
   display: flex;
-  /* justify-content: space-between; */
   justify-content: center;
-  gap: 5px;
+  align-items: center;
+  gap: 0;
   flex-wrap: wrap;
   padding-top: 32px;
   padding-bottom: 32px;
@@ -1255,6 +1272,23 @@ ol {
 .lp-footer-inner p {
   margin: 0;
   line-height: 1.6;
+}
+.lp-footer-dot {
+  color: var(--lp-orange);
+  margin: 0 12px;
+  font-weight: 700;
+  display: inline-block;
+  user-select: none;
+}
+@media (max-width: 767.98px) {
+  .lp-footer-dot--break {
+    display: none;
+  }
+}
+@media (max-width: 575.98px) {
+  .lp-footer-dot {
+    margin: 0 8px;
+  }
 }
 .lp-footer a {
   color: inherit;
@@ -1413,7 +1447,18 @@ ol {
      only action left and it stays — hiding it would leave a header with
      nothing in it but the logo. */
   .lp-logo img {
-    height: 36px;
+    height: 26px !important;
+    max-width: 175px !important;
+    width: auto !important;
+  }
+  .lp-header-phone {
+    font-size: 0.875rem;
+    gap: 6px;
+    min-height: 38px;
+  }
+  .lp-header-phone svg {
+    width: 16px;
+    height: 16px;
   }
   /* inert while the header carries no CTA; kept so the button can go back
      without the phone bar wrapping again */
@@ -1517,3 +1562,261 @@ ol {
     display: none;
   }
 }
+
+/* ------------------------------------------------------------
+   Discovery Call Quote Modal Popup
+   ------------------------------------------------------------ */
+.lp-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: visibility 0.25s ease, opacity 0.25s ease;
+}
+.lp-modal.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+.lp-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 28, 34, 0.48);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+.lp-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 500px;
+  max-height: min(92vh, 640px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #ffffff;
+  border: 1px solid rgba(15, 28, 34, 0.08);
+  border-radius: 20px;
+  padding: 32px 28px 24px;
+  box-shadow: 0 24px 60px -12px rgba(15, 28, 34, 0.35), 0 8px 24px -4px rgba(15, 28, 34, 0.12);
+  transform: scale(0.95) translateY(12px);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lp-modal.is-open .lp-modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+/* Modal Header: Title + Close Button */
+.lp-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.lp-modal-header-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.lp-modal-title {
+  margin: 0;
+  font-family: inherit;
+  font-size: clamp(1.375rem, 2.5vw, 1.625rem);
+  font-weight: 800;
+  color: var(--lp-ink);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+.lp-modal-lead {
+  margin: 6px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: #64748b;
+}
+.lp-modal-close {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin-top: 2px;
+  border: 0;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #475569;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.lp-modal-close:hover,
+.lp-modal-close:focus-visible {
+  background: #e2e8f0;
+  color: var(--lp-ink);
+  transform: scale(1.05);
+  outline: none;
+}
+.lp-modal-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Modal Form Fields */
+.lp-modal-body form {
+  display: grid;
+  gap: 14px;
+}
+.lp-modal-body .lp-form-group {
+  position: relative;
+  width: 100%;
+}
+.lp-modal-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.lp-modal-body input,
+.lp-modal-body textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 15px;
+  border: 1.5px solid #d2d8de;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--lp-ink);
+  background: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.lp-modal-body input {
+  min-height: 48px;
+}
+.lp-modal-body textarea {
+  min-height: 90px;
+  height: 90px;
+  resize: none;
+}
+.lp-modal-body input::placeholder,
+.lp-modal-body textarea::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+.lp-modal-body input:focus,
+.lp-modal-body textarea:focus {
+  outline: none;
+  border-color: var(--lp-orange);
+  box-shadow: 0 0 0 3.5px rgba(241, 90, 38, 0.18);
+  background-color: #ffffff;
+}
+
+/* Validation states inside modal */
+.lp-modal-body .is-invalid {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+.lp-modal-body .field-error {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: #ef4444;
+  text-align: left;
+}
+
+/* Modal Submit Button */
+.lp-modal-submit {
+  min-height: 50px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-top: 2px;
+  box-shadow: 0 4px 12px rgba(15, 28, 34, 0.15);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.lp-modal-submit:hover,
+.lp-modal-submit:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(15, 28, 34, 0.25);
+}
+
+/* NDA Trust note */
+.lp-modal-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 2px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: #64748b;
+  text-align: center;
+}
+.lp-modal-note svg {
+  flex: none;
+  color: #94a3b8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 575.98px) {
+  .lp-modal {
+    padding: 12px;
+  }
+  .lp-modal-dialog {
+    padding: 24px 18px 20px;
+    border-radius: 16px;
+    max-height: calc(100dvh - 24px);
+  }
+  .lp-modal-header {
+    margin-bottom: 18px;
+    gap: 12px;
+  }
+  .lp-modal-title {
+    font-size: 1.3125rem;
+  }
+  .lp-modal-lead {
+    font-size: 0.875rem;
+  }
+  .lp-modal-close {
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+  }
+  .lp-modal-close svg {
+    width: 16px;
+    height: 16px;
+  }
+  .lp-modal-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .lp-modal-body form {
+    gap: 12px;
+  }
+  .lp-modal-body input,
+  .lp-modal-body textarea {
+    padding: 12px 14px;
+    font-size: 0.9375rem;
+  }
+  .lp-modal-body input {
+    min-height: 46px;
+  }
+  .lp-modal-body textarea {
+    min-height: 80px;
+    height: 80px;
+  }
+  .lp-modal-submit {
+    min-height: 48px;
+    font-size: 0.98rem;
+  }
+}
+

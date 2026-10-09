@@ -321,13 +321,25 @@
         .then(function (res) { return res.json(); })
         .then(function (data) {
           if (data && data.success) {
-            if (success) {
-              form.hidden = true;
-              success.hidden = false;
+            if (submitBtn) {
+              submitBtn.textContent = "Redirecting...";
             }
             if (typeof window.mcThankYou === "function") {
               window.mcThankYou(data.kind || "enquiry");
+            } else {
+              var url = base + "thank-you/?form=" + encodeURIComponent(data.kind || "enquiry");
+              try {
+                window.location.replace(url);
+              } catch (err) {
+                window.location.href = url;
+              }
             }
+            setTimeout(function () {
+              if (success) {
+                form.hidden = true;
+                success.hidden = false;
+              }
+            }, 2500);
           } else {
             alert((data && data.message) || "Failed to send request. Please try again.");
             if (submitBtn) {

@@ -59,11 +59,23 @@
       .then(function (res) { return res.json(); })
       .then(function (data) {
         if (data && data.success) {
-          form.classList.add("hidden");
-          success.classList.add("show");
+          if (submitBtn) {
+            submitBtn.textContent = "Redirecting...";
+          }
           if (typeof mcThankYou === "function") {
             mcThankYou(data.kind || "application");
+          } else {
+            var url = base + "thank-you/?form=" + encodeURIComponent(data.kind || "application");
+            try {
+              window.location.replace(url);
+            } catch (err) {
+              window.location.href = url;
+            }
           }
+          setTimeout(function () {
+            form.classList.add("hidden");
+            if (success) success.classList.add("show");
+          }, 2500);
         } else {
           alert((data && data.message) || "Failed to submit application. Please try again.");
           if (submitBtn) {

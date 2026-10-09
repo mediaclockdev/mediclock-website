@@ -5,7 +5,7 @@ $page_css         = ['service', 'portfolio'];
 include 'includes/layout/header.php';
 
 // * Hero
-$hero_title = 'Trusted by Experts';
+$hero_title = 'Our Recent Projects';
 $hero_cta   = '';
 $hero_image = 'pages/portfolio/hero.webp';
 include 'includes/components/hero.php';
@@ -38,7 +38,7 @@ $portfolio = [
 <section class="section portfolio band-light" id="portfolio" aria-labelledby="portfolio-title">
     <div class="container">
         <p class="portfolio-lead">Explore our portfolio, featuring the logos of our esteemed clients. Each logo represents a unique collaboration where we delivered tailored software solutions to meet specific needs. Discover the trust and confidence that businesses have placed in our expertise.</p>
-        <h2 id="portfolio-title">Portfolio</h2>
+        <h2 id="portfolio-title">Our Portfolio</h2>
 
         <ul class="portfolio-grid list-unstyled">
             <?php foreach ($portfolio as $i => $name): ?>

@@ -12,13 +12,13 @@ $lpC = mc_contact();
          nothing else — no column of links out of a paid funnel. -->
     <footer class="lp-footer">
         <div class="lp-container lp-footer-inner">
-            <p>&copy; <?= date('Y') ?> Mediaclock Pvt Ltd &middot; ABN 65 617 380 006 &middot;</p>
+            <p>&copy; <?= date('Y') ?> Mediaclock Pvt Ltd<span class="lp-footer-dot">&middot;</span>ABN 65 617 380 006<span class="lp-footer-dot lp-footer-dot--break">&middot;</span></p>
             <p>
                 <?php if (!empty($lp['cta_address'])): ?>
-                <a href="https://maps.google.com/maps?q=<?= rawurlencode($lp['cta_address']) ?>" target="_blank" rel="noopener noreferrer"><?= $e($lp['cta_address']) ?></a> &middot;
+                <a href="https://maps.google.com/maps?q=<?= rawurlencode($lp['cta_address']) ?>" target="_blank" rel="noopener noreferrer"><?= $e($lp['cta_address']) ?></a><span class="lp-footer-dot">&middot;</span>
                 <?php endif; ?>
-                <a href="<?= $e(mc_tel()) ?>"><?= $e(mc_tel_text()) ?></a> &middot;
-                <a href="<?= $e(mc_tel('mobile')) ?>"><?= $e(mc_tel_text('mobile')) ?></a> &middot;
+                <a href="<?= $e(mc_tel()) ?>"><?= $e(mc_tel_text()) ?></a><span class="lp-footer-dot">&middot;</span>
+                <a href="<?= $e(mc_tel('mobile')) ?>"><?= $e(mc_tel_text('mobile')) ?></a><span class="lp-footer-dot">&middot;</span>
                 <a href="mailto:<?= $e($lpC['email']) ?>"><?= $e($lpC['email']) ?></a>
             </p>
         </div>
@@ -26,7 +26,9 @@ $lpC = mc_contact();
 
     <!-- * Sticky quote button — follows the visitor down the page so the form
          is always one tap away, wherever they stopped reading -->
-    <button type="button" class="lp-sticky-quote" data-lp-scroll-to="#lp-quote">Get a Quote</button>
+    <button type="button" class="lp-sticky-quote" data-lp-open-modal aria-haspopup="dialog">Get a Quote</button>
+
+    <?php include __DIR__ . '/modal.php'; ?>
 
     <!-- main.js unchanged: it carries the shared form validator (the same
          rules, messages and input-time filtering every other form uses) and

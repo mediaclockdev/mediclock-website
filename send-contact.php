@@ -15,6 +15,7 @@ use PHPMailer\PHPMailer\Exception;
 require_once __DIR__ . '/PHPMailer/src/Exception.php';
 require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
 require_once __DIR__ . '/PHPMailer/src/SMTP.php';
+require_once __DIR__ . '/includes/img.php';
 
 // ---------------------------------------------------------
 // 1. SETTINGS & RECIPIENTS
@@ -27,15 +28,26 @@ $toEmails = [
     'raj@mediaclock.com.au',
 ];
 
-$fromEmail = 'smtp@mediaclock.com.au';
 $siteName  = 'Media Clock';
-
-$smtpHost  = 'sh01076.bluehost.com';
-$smtpUser  = 'smtp@mediaclock.com.au';
-$smtpPass  = 'pzKZ*hn!]jQ?35lS';
-$smtpPort  = 587;
-
 $recaptchaSecret = '';
+
+// Primary and fallback Bluehost SMTP configurations
+$smtpConfigs = [
+    [
+        'host' => 'sh01076.bluehost.com',
+        'user' => 'smtp@mediaclock.com.au',
+        'pass' => 'pzKZ*hn!]jQ?35lS',
+        'port' => 587,
+        'from' => 'smtp@mediaclock.com.au',
+    ],
+    [
+        'host' => 'sh01076.bluehost.com',
+        'user' => 'smtp@snm.bug.mybluehost.me',
+        'pass' => 'PeZ}Oe*G?fKP@B!D',
+        'port' => 587,
+        'from' => 'smtp@snm.bug.mybluehost.me',
+    ],
+];
 
 // ---------------------------------------------------------
 // 2. CORS PREFLIGHT & REQUEST METHOD CHECK
@@ -125,7 +137,8 @@ function sendResponse(bool $success, string $message, int $statusCode = 200, str
 
     // Normal browser submission fallback
     if ($success) {
-        header('Location: thank-you/?form=' . urlencode($thankYouKind));
+        $target = function_exists('page_url') ? page_url('thank-you') : 'thank-you/';
+        header('Location: ' . $target . '?form=' . urlencode($thankYouKind));
         exit;
     }
 
@@ -289,9 +302,13 @@ switch ($formType) {
 
     case 'landing':
         $thankYouKind = 'enquiry';
-        $badgeLabel   = 'Mobile App Development' . ($source !== '' ? " | {$source}" : '');
-        $emailHeading = 'New App Consultation Request';
-        $subject      = 'New App Consultation Request' . ($source !== '' ? " ({$source})" : '') . " - {$siteName}";
+        if ($service === '') {
+            $service = 'Mobile App Development';
+        }
+        $cityLabel    = ($source !== '' ? $source : 'Melbourne / Perth');
+        $badgeLabel   = 'Mobile App Development | ' . $cityLabel;
+        $emailHeading = 'New App Consultation Request (' . $cityLabel . ')';
+        $subject      = 'New App Consultation Request (' . $cityLabel . ") - {$siteName}";
         break;
 
     case 'rfp':
@@ -350,6 +367,10 @@ if ($budget !== '') {
 }
 if ($source !== '') {
     $displayFields['Campaign / City'] = $source;
+}
+$pageUrl = cleanText($_POST['page_url'] ?? $_SERVER['HTTP_REFERER'] ?? '');
+if ($pageUrl !== '') {
+    $displayFields['Submitted From URL'] = $pageUrl;
 }
 
 // Check for file attachment (Careers)
@@ -481,55 +502,66 @@ $textBody .= "IP: {$ipAddress}\n";
 $textBody .= "Date: {$timestamp}\n";
 
 // ---------------------------------------------------------
-// 8. SEND VIA PHPMailer SMTP
+// 8. SEND VIA PHPMailer SMTP (WITH FALLBACK)
 // ---------------------------------------------------------
 
-$mail = new PHPMailer(true);
+$sent = false;
+$lastError = '';
 
-try {
-    $mail->isSMTP();
-    $mail->Host       = $smtpHost;
-    $mail->SMTPAuth   = true;
-    $mail->Username   = $smtpUser;
-    $mail->Password   = $smtpPass;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = $smtpPort;
+foreach ($smtpConfigs as $cfg) {
+    try {
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host       = $cfg['host'];
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $cfg['user'];
+        $mail->Password   = $cfg['pass'];
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = $cfg['port'];
 
-    $mail->CharSet    = 'UTF-8';
-    $mail->Encoding   = 'base64';
+        $mail->CharSet    = 'UTF-8';
+        $mail->Encoding   = 'base64';
+        $mail->Timeout    = 12;
 
-    $mail->setFrom($fromEmail, $siteName);
+        $mail->setFrom($cfg['from'], $siteName);
 
-    // Add all recipients
-    $recipients = !empty($toEmails) ? $toEmails : ($toEmail ?? []);
-    $recipients = is_array($recipients) ? $recipients : explode(',', (string) $recipients);
-    foreach ($recipients as $recipient) {
-        $recipient = trim($recipient);
-        if ($recipient !== '' && filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
-            $mail->addAddress($recipient);
+        // Add all recipients
+        $recipients = !empty($toEmails) ? $toEmails : ($toEmail ?? []);
+        $recipients = is_array($recipients) ? $recipients : explode(',', (string) $recipients);
+        foreach ($recipients as $recipient) {
+            $recipient = trim($recipient);
+            if ($recipient !== '' && filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
+                $mail->addAddress($recipient);
+            }
         }
+
+        // Set reply-to as the visitor's email
+        if ($email !== '') {
+            $mail->addReplyTo($email, $name !== '' ? $name : 'Website Visitor');
+        }
+
+        // Attach uploaded CV / Resume if present (Careers)
+        if ($hasAttachment && !empty($_FILES['resume']['tmp_name'])) {
+            $mail->addAttachment($_FILES['resume']['tmp_name'], $attachedFileName);
+        }
+
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body    = $htmlBody;
+        $mail->AltBody = $textBody;
+
+        $mail->send();
+        $sent = true;
+        break; // Successfully sent!
+    } catch (Exception $e) {
+        $lastError = $mail->ErrorInfo ?: $e->getMessage();
+        error_log("PHPMailer attempt failed with {$cfg['user']}: " . $lastError);
     }
+}
 
-    // Set reply-to as the visitor's email
-    if ($email !== '') {
-        $mail->addReplyTo($email, $name !== '' ? $name : 'Website Visitor');
-    }
-
-    // Attach uploaded CV / Resume if present (Careers)
-    if ($hasAttachment && !empty($_FILES['resume']['tmp_name'])) {
-        $mail->addAttachment($_FILES['resume']['tmp_name'], $attachedFileName);
-    }
-
-    $mail->isHTML(true);
-    $mail->Subject = $subject;
-    $mail->Body    = $htmlBody;
-    $mail->AltBody = $textBody;
-
-    $mail->send();
-
+if ($sent) {
     sendResponse(true, 'Thank you. Your request has been received.', 200, $thankYouKind);
-
-} catch (Exception $e) {
-    error_log('PHPMailer error in send-contact.php: ' . $mail->ErrorInfo);
+} else {
+    error_log('All SMTP configs failed in send-contact.php: ' . $lastError);
     sendResponse(false, 'Sorry, we could not send your request right now. Please try again later.', 500);
 }

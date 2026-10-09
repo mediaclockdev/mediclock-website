@@ -61,6 +61,8 @@ $lpC = mc_contact();
                 <!-- which city page the lead came from, so an enquiry can be
                      traced back to the campaign that paid for it -->
                 <input type="hidden" name="lp_source" value="<?= $e($lp['city']) ?>" />
+                <input type="hidden" name="service" value="Mobile App Development" />
+                <input type="hidden" name="page_url" value="<?= $e($_SERVER['REQUEST_URI'] ?? '') ?>" />
 
                 <button type="submit" class="lp-btn lp-btn-dark lp-btn-block"><?= $e($lp['form_submit']) ?></button>
                 <p class="lp-form-note"><?= $e($lp['form_note']) ?></p>

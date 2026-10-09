@@ -16,7 +16,7 @@ return [
     /* ---- Hero -------------------------------------------------------- */
     /* The headline is stored in three parts so the city can be set in orange
        without putting markup in the data. {city} is filled in by page.php. */
-    'hero_badge'        => 'iOS + Android specialists · St Kilda 3082, VIC',
+    'hero_badge'        => 'iOS + Android specialists · St Kilda 3182, VIC',
     'hero_title_before' => 'Build your app with a',
     'hero_title_city'   => '{city}',
     'hero_title_after'  => 'mobile app development team',
@@ -44,7 +44,7 @@ return [
     'form_note'   => 'Your idea is protected by our NDA. We never share project details.',
 
     /* ---- Trusted by -------------------------------------------------- */
-    'trusted_title' => 'Trusted by Australian businesses',
+    'trusted_title' => 'Our Happy Clients',
 
     /* ---- Projects / case studies ------------------------------------- */
     'projects_title' => 'Our Recent Projects',
@@ -53,7 +53,7 @@ return [
     /* [tag, title, blurb, image] */
     'projects'       => [
         ['Mining · Safety',      'Mining Safety & Hazard Reporting',  'A custom mobile and web solution for field workers and supervisors, digitising hazard reporting and giving management real-time visibility of site issues and records.', 'landing/projects/03.webp'],
-        ['Property · Field teams', 'Property Inspection App',         'We developed a custom inspection solution to capture site data and photos, streamline reporting and share completed reports with clients.', 'landing/projects/05.webp'],
+        ['Property · Field teams', 'Property Inspection App',         'A complete mobile and web inspection solution for capturing site data and photos, streamlining report generation and sharing completed reports with clients.', 'landing/projects/05.webp'],
         ['Marketplace',          'Rental Marketplace App',            'A custom mobile app and web platform connecting owners and renters, with integrated listings, bookings and payments for a seamless rental experience.', 'landing/projects/06.webp'],
         ['Retail · Orders',      'Shopping & Order Management App',   'A complete mobile shopping experience with product browsing, cart management and order tracking, supported by an admin platform to manage orders and daily operations.', 'landing/projects/02.webp'],
         ['Health care',           'Health care App',                    'A mobile health app for tracking menopause symptoms and wellbeing, integrating data from Apple Watch and Google Wear OS devices to give users clearer insights into their health.', 'landing/projects/04.webp'],
