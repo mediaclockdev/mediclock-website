@@ -130,7 +130,7 @@ ol {
 }
 .lp-section-lead {
   margin-top: 15px;
-  max-width: 680px;
+  /* max-width: 680px; */
   font-size: 1.1875rem;
   line-height: 1.6;
   color: var(--lp-muted);
@@ -377,7 +377,7 @@ ol {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  font-size: 0.9375rem;
+  font-size: 1.075rem;
   color: rgba(255, 255, 255, 0.75);
 }
 .lp-hero-ticks li::before {

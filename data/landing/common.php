@@ -31,10 +31,10 @@ return [
 
     /* ---- Proof strip — the orange band under the hero ----------------- */
     'strip' => [
-        ['50+',  'Apps delivered since 2017'],
+        ['50+',  'Apps Delivered Since 2017'],
         ['98%',  'Client Retention'],
-        ['100%', 'You own the code'],
-        ['NDA',  'Signed before you share'],
+        ['100%', 'You Own The Code'],
+        ['4.9★',  'Google Reviews'],
     ],
 
     /* ---- Quote form -------------------------------------------------- */
@@ -73,10 +73,10 @@ return [
 
     /* ---- App categories ---------------------------------------------- */
     'categories_eyebrow' => '',
-    'categories_title'   => 'What Kind Of App Do You Want To Build',
-    'categories_lead'    => 'Got an idea? Tell us about it and we’ll help you work out the best way forward.',
+    'categories_title'   => 'Got an idea?',
+    'categories_lead'    => 'Tell us about it and we’ll help you work out the best way forward.',
     'categories'         => [
-        // ['Booking Apps',     'Appointments, classes, calendars and reminders.',  'booking'],
+        ['Your App Idea',     'Tell us your idea and let’s explore what’s possible.',  'idea'],
         ['Real Estate Apps', 'Listings, inspections and agent dashboards.',      'realestate'],
         ['Health care Apps', 'Patient tools, records and practitioner portals.', 'health'],
         ['E-Commerce Apps',  'Product catalogues, carts and checkout.',          'ecommerce'],

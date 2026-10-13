@@ -26,7 +26,7 @@ DirectoryIndex index.php
     RewriteRule ^\.well-known/ - [L]
 
     # Form processing scripts: pass through directly with no rewrites or redirects
-    RewriteRule ^send-[^/]+\.php$ - [L]
+    RewriteRule ^/?send-[^/]+\.php$ - [L]
 
     # Force HTTPS (the X-Forwarded-Proto check keeps Cloudflare from looping)
     RewriteCond %{HTTPS} !=on
@@ -48,17 +48,20 @@ DirectoryIndex index.php
     # Never redirect form processing/API scripts (send-*.php)
     RewriteCond %{REQUEST_METHOD} !POST
     RewriteCond %{THE_REQUEST} !/send- [NC]
+    RewriteCond %{REQUEST_URI} !^/?send- [NC]
 
- # Redirect PHP pages to clean URLs only when a matching clean URL exists
-RewriteCond %{THE_REQUEST} \s/+([^/?\s]+)\.php[\s?] [NC]
-RewriteCond %{DOCUMENT_ROOT}/%1.php -f
-RewriteRule ^([^/.]+)\.php$ /$1/ [R=301,L]
+    # Redirect PHP pages to clean URLs only when a matching clean URL exists
+    RewriteCond %{THE_REQUEST} \s/+([^/?\s]+)\.php[\s?] [NC]
+    RewriteCond %{DOCUMENT_ROOT}/%1.php -f
+    RewriteRule ^(?!send-)([^/.]+)\.php$ /$1/ [R=301,L]
 
     # /about-us -> /about-us/       (keep the trailing slash consistent)
-      RewriteCond %{REQUEST_METHOD} !POST
+    RewriteCond %{REQUEST_METHOD} !POST
+    RewriteCond %{THE_REQUEST} !/send- [NC]
+    RewriteCond %{REQUEST_URI} !^/?send- [NC]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^([^/.]+)$ $1/ [R=301,L]
+    RewriteRule ^(?!send-)([^/.]+)$ $1/ [R=301,L]
 
     # /blog/<slug>/ -> blog-post.php?slug=<slug>   (one article)
     # Must come before the generic rule below, which only handles one segment.
@@ -67,6 +70,7 @@ RewriteRule ^([^/.]+)\.php$ /$1/ [R=301,L]
     # /about-us/ -> about-us.php    (the actual rewrite, no redirect)
     # REQUEST_FILENAME checks keep this working at the root or in a sub-folder;
     # a slug with no matching .php simply falls through to a normal 404.
+    RewriteRule ^(send-[^/.]+)/?$ $1.php [L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^([^/.]+)/$ $1.php [L]
