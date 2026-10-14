@@ -26,7 +26,7 @@ $lpC = mc_contact();
 
     <!-- * Sticky quote button — follows the visitor down the page so the form
          is always one tap away, wherever they stopped reading -->
-    <button type="button" class="lp-sticky-quote" data-lp-open-modal aria-haspopup="dialog">Get a Quote</button>
+    <button type="button" class="lp-btn lp-btn-primary lp-sticky-quote" data-lp-open-modal aria-haspopup="dialog">Get a Quote</button>
 
     <?php include __DIR__ . '/modal.php'; ?>
 

@@ -14,14 +14,14 @@
      .lp-strip       orange  four proof figures
      .lp-logos       white   trusted by (marquee)
      .lp-projects    white   case studies
+     .lp-reviews     grey    client feedback
      .lp-platforms   dark    what we build
      .lp-categories  grey    what kind of app + CTA panel
      .lp-trust       dark    why businesses trust what we build
      .lp-roadmap     white   how it works
      .lp-pricing     grey    what an app costs
      .lp-tech-band   white   technologies
-     .lp-reviews     dark    client feedback
-     .lp-faq         white   questions
+     .lp-faq         grey    questions
      .lp-contact     dark    closing CTA + the quote form
      .lp-footer      near-black legal line
    ============================================================ */
@@ -412,8 +412,8 @@ ol {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 24px;
-  padding-top: 28px;
-  padding-bottom: 28px;
+  padding-top: 18px;
+  padding-bottom: 18px;
   text-align: center;
 }
 .lp-strip-item strong {
@@ -1037,7 +1037,10 @@ ol {
 }
 
 .lp-faq {
-  background: #fff;
+  background: inherit;
+}
+.lp-section--grey.lp-faq {
+  background: var(--lp-grey);
 }
 /* a narrower measure than the rest of the page: a question and its answer are
    one column of prose, and full width would run them to 1160px */
@@ -1302,22 +1305,29 @@ ol {
 }
 
 /* ------------------------------------------------------------
-   Sticky quote button
+   Sticky quote button — styled similar to the primary CTA
+   ("Book a Free Discovery Call") button
    ------------------------------------------------------------ */
 .lp-sticky-quote {
   position: fixed;
   right: 20px;
   bottom: 20px;
   z-index: 60;
-  padding: 14px 24px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--lp-orange);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 16px 26px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16), 0 2px 6px rgba(0, 0, 0, 0.06);
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   font-weight: 700;
-  color: var(--lp-grey);
+  line-height: 1.2;
+  color: var(--lp-dark);
   cursor: pointer;
   /* starts hidden and out of the tab order; landing.js reveals it once the
      hero has scrolled away */
@@ -1326,9 +1336,11 @@ ol {
   transform: translateY(12px);
   transition:
     opacity 0.25s ease,
-    transform 0.25s ease,
+    transform 0.2s ease,
     visibility 0.25s,
-    background-color 0.2s ease;
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 .lp-sticky-quote.is-shown {
   opacity: 1;
@@ -1337,7 +1349,10 @@ ol {
 }
 .lp-sticky-quote:hover,
 .lp-sticky-quote:focus-visible {
-  background: var(--lp-orange-dark);
+  background: #f4f6f8;
+  color: var(--lp-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
 }
 
 /* ------------------------------------------------------------
@@ -1395,6 +1410,11 @@ ol {
     height: 120px;
     margin-right: 28px;
   }
+  .lp-strip-grid {
+   padding-top:16px;
+   padding-bottom:16px;
+    gap: 20px;
+  }
 }
 
 /* ------------------------------------------------------------
@@ -1435,6 +1455,17 @@ ol {
   /* 16px gutter on a phone, so nothing touches the bezel */
   .lp-container {
     padding: 0 16px;
+  }
+  .lp-strip-grid {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    gap: 16px;
+  }
+  .lp-strip-item strong {
+    font-size: 1.75rem;
+  }
+  .lp-strip-item span {
+    font-size: 0.95rem;
   }
   .lp-hero-grid {
     padding-top: 24px;
@@ -1549,7 +1580,8 @@ ol {
   .lp-faq-toggle {
     transition: none;
   }
-  .lp-btn-primary:hover {
+  .lp-btn-primary:hover,
+  .lp-sticky-quote:hover {
     transform: none;
   }
   /* the marquee stops moving and becomes a swipeable row instead, so the

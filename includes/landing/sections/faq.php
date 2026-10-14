@@ -5,7 +5,7 @@
    answers. The first one starts open so the section does not read as a wall
    of closed boxes. */
 ?>
-<section class="lp-section lp-faq">
+<section class="lp-section lp-section--grey lp-faq">
     <div class="lp-container">
         <div class="lp-section-head lp-section-head--stacked">
             <div>

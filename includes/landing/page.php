@@ -45,13 +45,13 @@ foreach ([
     'strip',      /* orange proof band under the hero */
     'trusted',    /* client logo marquee */
     'projects',   /* case studies */
+    'reviews',    /* client feedback */
     'platforms',
     'categories',
     'trust',      /* why businesses choose us */
     'roadmap',    /* how it works */
     'pricing',
     'tech',
-    'reviews',
     'faq',
     'contact',    /* closing call to action + the quote form */
 ] as $lpSection) {

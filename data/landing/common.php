@@ -31,9 +31,9 @@ return [
 
     /* ---- Proof strip — the orange band under the hero ----------------- */
     'strip' => [
-        ['50+',  'Apps Delivered Since 2017'],
+        ['50+',  'Apps Delivered'],
         ['98%',  'Client Retention'],
-        ['100%', 'You Own The Code'],
+        ['100%', 'You Own Code'],
         ['4.9★',  'Google Reviews'],
     ],
 
