@@ -1,0 +1,264 @@
+/* ============================================================
+   quote-modal.css — the quote popup (includes/components/quote-modal.php)
+   Add 'quote-modal' to $page_css on any page that includes the popup.
+   Fonts are inherited, so the popup takes on the page it sits in.
+   ============================================================ */
+
+/* page behind the open popup stays put; the gutter is kept so nothing shifts */
+html.mc-modal-open {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+.mc-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.mc-modal.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+.mc-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 28, 34, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+.mc-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 32px 30px 26px;
+  border-radius: 22px;
+  background: #fff;
+  color: #192b33;
+  box-shadow: 0 28px 70px -14px rgba(15, 28, 34, 0.45), 0 8px 24px -6px rgba(15, 28, 34, 0.15);
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.22, 0.75, 0.18, 1);
+}
+.mc-modal.is-open .mc-modal-dialog {
+  transform: none;
+}
+
+/* * Header : title, line under it, close button */
+.mc-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.mc-modal-title {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 28px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #192b33;
+}
+.mc-modal-lead {
+  margin: 8px 0 0;
+  color: #52666f;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.mc-modal-close {
+  flex: 0 0 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #eef2f4;
+  color: #40555f;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+.mc-modal-close:hover {
+  background: #192b33;
+  color: #fff;
+  transform: rotate(90deg);
+}
+.mc-modal-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* * Form */
+.mc-modal-form {
+  display: grid;
+  gap: 14px;
+}
+.mc-modal-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.mc-modal-field {
+  min-width: 0;
+}
+.mc-modal-form input,
+.mc-modal-form textarea {
+  display: block;
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid #d2dade;
+  border-radius: 12px;
+  background: #fff;
+  color: #192b33;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.4;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.mc-modal-form input {
+  min-height: 50px;
+}
+.mc-modal-form textarea {
+  min-height: 96px;
+  resize: none;
+}
+.mc-modal-form input::placeholder,
+.mc-modal-form textarea::placeholder {
+  color: #8a9aa1;
+  opacity: 1;
+}
+.mc-modal-form input:focus,
+.mc-modal-form textarea:focus {
+  outline: none;
+  border-color: #f15a26;
+  box-shadow: 0 0 0 4px rgba(241, 90, 38, 0.16);
+}
+/* validation messages come from main.js's shared validator */
+.mc-modal-form .is-invalid {
+  border-color: #e5484d;
+  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.14);
+}
+.mc-modal-form .field-error {
+  display: block;
+  margin-top: 6px;
+  color: #d93a3f;
+  font-size: 13px;
+  line-height: 1.35;
+}
+.mc-modal-form .field-error:empty {
+  display: none;
+}
+/* honeypot */
+.mc-modal-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.mc-modal-submit {
+  min-height: 52px;
+  margin-top: 4px;
+  padding: 14px 24px;
+  border: 0;
+  border-radius: 12px;
+  background: #f15a26;
+  color: #fff;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(241, 90, 43, 0.24);
+  transition: background-color 0.2s, transform 0.3s cubic-bezier(0.22, 0.75, 0.18, 1), box-shadow 0.2s;
+}
+.mc-modal-submit:hover {
+  background: #ff7548;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(241, 90, 43, 0.3);
+}
+.mc-modal-submit:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+}
+.mc-modal-close:focus-visible,
+.mc-modal-submit:focus-visible {
+  outline: 3px solid #f15a26;
+  outline-offset: 3px;
+}
+
+.mc-modal-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 0;
+  color: #64757c;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+}
+.mc-modal-note svg {
+  flex: none;
+}
+.mc-modal-success {
+  margin: 8px 0 4px;
+  color: #192b33;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 575.98px) {
+  .mc-modal {
+    padding: 12px;
+  }
+  .mc-modal-dialog {
+    max-height: calc(100dvh - 24px);
+    padding: 24px 18px 20px;
+    border-radius: 18px;
+  }
+  .mc-modal-header {
+    margin-bottom: 18px;
+  }
+  .mc-modal-close {
+    flex-basis: 34px;
+    width: 34px;
+    height: 34px;
+  }
+  .mc-modal-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .mc-modal-form {
+    gap: 12px;
+  }
+  .mc-modal-form textarea {
+    min-height: 84px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mc-modal,
+  .mc-modal-dialog,
+  .mc-modal-close,
+  .mc-modal-submit {
+    transition: none;
+  }
+}

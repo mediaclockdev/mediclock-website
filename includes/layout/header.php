@@ -10,6 +10,7 @@ $recaptcha_site_key = $recaptcha_site_key ?? '';
      $page_css = 'service';             // -> assets/css/service.css
      $page_css = ['service', 'about'];  // several files, in order
      $page_js  = 'about';               // -> assets/js/about.js (used by footer.php)
+     $page_fonts = 'https://fonts.googleapis.com/css2?family=…';  // optional extra Google Fonts stylesheet
 */
 $page_title = $page_title ?? 'Media Clock';
 $page_description = $page_description ?? '';
@@ -83,6 +84,9 @@ unset($navItems, $navSlug);
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet" />
+    <?php if (!empty($page_fonts)): ?>
+    <link href="<?= $e($page_fonts) ?>" rel="stylesheet" />
+    <?php endif; ?>
     <!-- * Styles : Bootstrap first, then our own so brand rules win the cascade -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?= $e(asset_url('assets/css/main.css')) ?>" />

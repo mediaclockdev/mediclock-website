@@ -387,6 +387,114 @@ window.mcThankYou = mcThankYou;
   });
 })();
 
+/* * Quote popup : includes/components/quote-modal.php
+   On a page that has it, every .contactBtn and [data-quote-modal] opens this
+   popup instead of scrolling to the contact panel (see the next block), so the
+   visitor never leaves their place on the page. */
+(function () {
+  const modal = document.getElementById("mcQuoteModal");
+  if (!modal) return;
+  const dialog = modal.querySelector(".mc-modal-dialog"),
+    form = document.getElementById("mcQuoteForm"),
+    success = document.getElementById("mcQuoteSuccess"),
+    interest = modal.querySelector("[data-quote-interest]");
+  let opener = null;
+
+  const focusables = () =>
+    [...dialog.querySelectorAll("a[href], button, input, textarea, select")].filter(
+      (el) => !el.disabled && el.type !== "hidden" && el.offsetParent !== null && el.tabIndex !== -1,
+    );
+
+  function open(trigger) {
+    opener = trigger || document.activeElement;
+    if (trigger && trigger.dataset.interest) interest.value = trigger.dataset.interest;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("mc-modal-open");
+    const first = modal.querySelector("input:not([type=hidden]):not([tabindex='-1'])");
+    if (first) setTimeout(() => first.focus({ preventScroll: true }), 80);
+  }
+  function close() {
+    if (!modal.classList.contains("is-open")) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.documentElement.classList.remove("mc-modal-open");
+    // back to the button that opened it, without jumping the page
+    if (opener && opener.focus) opener.focus({ preventScroll: true });
+  }
+
+  document.addEventListener("click", (e) => {
+    const trigger = e.target.closest(".contactBtn, [data-quote-modal]");
+    if (trigger) {
+      e.preventDefault();
+      // the full-screen mobile menu closes itself on any .contactBtn click
+      open(trigger);
+      return;
+    }
+    if (e.target.closest("[data-quote-close]")) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (!modal.classList.contains("is-open")) return;
+    if (e.key === "Escape") return close();
+    // keep Tab inside the popup while it is open
+    if (e.key === "Tab") {
+      const items = focusables();
+      if (!items.length) return;
+      const first = items[0],
+        last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  /* The shared validator above runs first, in the capture phase, and stops
+     this handler while anything is invalid — reaching here means it passed. */
+  if (form)
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const reset = () => {
+        if (!submitBtn) return;
+        submitBtn.disabled = false;
+        submitBtn.textContent = submitBtn.dataset.origText || "Submit";
+      };
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.dataset.origText = submitBtn.textContent;
+        submitBtn.textContent = "Sending...";
+      }
+      fetch(form.getAttribute("action"), {
+        method: "POST",
+        body: new FormData(form),
+        headers: { "X-Requested-With": "XMLHttpRequest", Accept: "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data || !data.success) {
+            alert((data && data.message) || "Failed to send request. Please try again.");
+            return reset();
+          }
+          if (submitBtn) submitBtn.textContent = "Redirecting...";
+          mcThankYou(data.kind || "enquiry");
+          // fallback if the redirect is blocked
+          setTimeout(() => {
+            form.hidden = true;
+            if (success) success.hidden = false;
+          }, 2500);
+        })
+        .catch((err) => {
+          console.error("Quote form error:", err);
+          alert("Sorry, an error occurred while sending your request. Please try again.");
+          reset();
+        });
+    });
+})();
+
 /* * Contact section : panel opened by any .contactBtn (header, footer, hero, CTAs) */
 (function () {
   const contact = document.getElementById("contact"),
@@ -394,6 +502,8 @@ window.mcThankYou = mcThankYou;
   // header + footer both carry .contactBtn, so bail out politely if a page
   // has no contact panel rather than throwing on click
   if (!contact) return;
+  // a page with the quote popup opens that instead (block above)
+  const usesPopup = !!document.getElementById("mcQuoteModal");
   function openContact(v) {
     contact.classList.add("active");
     contact.setAttribute("aria-hidden", "false");
@@ -403,11 +513,12 @@ window.mcThankYou = mcThankYou;
       30,
     );
   }
-  document
-    .querySelectorAll(".contactBtn")
-    .forEach((b) =>
-      b.addEventListener("click", () => openContact(b.dataset.interest)),
-    );
+  if (!usesPopup)
+    document
+      .querySelectorAll(".contactBtn")
+      .forEach((b) =>
+        b.addEventListener("click", () => openContact(b.dataset.interest)),
+      );
   const enquiryForm = document.getElementById("form");
   if (enquiryForm)
     enquiryForm.addEventListener("submit", (e) => {
