@@ -8,7 +8,9 @@
     <div class="lp-container">
         <div class="lp-section-head">
             <h2 class="lp-section-title"><?= $e($lp['reviews_title']) ?></h2>
+            <?php /* Hidden for now — the "★★★★★ Google reviews" line. Remove this comment to bring it back.
             <p class="lp-reviews-note"><?= $e($lp['reviews_note']) ?></p>
+            */ ?>
         </div>
 
         <div class="mc-slider lp-review-slider" data-slider data-autoplay="5000"
@@ -19,14 +21,14 @@
                 <div class="mc-slide lp-review" role="group" aria-roledescription="slide"
                     aria-label="<?= $lpI + 1 ?> of <?= count($lp['reviews']) ?>">
                     
-                    <!-- Top section: Avatar + Info + Google Icon -->
+                    <!-- Top section: Avatar + Info -->
                     <div class="lp-review-head">
                         <img src="<?= $e(img_src($lpR['avatar'])) ?>" alt="" width="44" height="44" loading="lazy" />
                         <div class="lp-review-info">
                             <strong><?= $e($lpR['name']) ?></strong>
                             <span class="lp-review-when"><?= $e($lpR['when']) ?></span>
                         </div>
-                        <!-- Simple CSS Google 'G' icon for illustration, or an SVG -->
+                        <?php /* Hidden for now — the Google 'G' logo. Remove this comment to bring it back.
                         <div class="lp-review-g-icon">
                             <svg viewBox="0 0 24 24" width="20" height="20">
                                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -35,12 +37,14 @@
                                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                             </svg>
                         </div>
+                        */ ?>
                     </div>
 
-                    <!-- Stars -->
+                    <?php /* Hidden for now — the star rating. Remove this comment to bring it back.
                     <div class="lp-review-stars" aria-label="<?= (int) $lpR['stars'] ?> out of 5 stars">
                         <span aria-hidden="true"><?= str_repeat('★', (int) $lpR['stars']) ?></span>
                     </div>
+                    */ ?>
 
                     <?php /* The CSS clamps this to seven lines; the whole review stays in
                               the DOM, so find-in-page and screen readers reach all of it

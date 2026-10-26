@@ -890,9 +890,11 @@ ol {
 .lp-review {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
   /* no height here on purpose — see .lp-project above */
-  padding: 28px;
+  /* tighter top and bottom than sides: 16px / 22px on desktop,
+     easing down to 12px / 18px on phones */
+  padding: clamp(12px, 1.1vw, 16px) clamp(18px, 1.6vw, 22px);
   border-radius: var(--lp-radius);
   background: #fff;
 }
@@ -1306,7 +1308,8 @@ ol {
 
 /* ------------------------------------------------------------
    Sticky quote button — styled similar to the primary CTA
-   ("Book a Free Discovery Call") button
+   ("Book a Free Discovery Call") button; brand orange on phones
+   (see the 575.98px block below)
    ------------------------------------------------------------ */
 .lp-sticky-quote {
   position: fixed;
@@ -1565,12 +1568,24 @@ ol {
     height: 100px;
     margin-right: 24px;
   }
-  /* full width at the bottom of the screen, clear of the home indicator */
+  /* full width at the bottom of the screen, clear of the home indicator;
+     brand orange on phones (white on larger screens) */
   .lp-sticky-quote {
     right: 12px;
     left: 12px;
     bottom: max(12px, env(safe-area-inset-bottom));
     padding: 15px 20px;
+    border-color: var(--lp-orange);
+    background: var(--lp-orange);
+    color: #fff;
+    box-shadow: 0 10px 28px rgba(241, 90, 38, 0.32), 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+  .lp-sticky-quote:hover,
+  .lp-sticky-quote:focus-visible {
+    border-color: var(--lp-orange-dark);
+    background: var(--lp-orange-dark);
+    color: #fff;
+    box-shadow: 0 14px 34px rgba(241, 90, 38, 0.4);
   }
 }
 
