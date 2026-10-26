@@ -27,6 +27,7 @@ include 'includes/sections/portfolio/process.php';
 include 'includes/sections/portfolio/cta.php';
 
 // * Quote popup — every "talk to us" button on the page (and the header's) opens it in place
+$quote_context = 'our portfolio';
 include 'includes/components/quote-modal.php';
 ?>
 </div>

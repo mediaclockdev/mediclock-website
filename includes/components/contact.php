@@ -26,6 +26,9 @@
                                     data-interest value used on the page, or that
                                     button can't preselect its option. Default:
                                     'Free consultation' + every service.
+     $contact_form_type    (string) form_type sent to send-contact.php; picks the team email's
+                                    label and the visitor's confirmation email
+                                    (data/mail/confirmations.php) — default 'contact'
    ============================================================ */
 $contact_visible      = $contact_visible      ?? false;
 $contact_eyebrow      = $contact_eyebrow      ?? 'Get In Touch';
@@ -36,6 +39,7 @@ $contact_points       = $contact_points       ?? [];
 $contact_note         = $contact_note         ?? '';
 $contact_details      = $contact_details      ?? [];
 $contact_budget       = $contact_budget       ?? false;
+$contact_form_type    = $contact_form_type    ?? 'contact';
 $contact_privacy      = $contact_privacy      ?? 'We prioritise confidentiality and have a Non-Disclosure Agreement (NDA) in place to safeguard and protect your ideas.';
 if (!isset($contact_interests)) {
     $contact_interests = ['Free consultation'];
@@ -86,7 +90,7 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
 
             <div class="form col-12 col-lg-6">
                 <form id="form" method="POST" action="<?= asset_url('send-contact.php') ?>" novalidate>
-                    <input type="hidden" name="form_type" value="contact" />
+                    <input type="hidden" name="form_type" value="<?= $h($contact_form_type) ?>" />
                     <!-- * Contact : one form for both variants — the panel adds
                          Website and "Interested In", everything else matches -->
                     <?php if ($contact_visible): ?>
@@ -192,5 +196,5 @@ $csReq = '<span class="req" aria-hidden="true">*</span>';
     </div>
 </section>
 <?php unset($contact_visible, $contact_eyebrow, $contact_title, $contact_lead, $contact_points_title, $contact_details, $csDetail, $csIcon, $csInner,
-    $contact_points, $contact_note, $contact_privacy, $contact_budget, $contact_interests, $csGroup, $csLabel, $csPoint,
+    $contact_points, $contact_note, $contact_privacy, $contact_budget, $contact_interests, $contact_form_type, $csGroup, $csLabel, $csPoint,
     $csOption, $csReq, $csBi, $csBudget); ?>

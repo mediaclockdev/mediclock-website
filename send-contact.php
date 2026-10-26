@@ -16,38 +16,26 @@ require_once __DIR__ . '/PHPMailer/src/Exception.php';
 require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
 require_once __DIR__ . '/PHPMailer/src/SMTP.php';
 require_once __DIR__ . '/includes/img.php';
+require_once __DIR__ . '/includes/mail/confirmation.php';
 
 // ---------------------------------------------------------
 // 1. SETTINGS & RECIPIENTS
 // ---------------------------------------------------------
 
 $toEmails = [
-    'anmol@mediaclock.com.au',
-    'mediaclockdev@gmail.com',
+    // 'anmol@mediaclock.com.au',
+    // 'mediaclockdev@gmail.com',
     'darshit@mediaclock.com.au',
-    'raj@mediaclock.com.au',
+    // 'raj@mediaclock.com.au',
 ];
 
 $siteName  = 'Media Clock';
 $recaptchaSecret = '';
 
-// Primary and fallback Bluehost SMTP configurations
-$smtpConfigs = [
-    [
-        'host' => 'sh01076.bluehost.com',
-        'user' => 'smtp@mediaclock.com.au',
-        'pass' => 'pzKZ*hn!]jQ?35lS',
-        'port' => 587,
-        'from' => 'smtp@mediaclock.com.au',
-    ],
-    [
-        'host' => 'sh01076.bluehost.com',
-        'user' => 'smtp@snm.bug.mybluehost.me',
-        'pass' => 'PeZ}Oe*G?fKP@B!D',
-        'port' => 587,
-        'from' => 'smtp@snm.bug.mybluehost.me',
-    ],
-];
+// Primary and fallback Bluehost SMTP accounts. Kept out of git in
+// data/private/smtp.php (template: data/private/smtp.example.php).
+$smtpConfigFile = __DIR__ . '/data/private/smtp.php';
+$smtpConfigs = is_file($smtpConfigFile) ? require $smtpConfigFile : [];
 
 // ---------------------------------------------------------
 // 2. CORS PREFLIGHT & REQUEST METHOD CHECK
@@ -230,6 +218,7 @@ $csdType   = cleanText($_POST['csd_type'] ?? '');
 $service   = cleanText($_POST['service'] ?? $_POST['rfp_service'] ?? '');
 $interest  = cleanText($_POST['interest'] ?? '');
 $budget    = cleanText($_POST['budget'] ?? '');
+$pageContext = cleanText($_POST['page_context'] ?? '');
 
 // ---------------------------------------------------------
 // 5. BASIC VALIDATION
@@ -323,6 +312,20 @@ switch ($formType) {
         $badgeLabel   = 'Newsletter Subscription';
         $emailHeading = 'New Newsletter Subscriber';
         $subject      = "New Newsletter Subscription - {$siteName}";
+        break;
+
+    case 'quote':
+        $thankYouKind = 'enquiry';
+        $badgeLabel   = 'Quote Popup' . ($pageContext !== '' ? " | {$pageContext}" : '');
+        $emailHeading = 'New Quote Request';
+        $subject      = "New Quote Request - {$siteName}";
+        break;
+
+    case 'package':
+        $thankYouKind = 'enquiry';
+        $badgeLabel   = 'Packages Page';
+        $emailHeading = 'New Package Consultation Request';
+        $subject      = "New Package Consultation Request - {$siteName}";
         break;
 
     case 'contact':
@@ -505,6 +508,11 @@ $textBody .= "Date: {$timestamp}\n";
 // 8. SEND VIA PHPMailer SMTP (WITH FALLBACK)
 // ---------------------------------------------------------
 
+if (!$smtpConfigs) {
+    error_log('send-contact.php: data/private/smtp.php is missing; no SMTP accounts to send with.');
+    sendResponse(false, 'Sorry, we could not send your request right now. Please try again later.', 500);
+}
+
 $sent = false;
 $lastError = '';
 
@@ -560,6 +568,53 @@ foreach ($smtpConfigs as $cfg) {
 }
 
 if ($sent) {
+    // ---------------------------------------------------------
+    // 9. CONFIRMATION EMAIL TO THE VISITOR
+    //    Only once the team copy has gone out, so nobody is told "we got
+    //    it" for a lead we never received. Wording per form_type lives in
+    //    data/mail/confirmations.php. A failure is logged inside and never
+    //    changes the visitor's success message.
+    // ---------------------------------------------------------
+
+    // Repeat back only the short, structured answers, under visitor-friendly
+    // labels. Free text (message, company, website, name) is left out on
+    // purpose: there is no captcha, so anyone can type a stranger's address
+    // into a form, and we must never email a stranger text they chose.
+    $summaryLabels = [
+        'Phone Number'       => 'Phone',
+        'Applied Position'   => 'Position',
+        'Project Type'       => 'Project type',
+        'Interested Service' => 'Service',
+        'Interest'           => 'Interested in',
+        'Project Budget'     => 'Budget',
+        'Campaign / City'    => 'Location',
+    ];
+    $summaryFields = [];
+    foreach ($summaryLabels as $teamLabel => $visitorLabel) {
+        if (isset($displayFields[$teamLabel])) {
+            $summaryFields[$visitorLabel] = $displayFields[$teamLabel];
+        }
+    }
+
+    // The CSD pages send "Custom software - Melbourne"; the visitor only needs the city
+    $visitorCity = preg_replace('/^.*\s-\s/', '', $source);
+    if (isset($summaryFields['Location'])) {
+        $summaryFields['Location'] = $visitorCity;
+    }
+
+    $confirmation = mc_build_confirmation($formType, [
+        'name'         => $name,
+        'position'     => $position,
+        'service'      => $service,
+        'source'       => $visitorCity,
+        'page_context' => $pageContext,
+    ], $summaryFields);
+
+    // Start with the account that just worked ($cfg, left by the break
+    // above), so a dead primary doesn't cost another timeout
+    $confirmConfigs = array_merge([$cfg], array_filter($smtpConfigs, fn($c) => $c !== $cfg));
+    mc_send_confirmation($confirmConfigs, $siteName, $email, $name, $confirmation);
+
     sendResponse(true, 'Thank you. Your request has been received.', 200, $thankYouKind);
 } else {
     error_log('All SMTP configs failed in send-contact.php: ' . $lastError);

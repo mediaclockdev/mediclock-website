@@ -40,6 +40,7 @@ include 'includes/sections/package/locations.php';
 // * Book A Free Consultation (contact section, shown open — same as the service pages)
 //   Package buttons (.contactBtn) fill the hidden "interest" field and scroll here.
 $contact_visible = true;
+$contact_form_type = 'package';
 $contact_eyebrow = '';
 $contact_title   = 'Book A Free Consultation';
 $contact_points  = [

@@ -15,14 +15,17 @@
      $quote_lead     (string) default 'We reply within one business day with next steps.'
      $quote_prompt   (string) message placeholder — default 'What would you like to build?'
      $quote_submit   (string) default 'Book a Free Consultation'
+     $quote_context  (string) what the visitor was looking at, e.g. 'our portfolio';
+                     the confirmation email says "after viewing <context>"
 
-   Posts to send-contact.php as a normal website enquiry (form_type contact);
+   Posts to send-contact.php as a quote request (form_type quote);
    validation is main.js's shared validator, like every other form.
    ============================================================ */
 $quote_title  = $quote_title  ?? 'Tell us about your project';
 $quote_lead   = $quote_lead   ?? 'We reply within one business day with next steps.';
 $quote_prompt = $quote_prompt ?? 'What would you like to build?';
 $quote_submit = $quote_submit ?? 'Book a Free Consultation';
+$quote_context = $quote_context ?? '';
 $qmE = fn($s) => htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8');
 ?>
 <!-- * Quote popup (opened by main.js) -->
@@ -42,7 +45,8 @@ $qmE = fn($s) => htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8');
         </div>
 
         <form id="mcQuoteForm" class="mc-modal-form" action="<?= $qmE(asset_url('send-contact.php')) ?>" method="POST" novalidate>
-            <input type="hidden" name="form_type" value="contact" />
+            <input type="hidden" name="form_type" value="quote" />
+            <input type="hidden" name="page_context" value="<?= $qmE($quote_context) ?>" />
             <input type="hidden" name="interest" value="Free consultation" data-quote-interest />
             <input type="hidden" name="page_url" value="<?= $qmE($_SERVER['REQUEST_URI'] ?? '') ?>" />
             <!-- honeypot: hidden from people, filled in by bots; send-contact.php drops those -->

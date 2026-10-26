@@ -2,3 +2,7 @@
 .DS_Store
 # Old WordPress upload export (not used by the site)
 /images/
+# SMTP passwords (template: data/private/smtp.example.php)
+/data/private/smtp.php
+# Server PHP error logs
+error_log
