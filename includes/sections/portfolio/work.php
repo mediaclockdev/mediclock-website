@@ -46,8 +46,15 @@ $pfWork = require dirname(__DIR__, 3) . '/data/portfolio/work.php';
             </div>
             <div class="pf-project-info">
                 <div>
+                    <?php if (!empty($pfProject['case_study'])): ?>
+                    <!-- the link's ::after covers the whole card, so anywhere on it opens the case study -->
+                    <h3><a class="pf-project-link" href="<?= $e(page_url($pfWork['case_study_base'] . '/' . $pfProject['case_study'])) ?>"><?= $e($pfProject['title']) ?></a></h3>
+                    <p><?= $e($pfProject['meta']) ?></p>
+                    <span class="pf-case">View case study <span aria-hidden="true">→</span></span>
+                    <?php else: ?>
                     <h3><?= $e($pfProject['title']) ?></h3>
                     <p><?= $e($pfProject['meta']) ?></p>
+                    <?php endif; ?>
                 </div>
                 <span class="pf-tag"><?= $e($pfProject['tag']) ?></span>
             </div>

@@ -1,7 +1,7 @@
 /* ============================================================
    portfolio-new.js — the new portfolio page (portfolio-new.php)
    Reveal on scroll, the process timeline trigger, the project
-   filters, the card tilt and the custom cursor.
+   filters and the card tilt. (The custom cursor is commented out below.)
    ============================================================ */
 
 (function () {
@@ -88,7 +88,9 @@
     card.addEventListener("mouseleave", () => (card.style.transform = ""));
   });
 
-  /* * Cursor : an orange dot that follows the mouse and grows over anything clickable */
+  /* * Cursor : an orange dot that follows the mouse and grows over anything clickable
+     Hidden for now — no other page on the site has one. Remove this comment
+     (and the ones in portfolio-new.php and portfolio-new.css) to bring it back.
   const cursor = page.querySelector(".pf-cursor");
   if (!cursor) return;
   document.addEventListener("mousemove", (e) => {
@@ -101,4 +103,5 @@
     el.addEventListener("mouseenter", () => cursor.classList.add("is-big"));
     el.addEventListener("mouseleave", () => cursor.classList.remove("is-big"));
   });
+  */
 })();

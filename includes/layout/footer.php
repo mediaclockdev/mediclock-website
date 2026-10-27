@@ -92,9 +92,9 @@ require_once dirname(__DIR__) . '/img.php';
     </footer>
     <!-- * Scripts : main.js = header/menu, package.js = this page -->
     <script src="<?= htmlspecialchars(asset_url('assets/js/main.js'), ENT_QUOTES, 'UTF-8') ?>" defer></script>
-    <?php if (!empty($page_js)): ?>
-    <script src="<?= htmlspecialchars(asset_url('assets/js/' . $page_js . '.js'), ENT_QUOTES, 'UTF-8') ?>" defer></script>
-    <?php endif; ?>
+    <?php foreach (array_filter((array) ($page_js ?? [])) as $jsFile): ?>
+    <script src="<?= htmlspecialchars(asset_url('assets/js/' . $jsFile . '.js'), ENT_QUOTES, 'UTF-8') ?>" defer></script>
+    <?php endforeach; ?>
     </body>
 
     </html>

@@ -46,6 +46,14 @@ if (preg_match('#^/blog/([a-z0-9-]+)/?$#i', $path, $mBlog)) {
     return true;
 }
 
+// "/portfolio-new/<slug>/" -> case-study.php?slug=<slug>  (matches the .htaccess rule)
+if (preg_match('#^/portfolio-new/([a-z0-9-]+)/?$#i', $path, $mCase)) {
+    $_GET['slug'] = $mCase[1];
+    $_SERVER['SCRIPT_NAME'] = '/case-study.php';
+    require __DIR__ . '/case-study.php';
+    return true;
+}
+
 // "/about-us/" or "/about-us" -> about-us.php
 $slug = trim($path, '/');
 if (preg_match('#^[a-z0-9-]+$#i', $slug) && is_file(__DIR__ . "/$slug.php")) {

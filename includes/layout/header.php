@@ -10,6 +10,7 @@ $recaptcha_site_key = $recaptcha_site_key ?? '';
      $page_css = 'service';             // -> assets/css/service.css
      $page_css = ['service', 'about'];  // several files, in order
      $page_js  = 'about';               // -> assets/js/about.js (used by footer.php)
+     $page_js  = ['case-study', 'case-studies/total-inspections'];  // several files, in order
      $page_fonts = 'https://fonts.googleapis.com/css2?family=…';  // optional extra Google Fonts stylesheet
 */
 $page_title = $page_title ?? 'Media Clock';
@@ -28,6 +29,8 @@ foreach ($services as $navItems) foreach ($navItems as [, $navSlug]) $nav_servic
 $nav_on_service = in_array($nav_current, $nav_service_slugs, true);
 /* "Blogs" covers the index and every article (blog-post.php) */
 $nav_on_blog = in_array($nav_current, ['blog', 'blog-post'], true);
+/* "Portfolio" covers the grid (and its test copy) and every case study */
+$nav_on_portfolio = in_array($nav_current, ['portfolio', 'portfolio-new', 'case-study'], true);
 unset($navItems, $navSlug);
 ?>
 <!doctype html>
@@ -171,7 +174,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </li>
                     <li><a href="<?= $e(page_url('our-process')) ?>"<?= $nav_current === 'our-process' ? ' class="current"' : '' ?>>Our Process</a></li>
                     <li><a href="<?= $e(page_url('blog')) ?>"<?= $nav_on_blog ? ' class="current"' : '' ?>>Blogs</a></li>
-                    <li><a href="<?= $e(page_url('portfolio')) ?>"<?= $nav_current === 'portfolio' ? ' class="current"' : '' ?>>Portfolio</a></li>
+                    <li><a href="<?= $e(page_url('portfolio')) ?>"<?= $nav_on_portfolio ? ' class="current"' : '' ?>>Portfolio</a></li>
                     <li>
                         <a href="<?= $e(page_url('contact-us')) ?>"<?= $nav_current === 'contact-us' ? ' class="current"' : '' ?>>Get In Touch</a>
                     </li>
@@ -217,7 +220,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <?php endforeach; ?>
             <a class="fs-link<?= $nav_current === 'our-process' ? ' current' : '' ?>" href="<?= $e(page_url('our-process')) ?>">Our Process</a>
             <a class="fs-link<?= $nav_on_blog ? ' current' : '' ?>" href="<?= $e(page_url('blog')) ?>">Blogs</a>
-            <a class="fs-link<?= $nav_current === 'portfolio' ? ' current' : '' ?>" href="<?= $e(page_url('portfolio')) ?>">Portfolio</a>
+            <a class="fs-link<?= $nav_on_portfolio ? ' current' : '' ?>" href="<?= $e(page_url('portfolio')) ?>">Portfolio</a>
             <a class="fs-link<?= $nav_current === 'contact-us' ? ' current' : '' ?>" href="<?= $e(page_url('contact-us')) ?>">Get In Touch</a>
             <div class="fs-menu-cta d-flex flex-column align-items-center">
                 <a class="fs-btn call" href="<?= $e(mc_tel()) ?>">Call Us</a>

@@ -12,8 +12,13 @@
                 'phones'  two full phone screenshots, side by side
      'theme'  the card's background tint (pf-theme-<theme> in portfolio-new.css)
      'images' [ [src under assets/images/, alt], ... ]
+     'case_study' optional — slug of data/portfolio/case-studies/<slug>.php;
+              the card then links to <case_study_base>/<slug>/
    ============================================================ */
 return [
+    // Case studies live under the test portfolio until it replaces /portfolio/;
+    // then change this to 'portfolio' (and the rule in .htaccess and router.php)
+    'case_study_base' => 'portfolio-new',
     'filters' => [
         'all'     => 'All work',
         'web'     => 'Websites',
@@ -29,6 +34,7 @@ return [
             'wide'   => true,
             'layout' => 'browser',
             'theme'  => 'slate',
+            'case_study' => 'total-inspections',
             'images' => [
                 ['pages/portfolio/work/total-inspections.webp', 'Total Inspections template management dashboard'],
             ],

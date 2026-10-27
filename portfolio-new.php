@@ -19,7 +19,10 @@ include 'includes/layout/header.php';
 <div class="pf-page">
     <!-- reveal-on-scroll only hides content once JS is known to be running -->
     <script>document.documentElement.classList.add('pf-js');</script>
+    <?php /* Hidden for now — the custom orange cursor; no other page on the site has one.
+             Remove this comment (and the ones in portfolio-new.css and portfolio-new.js) to bring it back.
     <div class="pf-cursor" aria-hidden="true"></div>
+    */ ?>
 <?php
 include 'includes/sections/portfolio/hero.php';
 include 'includes/sections/portfolio/work.php';

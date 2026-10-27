@@ -137,7 +137,9 @@
   animation: pfReveal 0.8s var(--pf-ease) var(--pf-delay, 0s) backwards;
 }
 
-/* * Shared : custom cursor (mouse/trackpad only; JS moves it) */
+/* * Shared : custom cursor (mouse/trackpad only; JS moves it)
+   Hidden for now — no other page on the site has one. Remove this comment
+   (and the ones in portfolio-new.php and portfolio-new.js) to bring it back.
 .pf-cursor {
   display: none;
   position: fixed;
@@ -160,6 +162,7 @@
     display: block;
   }
 }
+*/
 
 /* ============================================================
    * Hero
@@ -416,6 +419,37 @@
   color: #52666f;
   font-size: 15px;
   line-height: 1.5;
+}
+/* a card with a case study: its title link stretches over the whole card */
+.pf-project-link {
+  color: inherit;
+  text-decoration: none;
+}
+.pf-project-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+}
+.pf-project-link:focus-visible {
+  outline: none;
+}
+.pf-project:has(.pf-project-link:focus-visible) {
+  outline: 3px solid var(--pf-orange);
+  outline-offset: 3px;
+}
+.pf-case {
+  display: inline-flex;
+  gap: 6px;
+  margin-top: 8px;
+  color: var(--pf-orange);
+  font-size: 14px;
+  font-weight: 700;
+  transition: gap var(--pf-fast) var(--pf-ease);
+}
+.pf-project:hover .pf-case {
+  gap: 10px;
 }
 .pf-tag {
   flex: 0 0 auto;
@@ -730,6 +764,30 @@
   font-size: 19px;
   line-height: 1.7;
 }
+/* the same panel as case-study.php's "not found" page, where it is the first
+   section: dark, because the desktop header over it is transparent with
+   white links, and padded so it clears that header */
+.pf-missing {
+  padding-top: calc(var(--header-h) + var(--pf-space));
+  background: #192b33;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.pf-missing p {
+  color: #cdd7dd;
+}
+.pf-missing h1 {
+  max-width: 850px;
+  margin: 0 auto 18px;
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+}
+@media (max-width: 991.98px) {
+  .pf-missing {
+    padding-top: calc(var(--header-h-mobile) + var(--pf-space));
+  }
+}
 
 /* ============================================================
    * Keyframes
@@ -1012,7 +1070,9 @@
     opacity: 1;
     transform: none;
   }
+  /* custom cursor — hidden for now, see "Shared : custom cursor" above
   .pf-cursor {
     display: none !important;
   }
+  */
 }

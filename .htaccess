@@ -67,6 +67,12 @@ DirectoryIndex index.php
     # Must come before the generic rule below, which only handles one segment.
     RewriteRule ^blog/([a-z0-9-]+)/?$ blog-post.php?slug=$1 [L,QSA]
 
+    # /portfolio-new/<slug>/ -> case-study.php?slug=<slug>   (one case study)
+    # Lives under the test portfolio for now; when the new portfolio goes
+    # live, change portfolio-new to portfolio here, in router.php and in
+    # data/portfolio/work.php ('case_study_base').
+    RewriteRule ^portfolio-new/([a-z0-9-]+)/?$ case-study.php?slug=$1 [L,QSA]
+
     # /about-us/ -> about-us.php    (the actual rewrite, no redirect)
     # REQUEST_FILENAME checks keep this working at the root or in a sub-folder;
     # a slug with no matching .php simply falls through to a normal 404.
