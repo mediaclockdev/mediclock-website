@@ -15,7 +15,9 @@ $lpC = mc_contact();
                 <?= $e($lp['cta_title_before']) ?>
                 <span><?= $e($lp['cta_title_accent']) ?></span>
             </h2>
+            <?php if (!empty($lp['cta_lead'])): ?>
             <p class="lp-contact-lead"><?= $e($lp['cta_lead']) ?></p>
+            <?php endif; ?>
             <a class="lp-contact-phone" href="<?= $e(mc_tel()) ?>">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round" aria-hidden="true">

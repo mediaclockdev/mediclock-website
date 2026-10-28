@@ -50,7 +50,7 @@
 
   /* * Reel — the hero phones stay pinned while the numbers scroll up over
      them. Every number reads clearly (0.75), the one at the middle of the
-     screen at full strength, and the phones dim to a quarter as the first
+     screen at full strength, and the phones dim to an eighth as the first
      number rises from the bottom of the screen to two-thirds of the way up,
      so the numbers are always the brightest thing on screen. Pure CSS does the pinning; this only sets
      the two opacities from the scroll position. Off for reduced motion,
@@ -76,9 +76,14 @@
           k = Math.max(0, 1 - Math.abs(r.top + r.height / 2 - mid) / (vh * 0.32));
         s.style.opacity = (0.75 + 0.25 * k).toFixed(3);
       });
+      /* dimming starts as the first number crosses the bottom of the
+         screen, or of the phones when the pin is shorter than the screen
+         (on a phone, where the number waits just under them) */
       const first = stats[0].getBoundingClientRect().top,
-        dim = Math.min(1, Math.max(0, (vh * 0.95 - first) / (vh * 0.35)));
-      apps.style.opacity = (1 - 0.75 * dim).toFixed(3);
+        start = Math.min(vh * 0.95, pin.getBoundingClientRect().bottom),
+        dim = Math.min(1, Math.max(0, (start - first) / (vh * 0.35)));
+      /* down to 0.12 (was 0.25, with a dark blob behind the numbers too) */
+      apps.style.opacity = (1 - 0.88 * dim).toFixed(3);
       pin.style.setProperty("--scrim", dim.toFixed(3));
     }
     function onScroll() {

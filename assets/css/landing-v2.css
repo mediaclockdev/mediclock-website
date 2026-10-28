@@ -152,7 +152,8 @@ p.lp2-hero-eyebrow {
 .lp2-hero h1 {
   max-width: 13ch;
   margin: 0;
-  font-size: clamp(3rem, 8.4vw, 7.5rem);
+  /* font-size: clamp(3rem, 8.4vw, 7.5rem);  — 48px on a phone read small */
+  font-size: clamp(3.5rem, 8.4vw, 7.5rem);
   font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.035em;
@@ -390,8 +391,14 @@ p.lp2-hero-lead {
 }
 /* a soft dark band down the middle, behind the numbers, fading in with
    the dimming (--scrim, 0 → 1, set by landing-v2.js) — the busy middle
-   screen otherwise shows through the white figures */
+   screen otherwise shows through the white figures.
+   Off now: with the numbers' halo it read as a grey smudge over the phones.
+   The phones dim a little further instead (landing-v2.js), which keeps the
+   numbers clear with nothing drawn behind them. To bring it back, remove
+   the `display: none` line.
+   */
 .lp2-reel-pin::after {
+  display: none;
   content: "";
   position: absolute;
   z-index: 15;
@@ -439,11 +446,15 @@ p.lp2-hero-lead {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  /* dark halo so a number stays sharp over a bright screen */
+  /* dark halo so a number stays sharp over a bright screen — too heavy:
+     the wide blur showed as a black cloud round every number
   text-shadow:
     0 2px 6px rgba(10, 18, 22, 0.55),
     0 2px 24px rgba(10, 18, 22, 0.9),
     0 0 60px rgba(10, 18, 22, 0.7);
+  */
+  /* a tight, light shadow only — just enough edge over a pale screen */
+  text-shadow: 0 1px 3px rgba(10, 18, 22, 0.35);
   will-change: opacity;
 }
 .lp2-reel-stat strong {
@@ -502,6 +513,13 @@ p.lp2-hero-lead {
     flex: none;
     width: 132vw;
     margin: 0 -16vw;
+  }
+  /* the pin is only about half the screen here, so the first number
+     waiting 90svh down left a long empty dark stretch under the phones
+     before the reel began. It now waits just under the phones and rises
+     over them from the first scroll; the end is trimmed to match. */
+  .lp2-reel-on .lp2-reel-stats {
+    padding: calc(var(--pin-h) + 8px) 16px 30svh;
   }
   .lp2-hero .lp-btn-primary {
     width: 100%;
@@ -601,21 +619,42 @@ p.lp2-hero-lead {
    Big two-line section title
    A small line over a very large one ("From idea to App Store, / one team.").
    Shared by every v2 section that has a title, so they all speak the same way.
+
+   Heading sizes: the hero's <h1> is the page's only h1 and the largest
+   text on it (clamp(3.5rem, 8.4vw, 7.5rem): 56px phone, 120px desktop).
+   Every section title is an <h2> at one size, --lp2-h2 (42px phone, 72px
+   desktop) — the big titles here, the reviews, the FAQ and "Let's Talk."
+   all read it, so they stay the same as each other.
    ------------------------------------------------------------ */
+.lp2-main {
+  /* --lp2-h2: clamp(2.25rem, 5vw, 4.5rem);  — 36px on a phone read small */
+  --lp2-h2: clamp(2.625rem, 5vw, 4.5rem);
+}
 .lp2-big-title {
   margin: 0 auto;
   max-width: 16ch;
-  font-size: clamp(2.75rem, 7.6vw, 6.5rem);
+  /* font-size: clamp(2.75rem, 7.6vw, 6.5rem);  — was 44px–104px, nearly the hero's */
+  font-size: var(--lp2-h2);
   font-weight: 800;
-  line-height: 0.8;
+  /* line-height: 0.8;  — too tight once a title wraps to two lines */
+  line-height: 1.02;
   letter-spacing: -0.04em;
   text-align: center;
   color: var(--lp-ink);
 }
+/* landing.css's `.lp-body h2 { margin: 0 }` outranks the lone class
+   above, so the auto margins never applied and a title narrower than its
+   row sat to the left. Unseen at the old 104px, where the title box nearly
+   filled the row; the smaller size showed it. */
+.lp2-main .lp2-big-title:not(.lp2-big-title--left) {
+  margin-left: auto;
+  margin-right: auto;
+}
 .lp2-big-title span {
   display: block;
-  margin-bottom: 0.3em;
-  font-size: clamp(1.25rem, 2.6vw, 2.375rem);
+  margin-bottom: 0.15em; /* was 0.3em, with the 0.8 line-height above */
+  /* font-size: clamp(1.25rem, 2.6vw, 2.375rem);  — 20px on a phone */
+  font-size: clamp(1.375rem, 2.6vw, 2.375rem);
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: -0.01em;
@@ -682,7 +721,19 @@ p.lp2-hero-lead {
   container-type: inline-size;
 }
 
-/* design: one phone rising out of the bottom of the card, cut off by it */
+/* design: a photo of the design desk, rounded, across the card's foot.
+   Cropped to 4:3 (the photo is 16:9) so it has some height in a narrow
+   card; the crop keeps the sticky notes and the screen. */
+.lp2-pillar-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 38% 50%;
+  border-radius: 16px;
+}
+/* previous: one phone rising out of the bottom of the card, cut off by it
 .lp2-pillar--design {
   padding-bottom: 0;
 }
@@ -692,6 +743,7 @@ p.lp2-hero-lead {
   height: 230px;
   overflow: hidden;
 }
+*/
 .lp2-pillar-phone {
   --w: 200px;
   --d: 0;
@@ -902,6 +954,7 @@ p.lp2-hero-lead {
     padding: 26px 22px;
     border-radius: 20px;
   }
+  /* the phone, before the photo
   .lp2-pillar--design {
     padding-bottom: 0;
   }
@@ -910,6 +963,10 @@ p.lp2-hero-lead {
   }
   .lp2-pillar-phone {
     --w: 168px;
+  }
+  */
+  .lp2-pillar-photo {
+    border-radius: 12px;
   }
   .lp2-pillar-stores li {
     padding: 12px 14px;
@@ -1862,12 +1919,12 @@ p.lp2-price-note {
   position: sticky;
   top: 120px;
 }
+/* now the shared size and line-height, like every other section title
 .lp2-faq-head .lp2-big-title {
-  font-size: clamp(2.625rem, 5.6vw, 4.625rem);  /* was clamp(2.5rem, 5.4vw, 4.5rem) */
-  /* the shared 0.8 is too tight over two lines here: the "g" of
-     "straight" would sit on "answers" */
+  font-size: clamp(2.625rem, 5.6vw, 4.625rem);
   line-height: 0.98;
 }
+*/
 p.lp2-faq-call {
   margin: 28px 0 0;
   font-size: clamp(1.125rem, 1.4vw, 1.375rem);  /* was clamp(1.0625rem, 1.3vw, 1.25rem) */
@@ -2014,9 +2071,10 @@ p.lp2-faq-call {
   text-align: center;
 }
 .lp2-main .lp-reviews .lp-section-title {
-  font-size: clamp(2.5rem, 5.4vw, 4.75rem);
+  /* font-size: clamp(2.5rem, 5.4vw, 4.75rem); */
+  font-size: var(--lp2-h2);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.02; /* was 1.05 */
   letter-spacing: -0.04em;
   text-align: center;
   text-wrap: balance; /* "What Our / Clients Say", not "…Clients / Say" */
@@ -2087,7 +2145,8 @@ p.lp2-faq-call {
   padding-bottom: clamp(24px, 9vw, 48px);
 }
 .lp2-main .lp-contact-copy h2 {
-  font-size: clamp(2.75rem, 6vw, 5.25rem);
+  /* font-size: clamp(2.75rem, 6vw, 5.25rem); */
+  font-size: var(--lp2-h2);
   line-height: 1.02;
   letter-spacing: -0.04em;
 }

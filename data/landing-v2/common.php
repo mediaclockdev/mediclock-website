@@ -67,6 +67,9 @@ return [
     ],
     /* design card: one phone peeking up from the bottom of the card */
     'v2_pillar_design_screen' => ['landing-v2/phones/screen-4.webp', 'Sign-in screen designed by Media Clock'],
+    /* design card: a photo of the design desk (user journey, wireframes,
+       screens) — replaces the phone above, which is kept for going back */
+    'v2_pillar_design_photo' => ['landing-v2/pillars/design-workspace.webp', 'User journey sticky notes, wireframe sketches and app screens on a designer’s desk'],
     /* build card: six tools, each drawn as its brand mark from
        includes/landing-v2/brand-icons.php (was six of the dark tiles from
        data/shared/tech-stack.php, matched by alt) */
@@ -222,5 +225,11 @@ return [
     'cta_title_before' => 'Have an App Idea?',
     'cta_title_accent' => 'Let’s Talk.',
     'form_title'       => 'Tell Us About Your App',
+
+    /* the line under "Let's Talk." — dropped on v2 (the contact section
+       skips it when empty); the original ad page keeps its own
+    'cta_lead'         => 'Check timeline feasibility and Cost. Book a free discovery call.',
+    */
+    'cta_lead'         => '',
 
 ];

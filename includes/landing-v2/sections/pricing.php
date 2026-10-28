@@ -4,8 +4,9 @@
    the button wording are v2's own. Every button opens the quote modal.
 
    On a wide screen the three sit side by side with the popular one lifted.
-   On a tablet they stack; on a phone they swipe sideways (.lp2-swipe). Either
-   way the popular one moves first — CSS `order` moves it without changing
+   On a tablet and a phone they stack (phones used to swipe sideways with
+   .lp2-swipe — taken off so all three show without swiping). Either way
+   the popular one moves first — CSS `order` moves it without changing
    the reading order of the HTML for anyone else. */
 $lpCheck = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"'
     . ' stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
@@ -16,7 +17,8 @@ $lpCheck = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
             <span><?= $e($lp['v2_pricing_kicker']) ?></span>
             <?= $e($lp['v2_pricing_title']) ?>
         </h2>
-        <ul class="lp2-price-grid lp2-swipe">
+        <!-- <ul class="lp2-price-grid lp2-swipe"> -->
+        <ul class="lp2-price-grid">
             <?php foreach ($lp['pricing'] as $lpTier): ?>
             <li class="lp2-price<?= $lpTier['popular'] ? ' is-popular' : '' ?>" data-lp2-reveal>
                 <?php if ($lpTier['popular']): ?>

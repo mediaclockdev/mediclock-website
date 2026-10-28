@@ -7,7 +7,8 @@
    Layout by width (landing-v2.css):
      wide     three across, stepped down left to right
      tablet   two across, the third card full width with its picture beside it
-     phone    a sideways swipe row (.lp2-swipe), one card and a peek
+     phone    one column, the cards stacked (was a sideways swipe row,
+              .lp2-swipe — taken off so all three show without swiping)
    Cards fade up as they scroll in (landing-v2.js); without the script they
    are simply there. */
 /* the tech tiles, as before — replaced by brand marks
@@ -19,6 +20,7 @@ $lpTech = array_values(array_filter(array_map(
 */
 $lpIcons = require dirname(__DIR__) . '/brand-icons.php';
 [$lpScreen, $lpScreenAlt] = $lp['v2_pillar_design_screen'];
+[$lpPhoto, $lpPhotoAlt] = $lp['v2_pillar_design_photo'];
 ?>
 <section class="lp2-pillars" aria-labelledby="lp2-pillars-title">
     <div class="lp-container">
@@ -27,7 +29,8 @@ $lpIcons = require dirname(__DIR__) . '/brand-icons.php';
             <?= $e($lp['v2_pillars_title']) ?>
         </h2>
 
-        <ul class="lp2-pillar-grid lp2-swipe">
+        <!-- <ul class="lp2-pillar-grid lp2-swipe"> -->
+        <ul class="lp2-pillar-grid">
             <?php foreach ($lp['v2_pillars'] as $lpKey => [$lpTitle, $lpText]): ?>
             <li class="lp2-pillar lp2-pillar--<?= $e($lpKey) ?>" data-lp2-reveal>
                 <div class="lp2-pillar-copy">
@@ -37,10 +40,14 @@ $lpIcons = require dirname(__DIR__) . '/brand-icons.php';
 
                 <div class="lp2-pillar-visual">
                     <?php if ($lpKey === 'design'): ?>
+                    <img class="lp2-pillar-photo" src="<?= $e(img_src($lpPhoto)) ?>" alt="<?= $e($lpPhotoAlt) ?>"
+                        width="1024" height="572" loading="lazy" decoding="async" />
+                    <?php /* previous: one phone with the Shelynx sign-in screen
                     <div class="lp2-phone lp2-pillar-phone">
                         <img src="<?= $e(img_src($lpScreen)) ?>" alt="<?= $e($lpScreenAlt) ?>" width="404" height="900"
                             loading="lazy" decoding="async" />
                     </div>
+                    */ ?>
 
                     <?php elseif ($lpKey === 'build'): ?>
                     <ul class="lp2-pillar-tech">
