@@ -51,7 +51,9 @@
                               either way. Once "Read more" is pressed the box scrolls, and a
                               scrollable region has to be reachable by keyboard — hence the
                               tabindex on the ones long enough to scroll. */ ?>
-                    <?php $lpLong = mb_strlen($lpR['text']) > 300; ?>
+                    <?php /* the v2 page sets reviews_more to false: its reviews are
+                              already cut short, so none needs the control */ ?>
+                    <?php $lpLong = ($lp['reviews_more'] ?? true) && mb_strlen($lpR['text']) > 300; ?>
                     <div class="lp-review-body"<?= $lpLong ? ' tabindex="0"' : '' ?>>
                         <p><?= $e($lpR['text']) ?></p>
                     </div>

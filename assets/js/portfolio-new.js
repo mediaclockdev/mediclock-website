@@ -1,6 +1,6 @@
 /* ============================================================
    portfolio-new.js — the new portfolio page (portfolio-new.php)
-   Reveal on scroll, the process timeline trigger, the project
+   The hero video, reveal on scroll, the process timeline trigger, the project
    filters and the card tilt. (The custom cursor is commented out below.)
    ============================================================ */
 
@@ -11,6 +11,47 @@
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const finePointer = matchMedia("(pointer: fine)").matches;
   const projects = page.querySelectorAll(".pf-project");
+
+  /* * Hero video : the poster only, for readers who ask for less motion or
+     save data (the video has no autoplay, so it never downloads for them);
+     otherwise it plays while the hero is on screen and the tab is in front,
+     until the reader pauses it with the button */
+  const heroVideo = page.querySelector(".pf-hero-video");
+  const heroToggle = page.querySelector(".pf-hero-toggle");
+  if (heroVideo) {
+    const saveData = !!(navigator.connection && navigator.connection.saveData);
+    if (!reduceMotion && !saveData) {
+      let onScreen = true;
+      let stopped = false; // paused by the reader, so scrolling back doesn't restart it
+      const sync = () => (!stopped && onScreen && !document.hidden ? heroVideo.play().catch(() => {}) : heroVideo.pause());
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver((entries) => {
+          onScreen = entries[0].isIntersecting;
+          sync();
+        }).observe(heroVideo);
+      } else {
+        sync();
+      }
+      document.addEventListener("visibilitychange", sync);
+
+      if (heroToggle) {
+        const label = () => {
+          const paused = heroVideo.paused;
+          heroToggle.classList.toggle("is-paused", paused);
+          heroToggle.setAttribute("aria-label", (paused ? "Play" : "Pause") + " background video");
+        };
+        heroVideo.addEventListener("play", label);
+        heroVideo.addEventListener("pause", label);
+        // starts it too when the browser blocked autoplay (e.g. iOS Low Power Mode)
+        heroToggle.addEventListener("click", () => {
+          stopped = !heroVideo.paused;
+          sync();
+        });
+        heroToggle.hidden = false;
+        label();
+      }
+    }
+  }
 
   /* * Reveal on scroll : fade each .pf-reveal up the first time it shows */
   const reveals = page.querySelectorAll(".pf-reveal");

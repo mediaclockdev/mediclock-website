@@ -42,6 +42,14 @@
   font-family: var(--pf-display);
   font-weight: 700;
 }
+/* one line spacing for every big heading (the case study uses the same),
+   so a "g", "j" or "y" always clears the line below, and wrapped headings
+   break into even lines instead of leaving one word alone */
+.pf-page h1,
+.pf-page h2 {
+  line-height: 1.15;
+  text-wrap: balance;
+}
 .pf-page a {
   text-decoration: none;
 }
@@ -60,7 +68,6 @@
 .pf-process h2 {
   margin: 12px 0 0;
   font-size: clamp(38px, 5vw, 66px);
-  line-height: 1;
   letter-spacing: -0.05em;
 }
 
@@ -212,7 +219,6 @@
   max-width: 850px;
   margin: 22px 0;
   font-size: clamp(42px, 5.4vw, 78px);
-  line-height: 1.03;
   letter-spacing: -0.05em;
   color: #fff;
   animation: pfFadeUp 0.8s var(--pf-ease) 0.08s both;
@@ -307,6 +313,90 @@
   color: #fff;
   opacity: 0.6;
   animation: pfSparkFloatB 13s ease-in-out infinite alternate;
+}
+
+/* * Hero : background video (hero.php)
+   The video fills the band; an even scrim in the page's ink colour sits on
+   top, the same on every side and at every width, so the text reads like it
+   does on the plain dark band, even in the video's brightest scenes. */
+.pf-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.pf-hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* keeps the tablet in frame as the band gets narrower */
+  object-position: 70% center;
+  animation: pfVideoIn 1.2s var(--pf-ease) both;
+}
+.pf-hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* one even tint across the whole band, left and right alike, a little
+     deeper at the top (behind the header) and the bottom (behind the buttons) */
+  background:
+    linear-gradient(180deg, rgba(25, 43, 51, 0.35) 0%, transparent 22%, transparent 62%, rgba(25, 43, 51, 0.4) 100%),
+    rgba(25, 43, 51, 0.75);
+}
+/* a soft shadow under the copy, for the moments a bright frame sits right behind a letter */
+.pf-hero h1,
+.pf-hero p {
+  text-shadow: 0 2px 22px rgba(25, 43, 51, 0.6);
+}
+/* iOS draws a play icon over a video that Low Power Mode stops autoplaying */
+.pf-hero-video::-webkit-media-controls,
+.pf-hero-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+@keyframes pfVideoIn {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+}
+/* pause / play, bottom right; JS shows it only when the video can play */
+.pf-hero-toggle {
+  position: absolute;
+  z-index: 3;
+  right: 24px;
+  bottom: 24px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background: rgba(25, 43, 51, 0.45);
+  color: #fff;
+  opacity: 0.75;
+  cursor: pointer;
+  transition: opacity var(--pf-fast), border-color var(--pf-fast);
+}
+.pf-hero-toggle:hover {
+  opacity: 1;
+  border-color: var(--pf-orange);
+}
+.pf-hero-toggle[hidden] {
+  display: none;
+}
+.pf-hero-toggle svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+.pf-hero-toggle .pf-i-play,
+.pf-hero-toggle.is-paused .pf-i-pause {
+  display: none;
+}
+.pf-hero-toggle.is-paused .pf-i-play {
+  display: inline;
 }
 
 /* ============================================================
@@ -465,8 +555,11 @@
 
 /* * Recent work : the screenshot stage */
 .pf-visual {
+  /* each breakpoint changes --pf-stage-h, not height, so the browser
+     layout below can swap height for max-height on one-column screens */
+  --pf-stage-h: 390px;
   position: relative;
-  height: 390px;
+  height: var(--pf-stage-h);
   overflow: hidden;
   border-radius: 20px;
 }
@@ -537,13 +630,11 @@
   border-radius: 50%;
   background: #c8d0d5;
 }
-/* pinned top-left: when the card narrows, the dashboards lose their right
-   edge rather than the logo and sidebar */
+/* full width at its own proportions, so the screenshot is only ever cut at
+   the bottom (by the stage), never at the sides */
 .pf-browser img {
-  height: calc(100% - 28px);
+  height: auto;
   margin-top: 28px;
-  object-fit: cover;
-  object-position: left top;
 }
 .pf-project:hover .pf-browser,
 .pf-project:hover .pf-device {
@@ -562,7 +653,7 @@
 .pf-device {
   height: calc(100% + 12px);
   aspect-ratio: 407 / 582;
-  max-width: 88%;
+  max-width: 100%;
   overflow: hidden;
   border: 1px solid #cfd8dc;
   border-radius: 18px 18px 0 0;
@@ -745,21 +836,23 @@
    * Closing call to action
    ============================================================ */
 .pf-cta {
-  padding: var(--pf-space) 20px;
+  /* extra room at the bottom for the button's orange shadow, so the space
+     under the button looks the same as the space above it */
+  padding: var(--pf-space) 20px calc(var(--pf-space) + 16px);
   background: #fff;
   color: var(--pf-ink);
   text-align: center;
 }
+/* the same size as the other section headings, and no width cap, so the
+   question stays on one line wherever it fits */
 .pf-cta h2 {
-  max-width: 850px;
   margin: 0 auto 18px;
-  font-size: clamp(40px, 6vw, 80px);
-  line-height: 0.98;
-  letter-spacing: -0.055em;
+  font-size: clamp(38px, 5vw, 66px);
+  letter-spacing: -0.05em;
 }
 .pf-cta p {
   max-width: 580px;
-  margin: 0 auto 28px;
+  margin: 0 auto 32px;
   color: var(--pf-text);
   font-size: 19px;
   line-height: 1.7;
@@ -780,7 +873,6 @@
   max-width: 850px;
   margin: 0 auto 18px;
   font-size: clamp(36px, 5vw, 64px);
-  line-height: 1.02;
   letter-spacing: -0.05em;
 }
 @media (max-width: 991.98px) {
@@ -846,7 +938,7 @@
 /* lg : narrower container, both columns still side by side */
 @media (max-width: 1199.98px) {
   .pf-visual {
-    height: 360px;
+    --pf-stage-h: 360px;
   }
   .pf-orb-main {
     width: 460px;
@@ -898,14 +990,25 @@
     grid-column: span 12;
   }
   .pf-visual {
-    height: 400px;
+    --pf-stage-h: 400px;
+  }
+  /* one card per row, so no neighbour to line up with: the stage hugs the
+     screenshot instead of leaving white space under a short one */
+  .pf-visual-browser {
+    height: auto;
+    max-height: var(--pf-stage-h);
+  }
+  /* still runs 12px past the stage's bottom, so the hover lift leaves no gap */
+  .pf-browser {
+    height: auto;
+    margin-bottom: -12px;
   }
 }
 
 /* sm : timeline turns vertical — line down the left, stages stacked */
 @media (max-width: 767.98px) {
   .pf-visual {
-    height: 340px;
+    --pf-stage-h: 340px;
   }
   .pf-timeline {
     margin-top: 36px;
@@ -948,8 +1051,21 @@
   .pf-page {
     --pf-radius: 22px;
   }
+  /* the stacked buttons run full width, so the bottom padding gives the
+     pause button its own space instead of sitting on "Start a project" */
   .pf-hero {
     padding-top: calc(var(--header-h-mobile) + 36px);
+    padding-bottom: 72px;
+  }
+  /* keeps the devices in the video in frame on a narrow band */
+  .pf-hero-video {
+    object-position: 78% center;
+  }
+  .pf-hero-toggle {
+    right: 16px;
+    bottom: 16px;
+    width: 36px;
+    height: 36px;
   }
   .pf-hero h1 {
     margin: 20px 0 18px;
@@ -992,7 +1108,7 @@
     padding: 12px;
   }
   .pf-visual {
-    height: 300px;
+    --pf-stage-h: 300px;
     border-radius: 16px;
   }
   /* too narrow for side by side: the tag goes under the caption on every card */
@@ -1011,7 +1127,6 @@
     height: 23px;
   }
   .pf-browser img {
-    height: calc(100% - 23px);
     margin-top: 23px;
   }
   .pf-visual-device {

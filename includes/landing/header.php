@@ -36,6 +36,11 @@ require_once dirname(__DIR__) . '/img.php';
          and nothing there can reach this page. -->
     <link rel="stylesheet" href="<?= $e(asset_url('assets/css/main.css')) ?>" />
     <link rel="stylesheet" href="<?= $e(asset_url('assets/css/landing.css')) ?>" />
+    <?php /* a page built on this header can add its own sheet after landing.css
+             (includes/landing-v2/ does); the original ad pages set none */ ?>
+    <?php foreach ($lpExtraCss ?? [] as $lpCss): ?>
+    <link rel="stylesheet" href="<?= $e(asset_url($lpCss)) ?>" />
+    <?php endforeach; unset($lpCss); ?>
 
     <!-- Meta Pixel Code -->
         <script>
@@ -91,6 +96,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </svg>
                     <span><?= $e(mc_tel_text()) ?></span>
                 </a>
+                <?php if (!empty($lpHeaderCta)): /* set by the v2 template only */ ?>
+                <button type="button" class="lp-btn lp-header-cta" data-lp-open-modal
+                    aria-haspopup="dialog"><?= $e($lpHeaderCta) ?></button>
+                <?php endif; ?>
             </div>
         </div>
     </header>

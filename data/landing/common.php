@@ -124,7 +124,7 @@ return [
             'price'    => '$4,999',
             'popular'  => false,
             'features' => [
-                'Both platform — iOS and Android',
+                'Both platforms — iOS and Android',
                 'Up to 8 core screens',
                 'Login, profiles, push notifications',
                 'App Store / Play Store submission',

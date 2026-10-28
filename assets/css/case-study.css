@@ -71,8 +71,10 @@
   font-family: var(--cs-display);
   font-size: var(--cs-h2);
   font-weight: 700;
-  line-height: 1;
+  /* the same line spacing as the portfolio's headings */
+  line-height: 1.15;
   letter-spacing: -0.05em;
+  text-wrap: balance;
 }
 /* orange rule under each heading, drawn in once the copy reveals */
 .cs-title::after {
@@ -212,7 +214,8 @@ html:not(.cs-js) .cs-title::after {
   font-family: var(--cs-display);
   font-size: var(--cs-h1);
   font-weight: 700;
-  line-height: 1.03;
+  line-height: 1.15;
+  text-wrap: balance;
   letter-spacing: -0.05em;
 }
 .cs-hero-sub {

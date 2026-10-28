@@ -37,6 +37,11 @@ $lpC = mc_contact();
          nothing here. landing.js adds only what is specific to this page. -->
     <script src="<?= $e(asset_url('assets/js/main.js')) ?>" defer></script>
     <script src="<?= $e(asset_url('assets/js/landing.js')) ?>" defer></script>
+    <?php /* a page built on this footer can add its own script after landing.js
+             (includes/landing-v2/ does); the original ad pages set none */ ?>
+    <?php foreach ($lpExtraJs ?? [] as $lpJs): ?>
+    <script src="<?= $e(asset_url($lpJs)) ?>" defer></script>
+    <?php endforeach; unset($lpJs); ?>
 </body>
 
 </html>
