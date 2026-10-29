@@ -220,4 +220,165 @@
       io.observe(el);
     });
   })();
+
+  /* * FAQ — the <details> open and close smoothly instead of snapping. The
+     height is animated from where it is to where it is going, so a second
+     tap mid-way simply turns it round. The script runs the one-open-at-a-
+     time rule itself (the name="…" that does it in HTML closes the other
+     answer instantly, which jolted the page), animating the closing answer
+     too, and while one above closes it holds the tapped question still on
+     screen instead of letting it slide up from under the finger. Each
+     question that opens then glides up to just under the sticky header, so
+     its answer can always be read below it. Without
+     the script, or with reduced motion, the plain <details> behaviour stays. */
+  /* Switched off: the FAQ is now plain <details> (open and close at once,
+     each on its own, nothing scrolls). The old code is kept below; delete
+     this return to bring it back. It holds comments of its own, so it is
+     turned off here rather than commented out. */
+  (function () {
+    return;
+    const list = document.querySelector(".lp2-faq-list");
+    if (!list || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const items = Array.prototype.slice.call(list.querySelectorAll("details"));
+    const DUR = 420,
+      EASE = "cubic-bezier(0.25, 0.8, 0.25, 1)";
+
+    function animate(d, open) {
+      /* the height right now, mid-animation or not, before stopping it */
+      const from = d.getBoundingClientRect().height;
+      if (d._anim) d._anim.cancel();
+      d.classList.toggle("is-closing", !open);
+      d.open = open;
+      const to = d.getBoundingClientRect().height;
+      d.open = true; /* stays open while it closes, so the answer shows */
+      d.style.overflow = "hidden";
+      d._anim = d.animate([{ height: from + "px" }, { height: to + "px" }], { duration: DUR, easing: EASE });
+      const answer = d.querySelector("p");
+      if (d._fade) d._fade.cancel();
+      if (answer) d._fade = answer.animate([{ opacity: open ? 0 : 1 }, { opacity: open ? 1 : 0 }], { duration: DUR * 0.8, easing: "ease", fill: "both" });
+      d._anim.onfinish = function () {
+        d._anim = null;
+        d.open = open;
+        d.classList.remove("is-closing");
+        d.style.overflow = "";
+      };
+      return to;
+    }
+
+    /* keep el at the same place on screen while the list above it moves */
+    /* function hold(el) {
+      const top = el.getBoundingClientRect().top,
+        end = performance.now() + DUR + 60;
+      (function frame() {
+        const dy = el.getBoundingClientRect().top - top;
+        if (Math.abs(dy) > 0.5) window.scrollBy({ top: dy, behavior: "instant" });
+        if (performance.now() < end) requestAnimationFrame(frame);
+      })();
+    } */
+
+    /* hold the tapped question (el) still while the list above it moves, and
+       ease the page by `extra` so it ends just under the header (`height`,
+       the opened item's full height, was used by the fit-only version). The browser's own scroll anchoring is
+       paused meanwhile, or it corrects the same shift twice and the page
+       jumps up. */
+    function hold(el, height) {
+      const root = document.documentElement,
+        header = document.querySelector(".lp-header"),
+        top = el.getBoundingClientRect().top,
+        roof = (header ? header.getBoundingClientRect().height : 0) + 16,
+        /* was: scroll only as far as needed to fit the answer on screen
+        extra = Math.max(0, Math.min(top + height - (window.innerHeight - 24), top - roof)), */
+        /* every opened question glides up to just under the header, so the
+           answer always has the screen below it to read */
+        extra = top - roof,
+        start = performance.now();
+      /* the page's smooth scrolling (main.css) is paused too, so each nudge
+         lands at once; the scroll is set directly, as older Safari throws on
+         scrollBy({ behavior: "instant" }) and the page was left to jump */
+      root.style.overflowAnchor = "none";
+      root.style.scrollBehavior = "auto";
+      (function frame(now) {
+        const t = Math.min(1, (now - start) / DUR),
+          ease = 1 - Math.pow(1 - t, 3),
+          dy = el.getBoundingClientRect().top - (top - extra * ease);
+        /* if (Math.abs(dy) > 0.5) window.scrollBy({ top: dy, behavior: "instant" }); */
+        if (Math.abs(dy) > 0.5) window.scrollTo(0, window.pageYOffset + dy);
+        if (now < start + DUR + 60) requestAnimationFrame(frame);
+        else root.style.overflowAnchor = root.style.scrollBehavior = "";
+      })(start);
+    }
+
+    items.forEach(function (d) {
+      d.removeAttribute("name");
+      d.querySelector("summary").addEventListener("click", function (e) {
+        e.preventDefault();
+        const opening = !d.open || d.classList.contains("is-closing");
+        if (opening) {
+          items.forEach(function (o) {
+            if (o !== d && o.open && !o.classList.contains("is-closing")) animate(o, false);
+          });
+          /* hold(this); */
+          hold(this, animate(d, true));
+        } else animate(d, false);
+        /* animate(d, opening); */
+      });
+    });
+  })();
+
+  /* * FAQ — one answer open at a time, each opening and closing over 400ms
+     instead of snapping. The height is animated; a second tap mid-way turns
+     it round. When an answer above the tapped one closes, the page moves
+     with it frame by frame so the tapped question stays still under the
+     finger — nothing else scrolls. Without the script (or with reduced
+     motion) it is plain <details>, still one open at a time by name="…". */
+  (function () {
+    const items = Array.prototype.slice.call(document.querySelectorAll(".lp2-faq-item"));
+    if (!items.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const DUR = 400,
+      root = document.documentElement;
+
+    function toggle(d, open) {
+      const from = d.getBoundingClientRect().height;
+      if (d._anim) d._anim.cancel();
+      d.open = open;
+      const to = d.getBoundingClientRect().height;
+      d.open = true; /* stays open while it closes, so the answer shows */
+      d.classList.toggle("is-closing", !open);
+      d.style.overflow = "hidden";
+      d._anim = d.animate({ height: [from + "px", to + "px"] }, { duration: DUR, easing: "ease" });
+      d._anim.onfinish = function () {
+        d._anim = null;
+        d.open = open;
+        d.classList.remove("is-closing");
+        d.style.overflow = "";
+      };
+    }
+
+    items.forEach(function (d) {
+      d.removeAttribute("name"); /* the script keeps one open, animated */
+      const summary = d.querySelector("summary");
+      summary.addEventListener("click", function (e) {
+        e.preventDefault();
+        const open = !d.open || d.classList.contains("is-closing"),
+          top = summary.getBoundingClientRect().top,
+          end = performance.now() + DUR + 50;
+        if (open) {
+          items.forEach(function (o) {
+            if (o !== d && o.open && !o.classList.contains("is-closing")) toggle(o, false);
+          });
+        }
+        toggle(d, open);
+        /* the browser's own scroll anchoring and smooth scrolling are paused
+           meanwhile, so they do not move the page as well */
+        root.style.overflowAnchor = "none";
+        root.style.scrollBehavior = "auto";
+        (function frame() {
+          const dy = summary.getBoundingClientRect().top - top;
+          if (Math.abs(dy) > 0.5) window.scrollTo(0, window.pageYOffset + dy);
+          if (performance.now() < end) requestAnimationFrame(frame);
+          else root.style.overflowAnchor = root.style.scrollBehavior = "";
+        })();
+      });
+    });
+  })();
 })();

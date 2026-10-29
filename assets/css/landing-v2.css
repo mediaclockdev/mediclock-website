@@ -439,7 +439,9 @@ p.lp2-hero-lead {
   margin-top: calc(-1 * var(--pin-h));
   /* the first number waits just below the screen until the phones have
      pinned, so the reel only starts once they are settled */
-  padding: 90svh 16px 42svh;
+  /* padding: 90svh 16px 42svh;  — 42svh of empty dark under the last
+     number before the banner ended */
+  padding: 90svh 16px clamp(48px, 8svh, 96px);
 }
 .lp2-reel-stat {
   display: flex;
@@ -514,12 +516,23 @@ p.lp2-hero-lead {
     width: 132vw;
     margin: 0 -16vw;
   }
+  /* the two side phones ran off the screen edges and read as cut off.
+     Same sizes, but each tucks 16vw + 12px further behind the middle one
+     (which sits on top, z-index by --d), so all three end 12px inside the
+     screen: a fanned stack, nothing cropped. */
+  .lp2-app[style*="--x:-1;"] {
+    margin-right: calc(-16vw - 12px);
+  }
+  .lp2-app[style*="--x:1;"] {
+    margin-left: calc(-16vw - 12px);
+  }
   /* the pin is only about half the screen here, so the first number
      waiting 90svh down left a long empty dark stretch under the phones
      before the reel began. It now waits just under the phones and rises
      over them from the first scroll; the end is trimmed to match. */
   .lp2-reel-on .lp2-reel-stats {
-    padding: calc(var(--pin-h) + 8px) 16px 30svh;
+    /* padding: calc(var(--pin-h) + 8px) 16px 30svh; */
+    padding: calc(var(--pin-h) + 8px) 16px clamp(48px, 8svh, 96px);
   }
   .lp2-hero .lp-btn-primary {
     width: 100%;
@@ -627,6 +640,21 @@ p.lp2-hero-lead {
    all read it, so they stay the same as each other.
    ------------------------------------------------------------ */
 .lp2-main {
+  /* Section spacing — one scale for the whole page (see "Section spacing"
+     at the end of this file): the space above and below every section, and
+     the gap between a section's title and what follows it.
+     Above and below: 32px on desktop, 24px on tablet and phone (the
+     992px step is in the "Section spacing" block at the end). Under the
+     title: 32px on a wide screen, 20px on a phone. */
+  /* --lp2-section-y: clamp(32px, 3.4vw, 48px); */
+  --lp2-section-y: 32px;
+  --lp2-title-gap: clamp(20px, 2.3vw, 32px);
+  /* the space above and below a button that ends a section (Recent Work,
+     Four Steps) — the same both sides, so it sits centred in it */
+  /* --lp2-cta-space: clamp(32px, 3.5vw, 48px);  — now the section spacing */
+  --lp2-cta-space: var(--lp2-section-y);
+  /* the space over the button, a touch less than under it (by hand) */
+  --lp2-cta-top: calc(var(--lp2-cta-space) - 5px);
   /* --lp2-h2: clamp(2.25rem, 5vw, 4.5rem);  — 36px on a phone read small */
   --lp2-h2: clamp(2.625rem, 5vw, 4.5rem);
 }
@@ -1054,7 +1082,8 @@ p.lp2-section-lead {
   --gap: clamp(12px, 2vw, 24px);
   /* room under the "Tell Us Your Idea" button for its glow, which would
      otherwise spill onto the grey steps band below */
-  padding: clamp(24px, 4vw, 48px) 0 clamp(32px, 4vw, 48px);
+  /* padding: clamp(24px, 4vw, 48px) 0 clamp(32px, 4vw, 48px); */
+  padding: clamp(24px, 4vw, 48px) 0 var(--lp2-cta-space);
   background: #fff;
 }
 .lp2-work-carousel {
@@ -1250,7 +1279,8 @@ p.lp2-case-line {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  /* gap: 16px;  — 16px over the button, 48px under it */
+  gap: var(--lp2-cta-top);
   margin-top: clamp(10px, 3vw, 20px);
   text-align: center;
 }
@@ -1608,7 +1638,11 @@ p.lp2-feature-text {
 .lp2-steps-cta {
   display: flex;
   justify-content: center;
-  margin-top: clamp(36px, 5vw, 56px);
+  /* margin-top: clamp(36px, 5vw, 56px); */
+  margin-top: var(--lp2-cta-top);
+}
+.lp2-steps {
+  padding-bottom: var(--lp2-cta-space);
 }
 .lp2-steps-cta .lp2-pill {
   font-size: clamp(1.1875rem, 1.5vw, 1.5rem); /* was the shared clamp(1.0625rem, 1.3vw, 1.25rem), then +1–2px */
@@ -1937,9 +1971,16 @@ p.lp2-faq-call {
 .lp2-faq-call a {
   font-weight: 700;
   color: var(--lp-ink);
+  /* underlined in orange before — plain now, the bold carries it
   text-decoration: underline;
   text-decoration-color: var(--lp-orange);
   text-underline-offset: 4px;
+  */
+  text-decoration: none;
+}
+.lp2-faq-call a:hover,
+.lp2-faq-call a:focus-visible {
+  color: var(--lp-orange);
 }
 /* no rule above the first question, and less room over it, so the list
    starts level with the heading beside it */
@@ -1982,8 +2023,10 @@ p.lp2-faq-call {
   height: 36px;
   flex: none;
   border-radius: 50%;
-  background: var(--lp-grey);
-  transition: background-color 0.2s ease;
+  /* background: var(--lp-grey);  — the section's own grey, so the circle
+     never showed until it turned orange */
+  background: #fff;
+  transition: background-color 0.25s ease;
 }
 .lp2-faq-icon::before,
 .lp2-faq-icon::after {
@@ -2003,14 +2046,16 @@ p.lp2-faq-call {
 .lp2-faq-icon::after {
   transform: translate(-50%, -50%) rotate(90deg);
 }
-.lp2-faq-item[open] .lp2-faq-icon {
+/* .is-closing (landing-v2.js) is on while an answer slides shut — the
+   <details> is still open then, but the icon turns back at once */
+.lp2-faq-item[open]:not(.is-closing) .lp2-faq-icon {
   background: var(--lp-orange);
 }
-.lp2-faq-item[open] .lp2-faq-icon::before,
-.lp2-faq-item[open] .lp2-faq-icon::after {
+.lp2-faq-item[open]:not(.is-closing) .lp2-faq-icon::before,
+.lp2-faq-item[open]:not(.is-closing) .lp2-faq-icon::after {
   background: #fff;
 }
-.lp2-faq-item[open] .lp2-faq-icon::after {
+.lp2-faq-item[open]:not(.is-closing) .lp2-faq-icon::after {
   transform: translate(-50%, -50%) rotate(0deg);
 }
 .lp2-faq-item p {
@@ -2200,6 +2245,11 @@ p.lp2-faq-call {
     padding-top: 34px;
     padding-bottom: 34px;
   }
+  /* these two end on a button: the same space under it as over it */
+  .lp2-work,
+  .lp2-steps {
+    padding-bottom: var(--lp2-cta-space);
+  }
 
   /* the row runs edge to edge whatever the container's gutter */
   .lp2-swipe {
@@ -2308,6 +2358,10 @@ p.lp2-faq-call {
   .lp2-work-foot p {
     display: none;
   }
+  /* with the line hidden the button follows the dots straight away */
+  .lp2-work-foot {
+    margin-top: var(--lp2-cta-top);
+  }
   .lp2-step {
     padding-bottom: 24px;
   }
@@ -2388,12 +2442,15 @@ p.lp2-faq-call {
 .lp2-marquee-row {
   display: flex;
   flex: none;
-  gap: clamp(0px, 1vw, 16px);
+  /* gap: clamp(0px, 1vw, 16px);  — the tiles carried their own uneven
+     side space; they are cut to the logo now, so the gap is all of it */
+  gap: clamp(36px, 4.5vw, 64px);
   /* each tile has empty space above and below its logo; pull it in so the
      bigger logos do not push the band taller */
   margin: calc(var(--logo-h) * -0.16) 0;
   /* the gap after the last logo, so both copies are exactly the same width */
-  padding: 0 clamp(0px, 1vw, 16px) 0 0;
+  /* padding: 0 clamp(0px, 1vw, 16px) 0 0; */
+  padding: 0 clamp(36px, 4.5vw, 64px) 0 0;
   list-style: none;
 }
 .lp2-marquee-row img {
@@ -2439,4 +2496,65 @@ p.lp2-faq-call {
    ------------------------------------------------------------ */
 .lp2-main .lp-reviews {
   background: #fff;
+}
+
+/* ------------------------------------------------------------
+   Phone icons — solid
+   The header and "Let's Talk" share the outline handset from the original
+   page's partials (includes/landing/header.php, sections/contact.php).
+   Filled with its own colour it reads as a solid handset; the stroke stays
+   on so the corners keep their rounding. v2 only — this file loads on no
+   other page.
+   ------------------------------------------------------------ */
+.lp-header-phone svg path,
+.lp-contact-phone svg path {
+  fill: currentColor;
+}
+
+/* ------------------------------------------------------------
+   Section spacing
+   Every section had its own padding (24–48px on a wide screen, 24–34px on
+   a phone, and top and bottom often different) and its own gap under the
+   title (20–56px). They all read the two values on .lp2-main now —
+   --lp2-section-y above and below, --lp2-title-gap under the title — so
+   the page keeps one rhythm at every width. Set last and with .lp2-main
+   in front, so it outranks the per-section values earlier in this file
+   (left there, commented where replaced, for reference).
+   ------------------------------------------------------------ */
+.lp2-main .lp2-hero {
+  padding-top: var(--lp2-section-y);
+}
+.lp2-main .lp2-logos,
+.lp2-main .lp2-work,
+.lp2-main .lp2-pillars,
+.lp2-main .lp2-steps,
+.lp2-main .lp2-pricing,
+.lp2-main .lp-reviews,
+.lp2-main .lp2-faq,
+.lp2-main .lp-contact-grid {
+  padding-top: var(--lp2-section-y);
+  padding-bottom: var(--lp2-section-y);
+}
+/* under the title */
+.lp2-main .lp2-work-carousel,
+.lp2-main .lp2-pillar-grid,
+.lp2-main .lp2-step-list {
+  margin-top: var(--lp2-title-gap);
+}
+.lp2-main .lp-reviews .lp-section-head {
+  margin-bottom: var(--lp2-title-gap);
+}
+/* pricing: the "Most popular" flag sits half above its card, so the grid
+   starts that much lower for the flag to clear the title by the same gap */
+.lp2-main .lp2-price-grid {
+  margin-top: calc(var(--lp2-title-gap) + 16px);
+  padding-top: 0;
+}
+@media (max-width: 991.98px) {
+  .lp2-main {
+    --lp2-section-y: 24px; /* tablet and phone */
+  }
+  .lp2-main .lp2-faq-grid {
+    gap: var(--lp2-title-gap);
+  }
 }

@@ -26,10 +26,13 @@
     */ ?>
     <div class="container pf-hero-inner">
         <div class="pf-hero-copy">
-            <div class="pf-eyebrow"><i></i> Our recent work · <?= date('Y') ?></div>
+            <!-- <div class="pf-eyebrow"><i></i> Our recent work · <?= date('Y') ?></div> -->
+            <div class="pf-eyebrow"><i></i> Our Recent Work · <?= date('Y') ?></div>
             <h1 id="pf-hero-title">
-                <span class="pf-hero-line">Digital work,</span>
-                <span class="pf-hero-line pf-hero-accent">built to move</span>
+                <!-- <span class="pf-hero-line">Digital work,</span>
+                <span class="pf-hero-line pf-hero-accent">built to move</span> -->
+                <span class="pf-hero-line">Digital Work,</span>
+                <span class="pf-hero-line pf-hero-accent">Built to Move</span>
             </h1>
             <p>Websites, mobile apps, and digital products designed with clarity, character, and precise interactions.</p>
             <div class="pf-hero-actions">

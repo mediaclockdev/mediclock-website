@@ -29,7 +29,7 @@
         </ol>
 
         <div class="lp2-steps-cta" data-lp2-reveal>
-            <button type="button" class="lp-btn lp2-pill" data-lp-open-modal aria-haspopup="dialog"><?= $e($lp['hero_cta']) ?></button>
+            <button type="button" class="lp-btn lp2-pill" data-lp-open-modal aria-haspopup="dialog"><?= $e($lp['v2_steps_cta']) ?></button>
         </div>
     </div>
 </section>

@@ -3,6 +3,8 @@
    * Portfolio (new) — case studies shown in the "Our recent work" grid
    Read by includes/sections/portfolio/work.php. Order here = order on screen.
 
+     'meta'   the line under the title: what the project is about (its
+              industry and what it does), not our services
      'type'   filter group: 'web' | 'app' | 'product' (see 'filters' below)
      'wide'   true = 7 of 12 columns, false = 5. Alternate them so each
               row of two adds up to 12.
@@ -28,7 +30,8 @@ return [
     'projects' => [
         [
             'title'  => 'Total Inspections',
-            'meta'   => 'Admin portal · Product design · Development',
+            // 'meta'   => 'Admin portal · Product design · Development',
+            'meta'   => 'Property inspections · Checklists · PDF reports',
             'tag'    => 'Web application',
             'type'   => 'web',
             'wide'   => true,
@@ -41,7 +44,9 @@ return [
         ],
         [
             'title'  => 'Trevor',
-            'meta'   => 'Site management · Mobile app · Product design',
+            // 'meta'   => 'Site management · Mobile app · Product design',
+            // 'meta'   => 'WHS & safety · Site audits · Photo evidence',
+            'meta'   => 'WHS & safety · Site audits · Contractors', /* the app's own tabs: Site Manager, Contractor, Create Audit */
             'tag'    => 'Mobile app',
             'type'   => 'app',
             'wide'   => false,
@@ -53,7 +58,9 @@ return [
         ],
         [
             'title'  => 'Shelynx',
-            'meta'   => 'Shopping platform · Mobile app · Product design',
+            // 'meta'   => 'Shopping platform · Mobile app · Product design',
+            // 'meta'   => 'Retail · Online shopping · Order tracking',
+            'meta'   => 'Fashion retail · Online shopping · Local delivery', /* what the screens show; no order tracking on them */
             'tag'    => 'Mobile app',
             'type'   => 'app',
             'wide'   => false,
@@ -66,7 +73,8 @@ return [
         ],
         [
             'title'  => 'Hazcom',
-            'meta'   => 'Safety platform · Admin dashboard · Development',
+            // 'meta'   => 'Safety platform · Admin dashboard · Development',
+            'meta'   => 'Mining & safety · Hazard reporting · Analytics',
             'tag'    => 'Web application',
             'type'   => 'product',
             'wide'   => true,

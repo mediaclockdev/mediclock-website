@@ -10,6 +10,21 @@
 /* the light set — dark logos for a light band (was clients-dark.php when
    the band was dark) */
 $lpLogos = require dirname(__DIR__, 3) . '/data/shared/clients.php';
+/* every tile is 335 wide whatever the logo in it (111px of logo in one,
+   295px in another), so equal tiles left uneven gaps. The v2 band uses
+   copies cut down to the logo plus 6px each side (same height, same
+   tile colour), keyed by the same file name, with their new widths;
+   the row's gap then sets the same space between every pair. */
+$lpTrim = ['01' => 123, '02' => 138, '03' => 225, '04' => 307, '05' => 302, '06' => 146,
+           '07' => 146, '08' => 224, '09' => 228, '10' => 306, '11' => 293, '12' => 250];
+foreach ($lpLogos as &$lpLogo) {
+    $lpId = basename($lpLogo['src'], '.webp');
+    if (isset($lpTrim[$lpId])) {
+        $lpLogo['src'] = 'landing-v2/logos/' . $lpId . '.webp';
+        $lpLogo['w'] = $lpTrim[$lpId];
+    }
+}
+unset($lpLogo, $lpId, $lpTrim);
 ?>
 <section class="lp2-logos" aria-labelledby="lp2-logos-title">
     <div class="lp-container">

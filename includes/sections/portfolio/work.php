@@ -6,8 +6,10 @@ $pfWork = require dirname(__DIR__, 3) . '/data/portfolio/work.php';
   <div class="container">
     <div class="pf-section-head pf-reveal">
         <div>
-            <div class="pf-kicker">Selected portfolio</div>
-            <h2 id="pf-work-title">Our recent work.</h2>
+            <!-- <div class="pf-kicker">Selected portfolio</div>
+            <h2 id="pf-work-title">Our recent work.</h2> -->
+            <div class="pf-kicker">Selected Portfolio</div>
+            <h2 id="pf-work-title">Our Recent Work.</h2>
         </div>
         <p>A selection of the web platforms and mobile apps we have designed and built for Australian businesses.</p>
     </div>
@@ -49,11 +51,15 @@ $pfWork = require dirname(__DIR__, 3) . '/data/portfolio/work.php';
                     <?php if (!empty($pfProject['case_study'])): ?>
                     <!-- the link's ::after covers the whole card, so anywhere on it opens the case study -->
                     <h3><a class="pf-project-link" href="<?= $e(page_url($pfWork['case_study_base'] . '/' . $pfProject['case_study'])) ?>"><?= $e($pfProject['title']) ?></a></h3>
-                    <p><?= $e($pfProject['meta']) ?></p>
+                    <!-- <p><?= $e($pfProject['meta']) ?></p> -->
+                    <!-- each tag kept whole, so a line only breaks between tags -->
+                    <p><?= implode(' · ', array_map(fn($pfBit) => '<span>' . $e($pfBit) . '</span>', explode(' · ', $pfProject['meta']))) ?></p>
                     <span class="pf-case">View case study <span aria-hidden="true">→</span></span>
                     <?php else: ?>
                     <h3><?= $e($pfProject['title']) ?></h3>
-                    <p><?= $e($pfProject['meta']) ?></p>
+                    <!-- <p><?= $e($pfProject['meta']) ?></p> -->
+                    <!-- each tag kept whole, so a line only breaks between tags -->
+                    <p><?= implode(' · ', array_map(fn($pfBit) => '<span>' . $e($pfBit) . '</span>', explode(' · ', $pfProject['meta']))) ?></p>
                     <?php endif; ?>
                 </div>
                 <span class="pf-tag"><?= $e($pfProject['tag']) ?></span>

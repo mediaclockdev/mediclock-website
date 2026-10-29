@@ -31,6 +31,7 @@ include 'includes/sections/portfolio/cta.php';
 
 // * Quote popup — every "talk to us" button on the page (and the header's) opens it in place
 $quote_context = 'our portfolio';
+$quote_title   = 'Tell Us About Your Project'; /* title case like the rest of this page; the shared default is 'Tell us about your project' */
 include 'includes/components/quote-modal.php';
 ?>
 </div>

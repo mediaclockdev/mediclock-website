@@ -21,6 +21,10 @@ return [
     'v2_hero_title_accent' => 'Your App',
     'v2_hero_lead'         => 'Design, develop and launch with Media Clock.',
     'v2_hero_cta'          => 'Book a Free Discovery Call',
+    /* the same free call, worded for where each button sits, so the page
+       does not repeat one line four times (the hero keeps the full name) */
+    'v2_steps_cta'         => 'Start With a Free Call',   /* under the four steps — step one is the call */
+    'v2_faq_cta'           => 'Ask Us on a Free Call',    /* beside the questions */
     /* The hero's phones: five finished mockups, cut apart from one design so
        each can animate (assets/images/landing-v2/hero/). [image, width,
        height, alt], left to right; on a phone only the middle three show. */
@@ -225,6 +229,9 @@ return [
     'cta_title_before' => 'Have an App Idea?',
     'cta_title_accent' => 'Let’s Talk.',
     'form_title'       => 'Tell Us About Your App',
+    /* the quote form's button (the form and the pop-up), was the shared
+       'Book a Free Discovery Call' */
+    'form_submit'      => 'Request My Free Call',
 
     /* the line under "Let's Talk." — dropped on v2 (the contact section
        skips it when empty); the original ad page keeps its own

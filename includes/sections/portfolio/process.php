@@ -11,8 +11,10 @@ $pfSteps = [
   <div class="container">
     <div class="pf-process-top pf-reveal">
         <div>
-            <div class="pf-kicker">How we work</div>
-            <h2 id="pf-process-title">From idea to impact.</h2>
+            <!-- <div class="pf-kicker">How we work</div>
+            <h2 id="pf-process-title">From idea to impact.</h2> -->
+            <div class="pf-kicker">How We Work</div>
+            <h2 id="pf-process-title">From Idea to Impact.</h2>
         </div>
         <p>A focused, collaborative process that keeps the work clear, the pace strong, and every decision tied to a real goal.</p>
     </div>

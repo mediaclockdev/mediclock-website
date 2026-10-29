@@ -1161,6 +1161,18 @@
   }
   .pf-cta p {
     font-size: 17px;
+    margin-bottom: 36px; /* was 32px (shared rule) — more room above the button */
+  }
+  /* the question wraps to two lines here: looser letters so the words do
+     not run together, and a set line height so the lines never touch */
+  .pf-cta h2 {
+    letter-spacing: -0.025em; /* was -0.05em (shared rule) */
+    line-height: 1.2;
+    word-spacing: 0.04em;
+  }
+  /* more room under the button too; the +16px still allows for its shadow */
+  .pf-cta {
+    padding-bottom: calc(var(--pf-space) + 24px); /* was + 16px */
   }
 }
 
