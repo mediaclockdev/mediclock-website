@@ -55,7 +55,7 @@ include dirname(__DIR__) . '/landing/header.php';
 echo '<main class="lp-main lp2-main">';
 foreach ([
     'hero',             /* headline, one line, one button, the phones with the numbers scrolling over them */
-    'logos',            /* "Global Success" — client logos sliding past, on the hero's dark */
+    'logos',            /* "Trusted Worldwide" — client logos sliding past, on the hero's dark */
     // 'stats',         /* four numbers that count up — now scroll over the hero phones (the reel in hero.php) */
     'work',             /* case studies, one wide card at a time */
     'pillars',          /* design, build, launch */

@@ -18,6 +18,9 @@ $lpWork = $lp['v2_work'];
     </div>
 
     <div class="lp2-work-carousel" data-lp2-carousel>
+        <!-- the arrows sit on the current card's left and right edges, like
+             build.appetiser.com.au; the dots stay under the row -->
+        <div class="lp2-work-stage">
         <ul class="lp2-track" data-lp2-track tabindex="0" aria-label="Apps we have built">
             <?php foreach ($lpWork as $lpI => $lpCase): ?>
             <li class="lp2-case" aria-roledescription="slide" aria-label="<?= $lpI + 1 ?> of <?= count($lpWork) ?>">
@@ -48,7 +51,17 @@ $lpWork = $lp['v2_work'];
             </li>
             <?php endforeach; ?>
         </ul>
+            <button type="button" class="lp2-arrow lp2-arrow--prev" data-lp2-prev aria-label="Previous app">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button type="button" class="lp2-arrow lp2-arrow--next" data-lp2-next aria-label="Next app">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+        </div>
 
+        <?php /* Previous nav — the arrows either side of the dots, under the row
         <div class="lp-container lp2-carousel-nav">
             <button type="button" class="lp2-arrow" data-lp2-prev aria-label="Previous app">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
@@ -63,6 +76,14 @@ $lpWork = $lp['v2_work'];
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                     stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
             </button>
+        </div>
+        */ ?>
+        <div class="lp-container lp2-carousel-nav">
+            <div class="lp2-dots" aria-hidden="true">
+                <?php foreach ($lpWork as $lpI => $lpCase): ?>
+                <span<?= $lpI === 0 ? ' class="is-on"' : '' ?>></span>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 

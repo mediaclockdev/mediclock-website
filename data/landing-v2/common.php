@@ -90,8 +90,10 @@ return [
     ],
 
     /* ---- Our work — one wide card at a time, swipeable --------------- */
-    'v2_work_kicker' => 'Recent Work,',
-    'v2_work_title'  => 'Real Businesses.',
+    // 'v2_work_kicker' => 'Recent Work,',
+    // 'v2_work_title'  => 'Real Businesses.',
+    'v2_work_kicker' => 'Our Portfolio,',
+    'v2_work_title'  => 'Real Results.',
     'v2_work_lead'   => 'From startups to government, across Australia.',
     /* Each card: industry tag, app name, one line on what it does, two facts
        and one screen of the app (assets/images/landing-v2/phones/, 404×900,
@@ -202,11 +204,14 @@ return [
     'form_lead' => 'Share your idea and we’ll call you back within 4 business hours.',
 
     /* ---- FAQ --------------------------------------------------------- */
-    /* Five, each answered in a sentence or two — the original page's seven,
-       cut down. The cost answer matches the $4,999 / $9,999 pricing cards;
+    /* The cost answer matches the $4,999 / $9,999 pricing cards;
        the original page's FAQ still quotes $8,000 / $15,000. */
-    'v2_faq_kicker' => 'Good Questions,',
-    'v2_faq_title'  => 'Straight Answers.',
+    // 'v2_faq_kicker' => 'Good Questions,',
+    // 'v2_faq_title'  => 'Straight Answers.',
+    /* the plain name people look for; split over the small and big lines */
+    'v2_faq_kicker' => 'Frequently Asked',
+    'v2_faq_title'  => 'Questions',
+    /* Previous five, cut to a line each — too clipped to read as answers
     'v2_faq'        => [
         ['What will my app cost?', 'From $4,999 for an MVP and $9,999 for a full product, iOS and Android. You get a fixed written quote within 3 business days of a free call.'],
         ['How long does it take?', 'An MVP takes 6–8 weeks, a full product 10–14. Dates are in writing before you commit.'],
@@ -214,12 +219,27 @@ return [
         ['Can you fix an existing app?', 'Often, yes. A code review tells us honestly whether to fix it or rebuild.'],
         ['What happens after launch?', '1–3 months of support is included, then an optional monthly plan.'],
     ],
+    */
+    /* Seven, as on the original page: full questions, each answered in two
+       or three plain sentences. Prices, timings and support match the
+       pricing cards ('pricing' in data/landing/common.php). */
+    'v2_faq'        => [
+        ['How much does an app cost?', 'Our MVP Launch package starts from $4,999 and our Full Product package from $9,999, both for iOS and Android. The final price depends on the screens and features you need. After a free call, we send you a fixed written quote within 3 business days.'],
+        ['How long does it take to build an app?', 'An MVP usually takes 6–8 weeks and a full product 10–14 weeks. You get the delivery dates in writing before you commit, and a demo build on your phone every week.'],
+        ['Is my app idea safe with you?', 'Yes. We sign a Non-Disclosure Agreement before you share any details, and it stays in place for the whole project.'],
+        ['Can you add payments and connect our other systems?', 'Yes. We integrate Stripe, PayPal, Apple Pay and Google Pay, as well as maps, messaging, CRMs, accounting software and any system with an API.'],
+        ['Can you fix or take over an existing app?', 'Often, yes. We start with a code review, then tell you honestly whether it’s better to fix the app or rebuild it.'],
+        ['Do you publish the app to the App Store and Google Play?', 'Yes. We handle the whole submission, including store listings, screenshots and Apple’s and Google’s review. The app goes live under your own developer accounts, and you own all of the code.'],
+        ['What happens after launch?', 'Support is included for 1 month with an MVP and 3 months with a Full Product. After that, an optional monthly plan covers updates, bug fixes and new features.'],
+    ],
 
 
     /* Logo band under the hero ("Global Success") — the client logos sliding
        past on a loop, on a light band. The logos are data/shared/clients.php. */
-    'v2_logos_kicker' => 'Australian App Developers',
-    'v2_logos_title'  => 'Global Success',
+    // 'v2_logos_kicker' => 'Australian App Developers',
+    // 'v2_logos_title'  => 'Global Success',
+    'v2_logos_kicker' => 'Built in Australia,',
+    'v2_logos_title'  => 'Trusted Worldwide.',
 
     /* ---- Headings in Title Case ------------------------------------
        Every v2 heading capitalises its main words. These four are shared

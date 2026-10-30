@@ -136,7 +136,8 @@
       cards = track ? track.children : [],
       dots = root.querySelectorAll(".lp2-dots span"),
       prev = root.querySelector("[data-lp2-prev]"),
-      next = root.querySelector("[data-lp2-next]");
+      next = root.querySelector("[data-lp2-next]"),
+      stage = root.querySelector(".lp2-work-stage");
     if (!track || !cards.length) return;
 
     /* distance from one card to the next, read live so it follows resizes */
@@ -153,6 +154,13 @@
       });
       if (prev) prev.disabled = track.scrollLeft < 4;
       if (next) next.disabled = track.scrollLeft > track.scrollWidth - track.clientWidth - 4;
+      /* the arrows sit level with the middle of the current card's phone */
+      const phone = stage && cards[i].querySelector(".lp2-case-phone");
+      if (phone) {
+        const s = stage.getBoundingClientRect(),
+          p = phone.getBoundingClientRect();
+        stage.style.setProperty("--lp2-arrow-y", Math.round(p.top - s.top + p.height / 2) + "px");
+      }
     }
     function go(delta) {
       track.scrollTo({ left: (current() + delta) * step() });
@@ -171,6 +179,13 @@
       });
     }, { passive: true });
     window.addEventListener("resize", sync);
+    /* web fonts can rewrap a name onto two lines and move the phone down */
+    window.addEventListener("load", sync);
+    if (document.fonts) document.fonts.ready.then(sync);
+    /* the screens load lazily, and the phone takes its final height then */
+    root.querySelectorAll(".lp2-case-phone img").forEach(function (img) {
+      img.addEventListener("load", sync);
+    });
     sync();
   });
 

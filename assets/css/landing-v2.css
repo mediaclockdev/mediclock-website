@@ -1118,7 +1118,9 @@ p.lp2-section-lead {
   align-items: center;
   gap: clamp(24px, 3vw, 48px);
   min-height: 500px;
-  padding: clamp(32px, 4vw, 56px) clamp(28px, 4vw, 64px);
+  /* padding: clamp(32px, 4vw, 56px) clamp(28px, 4vw, 64px);  — less above and below now, so the larger phone fills the card's height */
+  /* padding: clamp(28px, 2.5vw, 36px) clamp(28px, 4vw, 64px); */
+  padding: clamp(24px, 2vw, 30px) clamp(28px, 4vw, 64px);
   border-radius: 32px;
   background: var(--lp-dark);
   color: #fff;
@@ -1210,7 +1212,9 @@ p.lp2-case-line {
   justify-content: center;
 }
 .lp2-case-phone {
-  --w: clamp(180px, 15vw, 210px);
+  /* --w: clamp(180px, 15vw, 210px);  — larger so the screens read clearly */
+  /* --w: clamp(215px, 17vw, 250px); */
+  --w: clamp(235px, 19vw, 275px);
   --d: 0;
   width: var(--w);
   margin: 0;
@@ -1273,6 +1277,68 @@ p.lp2-case-line {
 .lp2-dots span.is-on {
   width: 24px;
   background: var(--lp-orange);
+}
+
+/* * Arrows on the card — on the current card's left and right edges, half
+   on the card and half off it, like build.appetiser.com.au. Both are placed
+   from the left, the same way the row's padding centres the card.
+   --lp2-arrow-y is the middle of the card's phone, set by landing-v2.js
+   (without it, the middle of the row). At either end, the arrow with
+   nowhere to go fades out. */
+.lp2-work-stage {
+  position: relative;
+}
+.lp2-work-stage .lp2-arrow {
+  position: absolute;
+  top: var(--lp2-arrow-y, 50%);
+  z-index: 2;
+  border-color: transparent;
+  box-shadow: 0 6px 20px rgba(13, 17, 23, 0.18);
+  transform: translateY(-50%);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    top 0.3s ease;
+}
+.lp2-work-stage .lp2-arrow--prev {
+  left: calc((100vw - var(--card)) / 2 - 24px);
+}
+.lp2-work-stage .lp2-arrow--next {
+  left: calc((100vw + var(--card)) / 2 - 24px);
+}
+.lp2-work-stage .lp2-arrow:disabled {
+  opacity: 0;
+  visibility: hidden;
+}
+.lp2-work-stage .lp2-arrow:focus-visible {
+  border-color: var(--lp-orange);
+  background: var(--lp-orange);
+  color: #fff;
+}
+@media (hover: hover) {
+  .lp2-work-stage .lp2-arrow:hover {
+    border-color: var(--lp-orange);
+    background: var(--lp-orange);
+    color: #fff;
+  }
+}
+@media (max-width: 719.98px) {
+  .lp2-work-stage .lp2-arrow {
+    width: 40px;
+    height: 40px;
+  }
+  .lp2-work-stage .lp2-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+  .lp2-work-stage .lp2-arrow--prev {
+    left: calc((100vw - var(--card)) / 2 - 20px);
+  }
+  .lp2-work-stage .lp2-arrow--next {
+    left: calc((100vw + var(--card)) / 2 - 20px);
+  }
 }
 
 .lp2-work-foot {
@@ -1339,6 +1405,10 @@ p.lp2-case-line {
     min-height: 0;
     grid-template-columns: 1fr 1fr;
   }
+  .lp2-case-phone {
+    /* --w: 205px;  (was the desktop minimum, 180px) */
+    --w: 225px;
+  }
 }
 
 /* phone: one column — tag and name, then the phone, then the line, facts
@@ -1382,7 +1452,9 @@ p.lp2-case-line {
     justify-self: start;
   }
   .lp2-case-phone {
-    --w: min(48vw, 190px);
+    /* --w: min(48vw, 190px); */
+    /* --w: min(52vw, 205px); */
+    --w: min(56vw, 225px);
   }
   .lp2-work-foot .lp2-pill {
     width: 100%;
@@ -2353,7 +2425,9 @@ p.lp2-faq-call {
 
   /* the rest, trimmed: a smaller mockup on the work cards, tighter steps */
   .lp2-case-phone {
-    --w: min(46vw, 170px);
+    /* --w: min(46vw, 170px);  — larger so the screens read clearly */
+    /* --w: min(54vw, 200px); */
+    --w: min(58vw, 220px);
   }
   .lp2-work-foot p {
     display: none;
