@@ -10,7 +10,9 @@ $csFirstSlot = intdiv(5 - count($csShots), 2) + 1;
         <h2 class="cs-title" id="cs-screens-title"><?= $e($csS['title']) ?></h2>
         <p class="cs-subtitle"><?= $e($csS['subtitle']) ?></p>
     </div>
-    <div class="cs-fan">
+    <!-- <div class="cs-fan"> -->
+    <!-- cs-fan-count-N lets three screens sit larger than the five-screen fan -->
+    <div class="cs-fan cs-fan-count-<?= count($csShots) ?>">
         <?php foreach ($csShots as $csI => [$csSrc, $csAlt]): ?>
         <div class="cs-fan-item cs-fan-<?= $csFirstSlot + $csI ?>">
             <div class="cs-phone">

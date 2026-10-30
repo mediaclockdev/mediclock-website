@@ -13,6 +13,11 @@ $csDevice = $csVisual['device'];
             <div class="cs-scroll-track"><img src="<?= $e(img_src($csSrc)) ?>" alt="" width="<?= (int) $csW ?>" height="<?= (int) $csH ?>" loading="lazy" decoding="async" /></div>
         </div>
     </div>
+    <?php elseif ($csDevice === 'phone'): ?>
+    <!-- one phone screenshot, still, in the same phone frame -->
+    <div class="cs-phone cs-phone-still">
+        <div class="cs-scr"><img src="<?= $e(img_src($csVisual['image'][0])) ?>" alt="" loading="lazy" decoding="async" /></div>
+    </div>
     <?php else: ?>
     <?php ob_start(); ?>
     <?php if (!empty($csVisual['mockup'])): ?>

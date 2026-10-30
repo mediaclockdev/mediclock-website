@@ -66,6 +66,7 @@ return [
             'wide'   => false,
             'layout' => 'phones',
             'theme'  => 'blush',
+            'case_study' => 'shelynx',
             'images' => [
                 ['pages/portfolio/work/shelynx-home.webp', 'Shelynx mobile shopping home screen'],
                 ['pages/portfolio/work/shelynx-discover.webp', 'Shelynx product discovery mobile screen'],

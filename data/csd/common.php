@@ -105,7 +105,7 @@ return [
             'img'   => 'csd/projects/total-inspection.webp',
             'alt'   => 'Total Inspections admin dashboard and the inspector app on a phone',
             'tag'   => 'Property',
-            'title' => 'Total Inspection — Property Inspection App',
+            'title' => 'Total Inspections — Property Inspection App',
             'text'  => 'An iOS and Android app for residential, commercial and pre-purchase inspections — checklists, photo markup and branded PDF reports generated on the spot.',
             'points' => ['Works fully offline', 'Photo markup tools', 'Automated branded PDFs'],
         ],

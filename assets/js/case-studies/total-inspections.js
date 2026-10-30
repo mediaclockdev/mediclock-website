@@ -1,5 +1,5 @@
 /* ============================================================
-   case-studies/total-inspections.js — the Total Inspection case study
+   case-studies/total-inspections.js — the Total Inspections case study
    Keeps the two admin-portal mockups (includes/case-studies/
    total-inspections/) looking live: the numbers drift, the bars move
    and new rows arrive in the activity lists. Runs only while a mockup

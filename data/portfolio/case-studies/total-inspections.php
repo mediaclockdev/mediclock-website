@@ -1,6 +1,6 @@
 <?php
 /* ============================================================
-   * Case study — Total Inspection
+   * Case study — Total Inspections
    Read by case-study.php for /portfolio-new/total-inspections/.
    The file name is the URL slug.
 
@@ -21,23 +21,26 @@
          a screenshot instead of a mockup
      ['device' => 'phone-scroll', 'image' => [src, alt, width, height], 'label' => '…']
          one tall phone screenshot that scrolls slowly inside the phone
+     ['device' => 'phone', 'image' => [src, alt], 'label' => '…']
+         one phone screenshot, still
    Images are paths under assets/images/.
    ============================================================ */
 $csImg = 'pages/portfolio/case-studies/total-inspections/';
 
 return [
-    'title'       => 'Total Inspection',
+    'title'       => 'Total Inspections',
     'subtitle'    => 'A property inspection app for iOS and Android',
-    'meta_title'  => 'Total Inspection case study | Media Clock',
-    'description' => 'How Media Clock designed and built Total Inspection, a property inspection app for iOS and Android with checklists, photo markup and branded PDF reports.',
+    'meta_title'  => 'Total Inspections case study | Media Clock',
+    'description' => 'How Media Clock designed and built Total Inspections, a property inspection app for iOS and Android with checklists, photo markup and branded PDF reports.',
     'scripts'     => ['case-studies/total-inspections'],
 
     'problem' => [
         'title'  => 'Problem statement',
         'body'   => [
-            'Total Inspection is a mobile property inspection app for iOS and Android that helps professional inspectors manage residential, commercial, pre-purchase, and audit inspections. The platform digitizes inspection checklists, photo documentation, defect reporting, and automated PDF report generation.',
+            // 'Total Inspections is a mobile property inspection app for iOS and Android that helps professional inspectors manage residential, commercial, pre-purchase, and audit inspections. The platform digitizes inspection checklists, photo documentation, defect reporting, and automated PDF report generation.',  /* US spelling */
+            'Total Inspections is a mobile property inspection app for iOS and Android that helps professional inspectors manage residential, commercial, pre-purchase, and audit inspections. The platform digitises inspection checklists, photo documentation, defect reporting, and automated PDF report generation.',
         ],
-        'visual' => ['device' => 'tablet', 'mockup' => 'templates', 'label' => 'Total Inspection admin dashboard on a tablet'],
+        'visual' => ['device' => 'tablet', 'mockup' => 'templates', 'label' => 'Total Inspections admin dashboard on a tablet'],
     ],
 
     'approach' => [
@@ -48,8 +51,8 @@ return [
         ],
         'visual'   => [
             'device' => 'phone-scroll',
-            'image'  => [$csImg . 'home-scroll.webp', 'Total Inspection home screen', 680, 4322],
-            'label'  => 'Total Inspection mobile findings screen, scrolling',
+            'image'  => [$csImg . 'home-scroll.webp', 'Total Inspections home screen', 680, 4322],
+            'label'  => 'Total Inspections mobile findings screen, scrolling',
         ],
     ],
 
@@ -59,20 +62,22 @@ return [
             ['Digital Inspection Checklists', 'Create and complete structured property inspections digitally.'],
             ['Property & Inspection Management', 'Manage property details, inspection types, and findings in one platform.'],
             ['Admin & Inspector Management', 'Manage inspectors, users, reports, and branded documentation.'],
-            ['Branded Reporting', 'Generate professional reports with customized business branding.'],
+            // ['Branded Reporting', 'Generate professional reports with customized business branding.'],  /* US spelling */
+            ['Branded Reporting', 'Generate professional reports with customised business branding.'],
         ],
-        'visual' => ['device' => 'laptop', 'mockup' => 'dashboard', 'label' => 'Total Inspection admin dashboard on a laptop'],
+        'visual' => ['device' => 'laptop', 'mockup' => 'dashboard', 'label' => 'Total Inspections admin dashboard on a laptop'],
     ],
 
     'screens' => [
         'title'    => 'Mobile screens',
-        'subtitle' => 'Everything you need in one app. Hover a screen to bring it forward.',
+        // 'subtitle' => 'Everything you need in one app. Hover a screen to bring it forward.',
+        'subtitle' => 'Everything you need in one app.', /* no hover hint: phones and tablets cannot hover */
         'images'   => [
-            [$csImg . 'screen-1.webp', 'Total Inspection app screen 1'],
-            [$csImg . 'screen-2.webp', 'Total Inspection app screen 2'],
-            [$csImg . 'screen-3.webp', 'Total Inspection app screen 3'],
-            [$csImg . 'screen-4.webp', 'Total Inspection app screen 4'],
-            [$csImg . 'screen-5.webp', 'Total Inspection app screen 5'],
+            [$csImg . 'screen-1.webp', 'Total Inspections app screen 1'],
+            [$csImg . 'screen-2.webp', 'Total Inspections app screen 2'],
+            [$csImg . 'screen-3.webp', 'Total Inspections app screen 3'],
+            [$csImg . 'screen-4.webp', 'Total Inspections app screen 4'],
+            [$csImg . 'screen-5.webp', 'Total Inspections app screen 5'],
         ],
     ],
 

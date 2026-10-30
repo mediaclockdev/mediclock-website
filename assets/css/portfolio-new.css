@@ -1203,3 +1203,71 @@
   }
   */
 }
+
+/* ============================================================
+   * Type scale — one step up for the small text and one size per role,
+   so matching text matches across sections. Overrides the sizes set
+   above (left as they were, for reference):
+     tags 12 · labels 13 · chips / case link / step numbers 14 ·
+     card lines 15 · buttons 16 · step text 17 (16 phone) ·
+     section intros 19 or 20 (18/17 tablet/phone) · card and step titles 26/25 (23 phone)
+   ============================================================ */
+.pf-tag {
+  font-size: 13px;
+}
+.pf-kicker,
+.pf-eyebrow,
+.pf-timeline-stage {
+  font-size: 14px;
+}
+.pf-filter,
+.pf-case,
+.pf-timeline-node {
+  font-size: 15px;
+}
+.pf-project-info p {
+  font-size: 16px;
+}
+.pf-btn {
+  font-size: 17px;
+}
+.pf-timeline-copy p {
+  font-size: 18px;
+}
+/* every section intro the same size; the hero's a step above */
+.pf-section-head p,
+.pf-process-top > p,
+.pf-cta p {
+  font-size: 20px;
+}
+.pf-hero p {
+  font-size: clamp(19px, 1.6vw, 21px);
+}
+.pf-project-info h3,
+.pf-timeline-copy h3 {
+  font-size: 27px;
+}
+
+@media (max-width: 991.98px) {
+  .pf-section-head p,
+  .pf-process-top > p,
+  .pf-cta p {
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .pf-hero p,
+  .pf-section-head p,
+  .pf-process-top > p,
+  .pf-cta p {
+    font-size: 18px;
+  }
+  .pf-timeline-copy p {
+    font-size: 17px;
+  }
+  .pf-project-info h3,
+  .pf-timeline-copy h3 {
+    font-size: 24px;
+  }
+}

@@ -1,7 +1,7 @@
 /* ============================================================
    case-study.css
    One project's case study (case-study.php, /portfolio-new/<slug>/).
-   Ported from the Total Inspection case study design: dark and light
+   Ported from the Total Inspections case study design: dark and light
    sections alternating, devices beside the copy, a fan of phone screens.
 
    Everything is scoped to .cs-page and prefixed cs- so nothing here can
@@ -907,6 +907,42 @@ html:not(.cs-js) .cs-title::after {
   }
   .cs-fan-3 {
     --fw: 34vw;
+  }
+}
+
+/* ============================================================
+   * Still phone (a 'phone' visual) — one screenshot in the phone frame,
+   a little larger than the scrolling phone since it is the whole visual
+   ============================================================ */
+.cs-phone-still {
+  width: min(66vw, 310px);
+}
+.cs-phone-still .cs-scr img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* * Fan of exactly three screens: larger, as in the Shelynx design
+   (the five-screen sizes above stay for five) */
+.cs-fan-count-3 .cs-fan-2,
+.cs-fan-count-3 .cs-fan-4 {
+  --fw: min(20vw, 235px);
+  --y: 30px;
+}
+.cs-fan-count-3 .cs-fan-3 {
+  --fw: min(25vw, 300px);
+}
+@media (max-width: 767.98px) {
+  .cs-fan-count-3 .cs-fan-2,
+  .cs-fan-count-3 .cs-fan-4 {
+    --fw: min(28vw, 185px);
+    --y: 20px;
+  }
+  .cs-fan-count-3 .cs-fan-3 {
+    --fw: min(36vw, 235px);
   }
 }
 

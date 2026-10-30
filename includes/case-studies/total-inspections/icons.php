@@ -1,5 +1,5 @@
 <?php
-/* * Total Inspection mockups — icon sprite (Lucide-style line icons).
+/* * Total Inspections mockups — icon sprite (Lucide-style line icons).
    Included once by whichever mockup comes first; cs_ti_icon() draws one. */
 if (!function_exists('cs_ti_icon')) {
     function cs_ti_icon(string $name, string $class = '', string $style = ''): string
