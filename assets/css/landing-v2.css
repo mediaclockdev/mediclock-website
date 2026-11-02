@@ -2632,3 +2632,25 @@ p.lp2-faq-call {
     gap: var(--lp2-title-gap);
   }
 }
+
+/* ------------------------------------------------------------
+   Quote pop-up — the page behind does not scroll while it is open.
+   landing-v2.js sets lp2-modal-lock on <html> for as long as the pop-up
+   (the original ad page's, from landing.css) has is-open. The scrollbar's
+   space is kept, so nothing shifts sideways on screens that show one.
+   ------------------------------------------------------------ */
+html.lp2-modal-lock,
+html.lp2-modal-lock body {
+  overflow: hidden;
+}
+html.lp2-modal-lock {
+  scrollbar-gutter: stable;
+}
+/* a drag on the dimmed backdrop does nothing, and the form's own scroll
+   stops at its ends instead of carrying on to the page */
+.lp2-modal-lock .lp-modal-backdrop {
+  touch-action: none;
+}
+.lp2-modal-lock .lp-modal-dialog {
+  overscroll-behavior: contain;
+}

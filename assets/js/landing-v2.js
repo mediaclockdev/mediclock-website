@@ -396,4 +396,28 @@
       });
     });
   })();
+
+  /* * Quote pop-up — the page behind stays still while it is open.
+     landing.js (shared with the original ad pages, left as it is) passes a
+     wheel or swipe over the pop-up on to the page; here those events are
+     stopped on their way in, before they reach its listeners, and the page
+     itself is locked (lp2-modal-lock in landing-v2.css) for as long as the
+     pop-up has is-open. The form inside still scrolls on a short screen. */
+  (function () {
+    const modal = document.getElementById("lpQuoteModal");
+    if (!modal) return;
+    const root = document.documentElement;
+
+    function stop(e) {
+      if (modal.classList.contains("is-open") && modal.contains(e.target)) e.stopPropagation();
+    }
+    window.addEventListener("wheel", stop, { capture: true, passive: true });
+    window.addEventListener("touchmove", stop, { capture: true, passive: true });
+
+    function sync() {
+      root.classList.toggle("lp2-modal-lock", modal.classList.contains("is-open"));
+    }
+    new MutationObserver(sync).observe(modal, { attributes: true, attributeFilter: ["class"] });
+    sync();
+  })();
 })();

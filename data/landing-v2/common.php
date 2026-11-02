@@ -20,11 +20,15 @@ return [
     'v2_hero_title_before' => 'Let’s Build',
     'v2_hero_title_accent' => 'Your App',
     'v2_hero_lead'         => 'Design, develop and launch with Media Clock.',
-    'v2_hero_cta'          => 'Book a Free Discovery Call',
+    // 'v2_hero_cta'          => 'Book a Free Discovery Call',
+    // 'v2_hero_cta'          => 'Book a Free Consultation',
+    'v2_hero_cta'          => 'Free Consultation',  /* every button says this except the "Get a Quote" ones (pricing and the floating button) */
     /* the same free call, worded for where each button sits, so the page
        does not repeat one line four times (the hero keeps the full name) */
-    'v2_steps_cta'         => 'Start With a Free Call',   /* under the four steps — step one is the call */
-    'v2_faq_cta'           => 'Ask Us on a Free Call',    /* beside the questions */
+    // 'v2_steps_cta'         => 'Start With a Free Call',   /* under the four steps — step one is the call */
+    // 'v2_faq_cta'           => 'Ask Us on a Free Call',    /* beside the questions */
+    'v2_steps_cta'         => 'Free Consultation',
+    'v2_faq_cta'           => 'Free Consultation',
     /* The hero's phones: five finished mockups, cut apart from one design so
        each can animate (assets/images/landing-v2/hero/). [image, width,
        height, alt], left to right; on a phone only the middle three show. */
@@ -144,7 +148,8 @@ return [
         ],
     ],
     'v2_work_foot' => 'Mining, property, healthcare, retail and more. What are you building?',
-    'v2_work_cta'  => 'Tell Us Your Idea',
+    // 'v2_work_cta'  => 'Tell Us Your Idea',
+    'v2_work_cta'  => 'Free Consultation',
 
     /* ---- Features — three big promises, one phone each --------------- */
     /* A very large headline, one sentence and a phone, alternating sides.
@@ -238,8 +243,9 @@ return [
        past on a loop, on a light band. The logos are data/shared/clients.php. */
     // 'v2_logos_kicker' => 'Australian App Developers',
     // 'v2_logos_title'  => 'Global Success',
+    // 'v2_logos_title'  => 'Trusted Worldwide.',
     'v2_logos_kicker' => 'Built in Australia,',
-    'v2_logos_title'  => 'Trusted Worldwide.',
+    'v2_logos_title'  => 'Our Happy Clients',
 
     /* ---- Headings in Title Case ------------------------------------
        Every v2 heading capitalises its main words. These four are shared
