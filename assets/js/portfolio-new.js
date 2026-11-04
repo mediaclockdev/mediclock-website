@@ -112,8 +112,23 @@
         }
         if (show) shown++;
       });
+      pairRows();
     }),
   );
+  /* two narrow cards on one row (e.g. "Mobile Apps": Trevor and Shelynx) leave
+     two columns empty, so each takes half the row instead (.is-half) */
+  function pairRows() {
+    const shownCards = [...projects].filter((p) => !p.hidden);
+    shownCards.forEach((p) => p.classList.remove("is-half"));
+    for (let i = 0; i + 1 < shownCards.length; i += 2) {
+      const [a, b] = [shownCards[i], shownCards[i + 1]];
+      if (!a.classList.contains("is-wide") && !b.classList.contains("is-wide")) {
+        a.classList.add("is-half");
+        b.classList.add("is-half");
+      }
+    }
+  }
+  pairRows();
 
   if (!finePointer || reduceMotion) return;
 

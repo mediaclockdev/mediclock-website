@@ -9,7 +9,8 @@ $pfWork = require dirname(__DIR__, 3) . '/data/portfolio/work.php';
             <!-- <div class="pf-kicker">Selected portfolio</div>
             <h2 id="pf-work-title">Our recent work.</h2> -->
             <div class="pf-kicker">Selected Portfolio</div>
-            <h2 id="pf-work-title">Our Recent Work.</h2>
+            <!-- <h2 id="pf-work-title">Our Recent Work.</h2> -->
+            <h2 id="pf-work-title">Our Recent Work</h2>
         </div>
         <p>A selection of the web platforms and mobile apps we have designed and built for Australian businesses.</p>
     </div>
@@ -54,7 +55,8 @@ $pfWork = require dirname(__DIR__, 3) . '/data/portfolio/work.php';
                     <!-- <p><?= $e($pfProject['meta']) ?></p> -->
                     <!-- each tag kept whole, so a line only breaks between tags -->
                     <p><?= implode(' · ', array_map(fn($pfBit) => '<span>' . $e($pfBit) . '</span>', explode(' · ', $pfProject['meta']))) ?></p>
-                    <span class="pf-case">View case study <span aria-hidden="true">→</span></span>
+                    <!-- <span class="pf-case">View case study <span aria-hidden="true">→</span></span> -->
+                    <span class="pf-case">View Case Study <span aria-hidden="true">→</span></span>
                     <?php else: ?>
                     <h3><?= $e($pfProject['title']) ?></h3>
                     <!-- <p><?= $e($pfProject['meta']) ?></p> -->
@@ -69,7 +71,8 @@ $pfWork = require dirname(__DIR__, 3) . '/data/portfolio/work.php';
     </div>
 
     <div class="pf-more pf-reveal">
-        <button type="button" class="pf-btn pf-btn-dark contactBtn" data-interest="Free consultation">Talk to us about your project <span class="pf-arr" aria-hidden="true">↗</span></button>
+        <!-- <button type="button" class="pf-btn pf-btn-dark contactBtn" data-interest="Free consultation">Talk to us about your project <span class="pf-arr" aria-hidden="true">↗</span></button> -->
+        <button type="button" class="pf-btn pf-btn-dark contactBtn" data-interest="Free consultation">Talk to Us About Your Project <span class="pf-arr" aria-hidden="true">↗</span></button>
     </div>
   </div>
 </section>

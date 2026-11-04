@@ -126,7 +126,10 @@ return [
             'points' => ['Four calibration workflows', 'QA/QC checklists', 'Equipment traceability'],
         ],
         [
-            'img'   => 'csd/projects/richards-aluminium.webp',
+            // 'img'   => 'csd/projects/richards-aluminium.webp',
+            /* the two image files have each other's screens: proscaff.webp is the Richards
+               formula builder, richards-aluminium.webp is the Pro-Scaff CRM */
+            'img'   => 'csd/projects/proscaff.webp',
             'alt'   => 'Richards Aluminium formula builder with a double door window template',
             'tag'   => 'Manufacturing · TAS',
             'title' => 'Richards Aluminium — Formula Builder',
@@ -134,7 +137,8 @@ return [
             'points' => ['Digital sketch pad', 'Excel-like formula builder', 'Automated cost calculation'],
         ],
         [
-            'img'   => 'csd/projects/proscaff.webp',
+            // 'img'   => 'csd/projects/proscaff.webp',
+            'img'   => 'csd/projects/richards-aluminium.webp', /* holds the Pro-Scaff screens, see the Richards card above */
             'alt'   => 'Pro-Scaff CRM product list on desktop and the job pipeline on mobile',
             'tag'   => 'CRM & Operations',
             'title' => 'Proscaff — Vendor CRM & Job Management',

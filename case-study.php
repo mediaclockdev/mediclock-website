@@ -44,9 +44,11 @@ if (!$cs): ?>
 <!-- * Case study not found (styled by portfolio-new.css, like the grid it links back to) -->
 <div class="pf-page">
     <section class="pf-cta pf-missing" aria-labelledby="cs-missing-title">
-        <h1 id="cs-missing-title">We can’t find that case study</h1>
+        <!-- <h1 id="cs-missing-title">We can’t find that case study</h1> -->
+        <h1 id="cs-missing-title">We Can’t Find That Case Study</h1>
         <p>The link may be out of date, or the project may have been renamed.</p>
-        <a class="pf-btn pf-btn-primary" href="<?= $e(page_url($csBase)) ?>#work">See all our work <span class="pf-arr" aria-hidden="true">↗</span></a>
+        <!-- <a class="pf-btn pf-btn-primary" href="<?= $e(page_url($csBase)) ?>#work">See all our work <span class="pf-arr" aria-hidden="true">↗</span></a> -->
+        <a class="pf-btn pf-btn-primary" href="<?= $e(page_url($csBase)) ?>#work">See All Our Work <span class="pf-arr" aria-hidden="true">↗</span></a>
     </section>
 </div>
 <?php else: ?>
@@ -66,7 +68,10 @@ include 'includes/sections/case-study/screens.php';
 include 'includes/sections/case-study/cta.php';
 
 // * Quote popup — "Get in touch" (and the header's buttons) open it in place
-$quote_context = 'the ' . $cs['title'] . ' case study';
+// $quote_context = 'the ' . $cs['title'] . ' case study';
+/* 'name' (the project's usual spelling) when the hero title is in capitals */
+$quote_context = 'the ' . ($cs['name'] ?? $cs['title']) . ' case study';
+$quote_title   = 'Tell Us About Your Project'; /* title case like the portfolio page */
 include 'includes/components/quote-modal.php';
 ?>
 </div>

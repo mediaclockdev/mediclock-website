@@ -479,6 +479,27 @@
 .pf-project.is-wide {
   grid-column: span 7;
 }
+/* an odd card out at the end has no partner on its row: it takes the whole row.
+   Counted among the cards the filter shows, so "Digital products" still pairs
+   HazCom (7) with Richards Aluminium (5) on one row. */
+/* .pf-project:last-child:nth-child(odd) {
+  grid-column: span 12;
+} */
+@supports selector(:nth-child(1 of .pf-project)) {
+  .pf-project:nth-child(odd of :not([hidden])):nth-last-child(1 of :not([hidden])) {
+    grid-column: span 12;
+  }
+}
+/* older browsers: count every card, filtered or not */
+@supports not selector(:nth-child(1 of .pf-project)) {
+  .pf-project:last-child:nth-child(odd) {
+    grid-column: span 12;
+  }
+}
+/* two narrow cards paired on a row by portfolio-new.js: half the row each */
+.pf-project.is-half {
+  grid-column: span 6;
+}
 .pf-project:hover {
   border-color: var(--pf-orange);
   box-shadow: 0 22px 55px rgba(6, 22, 32, 0.13);
@@ -985,8 +1006,13 @@
     margin-top: 16px;
     font-size: 18px;
   }
-  .pf-project,
+  /* .pf-project,
   .pf-project.is-wide {
+    grid-column: span 12;
+  } */
+  .pf-project,
+  .pf-project.is-wide,
+  .pf-project.is-half {
     grid-column: span 12;
   }
   .pf-visual {

@@ -440,6 +440,18 @@ html:not(.cs-js) .cs-title::after {
   margin-left: auto;
   margin-right: auto;
 }
+/* with a line under the title: title, line and button in one column */
+.cs-more-row.has-text {
+  flex-direction: column;
+  gap: 0;
+}
+.cs-more-text {
+  max-width: 40em;
+  margin: 20px 0 28px;
+  color: #465b65;
+  font-size: var(--cs-sub);
+  line-height: 1.55;
+}
 
 /* ============================================================
    * Devices
@@ -943,6 +955,100 @@ html:not(.cs-js) .cs-title::after {
   }
   .cs-fan-count-3 .cs-fan-3 {
     --fw: min(36vw, 235px);
+  }
+}
+
+/* ============================================================
+   * Section with no device (the approach without a 'visual') —
+   one centred column, as in the Richards Aluminium design
+   ============================================================ */
+.container.cs-text-only {
+  max-width: 880px;
+  text-align: center;
+}
+.cs-text-only .cs-title::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* the screens section can have two lines under its title (HazCom) */
+.cs-gallery .cs-subtitle + .cs-subtitle {
+  margin-top: 14px;
+}
+
+/* ============================================================
+   * Screens as a pair ('pair' in the screens data) — one desktop and
+   one phone, front on, the phone just over the end of the laptop's base
+   ============================================================ */
+.cs-pair {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 56px 4vw 80px;
+}
+/* the same orange glow the fan of phones stands in */
+.cs-pair::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 30px;
+  height: 50%;
+  border-radius: 50% 50% 0 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(240, 90, 34, 0.26), rgba(240, 90, 34, 0.05) 55%, transparent 72%);
+  filter: blur(12px);
+}
+.cs-pair .cs-laptop {
+  position: relative;
+  width: min(66vw, 800px);
+  max-width: none;
+  margin: 0;
+  transform: none;
+}
+.cs-pair .cs-phone {
+  --fw: min(19vw, 215px);
+  z-index: 2;
+  width: var(--fw);
+  /* overlaps only the laptop's base, so it hides none of the screen,
+     and sits on the desk line with it */
+  /* margin: 0 0 -6px calc(var(--fw) * -0.3); */
+  margin: 0 0 -6px calc(var(--fw) * -0.08);
+  padding: calc(var(--fw) * 0.03);
+  border-radius: calc(var(--fw) * 0.15);
+}
+.cs-pair .cs-phone::after {
+  border-radius: calc(var(--fw) * 0.15);
+}
+.cs-pair .cs-scr {
+  border-radius: calc(var(--fw) * 0.12);
+}
+.cs-pair .cs-scr img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+@media (max-width: 767.98px) {
+  .cs-pair {
+    padding: 36px 12px 56px;
+  }
+  .cs-pair .cs-laptop {
+    width: 72vw;
+  }
+  .cs-pair .cs-phone {
+    --fw: 23vw;
+  }
+  /* the laptop's lid frame and base, scaled down with it */
+  .cs-pair .cs-lid {
+    border-radius: 10px 10px 0 0;
+  }
+  .cs-pair .cs-base {
+    height: 10px;
+    border-radius: 0 0 14px 14px;
   }
 }
 

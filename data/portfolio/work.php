@@ -22,17 +22,22 @@ return [
     // then change this to 'portfolio' (and the rule in .htaccess and router.php)
     'case_study_base' => 'portfolio-new',
     'filters' => [
-        'all'     => 'All work',
+        // 'all'     => 'All work',
+        'all'     => 'All Work',
         'web'     => 'Websites',
-        'app'     => 'Mobile apps',
-        'product' => 'Digital products',
+        // 'app'     => 'Mobile apps',
+        'app'     => 'Mobile Apps',
+        // 'product' => 'Digital products',
+        'product' => 'Digital Products',
     ],
     'projects' => [
         [
             'title'  => 'Total Inspections',
             // 'meta'   => 'Admin portal · Product design · Development',
-            'meta'   => 'Property inspections · Checklists · PDF reports',
-            'tag'    => 'Web application',
+            // 'meta'   => 'Property inspections · Checklists · PDF reports',
+            'meta'   => 'Property Inspections · Checklists · PDF Reports',
+            // 'tag'    => 'Web application',
+            'tag'    => 'Web Application',
             'type'   => 'web',
             'wide'   => true,
             'layout' => 'browser',
@@ -46,12 +51,15 @@ return [
             'title'  => 'Trevor',
             // 'meta'   => 'Site management · Mobile app · Product design',
             // 'meta'   => 'WHS & safety · Site audits · Photo evidence',
-            'meta'   => 'WHS & safety · Site audits · Contractors', /* the app's own tabs: Site Manager, Contractor, Create Audit */
-            'tag'    => 'Mobile app',
+            // 'meta'   => 'WHS & safety · Site audits · Contractors', /* the app's own tabs: Site Manager, Contractor, Create Audit */
+            'meta'   => 'WHS & Safety · Site Audits · Contractors', /* the app's own tabs: Site Manager, Contractor, Create Audit */
+            // 'tag'    => 'Mobile app',
+            'tag'    => 'Mobile App',
             'type'   => 'app',
             'wide'   => false,
             'layout' => 'device',
             'theme'  => 'green',
+            'case_study' => 'trevor',
             'images' => [
                 ['pages/portfolio/work/trevor.webp', 'Trevor site management mobile application screen'],
             ],
@@ -60,8 +68,10 @@ return [
             'title'  => 'Shelynx',
             // 'meta'   => 'Shopping platform · Mobile app · Product design',
             // 'meta'   => 'Retail · Online shopping · Order tracking',
-            'meta'   => 'Fashion retail · Online shopping · Local delivery', /* what the screens show; no order tracking on them */
-            'tag'    => 'Mobile app',
+            // 'meta'   => 'Fashion retail · Online shopping · Local delivery', /* what the screens show; no order tracking on them */
+            'meta'   => 'Fashion Retail · Online Shopping · Local Delivery', /* what the screens show; no order tracking on them */
+            // 'tag'    => 'Mobile app',
+            'tag'    => 'Mobile App',
             'type'   => 'app',
             'wide'   => false,
             'layout' => 'phones',
@@ -73,16 +83,39 @@ return [
             ],
         ],
         [
-            'title'  => 'Hazcom',
+            // 'title'  => 'Hazcom',
+            'title'  => 'HazCom', /* the spelling in its case study and the rest of the site */
             // 'meta'   => 'Safety platform · Admin dashboard · Development',
-            'meta'   => 'Mining & safety · Hazard reporting · Analytics',
-            'tag'    => 'Web application',
+            // 'meta'   => 'Mining & safety · Hazard reporting · Analytics',
+            'meta'   => 'Mining & Safety · Hazard Reporting · Analytics',
+            // 'tag'    => 'Web application',
+            'tag'    => 'Web Application',
             'type'   => 'product',
             'wide'   => true,
             'layout' => 'browser',
             'theme'  => 'blue',
+            'case_study' => 'hazcom',
             'images' => [
-                ['pages/portfolio/work/hazcom.webp', 'Hazcom SuperAdmin dashboard'],
+                // ['pages/portfolio/work/hazcom.webp', 'Hazcom SuperAdmin dashboard'],
+                ['pages/portfolio/work/hazcom.webp', 'HazCom SuperAdmin dashboard'],
+            ],
+        ],
+        [
+            'title'  => 'Richards Aluminium',
+            // 'meta'   => 'Windows & doors · Formula builder · Cost estimates',
+            'meta'   => 'Windows & Doors · Formula Builder · Cost Estimates',
+            // 'tag'    => 'Web application',
+            'tag'    => 'Web Application',
+            'type'   => 'product',
+            /* fifth card, alone on its row: portfolio-new.css lets a lone last card fill the row.
+               Not wide, so under "Digital products" it fits beside HazCom (7 + 5). */
+            // 'wide'   => true,
+            'wide'   => false,
+            'layout' => 'browser',
+            'theme'  => 'slate',
+            'case_study' => 'richards-aluminium',
+            'images' => [
+                ['pages/portfolio/work/richards-aluminium.webp', 'Richards Aluminium formula builder'],
             ],
         ],
     ],

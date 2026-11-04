@@ -26,16 +26,20 @@ $csDevice = $csVisual['device'];
     <img class="cs-screen-img" src="<?= $e(img_src($csVisual['image'][0])) ?>" alt="" loading="lazy" decoding="async" />
     <?php endif; ?>
     <?php $csScreen = ob_get_clean(); ?>
+    <?php /* optional 'ratio': the screen takes the screenshot's own shape instead of the device's usual one */ ?>
+    <?php $csRatio = !empty($csVisual['ratio']) ? ' style="aspect-ratio: ' . $e($csVisual['ratio']) . '"' : ''; ?>
     <?php if ($csDevice === 'laptop'): ?>
     <div class="cs-laptop cs-tilt" data-cs-tilt>
-        <div class="cs-lid"><div class="cs-screen"><?= $csScreen ?></div></div>
+        <?php /* <div class="cs-lid"><div class="cs-screen"><?= $csScreen ?></div></div> */ ?>
+        <div class="cs-lid"><div class="cs-screen"<?= $csRatio ?>><?= $csScreen ?></div></div>
         <div class="cs-base"></div>
     </div>
     <?php else: ?>
     <div class="cs-tablet cs-tilt" data-cs-tilt>
-        <div class="cs-screen"><?= $csScreen ?></div>
+        <?php /* <div class="cs-screen"><?= $csScreen ?></div> */ ?>
+        <div class="cs-screen"<?= $csRatio ?>><?= $csScreen ?></div>
     </div>
     <?php endif; ?>
     <?php endif; ?>
 </div>
-<?php unset($csDevice, $csSrc, $csAlt, $csW, $csH, $csScreen); ?>
+<?php unset($csDevice, $csSrc, $csAlt, $csW, $csH, $csScreen, $csRatio); ?>

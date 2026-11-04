@@ -6,12 +6,19 @@
 
    Every case study file has the same shape:
      'title', 'subtitle'      hero heading and line under it
+     'name'                   optional — the usual spelling when 'title' is in
+                              capitals; enquiries from the page use it
      'meta_title', 'description'
      'problem'   title, body (paragraphs), visual
      'approach'  title, subtitle, body, visual
+                 (leave out 'visual' for one centred column of copy)
      'features'  title, items [[title, copy], ...], visual
      'screens'   title, subtitle, images [[src, alt], ...]   (up to 5 phones)
-     'cta'       title, button
+                 subtitle can be a list of lines;
+                 'pair' => ['laptop' => [src, alt], 'ratio' => 'w / h',
+                            'phone' => [src, alt]] instead of 'images'
+                 shows one desktop and one phone side by side
+     'cta'       title, button   (optional 'text': a line under the title)
      'scripts'   optional extra JS under assets/js/ (e.g. live mockups)
 
    A 'visual' is one device beside the copy:
@@ -19,6 +26,7 @@
          an HTML mockup: includes/case-studies/<slug>/<name>.php
      ['device' => 'tablet' | 'laptop', 'image' => [src, alt], 'label' => '…']
          a screenshot instead of a mockup
+         (add 'ratio' => 'w / h' when it is not the device screen's shape)
      ['device' => 'phone-scroll', 'image' => [src, alt, width, height], 'label' => '…']
          one tall phone screenshot that scrolls slowly inside the phone
      ['device' => 'phone', 'image' => [src, alt], 'label' => '…']
@@ -29,13 +37,16 @@ $csImg = 'pages/portfolio/case-studies/total-inspections/';
 
 return [
     'title'       => 'Total Inspections',
-    'subtitle'    => 'A property inspection app for iOS and Android',
-    'meta_title'  => 'Total Inspections case study | Media Clock',
+    // 'subtitle'    => 'A property inspection app for iOS and Android',
+    'subtitle'    => 'A property inspection app for iOS and Android.', /* full stop like the other case studies' hero lines */
+    // 'meta_title'  => 'Total Inspections case study | Media Clock',
+    'meta_title'  => 'Total Inspections Case Study | Media Clock',
     'description' => 'How Media Clock designed and built Total Inspections, a property inspection app for iOS and Android with checklists, photo markup and branded PDF reports.',
     'scripts'     => ['case-studies/total-inspections'],
 
     'problem' => [
-        'title'  => 'Problem statement',
+        // 'title'  => 'Problem statement',
+        'title'  => 'Problem Statement',
         'body'   => [
             // 'Total Inspections is a mobile property inspection app for iOS and Android that helps professional inspectors manage residential, commercial, pre-purchase, and audit inspections. The platform digitizes inspection checklists, photo documentation, defect reporting, and automated PDF report generation.',  /* US spelling */
             'Total Inspections is a mobile property inspection app for iOS and Android that helps professional inspectors manage residential, commercial, pre-purchase, and audit inspections. The platform digitises inspection checklists, photo documentation, defect reporting, and automated PDF report generation.',
@@ -44,10 +55,12 @@ return [
     ],
 
     'approach' => [
-        'title'    => 'The approach',
+        // 'title'    => 'The approach',
+        'title'    => 'The Approach',
         'subtitle' => 'We designed one flow that follows how an inspection actually runs: check, capture, mark up, report.',
         'body'     => [
-            'Inspectors complete a digital checklist, photograph defects and annotate them on the image. The app then turns the findings into a professional PDF, in the business\'s own branding.',
+            // 'Inspectors complete a digital checklist, photograph defects and annotate them on the image. The app then turns the findings into a professional PDF, in the business\'s own branding.',
+            'Inspectors complete a digital checklist, photograph defects, and annotate them on the image. The app then turns the findings into a professional PDF in the business\'s own branding.',
         ],
         'visual'   => [
             'device' => 'phone-scroll',
@@ -57,7 +70,8 @@ return [
     ],
 
     'features' => [
-        'title'  => 'Key features',
+        // 'title'  => 'Key features',
+        'title'  => 'Key Features',
         'items'  => [
             ['Digital Inspection Checklists', 'Create and complete structured property inspections digitally.'],
             ['Property & Inspection Management', 'Manage property details, inspection types, and findings in one platform.'],
@@ -69,7 +83,8 @@ return [
     ],
 
     'screens' => [
-        'title'    => 'Mobile screens',
+        // 'title'    => 'Mobile screens',
+        'title'    => 'Mobile Screens',
         // 'subtitle' => 'Everything you need in one app. Hover a screen to bring it forward.',
         'subtitle' => 'Everything you need in one app.', /* no hover hint: phones and tablets cannot hover */
         'images'   => [
@@ -82,7 +97,9 @@ return [
     ],
 
     'cta' => [
-        'title'  => 'Want to see more?',
-        'button' => 'Get in touch with us',
+        // 'title'  => 'Want to see more?',
+        'title'  => 'Want to See More?',
+        // 'button' => 'Get in touch with us',
+        'button' => 'Get in Touch with Us',
     ],
 ];
