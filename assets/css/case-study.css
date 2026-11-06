@@ -231,6 +231,73 @@ html:not(.cs-js) .cs-title::after {
   animation-delay: 0.4s;
 }
 
+/* * Hero with the client's logo ('hero_logo' in the case study's data file)
+   From the Tas Precision header design: no orange shapes, the logo in its own
+   colours as a faint watermark on the right. The hero keeps its usual height
+   (as tall as its copy); the logo fits inside it, between the header and the
+   hero's bottom edge, with its right edge on the content's right edge, and
+   takes its width from its own shape. */
+.cs-hero-has-logo::before,
+.cs-hero-has-logo::after {
+  content: none;
+}
+/* .container (Bootstrap's widths and side padding) laid over the whole hero */
+.cs-hero-mark {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: calc(var(--header-h) + 28px);
+  padding-bottom: 28px;
+  pointer-events: none;
+  user-select: none;
+}
+/* the container's content box: the logo is placed inside it */
+.cs-hero-mark-area {
+  position: relative;
+  height: 100%;
+}
+.cs-hero-logo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  aspect-ratio: 1; /* hero.php sets the logo's own shape from its width and height */
+  opacity: 0.22;
+  line-height: 0;
+}
+.cs-hero-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+@media (max-width: 991.98px) {
+  .cs-hero-mark {
+    padding-top: calc(var(--header-h-mobile) + 24px);
+    padding-bottom: 24px;
+  }
+  .cs-hero-logo {
+    opacity: 0.19;
+  }
+}
+/* the copy runs the full width here, so the logo is smaller and sits in
+   the bottom right corner beside the button, part off the edge */
+@media (max-width: 767.98px) {
+  .cs-hero-mark {
+    padding-bottom: 18px;
+  }
+  .cs-hero-logo {
+    top: auto;
+    bottom: 0;
+    right: -40px;
+    height: 200px;
+    opacity: 0.16;
+  }
+}
+
 /* ============================================================
    * Sections — copy beside a device, dark and light in turn
    ============================================================ */

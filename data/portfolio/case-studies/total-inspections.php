@@ -9,6 +9,10 @@
      'name'                   optional — the usual spelling when 'title' is in
                               capitals; enquiries from the page use it
      'meta_title', 'description'
+     'hero_logo'              optional — [src, width, height] of the client's logo
+                              (transparent background, trimmed to the logo); the
+                              hero then shows it as a faint watermark instead of
+                              the orange shapes, fitted to the hero's height
      'problem'   title, body (paragraphs), visual
      'approach'  title, subtitle, body, visual
                  (leave out 'visual' for one centred column of copy)

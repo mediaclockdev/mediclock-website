@@ -107,8 +107,8 @@ return [
             // 'tag'    => 'Web application',
             'tag'    => 'Web Application',
             'type'   => 'product',
-            /* fifth card, alone on its row: portfolio-new.css lets a lone last card fill the row.
-               Not wide, so under "Digital products" it fits beside HazCom (7 + 5). */
+            /* fifth card, beside Tas Precision (5 + 7). Not wide, so under
+               "Digital products" it fits beside HazCom (7 + 5). */
             // 'wide'   => true,
             'wide'   => false,
             'layout' => 'browser',
@@ -116,6 +116,21 @@ return [
             'case_study' => 'richards-aluminium',
             'images' => [
                 ['pages/portfolio/work/richards-aluminium.webp', 'Richards Aluminium formula builder'],
+            ],
+        ],
+        [
+            /* sixth card: wide, so it pairs with Richards Aluminium (5 + 7). Under
+               "Digital Products" it is the lone last card and fills the row. */
+            'title'  => 'Tas Precision',
+            'meta'   => 'Job Management · Estimates · Digital Approvals',
+            'tag'    => 'Web Application',
+            'type'   => 'product',
+            'wide'   => true,
+            'layout' => 'browser',
+            'theme'  => 'green',
+            'case_study' => 'tas-precision',
+            'images' => [
+                ['pages/portfolio/work/tas-precision.webp', 'Tas Precision active jobs dashboard'],
             ],
         ],
     ],
