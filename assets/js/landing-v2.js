@@ -340,12 +340,11 @@
     });
   })();
 
-  /* * FAQ — one answer open at a time, each opening and closing over 400ms
-     instead of snapping. The height is animated; a second tap mid-way turns
-     it round. When an answer above the tapped one closes, the page moves
-     with it frame by frame so the tapped question stays still under the
-     finger — nothing else scrolls. Without the script (or with reduced
-     motion) it is plain <details>, still one open at a time by name="…". */
+  /* * FAQ — each question opens and closes on its own over 400ms instead of
+     snapping. The height is animated; a second tap mid-way turns it round.
+     The answer always opens downward and nothing above it moves; if it would
+     end below the screen, the page glides down just enough to show it.
+     Without the script (or with reduced motion) it is plain <details>. */
   (function () {
     const items = Array.prototype.slice.call(document.querySelectorAll(".lp2-faq-item"));
     if (!items.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -367,30 +366,74 @@
         d.classList.remove("is-closing");
         d.style.overflow = "";
       };
+      return to - from; /* how much taller (or, closing, shorter) it ends up */
+    }
+
+    /* Was: the page moved with the answer closing above, frame by frame, so
+       the tapped question stayed still. That scrolled the page UP every time
+       (by the closed answer's height) and left the new answer below the
+       screen. Now nothing holds the question: the answer above closes and
+       the list moves up as it would, and if the new answer would end below
+       the screen the page glides DOWN just enough to show it (never so far
+       that the question goes under the sticky header). */
+    function roof() {
+      const header = document.querySelector(".lp-header");
+      return (header ? header.getBoundingClientRect().height : 0) + 16;
     }
 
     items.forEach(function (d) {
-      d.removeAttribute("name"); /* the script keeps one open, animated */
+      d.removeAttribute("name"); /* each opens on its own (faq.php has no name now; kept for an older cached page) */
       const summary = d.querySelector("summary");
       summary.addEventListener("click", function (e) {
         e.preventDefault();
         const open = !d.open || d.classList.contains("is-closing"),
-          top = summary.getBoundingClientRect().top,
-          end = performance.now() + DUR + 50;
+          // top = summary.getBoundingClientRect().top,
+          // end = performance.now() + DUR + 50;
+          box = d.getBoundingClientRect(),
+          start = performance.now(),
+          y0 = window.pageYOffset;
+        /* how far the tapped item moves up as an answer above it closes */
+        let shift = 0;
+        /* Was: one answer open at a time, so opening a question closed the
+           open answer. When that answer was above, the tapped question slid
+           up while the new one opened ("opens up"), or, held still, the
+           page jumped up. Now each question opens and closes on its own:
+           nothing above moves and the answer always opens downward.
         if (open) {
           items.forEach(function (o) {
-            if (o !== d && o.open && !o.classList.contains("is-closing")) toggle(o, false);
+            if (o !== d && o.open && !o.classList.contains("is-closing")) {
+              const change = toggle(o, false);
+              if (o.compareDocumentPosition(d) & Node.DOCUMENT_POSITION_FOLLOWING) shift += change;
+            }
           });
+        } */
+        // toggle(d, open);
+        const grow = toggle(d, open);
+        /* where the item ends up on screen, and how far to scroll for it */
+        let extra = 0;
+        if (open) {
+          const top = box.top + shift,
+            bottom = top + box.height + grow,
+            limit = roof();
+          if (top < limit) extra = top - limit; /* would be under the header */
+          else extra = Math.max(0, Math.min(bottom - (window.innerHeight - 24), top - limit));
         }
-        toggle(d, open);
         /* the browser's own scroll anchoring and smooth scrolling are paused
            meanwhile, so they do not move the page as well */
         root.style.overflowAnchor = "none";
         root.style.scrollBehavior = "auto";
+        // (function frame() {
+        //   const dy = summary.getBoundingClientRect().top - top;
+        //   if (Math.abs(dy) > 0.5) window.scrollTo(0, window.pageYOffset + dy);
+        //   if (performance.now() < end) requestAnimationFrame(frame);
+        //   else root.style.overflowAnchor = root.style.scrollBehavior = "";
+        // })();
         (function frame() {
-          const dy = summary.getBoundingClientRect().top - top;
-          if (Math.abs(dy) > 0.5) window.scrollTo(0, window.pageYOffset + dy);
-          if (performance.now() < end) requestAnimationFrame(frame);
+          const t = Math.min(1, (performance.now() - start) / DUR),
+            ease = 1 - Math.pow(1 - t, 3);
+          /* the scroll is set directly, as older Safari throws on scrollBy({ behavior: "instant" }) */
+          if (extra) window.scrollTo(0, y0 + extra * ease);
+          if (t < 1) requestAnimationFrame(frame);
           else root.style.overflowAnchor = root.style.scrollBehavior = "";
         })();
       });

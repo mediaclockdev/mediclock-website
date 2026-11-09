@@ -66,7 +66,8 @@ return [
     /* ---- Three pillars — design, build, launch ----------------------- */
     /* a small line over a very large one, then three cards: a title, one
        sentence and a picture each. The pictures are set per card below. */
-    'v2_pillars_kicker' => 'From Idea to App Store,',
+    // 'v2_pillars_kicker' => 'From Idea to App Store,',
+    'v2_pillars_kicker' => 'From Idea to Creation,',
     'v2_pillars_title'  => 'One Team.',
     'v2_pillars'        => [
         'design' => ['Design', 'Wireframes and a prototype you can tap.'],

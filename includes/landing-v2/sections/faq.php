@@ -1,9 +1,9 @@
 <?php
 /* * Landing v2 : FAQ — title on the left, the questions on the right.
-   Built on <details name="…">: it opens without JavaScript, it is keyboard
-   operable for free, find-in-page reaches closed answers, and the shared name
-   keeps one answer open at a time. landing-v2.js adds the smooth open and
-   close. The first starts open so the list does not read as a wall
+   Built on <details>: it opens without JavaScript, it is keyboard
+   operable for free, and find-in-page reaches closed answers. Each question
+   opens on its own (no shared name, so opening one never moves the others).
+   landing-v2.js adds the smooth open and close. The first starts open so the list does not read as a wall
    of closed boxes. On a narrow screen the title sits above the list. */
 ?>
 <section class="lp2-faq" aria-labelledby="lp2-faq-title">
@@ -25,7 +25,8 @@
         <div class="lp2-faq-list" data-lp2-reveal>
             <?php foreach ($lp['v2_faq'] as $lpI => [$lpQ, $lpA]): ?>
             <!-- <details class="lp2-faq-item"<?= $lpI === 0 ? ' open' : '' ?>> (no name: several open at once) -->
-            <details name="lp2-faq" class="lp2-faq-item"<?= $lpI === 0 ? ' open' : '' ?>>
+            <!-- <details name="lp2-faq" class="lp2-faq-item"<?= $lpI === 0 ? ' open' : '' ?>> (one open at a time: opening one below an open answer moved the page) -->
+            <details class="lp2-faq-item"<?= $lpI === 0 ? ' open' : '' ?>>
                 <summary>
                     <span><?= $e($lpQ) ?></span>
                     <span class="lp2-faq-icon" aria-hidden="true"></span>
