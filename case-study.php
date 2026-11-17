@@ -48,18 +48,21 @@ if (!$cs): ?>
         <h1 id="cs-missing-title">We Can’t Find That Case Study</h1>
         <p>The link may be out of date, or the project may have been renamed.</p>
         <!-- <a class="pf-btn pf-btn-primary" href="<?= $e(page_url($csBase)) ?>#work">See all our work <span class="pf-arr" aria-hidden="true">↗</span></a> -->
-        <a class="pf-btn pf-btn-primary" href="<?= $e(page_url($csBase)) ?>#work">See All Our Work <span class="pf-arr" aria-hidden="true">↗</span></a>
+        <a class="pf-btn pf-btn-primary" href="<?= $e(page_url($csBase)) ?>#work">See All Our Work <span class="pf-arr"
+                aria-hidden="true">↗</span></a>
     </section>
 </div>
 <?php else: ?>
 <div class="cs-page">
     <!-- reveal-on-scroll only hides content once JS is known to be running -->
-    <script>document.documentElement.classList.add('cs-js');</script>
+    <script>
+    document.documentElement.classList.add('cs-js');
+    </script>
     <?php /* Reading progress bar — hidden for now, no other page on the site has one.
              Remove this comment (and the ones in case-study.css and case-study.js) to bring it back.
     <div class="cs-progress" aria-hidden="true"></div>
     */ ?>
-<?php
+    <?php
 include 'includes/sections/case-study/hero.php';
 include 'includes/sections/case-study/problem.php';
 include 'includes/sections/case-study/approach.php';
