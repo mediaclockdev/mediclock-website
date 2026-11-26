@@ -16,7 +16,13 @@ $csFirstSlot = intdiv(5 - count($csShots), 2) + 1;
         <p class="cs-subtitle"><?= $e($csP) ?></p>
         <?php endforeach; ?>
     </div>
-    <?php if (!empty($csS['pair'])): ?>
+    <?php if (!empty($csS['showcase'])): ?>
+    <?php [$csShSrc, $csShAlt, $csShW, $csShH] = $csS['showcase']; ?>
+    <!-- one ready-made multi-device render, shown as it is (no device frame of our own) -->
+    <div class="cs-showcase cs-rv">
+        <img src="<?= $e(img_src($csShSrc)) ?>" alt="<?= $e($csShAlt) ?>" width="<?= (int) $csShW ?>" height="<?= (int) $csShH ?>" loading="lazy" decoding="async" />
+    </div>
+    <?php elseif (!empty($csS['pair'])): ?>
     <?php [$csPcSrc, $csPcAlt] = $csS['pair']['laptop']; [$csPhSrc, $csPhAlt] = $csS['pair']['phone']; ?>
     <!-- a desktop and a phone, front on, the phone just over the end of the laptop's base -->
     <div class="cs-pair cs-rv">
@@ -46,4 +52,4 @@ $csFirstSlot = intdiv(5 - count($csShots), 2) + 1;
     </div>
     <?php endif; ?>
 </section>
-<?php unset($csShots, $csFirstSlot, $csI, $csSrc, $csAlt, $csP, $csPcSrc, $csPcAlt, $csPhSrc, $csPhAlt); ?>
+<?php unset($csShots, $csFirstSlot, $csI, $csSrc, $csAlt, $csP, $csPcSrc, $csPcAlt, $csPhSrc, $csPhAlt, $csShSrc, $csShAlt, $csShW, $csShH); ?>

@@ -63,7 +63,8 @@ foreach ([
     // 'features',      /* three big promises, a phone each — hidden for now; remove the // to bring it back */
     'steps',            /* how it works, four steps */
     'pricing',          /* three tiers */
-    'landing/reviews',  /* "What our clients say" — the Google review slider */
+    // 'landing/reviews', /* the original page's review slider — replaced by v2's own below */
+    'reviews',          /* "EXCELLENT" + Google reviews, three to a row with arrows */
     'faq',              /* five questions */
     'landing/contact',  /* "Let's talk" + the quote form (#lp-quote) */
 ] as $lpSection) {

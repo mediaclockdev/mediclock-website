@@ -69,11 +69,24 @@ return [
     'screens' => [
         'title'    => 'Platform Experience',
         'subtitle' => 'Complete job visibility from creation through approval.',
-        /* a desktop and a phone side by side, like Trevor and Richards Aluminium */
-        'pair'     => [
-            'laptop' => [$csImg . 'calculation-desktop.webp', 'Tas Precision Calculation of Amount screen filtering jobs by region, status and category'],
-            'phone'  => [$csImg . 'categories-mobile.webp', 'Tas Precision mobile app listing jobs by category with counts'],
-        ],
+        /* a desktop and a phone side by side, like Trevor and Richards Aluminium.
+           Replaced by the client's own all-devices render below — not final yet,
+           so kept here: swap the comments back to restore it. */
+        // 'pair'     => [
+        //     'laptop' => [$csImg . 'calculation-desktop.webp', 'Tas Precision Calculation of Amount screen filtering jobs by region, status and category'],
+        //     'phone'  => [$csImg . 'categories-mobile.webp', 'Tas Precision mobile app listing jobs by category with counts'],
+        // ],
+        /* 'showcase' = one ready-made render with its own devices, shown as it is
+           (no device frame): [src, alt, width, height]. The two below were the
+           first tries, four devices at 1972px wide; each screen came out too
+           small and the text looked blurry. */
+        // 'showcase' => [$csImg . 'platform-devices.webp', 'Tas Precision dashboard on a desktop monitor, tablet, phone and laptop', 1972, 888],
+        /* the designer's second version of the same render (same size and trim); trying it for now */
+        // 'showcase' => [$csImg . 'platform-devices-v2.webp', 'Tas Precision dashboard on a desktop monitor, tablet, phone and laptop', 1972, 888],
+        /* three devices instead of four, so each screen shows bigger. Made from the
+           designer's 12288px tas_platform.png: trimmed to the devices and saved at
+           2400px wide (2x for the ~1100px it shows at). Don't upload the PNG (106 MB). */
+        'showcase' => [$csImg . 'tas-platform.webp', 'Tas Precision dashboard on a desktop monitor, tablet and phone', 2400, 1146],
     ],
 
     'cta' => [

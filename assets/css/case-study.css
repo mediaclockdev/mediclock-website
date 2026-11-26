@@ -1119,6 +1119,50 @@ html:not(.cs-js) .cs-title::after {
   }
 }
 
+/* ============================================================
+   * Screens as one ready-made render ('showcase' in the screens data) —
+   an image that already has its own devices, so no frame here; it
+   stands in the same orange glow as the pair
+   ============================================================ */
+.cs-showcase {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 4vw 72px;
+}
+.cs-showcase::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 30px;
+  height: 50%;
+  border-radius: 50% 50% 0 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(240, 90, 34, 0.26), rgba(240, 90, 34, 0.05) 55%, transparent 72%);
+  filter: blur(12px);
+}
+.cs-showcase img {
+  position: relative;
+  display: block;
+  width: 100%;
+  /* was 990px for the earlier 1972px-wide render (wider than half its width
+     and a 2x/Retina screen stretches it, so the text goes soft) */
+  /* max-width: 990px; */
+  /* keep this at no more than half the image's width: tas-platform.webp is
+     2400px wide, so 1100px stays sharp on 2x screens */
+  max-width: 1100px;
+  height: auto;
+  margin: 0 auto;
+  /* no drop-shadow: the render has its own, and a CSS filter makes some
+     browsers (Safari) redraw the image at a lower resolution */
+  /* filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.35)); */
+}
+@media (max-width: 767.98px) {
+  .cs-showcase {
+    padding: 32px 12px 48px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cs-page *,
   .cs-page *::before,

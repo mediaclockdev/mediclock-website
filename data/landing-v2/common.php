@@ -195,6 +195,27 @@ return [
        Same order as data/landing/reviews.php; trimmed from each reviewer's
        own words, not new claims. */
     'reviews_more'    => false,
+    /* the big word over the stars and Google G (sections/reviews.php) */
+    'v2_reviews_rating' => 'Excellent',
+    /* true: each review in the reviewer's full words, folded at seven lines
+       behind "Read more". false: the one-liners in v2_reviews_text below.
+       Only used when v2_reviews_excerpt is empty. */
+    'v2_reviews_full'   => true,
+    /* What the review section shows: each review cut to two or three of the
+       reviewer's own sentences, about the length of the reference site's
+       (itserviceshobart.com.au), so each one reads in full with no "Read
+       more". Same order as data/landing/reviews.php; words only cut, never
+       added. Empty this list to fall back to v2_reviews_full. */
+    'v2_reviews_excerpt' => [
+        'Media Clock exceeded our expectations with their exceptional mobile app development services! Their expert team delivered a top-notch app, showcasing their skills and commitment.',
+        'They built a very solid and easy-to-use web and mobile app development solution, which we now use every day for onsite inspections. The team was professional, quick to respond, and super easy to deal with.',
+        'Great work, very organized result oriented, well done media clock.',
+        'I had a great experience working with Media Clock. Their team is very professional and knowledgeable when it comes to mobile app and web development. Highly recommend!',
+        'Great experience working with Media Clock. The team truly understands client requirements and delivers designs exactly as needed. The final website design was modern, fast, and user-friendly.',
+        'Great experience working with Media Clock on my website. The team was professional, responsive, and easy to work with throughout the whole process. Highly recommend!',
+        'We originally started our mobile application project with another IT company, but unfortunately it stalled halfway through. That’s when we came across Media Clock – and honestly, it was a game changer.',
+        'The team seriously knows their stuff. They took the time to properly understand our business and turned our ideas into a clean, user-friendly and scalable app that just works. Absolute legends to work with.',
+    ],
     'v2_reviews_text' => [
         'Media Clock exceeded our expectations. Their expert team delivered a top-notch app.',
         'A solid, easy-to-use app we now use every day for onsite inspections.',

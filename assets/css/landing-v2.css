@@ -2604,6 +2604,7 @@ p.lp2-faq-call {
 .lp2-main .lp2-steps,
 .lp2-main .lp2-pricing,
 .lp2-main .lp-reviews,
+.lp2-main .lp2-reviews,
 .lp2-main .lp2-faq,
 .lp2-main .lp-contact-grid {
   padding-top: var(--lp2-section-y);
@@ -2653,4 +2654,246 @@ html.lp2-modal-lock {
 }
 .lp2-modal-lock .lp-modal-dialog {
   overscroll-behavior: contain;
+}
+
+/* ------------------------------------------------------------
+   Reviews — Google-badge style (includes/landing-v2/sections/reviews.php)
+   "EXCELLENT", five gold stars and a large Google G, centred; then the
+   reviews three to a row (two on tablet, one on a phone) with no card
+   boxes. Arrows either side from 768px up, the slider's dots below it.
+   "EXCELLENT" is the page's section-title size (--lp2-h2), stars to suit;
+   the rest follows the reference (itserviceshobart.com.au): a 110px G, then 48px avatars, 22px names, 20px stars and
+   19px review text. Long reviews fold at seven lines behind "Read more".
+   White, like the section it replaced, so the bands still alternate
+   (pricing grey, reviews white, FAQ grey).
+   ------------------------------------------------------------ */
+.lp2-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.lp2-main .lp2-reviews {
+  background: #fff;
+}
+.lp2-reviews-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: clamp(28px, 3vw, 40px);
+  text-align: center;
+}
+.lp2-reviews-rating {
+  margin: 0;
+  /* the same size as every other section title (.lp2-big-title) */
+  font-size: var(--lp2-h2);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  /* text-transform: uppercase; */
+  color: var(--lp-ink);
+}
+.lp2-reviews-stars {
+  font-size: clamp(2.25rem, 3.4vw, 3rem);
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: #fbbc04;
+}
+.lp2-reviews-g {
+  margin-top: clamp(6px, 1vw, 12px);
+  line-height: 0;
+}
+.lp2-reviews-g svg {
+  width: clamp(80px, 7.6vw, 110px);
+  height: auto;
+}
+
+/* slider: arrows sit in the side gutter, so the track keeps its width */
+.lp2-review-slider {
+  --gap: clamp(28px, 3.4vw, 56px);
+  position: relative;
+}
+.lp2-review {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 4px 0;
+}
+.lp2-review-head {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  gap: 14px;
+}
+.lp2-review-avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+/* six colours, in turn — white initials pass AA on each */
+.lp2-review-avatar--0 { background: #7b4fc4; }
+.lp2-review-avatar--1 { background: #c56a1c; }
+.lp2-review-avatar--2 { background: #2b7a5b; }
+.lp2-review-avatar--3 { background: #1f6fd1; }
+.lp2-review-avatar--4 { background: #c2366b; }
+.lp2-review-avatar--5 { background: #4b5b66; }
+.lp2-review-who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.lp2-review-who strong {
+  font-size: clamp(1.1875rem, 1.5vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--lp-ink);
+}
+.lp2-review-who span {
+  margin-top: 2px;
+  font-size: 0.8125rem;
+  color: var(--lp-muted);
+}
+.lp2-review-g {
+  flex: none;
+  margin-left: auto;
+  line-height: 0;
+}
+.lp2-review-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lp2-review-stars {
+  font-size: 1.25rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #fbbc04;
+}
+.lp2-review-verified {
+  flex: none;
+  width: 17px;
+  height: 17px;
+}
+.lp2-review-text {
+  margin: 0;
+  font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
+  line-height: 1.55;
+  color: #243037;
+}
+/* seven lines, then "Read more" — only once landing-v2.js is running, so
+   without it every review shows in full */
+.lp2-review-slider.is-ready .lp2-review-text:not(.is-open) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  line-clamp: 7;
+  overflow: hidden;
+}
+.lp2-review-more {
+  margin-top: -4px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--lp-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.lp2-review-more:hover {
+  color: var(--lp-orange);
+}
+.lp2-review-more:focus-visible {
+  outline: 2px solid var(--lp-orange);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.lp2-review-more[hidden] {
+  display: none;
+}
+
+/* previous / next — white circles in the gutter beside the track */
+.lp2-review-arrow {
+  position: absolute;
+  /* level with the review text, as on the reference */
+  top: 40%;
+  z-index: 2;
+  display: none;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(25, 43, 52, 0.06);
+  border-radius: 50%;
+  background: #fff;
+  color: #555;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+.lp2-review-arrow:hover {
+  background: #f1f1f1;
+  color: var(--lp-ink);
+}
+.lp2-review-arrow:focus-visible {
+  outline: 2px solid var(--lp-orange);
+  outline-offset: 3px;
+}
+.lp2-review-arrow[hidden] {
+  display: none !important;
+}
+.lp2-review-arrow--prev {
+  left: -60px;
+}
+.lp2-review-arrow--next {
+  right: -60px;
+}
+@media (min-width: 768px) {
+  .lp2-review-arrow {
+    display: grid;
+  }
+  .lp2-review-slider .mc-slider-dots {
+    display: none;
+  }
+}
+/* no gutter wide enough to sit in: the arrows tuck just inside the edge */
+@media (max-width: 1499.98px) {
+  .lp2-review-arrow--prev {
+    left: -12px;
+  }
+  .lp2-review-arrow--next {
+    right: -12px;
+  }
+  .lp2-review-slider {
+    padding: 0 44px;
+  }
+}
+@media (max-width: 767.98px) {
+  .lp2-review-slider {
+    padding: 0;
+  }
+  .lp2-review-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 0.9375rem;
+  }
 }

@@ -463,4 +463,73 @@
     new MutationObserver(sync).observe(modal, { attributes: true, attributeFilter: ["class"] });
     sync();
   })();
+  /* * Reviews — previous / next arrows on the Google review slider
+     (sections/reviews.php). main.js's shared [data-slider] already does the
+     sliding, dots and autoplay; this moves the track one page at a time.
+     "Next" on the last page goes back to the first; "Previous" hides on
+     the first page, as the slider opens there. */
+  (function () {
+    const slider = document.querySelector(".lp2-review-slider");
+    if (!slider) return;
+    const track = slider.querySelector(".mc-slider-track");
+    const prev = slider.querySelector("[data-lp2-review-prev]");
+    const next = slider.querySelector("[data-lp2-review-next]");
+    if (!track || !prev || !next) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function pageWidth() {
+      const s = track.children;
+      const step = s[1] ? s[1].offsetLeft - s[0].offsetLeft : track.clientWidth;
+      const perView = parseInt(getComputedStyle(slider).getPropertyValue("--cur"), 10) || 1;
+      return step * perView;
+    }
+    function go(dir) {
+      const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+      const behavior = reduceMotion.matches ? "auto" : "smooth";
+      if (dir > 0 && atEnd) track.scrollTo({ left: 0, behavior: behavior });
+      else track.scrollBy({ left: dir * pageWidth(), behavior: behavior });
+    }
+    function sync() {
+      prev.hidden = track.scrollLeft < 2;
+    }
+    prev.addEventListener("click", function () { go(-1); });
+    next.addEventListener("click", function () { go(1); });
+    track.addEventListener("scroll", sync, { passive: true });
+    sync();
+
+    /* "Read more" — the CSS folds each review at seven lines once
+       .is-ready is on; the button shows only where that fold hides words,
+       so it is checked again when fonts load or the width changes */
+    const folds = [...slider.querySelectorAll(".lp2-review")]
+      .map(function (slide) {
+        return {
+          text: slide.querySelector(".lp2-review-text"),
+          more: slide.querySelector(".lp2-review-more"),
+        };
+      })
+      .filter(function (f) { return f.text && f.more; });
+    if (!folds.length) return;
+    slider.classList.add("is-ready");
+
+    function measure() {
+      folds.forEach(function (f) {
+        if (f.text.classList.contains("is-open")) return;
+        f.more.hidden = f.text.scrollHeight <= f.text.clientHeight + 1;
+      });
+    }
+    folds.forEach(function (f) {
+      f.more.addEventListener("click", function () {
+        const open = f.text.classList.toggle("is-open");
+        f.more.setAttribute("aria-expanded", open ? "true" : "false");
+        f.more.textContent = open ? "Read less" : "Read more";
+      });
+    });
+    let resizeTimer = 0;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measure, 150);
+    });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+    measure();
+  })();
 })();

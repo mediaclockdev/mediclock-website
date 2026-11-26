@@ -21,7 +21,9 @@
                  subtitle can be a list of lines;
                  'pair' => ['laptop' => [src, alt], 'ratio' => 'w / h',
                             'phone' => [src, alt]] instead of 'images'
-                 shows one desktop and one phone side by side
+                 shows one desktop and one phone side by side;
+                 'showcase' => [src, alt, width, height] instead shows one
+                 ready-made multi-device render as it is (no frame)
      'cta'       title, button   (optional 'text': a line under the title)
      'scripts'   optional extra JS under assets/js/ (e.g. live mockups)
 
