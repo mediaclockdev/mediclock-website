@@ -2887,9 +2887,41 @@ html.lp2-modal-lock {
     padding: 0 44px;
   }
 }
+/* phone: one review at a time, with the arrows the "work" carousel uses
+   (.lp2-work-stage .lp2-arrow) — white circles with a soft shadow, orange
+   on press, tucked into the side padding so they never cover the text */
 @media (max-width: 767.98px) {
   .lp2-review-slider {
-    padding: 0;
+    padding: 0 34px;
+  }
+  .lp2-review-arrow {
+    display: grid;
+    top: 42%;
+    width: 40px;
+    height: 40px;
+    border-color: transparent;
+    color: var(--lp-ink);
+    box-shadow: 0 6px 20px rgba(13, 17, 23, 0.18);
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      opacity 0.2s ease;
+  }
+  .lp2-review-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+  .lp2-review-arrow--prev {
+    left: -10px;
+  }
+  .lp2-review-arrow--next {
+    right: -10px;
+  }
+  .lp2-review-arrow:hover,
+  .lp2-review-arrow:active,
+  .lp2-review-arrow:focus-visible {
+    background: var(--lp-orange);
+    color: #fff;
   }
   .lp2-review-avatar {
     width: 44px;
